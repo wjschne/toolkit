@@ -23,7 +23,7 @@ github-repo: wjschne/toolkit
 
 # Preface {-}
 
-This book is not nearly complete. I hope someday to finish it.
+This book is not nearly complete. I started in 2012 or so. I hope someday to finish it. 
 
 <!-- <toggle-section open="false"> -->
 <!-- <h5>Code</h5> -->
