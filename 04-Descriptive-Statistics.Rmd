@@ -1,0 +1,524 @@
+```{r loadpacksdist3, include = F}
+source("loader.R")
+```
+
+# Descriptive Statistics
+
+When we encounter large lists of unsorted numbers, we have no natural capacity to perceive the list's fundamental characteristics such its average or its variability. Therefore, we need [descriptive statistics]{.defword}`r tufte::margin_note("**Descriptive statistics** summarize noteworthy characteristics of samples.")` to quantify salient characteristics of distributions, or we need to display the numbers in a plot, making them easier to understand and communicate.
+
+## Frequency Distribution Tables
+
+A simple way to describe a distribution is to list how many times each value in the distribution occurs. For example, in this distribution: $\{10, 3, 4, 10, 6, 4, 6, 4\}$, there is 1 three, 3 fours, 2 sixes, and 2 tens. The value that occurs most often is four. A [frequency distribution table]{.defword}`r tufte::margin_note("A **frequency distribution table** summarises a sample by showing the frequency counts of each member of the sample space.")` displays the number of times each value occurs, as in Table&nbsp;\@ref(tab:frequencydistributiontable).
+
+```{r frequencydistributiontable, fig.margin=T, fig.align='default', fullwidth=T}
+X <- c(3,4,6,10)
+reps <- c(1,3,2,2)
+d <- map2(X, reps, rep) %>% unlist %>% 
+  tibble(X = .) %>% 
+  group_by(X) %>% 
+  summarise(f = n()) %>% 
+  mutate(cf = cumsum(f),
+         p = (f / sum(f)) , 
+         cp = cumsum(p) %>% prob_label(accuracy = .001)) %>% 
+  mutate(p = prob_label(p, accuracy = .001))
+
+sixes <- reps[X == 6]
+sample_size = sum(reps)
+
+knitr::kable(d, caption = "Frequency Distribution Table<br>The median is 5, halfway between the two middle scores of 4 and 6.",
+               col.names = c("$X$","Frequency", "Cumulative<br>Frequency" ,"Proportion", "Cumulative<br>Proportion"), align = "rrrrr", escape = F)
+```
+
+It is common to include alongside the frequencies of each value the proportion (or percentage) of times a value occurs. If the frequency of sample space element $i$ is $f_i$, and the total sample size is $n$, then the proportion of sample space element $i$ is
+
+$$p_i = \frac{f_i}{n}$$
+
+In Table \@ref(tab:frequencydistributiontable), the frequency of sixes is $f=`r sixes`$ and there are $n = `r sample_size`$ numbers in the distribution, thus the proportion of sixes is $p = \frac{`r sixes`}{`r sample_size`} = `r WJSmisc::remove_leading_zero(sixes / sample_size)`$.
+
+It is also common to supplement frequency distribution tables with additional information such as the [cumulative frequency]{.defword}`r tufte::margin_note("The **cumulative frequency** tells us the number of scores in a distribution that are equal to or lower than a particular sample space element.")`. For each sample space element, the cumulative frequency $(cf)$ is the sum of the frequencies $(f)$ of the current and all previous sample space elements.
+
+$$cf_i= \sum_{j=1}^{i}{f_j}$$
+
+Ordinal, interval, and ratio variables can have cumulative frequencies, but not nominal variables. To calculate cumulative frequencies, the sample space needs to be sorted in a meaningful way, which is not possible with true nominal variables. That is, there are no scores "below" any other scores in nominal variables.
+
+The cumulative proportion ($cp$) is the proportion of scores less than or equal to a particular sample space element.
+
+$$cp_i = \frac{cf_i}{n}$$
+
+### Frequency Distribution Tables in R
+
+Let's start with a data set from @garcia2010women, which can accessed using the psych package [@R-psych].
+
+```{r garcia, echo = TRUE}
+# Get the Garcia data set from the psych package
+d <- psych::Garcia
+```
+
+The sjmisc package [@R-sjmisc] provides a quick and easy way to create a frequency distribution table with the `frq` function.
+
+```{r frq}
+sjmisc::frq(d$anger)
+```
+
+Typically we use frequency distribution tables to check whether the values of a variable are correct and that the distribution makes sense to us. Thus the `frq` function is all we need most of the time. However, if you need a publication-ready frequency distribution table, you will probably have to make it from scratch (See Table&nbsp;\@ref(tab:freqtablepub)).
+
+```{r freqtablepub}
+# Publication-quality frequency table
+d %>% 
+  rename(Anger = anger) %>% 
+  count(Anger, name = "f") %>% 
+  mutate(cf = cumsum(f),
+         p = f / sum(f),
+         cp = cumsum(p)) %>% 
+  mutate(across(.cols = p:cp, 
+                .fns = function(x) scales::number(x, .01) %>% 
+                  str_remove("^0"))) %>% 
+  rename_with(.fn = function(x) paste0("*",x,"*"), .cols = -Anger) %>% 
+
+  kable(caption = "Frequency Distribution Table for Anger<br>
+        *f* = Frequency, *cf* = Cumulative Frequency
+        , *p* = Proportion, and *cp* = Cumulative Proportion", 
+        digits = 2, align = "r")
+```
+
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-freqtablepub" class="toggle" type="checkbox">
+<label for="collapsible-freqtablepub" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+
+```{r freqtablepubCode, eval=FALSE, echo=TRUE, ref.label="freqtablepub"}
+
+```
+
+</div></div></div>
+
+## Measures of Central Tendency
+
+### Mode
+
+The [mode]{.defword}`r tufte::margin_note("The **mode** is the value in a distribution that occurs most often.")` is the most frequent score in a distribution. Suppose we have a distribution that looks like this: 
+
+$$\{1,2,2,2,2,3,3\}$$
+
+Because 2 occurs more frequently than the other values in the distribution, the mode is 2. 
+
+```{r d_mode}
+d_mode <- d %>% 
+  dplyr::select(anger) %>% 
+  dplyr::group_by(anger) %>% 
+  dplyr::count() %>% 
+  dplyr::ungroup() %>% 
+  dplyr::filter(n == max(n))
+```
+
+In a frequency distribution table, the mode is the value with the highest value in the $f$ (frequency) column. In Table&nbsp;\@ref(tab:freqtablepub), the mode is `r d_mode$anger` because it has the highest frequency (&#8239;*f*&nbsp;=&nbsp;`r d_mode$n`). 
+
+In a histogram or probability density plot, the mode is the value that corresponds to the highest point in the plot. If two values tie, both values are the mode and the distribution is [bimodal]{.defword}`r tufte::margin_note("A **bimodal** distribution has two modes.")`. Sometimes a distribution has two distinct clusters, each with its own local mode. The greater of these two modes is the *major mode*, and the lesser is the *minor mode* (See Figure&nbsp;\@ref(fig:bimodal)).
+
+```{r bimodal, fig.cap="A bimodal distribution", fig.margin = TRUE, fig.align='default'}
+# A bimodal distribution
+tibble(x = seq(-3, 3.5, .01),
+       y = dnorm(x, -1, 0.5) / 0.8 + dnorm(x, 1, 0.75)) %>% 
+  ggplot(aes(x, y)) + 
+  geom_area(fill = myfills[1]) +
+  geom_text(data = . %>% dplyr::filter(x == -1), 
+            vjust = -0.25, 
+            label = "Major\nMode", 
+            size = 8, 
+            lineheight = 0.9) +
+  geom_text(data = . %>% dplyr::filter(x == 1), 
+            vjust = -0.25, 
+            label = "Minor\nMode", 
+            size = 8, 
+            lineheight = 0.9) +
+  scale_x_continuous(NULL, minor_breaks = NULL, breaks = seq(-3, 3)) +
+  scale_y_continuous(NULL, breaks = NULL, expand = expansion(c(0,.25))) + 
+  theme_minimal(base_size = 30, base_family = bfont) + 
+  theme(panel.grid.major.x = element_blank()) 
+```
+
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-bimodal" class="toggle" type="checkbox">
+<label for="collapsible-bimodal" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+
+```{r bimodalCode, ref.label='bimodal', echo=TRUE, eval=FALSE}
+
+```
+
+</div></div></div>
+
+To compute the mode of a variable, use the `mfv` (most frequent value) function from the modeest package [@R-modeest]:
+
+```{r mode, echo=TRUE}
+library(modeest)
+mfv(c(1,2,2,2,2,3,3))
+```
+
+
+### Median
+
+The [median]{.defword}`r tufte::margin_note("The **median** is the point that divides the lower 50 percent of a distribution from the upper 50 percent.")` is midpoint of a distribution, the point that divides the lower half of the distribution from the upper half. To calculate the median, you first need to sort the scores. If there is an odd number of scores, the median is the middle score. If there an even number of scores, it is the mean of the two middle scores. There are other definitions of the median that are a little more complex, but rarely is precision needed for calculating the median.
+
+To find the median using a frequency distribution table, find the first sample space element with a cumulative proportion greater than 0.5. For example, in the distribution shown in Table&nbsp;\@ref(tab:mediantable), the first cumulative proportion greater than 0.5 occurs at 5, which is therefore the median.
+
+```{r mediantable}
+X <- c(1,5,7,9)
+reps <- c(1,3,1,2)
+map2(X, reps, rep) %>% unlist %>% 
+  tibble(X = .) %>% 
+  group_by(X) %>% 
+  summarise(f = n()) %>% 
+  mutate(cf = cumsum(f),
+         p = f / sum(f),
+         cp = cumsum(p)) %>% 
+    mutate(across(.cols = p:cp, 
+                .fns = function(x) scales::number(x, .01) %>% 
+                  str_remove("^0"))) %>%
+  knitr::kable(caption = "Finding the Median in a Frequency Distribution Table.<br>In this case, the median if 5 because it has the first cumulative proportion that is greater than 0.5.", 
+               digits = 2, 
+               align = "r",
+               col.names = c("*X*","Frequency", "Cumulative Frequency" ,"Proportion", "Cumulative Proportion"))
+```
+
+If a sample space element's cumulative proportion is exactly 0.5, average that sample space element with the next highest value. For example, in the distribution in Table&nbsp;\@ref(tab:frequencydistributiontable), the cumulative proportion for 4 is exactly 0.5 and the next value is 6. Thus the median is $\frac{4+6}{2}=5$.
+
+The median can be computed for ordinal, interval, and ratio variables, but not for nominal variables. Because they have no order, nominal variables have no middle score.
+
+The `median` function can compute the median:
+
+```{r median, echo=TRUE}
+median(c(1,2,3))
+```
+
+
+### Mean
+
+The [arithmetic mean]{.defword}`r tufte::margin_note("The **arithmetic mean** is the balance point of a disribution.")` is the sum of all values of a distribution divided by the size of the distribution.
+
+$$\mu_X = \frac{\sum_{i = 1}^n {X_i}}{n}$$
+
+Where \begin{align*}
+  \mu_X &= \text{The population mean of } X\\
+  n &= \text{The number of values in } X
+\end{align*}
+
+The arithmetic mean can only be calculated with interval or ratio variables. Why? The formula for the mean requires adding numbers, and the operation of addition is not defined for ordinal and nominal values.
+
+The arithmetic mean is usually the preferred measure of central tendency for interval and ration variables because it is usually more stable from sample to sample than the median and the mode.
+
+```{r centraltendency, eval=FALSE}
+md <- function(i) {
+  round(rchisq(100,4),digits = 2)
+}
+
+mmode <- function(x) {
+  d <- tibble(x = x) %>%
+    group_by(x) %>% 
+    count() %>% 
+    ungroup %>%
+    filter(n == max(n)) 
+  mean(d$x)
+}
+
+tibble(i = 1:1000) %>% 
+  mutate(m = map(i, md)) %>% 
+  mutate(mean = map_dbl(m, mean),
+         median = map_dbl(m, median),
+         mode = map_dbl(m, mmode)) %>% 
+  select(mean, median, mode) %>% 
+  gather("CentralTendency","Value") %>% 
+  ggplot(aes(y = Value, x = CentralTendency)) +
+  # geom_density(color = NA, alpha = 0.5) + 
+  # stat_function(fun = function(x) 40 * dchisq(x, df = 40)) + 
+  # scale_x_continuous(limits = c(10,80))
+  ggbeeswarm::geom_quasirandom(alpha = 0.5, pch = 16, size = 0.1) +
+  stat_summary(color = "firebrick", fun.data = mean_sdl, fun.args = list(mult = 1)) +
+  scale_y_continuous(NULL, minor_breaks = seq(0,10000,5))
+
+```
+
+```{r proconCT}
+tibble::tribble(
+                               ~Feature,    ~Mode,   ~Median,      ~Mean,
+                       "Standard Error", "Larger", "Smaller", "Smallest",
+                    "Algebraic Formula",     "No",      "No",      "Yes",
+                         "Unique Value",     "No",     "Yes",      "Yes",
+       "Sensitive to Outliers/Skewness",     "No",      "No",      "Yes",
+                              "Computable for Nominal Variables",    "Yes",      "No",       "No",
+                              "Computable for Ordinal Variables",    "Yes",     "Yes",       "No",
+                             "Computable for Interval Variables",    "Yes",     "Yes",      "Yes",
+                                "Computable for Ratio Variables",    "Yes",     "Yes",      "Yes"
+       ) %>% 
+  kable(caption = "Comparing Central Tendency Measures")
+```
+
+## Expected Values
+
+At one level, the concept of the [expected value]{.defword}`r tufte::margin_note("The **expected value** of a random variable is the population mean of the values that the random variable generates.")` of a random variable is really simple; it is just the population mean of the variable. So why don't we just talk about population means and be done with this "expected value" business? It just complicates things! True. In this case, however, there is value in letting some simple things appear to become complicated for a while so that later we can show that some apparently complicated things are actually simple.
+
+Why can't we just say that the expected value of a random variable is the population mean? You are familiar, of course, with the formula for a mean. You just add up the numbers and divide by the number of numbers $n$:
+
+$$
+m_X=\frac{\sum_{i=1}^{n} {x_i}}{n}
+$$
+
+Fine. Easy. Except...hmm...random variables generate an infinite number of numbers. Dividing by infinity is tricky. We'll have to approach this from a different angle...
+
+The expected value of a random variable is a weighted mean. A mean of what? Everything in the sample space. How are the sample space elements weighted? Each element in the sample space is multiplied by its probability of occurring.
+
+```{r pmfX,echo=FALSE, fig.margin = T, fig.align='default', fig.cap="Probability distribution of a hypothetical random variable", fig.height=4, fig.width=4, warning=F}
+tibble(x = factor(c(2,4,8), levels = 1:8),
+       p = c(0.3, 0.2, 0.5)) %>% 
+  ggplot(aes(x,p)) + 
+  geom_col(fill = myfills[1]) + 
+  geom_text(aes(label = WJSmisc::remove_leading_zero(p)), 
+            vjust = -0.4, 
+            family = bfont, 
+            size = 6) + 
+  theme_minimal(base_family = bfont, 
+                base_size = 18) + 
+  scale_y_continuous("Probability", 
+                     expand = expansion(mult = c(.01, .10)),
+                     breaks = seq(0,1,.1),
+                     labels = WJSmisc::remove_leading_zero
+                     ) + 
+  scale_x_discrete("Sample Space", drop = F ) + 
+  theme(panel.grid.major.x = element_blank())
+
+```
+
+Suppose that the sample space of a random variable $X$ is $\{2, 4, 8\}$ with respective probabilities of $\{0.3, 0.2, 0.5\}$, as shown in Figure \@ref(fig:pmfX). The notation for taking the expected value of a random variable $X$ is $\mathcal{E}(X)$. Can we find the mean of this variable $X$ even if we do not have any samples it generates? Yes. To calculate the expected value of $X$, multiply each sample space element by its associated probability and then take the sum of all resulting products. Thus,
+
+$$
+\begin{align*}
+\mathcal{E}(X)&=\sum_{i=1}^{3}{p_i x_i}\\
+&= p_1x_1+p_2x_2+p_3x_3\\
+&= (.3\times 2)+(.2\times 4)+(.5\times 8)\\
+&=5.4
+\end{align*}
+$$
+
+
+The term *expected value* might be a little confusing. In this case, 5.4 is the expected value of $X$ but $X$ never once generates a value of 5.4. So the expected value is not "expected" in the sense that we expect to see it often. It is expected to be close to the mean of any randomly selected sample of the variable that is sufficiently large:
+
+$$
+\mathcal{E}(X)=\lim_{n \to \infty} \frac{1}{n}\sum_{i=1}^{n} {x_i}
+$$
+
+If a random variable $X$ is discrete, its expected value $\mathcal{E}(X)$ is the sum of each member of the sample space $x_i$ multiplied by its probability of occurring $p_i$. The probability of occurring is the output of $X$'s probability density function at that location ($p_i=f_X(x_i)$. Thus,
+
+$$
+\mathcal{E}(X)=\sum_{i=-\infty}^{\infty}{x_i f_X(x_i)}
+$$
+
+With continuous variables, the number of elements in a sample is infinite. Fortunately, calculus was designed to deal with this kind of infinity. The trick is to imagine that the continuous variable is sliced into bins and that the bins are sliced ever more thinly. If a continuous random variable has probability density function $f_X(x)$, the expected value is
+
+$$
+\mathcal{E}(X)=\int_{-\infty}^{\infty} {x f_X(x)\,\mathrm{d}x}
+$$
+
+
+If we multiply each value of $X$ by the height of its bin ($p$), we get the mean of the binned distribution. If the bins become ever thinner, as in Figure \@ref(fig:thinbins), the product of $X$ and $p$ approximates the expected value of the smooth continuous distribution.
+
+```{r thinbins,fig.width=10.5,fig.height=10,echo=FALSE, fig.cap="Slicing the standard normal distribution into ever thinner bins", warning = F, fig.fullwidth = T, eval=TRUE, echo=FALSE, cache=TRUE, out.width="100%"}
+# Slicing the standard normal distribution into ever thinner bins
+make_bins <- function(binPower, binWidth, LowerBound, UpperBound) {
+  tibble(x = seq(LowerBound, UpperBound, binWidth), binPower, binWidth)
+}
+
+pmap_df(tibble(binPower = -1:4, 
+               binWidth = 2 ^ (-1 * binPower), 
+               LowerBound = -4, 
+               UpperBound = 4), 
+        make_bins) %>% 
+  mutate(p = pnorm(x + binWidth / 2) - pnorm(x - binWidth / 2),
+         width_label = factor(2 ^ binPower, 
+                              levels = 2 ^ (-1:4),
+                              labels = c("Width = 2", "Width = 1",
+                                         paste0("Width = 1/",
+                                                2 ^ (1:4))))) %>%
+  ggplot(aes(x, p)) + 
+  geom_col(aes(width = binWidth), 
+           fill = myfills[1], 
+           color = "white", 
+           lwd = 0.1) + 
+  facet_grid(width_label ~ .,  
+             scales = "free") + 
+  theme_light(base_size = 24, 
+              base_family = bfont) + 
+  scale_x_continuous(NULL, 
+                     breaks = -4:4, 
+                     labels = function(x) signs::signs(x, accuracy = 1),
+                     # labels =  paste0(if_else(-4:4 < 0,"−",""), abs(-4:4)),
+                     # sec.axis = dup_axis(),
+                     expand = c(0.01,0)) + 
+  scale_y_continuous(NULL, 
+                     breaks = NULL) +
+  theme(panel.grid = element_blank(), 
+        # strip.text.y = element_blank(), 
+        strip.placement = "outside",
+        strip.text.y = element_text(angle = 0),
+        axis.text.x = element_text(hjust = c(rep(.75,4),rep(0.5,5))))
+
+```
+
+```{r thinbins_animate, cache=TRUE, fig.cap="Slicing the standard normal distribution into ever thinner bins", fig.width=10, warning=FALSE, message=FALSE, fig.fullwidth = T, eval=FALSE, echo=FALSE}
+
+
+
+make_bins <- function(binPower, binWidth, LowerBound, UpperBound) {
+  tibble(x = seq(LowerBound, UpperBound, binWidth), binPower, binWidth)
+}
+library(gganimate)
+max_power <- 6
+
+d <- pmap_df(tibble(binPower = 0:max_power, 
+               binWidth = 2 ^ (-1 * binPower), 
+               LowerBound = -4, 
+               UpperBound = 4), 
+        make_bins) %>% 
+  mutate(p = pnorm(x + binWidth / 2) - pnorm(x - binWidth / 2),
+         width_label = factor(2 ^ binPower, 
+                              levels = 2 ^ (0:max_power),
+                              labels = c("Bin~Width == 1", 
+                                         paste0("Bin~Width == frac(1,",
+                                                2 ^ (1:max_power),")")))) %>%
+  group_by(binPower) %>% 
+  mutate(max_p = max(p)) %>% 
+  mutate(p = p / max_p) 
+
+p <- d %>% 
+  ggplot(aes(x, p, group = x)) + 
+  geom_col(aes(width = binWidth), 
+           fill = myfills[1], 
+           color = "white", 
+           lwd = 0.1) + 
+   transition_components(time = binPower, 
+                         enter_length = 1L,
+                         exit_length = 1L) +
+  enter_fade() + 
+  exit_fade() +
+  ease_aes('cubic-in-out') +
+  theme_minimal(base_size = 24, 
+              base_family = bfont) + 
+  scale_x_continuous(NULL, 
+                     breaks = -4:4, 
+                     expand = c(0.01,0)) + 
+  scale_y_continuous(NULL, 
+                     breaks = NULL,
+                     expand = c(0,0)) +
+  theme(panel.grid = element_blank(), 
+        axis.text.x = element_text(hjust = c(rep(.7,4),
+                                             rep(0.5,5)))) +
+  geom_text(data = d %>% dplyr::filter(x == -4), 
+            aes(x = -2, 
+                y = 0.95, 
+                label = width_label), 
+            hjust = 0,
+            family = bfont,
+            size = 8, parse = T)
+ 
+
+animate(p, 
+        fps = 10,
+        nframes = 300,
+        device = "svg",
+        renderer = magick_renderer(),
+        width = 16,
+        height = 8,
+        pointsize = 18)
+```
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-thinbins" class="toggle" type="checkbox">
+<label for="collapsible-thinbins" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+
+```{r thinbinsCode, echo=T, ref.label="thinbins", eval=F}
+
+```
+
+</div></div></div>
+
+## Measures of Variability
+
+### Variability of Nominal Variables
+
+I have never needed a statistic that measures the variability of a nominal variable, but if you need one, there are [many from which to choose](https://en.wikipedia.org/wiki/Qualitative_variation). For example, @Wilcox1973 presented this analog to variance for nominal variables:
+
+$$
+\text{VA} = 1-\frac{1}{n^2}\frac{k}{k-1}\sum_{i=1}^k\left(f_i-\frac{n}{k}\right)^2
+$$
+
+The qualvar package [@R-qualvar] can compute the primary indices of qualitative variation presented by Wilcox.
+
+```{r qualvar, echo=TRUE}
+library(qualvar)
+
+# Frequencies
+frequencies =  c(A = 60, B = 10, C = 25, D = 5)
+
+# VA
+VA(frequencies)
+```
+
+
+```{r nominalvar, fig.cap="The Variance Analog (VA) index of qualitative variation ranges from 0 to 1. It equals 0 when every data point is assigned to the same category and 1 when each category has the same frequency.", fig.height=7, fig.margin=T, fig.align='default'}
+
+low_var <- c(A = 100, B = 0, C = 0, D = 0)
+mid_var =  c(A = 60, B = 10, C = 25, D = 5)
+high_var = c(A = 25, B = 25, C = 25, D = 25)
+
+
+tibble(Variability = c("Low", "Middle", "High"),
+       Frequency = list(low_var, mid_var, high_var),
+       VA = map_dbl(Frequency, VA)) %>% 
+  mutate(Frequency = map(Frequency, function(d) as.data.frame(d) %>% 
+                           tibble::rownames_to_column("Category")),
+         Variability = paste0(Variability, 
+                              "\nVA = ", 
+                              prob_label(VA)) %>% 
+           fct_inorder()) %>% 
+  unnest(Frequency) %>%  
+  rename(Frequencies = d) %>% 
+  ggplot(aes(Category, Frequencies)) +
+  geom_col(aes(fill = Variability)) + 
+  geom_text_fill(aes(label = Frequencies), 
+             vjust = -.3, 
+             color = "gray30", 
+             size = ggtext_size(30)) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.08)), 
+                     breaks = seq(0,100,20), 
+                     minor_breaks = seq(0,100,10)) +
+  scale_fill_manual(values = myfills) +
+  facet_grid(cols = vars(Variability)) + 
+  theme_light(base_family = bfont, base_size = 30) + 
+  theme(panel.grid.major.x = element_blank(), 
+        legend.position = "none")
+```
+
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-nominalvarCode" class="toggle" type="checkbox">
+<label for="collapsible-nominalvarCode" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+
+```{r nominalvarCode, ref.label="nominalvar", echo=TRUE, eval=FALSE}
+
+```
+
+</div></div></div>
+
+In all of these indices of qualitative variation, the lowest value is 0 when every data point belongs to the same category (See Figure&nbsp;\@ref(fig:nominalvar), left panel). Also, the maximum value is 1 when the data points are equally distributed across categories (See Figure&nbsp;\@ref(fig:nominalvar), right panel).
+
+### Variability of Ordinal Variables
+
+
+

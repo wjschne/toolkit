@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+<meta name="github-repo" content="wjschne/psychtoolkit" />
+
+<meta name="author" content="W. Joel Schneider" />
+
+<meta name="date" content="2018-07-30" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+
+<title>Practical Psychometrics: A Psychological Assessment Toolkit</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#preface">Preface</a></li>
+<li><a href="notation.html#notation">Notation</a></li>
+<li><a href="intro.html#intro"><span class="toc-section-number">1</span> Introduction</a></li>
+<li class="has-sub"><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a><ul>
+<li><a href="variables.html#nominal"><span class="toc-section-number">2.1</span> Nominal scales</a></li>
+<li><a href="variables.html#ordinal-scales"><span class="toc-section-number">2.2</span> Ordinal scales</a></li>
+<li><a href="variables.html#interval-scales"><span class="toc-section-number">2.3</span> Interval scales}</a></li>
+<li><a href="variables.html#ratio-scales"><span class="toc-section-number">2.4</span> Ratio scales</a></li>
+<li><a href="variables.html#sec:DiscreteVsContinuous"><span class="toc-section-number">2.5</span> Discrete vs. Continuous Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="probability-distributions.html#probability-distributions"><span class="toc-section-number">3</span> Probability Distributions</a><ul>
+<li><a href="probability-distributions.html#random-variables"><span class="toc-section-number">3.1</span> Random Variables</a></li>
+</ul></li>
+<li><a href="generate-the-probability-mass-function-with-lambda-2.html#generate-the-probability-mass-function-with-lambda-2"><span class="toc-section-number">4</span> Generate the probability mass function with lambda = 2</a></li>
+<li><a href="bare-bones-plot-of-the-poisson-distributions-probability-mass-function.html#bare-bones-plot-of-the-poisson-distributions-probability-mass-function"><span class="toc-section-number">5</span> Bare-bones plot of the Poisson distribution’s probability mass function</a></li>
+<li><a href="bare-bones-plot-of-the-poisson-distributions-cumulative-distribution-function.html#bare-bones-plot-of-the-poisson-distributions-cumulative-distribution-function"><span class="toc-section-number">6</span> Bare-bones plot of the Poisson distribution’s cumulative distribution function</a></li>
+<li><a href="generate-the-probability-mass-function-with-p-0-6.html#generate-the-probability-mass-function-with-p-0.6"><span class="toc-section-number">7</span> Generate the probability mass function with p = 0.6</a></li>
+<li><a href="bare-bones-plot-of-the-geometric-distributions-probability-mass-function.html#bare-bones-plot-of-the-geometric-distributions-probability-mass-function"><span class="toc-section-number">8</span> Bare-bones plot of the geometric distribution’s probability mass function</a></li>
+<li><a href="bare-bones-plot-of-the-geometric-distributions-cumulative-distribution-function.html#bare-bones-plot-of-the-geometric-distributions-cumulative-distribution-function"><span class="toc-section-number">9</span> Bare-bones plot of the geometric distribution’s cumulative distribution function</a></li>
+<li><a href="final-words.html#final-words"><span class="toc-section-number">10</span> Final Words</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="bare-bones-plot-of-the-geometric-distributions-cumulative-distribution-function" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Bare-bones plot of the geometric distribution’s cumulative distribution function</h1>
+<p>plot(CumulativeProbability~x)
+@</p>
+
+<p>Although there are many more discrete distribution families, we will now consider some continuous distribution families. Most of what we have learned about discrete distributions applies to continuous distributions. However, there is a need of a name change for the probability mass function. In a discrete distribution, we can calculate an actual probability for a particular value in the sample space. In continuous distributions, doing so can be tricky. We can always calculate the probability that a score in a particular interval will occur. However, in continuous distributions, the intervals can become very small, approaching a width of 0. When that happens, the probability associated with that interval also approaches 0. Yet, some parts of the distribution are more probable than others. Therefore, we need a measure of probability that tells us the probability of a value  to other values: the .</p>
+<p>Considering the entire sample space of a discrete distribution, all of the associated probabilities from the probability mass function sum to 1. In a probability density function, it is the area under the curve that must sum to 1. That is, there is a 100% probability that a value generated by the random variable will be somewhere under the curve. There is nowhere else for it to go!</p>
+<p>However, unlike probability mass functions, probability density functions do not generate probabilties. Remember, the probability of any value in the sample space of a continuous variable is infinitesimal. We can only compare the probabilities to each other. To see this, compare the discrete uniform distribution and continuous uniform distribution in Figure~. Both distributions range from 1 to 4. In the discrete distribution, there are 4 points, each with a probability of 0.25. It is easy to see that these probabilities sum to 1. Because of the scale of the figure, it is not easy to see exactly how high the probability density function is in the continuous distribution. It happens to be <span class="math inline">\(\sfrac{1}{3}\)</span>. Why? First, it does not mean that each value has a <span class="math inline">\(\sfrac{1}{3}\)</span> probability. There are an infinite number of points between 1 and 4 and it would be absurd if each of them had a <span class="math inline">\(\sfrac{1}{3}\)</span> probability. The distance between 1 and 4 is 3. In order for the rectangle to have an area of 1, its height must be <span class="math inline">\(\sfrac{1}{3}\)</span>. What does that <span class="math inline">\(\sfrac{1}{3}\)</span> mean, then? In the case of a single value in the sample space, it does not mean much at all. It is simply a value that we can compare to other values in the sample space. It could be scaled to any value but for the sake of convenience it is scaled such that the area under the curve is 1.</p>
+<p>Note that some probability density functions can produce values greater than 1. If the range of a continuous uniform distribution is less than 1, at least some portions of the curve must be greater than 1 to make the area under the curve equal 1. For example, if the bounds of a continous distribution are 0 and <span class="math inline">\(\sfrac{1}{3}\)</span>, the average height of the probability density function would need to be 3 so that the total area is equal to 1.</p>
+
+
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+\setlength{\extrarowheight}{3pt}
+\begin{array}{rccc}
+%\text{\textbf{Uniform Distributions}}&amp;&amp;\\
+\text{Lower Bound:} &amp; a  &amp; \hyperref [note:In]{\in} &amp;\hyperref [note:R]{\mathbb{R}}\\
+\text{Upper Bound:} &amp; b &amp; \in &amp; \mathbb{R}\\
+&amp;&amp;&amp;b&gt;a\\
+\text{Sample Space:} &amp; x &amp;\in&amp;\hyperref [note:Interval]{\lbrack a,b\rbrack}\\
+\text{Mean:} &amp; \mu&amp;=&amp;\frac{a+b}{2} \\
+\text{Variance:} &amp; \sigma^2&amp;=&amp;\frac{(b-a)^2-1}{12} \\
+\text{Skewness:} &amp; \gamma_1&amp;=&amp;0 \\
+\text{Kurtosis:} &amp; \gamma_2&amp;=&amp;-\frac{6}{5} \\
+\text{Probability Density Function:} &amp; f_X(x;a,b)&amp;=&amp;\frac{1}{b-a} \\
+\text{Cumulative Distribution Function:} &amp; F_X(x;a,b)&amp;=&amp;\frac{x-a}{b-a} \\
+\end{array}
+}
+\end{equation*}\]</span></p>
+<p>Unlike the , the uniform distribution is .<label for="tufte-sn-10" class="margin-toggle sidenote-number">10</label><input type="checkbox" id="tufte-sn-10" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">10</span> For the sake of clarity, the uniform distribution is often referred to as the .</span> In both distributions, there is an upper and lower bound and all members of the sample space are equally probable.</p>
+
+<p>In Excel, the  function generates a random number from the continuous uniform distribition with a lower bound of 0 and an upper bound of 1. To make the distribution have different lower and upper bounds, <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, use this formula:</p>
+<p></p>
+<p>Thus, to generate a number from the continuous uniform distribution ranging from 1 to 99, use:</p>
+<p></p>
+
+<p>Uniform distributions can begin and end at any real number but one member of the uniform distribution family is particularly important. The cumulative distribution function of any continous distribution converts into a continuous uniform distribution. A distribution’s  converts a continuous uniform distribution into that distribution. Most of the time, this process also works for discrete distributions. This process is particularly useful for generating random numbers with an unusual distribution. If the distribution’s quantile function is known, a sample with a continuous uniform distribution can easily be generated and converted.</p>
+<p>For example, the  function in Excel generates random numbers between 0 and 1 with a continuous uniform distribution. The  function is the binomial distribution’s quantile function. Suppose that <span class="math inline">\(n\)</span> (number of Bernoulli trials) is 5 and <span class="math inline">\(p\)</span> (probability of success on each Bernoulli trial) is 0.6. A randomly generated number from the binomial distribution with <span class="math inline">\(n=5\)</span> and <span class="math inline">\(p=0.6\)</span> is generated like so:</p>
+<p></p>
+<p>Excel has quantile functions for many distributions (e.g., ). This method of combinding  and a quantile function works reasonably well in Excel for quick-and-dirty projects but when high levels of accuracy are needed, random samples should be generated in a dedicated statistical package.</p>
+
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+\setlength{\extrarowheight}{3pt}
+\begin{array}{rccc}
+\text{Sample Space:} &amp; x &amp;\in&amp;\hyperref [note:R]{\mathbb{R}}\\
+\text{Mean:} &amp; \mu&amp;=&amp;\frac{a+b}{2} \\
+\text{Variance:} &amp; \sigma^2&amp;=&amp;\frac{(b-a)^2-1}{12} \\
+\text{Skewness:} &amp; \gamma_1&amp;=&amp;0 \\
+\text{Kurtosis:} &amp; \gamma_2&amp;=&amp;-\frac{6}{5} \\
+\text{Probability Density Function:} &amp; f_X(x;a,b)&amp;=&amp;\frac{1}{b-a} \\
+\text{Cumulative Distribution Function:} &amp; F_X(x;a,b)&amp;=&amp;\frac{x-a}{b-a} \\
+\end{array}
+}
+\end{equation*}\]</span></p>
+<p>The normal distribution is probably the most important distribution in statistics and in psychological assessment. In the absence of other information, assuming that an individual difference variable is normally distributed is a good bet. Not a sure bet, of course, but a good bet. Why? What is so special about the normal distribution? To get a sense of the answer to this question, consider what happens to the binomial distribution as the number of events (<span class="math inline">\(n\)</span>) increases. To make the example more concrete, let’s assume that we are tossing coins and counting the number of heads (<span class="math inline">\(p=0.5\)</span>). In Figure~, the first plot shows the probability mass function for the number of heads when there is a single coin (<span class="math inline">\(n=1\)</span>). In the second plot, <span class="math inline">\(n=2\)</span> coins. That is, if we flip 2 coins, there will be 0, 1, or 2 heads. In each subsequent plot, we double the number of coins that we flip simultaneously. Even with as few as 4 coins, the distribution begins to resemble the normal distribution, although the resemblance is very rough. With 128 coins, however, the resemblance is very close.</p>
+<p>This resemblance to the normal distribution in the example is not coincidental to the fact that <span class="math inline">\(p=0.5\)</span>, making the binomial distribution symmetric. If <span class="math inline">\(p\)</span> is extreme (close to 0 or 1), the binomial distribution is assymetric. However, if <span class="math inline">\(n\)</span> is large enough, the binomial distribution becomes very close to normal.</p>
+<p>Many other distributions (e.g., Poisson, Student’s T, F, and <span class="math inline">\(\chi^2\)</span>) have distinctive shapes under some conditions but approximate the normal distribution in others. Why? In the conditions in which non-normal distributions approximate the normal distribution, it is because, like in Figure~, many independent events are summed.</p>
+
+
+In the distribution in Figure~, because there is a 50% chance of heads, <span class="math inline">\(p = 0.5\)</span>. Because there are two coins, <span class="math inline">\(n = 2\)</span>. We can use the binomial distribution’s probability mass function (Eq.~) to see how the shape of the distribution changes as we increase the number of coins tossed (Figure~).
+% \begin{figure}
+% \begin{center}
+% % # &lt;&lt;latticecoin,fig = T, fig.width=6.5, fig.height=6, echo = FALSE,cache=TRUE,dev=‘pdf’&gt;&gt;=
+% % # # require(lattice)
+% % # # n&lt;- numeric(0)
+% % # # x&lt;- numeric(0)
+% % # #
+% % # # coins&lt;-c(1:9)
+% % # # for(i in coins) {
+% % # # n &lt;- c(n,rep(i,i+1))
+% % # # x &lt;- c(x,seq(0,i))
+% % # # }
+% % # # p&lt;-dbinom(x,size=n,prob=0.5)
+% % # # ps&lt;-p[p&gt;0.0001]
+% % # # xf&lt;-ordered(x[p&gt;0.0001],levels=0:max(coins))
+% % # # nf &lt;- ordered(n[p&gt;0.0001],labels = c(“1 Coin”,paste(coins[2:length(coins)],“Coins”)))
+% % # # nColors&lt;-length(coins)
+% % # # coinColors&lt;-rgb(0,as.integer(120+80<em>seq(1,nColors,1)/nColors),as.integer(100+100</em>seq(1,nColors,1)/nColors),maxColorValue=256)
+% % # # subscriptColors&lt;-coinColors[n[p&gt;0.0001]]
+% % # # barchart(ps ~ xf | nf, xlab = “Number of Heads”, ylab = “Probability”,horizontal=FALSE,as.table=TRUE,layout=c(3,3),scales=list(x=list(relation=“sliced”,abbreviate=TRUE),y=list(labels=seq(0,0.5,0.1))),aspect=“fill”,strip = strip.custom(bg=“gray90”),drop.unused.levels =TRUE,ylim=c(0,0.53), fill.color=coinColors,<br />
+% % # # panel = function(x,y,fill.color,…,subscripts) {
+% % # # fill = subscriptColors[subscripts]
+% % # # panel.barchart(x,y,col=“royalblue2”,horizontal=FALSE) } )
+% % #
+% % # @
+% \end{center}
+%
+
+<p>% 
+% \end{figure}</p>
+
+</div>
+<p style="text-align: center;">
+<a href="bare-bones-plot-of-the-geometric-distributions-probability-mass-function.html"><button class="btn btn-default">Previous</button></a>
+<a href="final-words.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

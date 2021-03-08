@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+<meta name="github-repo" content="wjschne/psychtoolkit" />
+
+<meta name="author" content="W. Joel Schneider" />
+
+<meta name="date" content="2018-08-30" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+
+<title>Practical Psychometrics: A Psychological Assessment Toolkit</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+<script type="text/x-mathjax-config">
+
+
+MathJax.Hub.Config({
+  TeX: {Augment: {
+    Definitions: {macros: {xfrac: 'XFrac'}},
+    Parse: {prototype: {
+      XFrac: function (name) {
+        var num = this.ParseArg(name);
+        var den = this.ParseArg(name);
+        this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+      }
+    }}
+  }}}
+);
+
+
+</script>
+
+
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+<link rel="stylesheet" href="equity.css" type="text/css" />
+<link rel="stylesheet" href="mycss.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#preface">Preface</a></li>
+<li class="has-sub"><a href="notation.html#notation">Notation</a><ul>
+<li><a href="notation.html#random-variables-vectors-and-matrices"><span class="toc-section-number">0.1</span> Random variables, vectors, and matrices</a></li>
+<li><a href="notation.html#sets-and-intervals"><span class="toc-section-number">0.2</span> Sets and intervals</a></li>
+<li><a href="notation.html#summation"><span class="toc-section-number">0.3</span> Summation</a></li>
+<li><a href="notation.html#other"><span class="toc-section-number">0.4</span> Other</a></li>
+</ul></li>
+<li><a href="intro.html#intro"><span class="toc-section-number">1</span> Introduction</a></li>
+<li class="has-sub"><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a><ul>
+<li><a href="variables.html#nominal"><span class="toc-section-number">2.1</span> Nominal Scales</a></li>
+<li><a href="variables.html#ordinal-scales"><span class="toc-section-number">2.2</span> Ordinal Scales</a></li>
+<li><a href="variables.html#interval-scales"><span class="toc-section-number">2.3</span> Interval Scales</a></li>
+<li><a href="variables.html#ratio-scales"><span class="toc-section-number">2.4</span> Ratio Scales</a></li>
+<li><a href="variables.html#sec:DiscreteVsContinuous"><span class="toc-section-number">2.5</span> Discrete vs. Continuous Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#distributions"><span class="toc-section-number">3</span> Distributions</a><ul>
+<li><a href="distributions.html#random-variables"><span class="toc-section-number">3.1</span> Random Variables</a></li>
+<li><a href="distributions.html#sets"><span class="toc-section-number">3.2</span> Sets</a></li>
+<li><a href="distributions.html#sec:SampleSpace"><span class="toc-section-number">3.3</span> Sample Spaces</a></li>
+<li><a href="distributions.html#sec:ProbabilityDistribution"><span class="toc-section-number">3.4</span> Probability Distributions</a></li>
+<li><a href="distributions.html#sec:DiscreteUniform"><span class="toc-section-number">3.5</span> Discrete Uniform Distributions</a></li>
+<li><a href="distributions.html#parameters-of-random-variables"><span class="toc-section-number">3.6</span> Parameters of Random Variables</a></li>
+<li><a href="distributions.html#sec:pmf"><span class="toc-section-number">3.7</span> Probability Mass Functions</a></li>
+<li><a href="distributions.html#sec:CumDist"><span class="toc-section-number">3.8</span> Cumulative Distribution Functions</a></li>
+<li><a href="distributions.html#sec:Quantile"><span class="toc-section-number">3.9</span> Quantile functions</a></li>
+<li><a href="distributions.html#generating-a-random-sample-in-r"><span class="toc-section-number">3.10</span> Generating a Random Sample in R</a></li>
+<li class="has-sub"><a href="distributions.html#sec:BernoulliDist"><span class="toc-section-number">3.11</span> Bernoulli Distributions</a><ul>
+<li><a href="distributions.html#generating-a-random-sample-from-the-bernoulli-distribution"><span class="toc-section-number">3.11.1</span> Generating a Random Sample from the Bernoulli Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#sec:binomial"><span class="toc-section-number">3.12</span> Binomial Distributions</a><ul>
+<li><a href="distributions.html#clinical-applications-of-the-binomial-distribution"><span class="toc-section-number">3.12.1</span> Clinical Applications of the Binomial Distribution</a></li>
+<li><a href="distributions.html#graphing-the-binomial-distribution"><span class="toc-section-number">3.12.2</span> Graphing the binomial distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#poisson-distributions"><span class="toc-section-number">3.13</span> Poisson Distributions</a><ul>
+<li><a href="distributions.html#a-clinical-application-of-the-the-poisson-distribution"><span class="toc-section-number">3.13.1</span> A clinical application of the the Poisson distribution</a></li>
+</ul></li>
+<li><a href="distributions.html#geometric-distributions"><span class="toc-section-number">3.14</span> Geometric Distributions}</a></li>
+<li><a href="distributions.html#sec:pdf"><span class="toc-section-number">3.15</span> Probability Density Functions</a></li>
+<li class="has-sub"><a href="distributions.html#sec:Uniform"><span class="toc-section-number">3.16</span> Continuous Uniform Distributions</a><ul>
+<li><a href="distributions.html#generating-random-samples-from-the-continuous-uniform-distribution"><span class="toc-section-number">3.16.1</span> Generating random samples from the continuous uniform distribution</a></li>
+<li><a href="distributions.html#using-the-continuous-uniform-distribution-to-generate-random-samples-from-other-distributions"><span class="toc-section-number">3.16.2</span> Using the continuous uniform distribution to generate random samples from other distributions</a></li>
+</ul></li>
+<li><a href="distributions.html#sec:normal"><span class="toc-section-number">3.17</span> Normal Distributions</a></li>
+</ul></li>
+<li><a href="describing-distributions-with-expected-values-moments.html#describing-distributions-with-expected-values-moments"><span class="toc-section-number">4</span> Describing Distributions with Expected Values &amp; Moments</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="describing-distributions-with-expected-values-moments" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Describing Distributions with Expected Values &amp; Moments</h1>
+
+<p>At one level, the concept of the  of a random variable is really simple; it is just the population mean of the variable. So why don’t we just talk about population means and be done with this ``expected value’’ business? It just complicates things! True. In this case, however, there is value in letting some simple things appear to become complicated for a while so that later we can show that some apparently complicated things are actually simple.</p>
+<p>Why can’t we just say that the expected value of a random variable is the population mean? You are familiar, of course, with the formula for a mean. You just add up the numbers and divide by the number of numbers <span class="math inline">\(n\)</span>:
+<span class="math display">\[\begin{equation*}
+m_X=\frac{\sum_{i=1}^{n} {x_i}}{n}
+\end{equation*}\]</span></p>
+<p>Fine. Easy. Except…hmm…random variables generate an infinite number of numbers. Dividing by infinity is tricky. We’ll have to approach this from a different angle…</p>
+<p>The expected value of a random variable is a weighted mean. A mean of what? Everything in the sample space. How are the sample space elements weighted? Each element in the sample space is multiplied by its probability of occurring.</p>
+
+<p>Suppose that the sample space of a random variable <span class="math inline">\(X\)</span> is <span class="math inline">\(\{2, 4, 8\}\)</span> with respective probabilities of <span class="math inline">\(\{0.3, 0.2, 0.5\}\)</span>, as shown in Figure~. Each sample space element is multiplied by its probability and the resulting products are summed to calculate the expected value of <span class="math inline">\(X\)</span>. The expected value operator is <span class="math inline">\(E()\)</span>. Thus,
+<span class="math display">\[\begin{align*}
+E(X)&amp;=\sum_{i=1}^{3}{p_i x_i}\\
+&amp;= p_1x_1+p_2x_2+p_3x_3\\
+&amp;= (0.3\times 2)+(0.2\times 4)+(0.5\times 8)\\
+&amp;=5.4
+\end{align*}\]</span></p>
+<p>The term  is a little misleading. In this case, 5.4 is the expected value of <span class="math inline">\(X\)</span> but <span class="math inline">\(X\)</span> never once generates a value of 5.4. So the expected value is not ``expected’’ in the sense that we expect to see it often (like we do with the ). It is expected to be close to the mean of any sample of the variable that is sufficiently large:</p>
+<p><span class="math display">\[\begin{equation*}
+E(X)=\lim_{n \to \infty} \frac{1}{n}\sum_{i=1}^{n} {x_i}
+\end{equation*}\]</span></p>
+<p>If a discrete random variable <span class="math inline">\(X\)</span> with sample space <span class="math inline">\(S\)</span> has a  <span class="math inline">\(f_X(x)\)</span>, its expected value is
+<span class="math display">\[\begin{equation}
+E(X)=\sum_{-\infty}^{\infty}{x_i f_X(x_i)}
+\end{equation}\]</span></p>
+<p>With continuous variables we have a problem: the number of elements in a sample is infinite. Fortunately, calculus was designed to deal with this kind of infinity. The trick is to imagine that the continuous variable is sliced into bins and that the bins are sliced ever more thinly. If a continuous random variable has probability density function <span class="math inline">\(f_X(x)\)</span>, the expected value is</p>
+<p><span class="math display">\[\begin{equation}
+E(X)=\int_{-\infty}^{\infty} {x f_X(x)\,\mathrm{d}x}
+\end{equation}\]</span></p>
+
+<p>If we multiply each value of <span class="math inline">\(X\)</span> by the height of its bin (<span class="math inline">\(p\)</span>), we get the mean of the binned distribution. If the bins become ever thinner, as in , the project of <span class="math inline">\(X\)</span> and <span class="math inline">\(p\)</span> approximate the expected value of the smooth continuous distribution.</p>
+
+</div>
+<p style="text-align: center;">
+<a href="distributions.html"><button class="btn btn-default">Previous</button></a>
+<a href="references.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

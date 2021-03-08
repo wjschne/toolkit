@@ -1,0 +1,24 @@
+
+<script type="text/x-mathjax-config">
+
+
+MathJax.Hub.Config({
+  TeX: {Augment: {
+    Definitions: {macros: {xfrac: 'XFrac'}},
+    Parse: {prototype: {
+      XFrac: function (name) {
+        var num = this.ParseArg(name);
+        var den = this.ParseArg(name);
+        this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+      }
+    }}
+  }}}
+);
+
+
+</script>
+
+
+
+
+

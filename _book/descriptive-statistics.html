@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Chapter 4 Descriptive Statistics | Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:type" content="book" />
+
+
+
+<meta name="github-repo" content="wjschne/psychtoolkit" />
+
+<meta name="author" content="W. Joel Schneider" />
+
+<meta name="date" content="2021-03-07" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Chapter 4 Descriptive Statistics | Practical Psychometrics: A Psychological Assessment Toolkit">
+
+<title>Chapter 4 Descriptive Statistics | Practical Psychometrics: A Psychological Assessment Toolkit</title>
+
+<script src="libs/header-attrs-2.7.2/header-attrs.js"></script>
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+<script type="text/x-mathjax-config">
+
+
+MathJax.Hub.Config({
+  TeX: {Augment: {
+    Definitions: {macros: {xfrac: 'XFrac'}},
+    Parse: {prototype: {
+      XFrac: function (name) {
+        var num = this.ParseArg(name);
+        var den = this.ParseArg(name);
+        this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+      }
+    }}
+  }}}
+);
+
+
+</script>
+
+
+
+
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+<link rel="stylesheet" href="equity.css" type="text/css" />
+<link rel="stylesheet" href="mycss.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#preface">Preface</a></li>
+<li><a href="intro.html#intro"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a></li>
+<li><a href="distributions.html#distributions"><span class="toc-section-number">3</span> Distributions</a></li>
+<li><a href="descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">4</span> Descriptive Statistics</a></li>
+<li><a href="notation.html#notation">Notation</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="descriptive-statistics" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Descriptive Statistics</h1>
+<p>When we encounter large lists of unsorted numbers, we have no natural capacity to perceive the list’s fundamental characteristics such its average or its variability. Therefore, we need <span class="defword">descriptive statistics</span><label for="tufte-mn-47" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-47" class="margin-toggle"><span class="marginnote"><strong>Descriptive statistics</strong> summarize noteworthy characteristics of samples.</span> to quantify salient characteristics of distributions, or we need to display the numbers in a plot, making them easier to understand and communicate.</p>
+<div id="frequency-distribution-tables" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Frequency Distribution Tables</h2>
+<p>A simple way to describe a distribution is to list how many times each value in the distribution occurs. For example, in this distribution: <span class="math inline">\(\{10, 3, 4, 10, 6, 4, 6, 4\}\)</span>, there is 1 three, 3 fours, 2 sixes, and 2 tens. The value that occurs most often is four. A <span class="defword">frequency distribution table</span><label for="tufte-mn-48" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-48" class="margin-toggle"><span class="marginnote">A <strong>frequency distribution table</strong> summarises a sample by showing the frequency counts of each member of the sample space.</span> displays the number of times each value occurs, as in Table <a href="descriptive-statistics.html#tab:frequencydistributiontable">4.1</a>.</p>
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:frequencydistributiontable">Table 4.1: </span>Frequency Distribution Table<br>The median is 5, halfway between the two middle scores of 4 and 6.</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="right"><span class="math inline">\(X\)</span></th>
+<th align="right">Frequency</th>
+<th align="right">Cumulative<br>Frequency</th>
+<th align="right">Proportion</th>
+<th align="right">Cumulative<br>Proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">.125</td>
+<td align="right">.125</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">.375</td>
+<td align="right">.500</td>
+</tr>
+<tr class="odd">
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">.250</td>
+<td align="right">.750</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">8</td>
+<td align="right">.250</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>It is common to include alongside the frequencies of each value the proportion (or percentage) of times a value occurs. If the frequency of sample space element <span class="math inline">\(i\)</span> is <span class="math inline">\(f_i\)</span>, and the total sample size is <span class="math inline">\(n\)</span>, then the proportion of sample space element <span class="math inline">\(i\)</span> is</p>
+<p><span class="math display">\[p_i = \frac{f_i}{n}\]</span></p>
+<p>In Table <a href="descriptive-statistics.html#tab:frequencydistributiontable">4.1</a>, the frequency of sixes is <span class="math inline">\(f=2\)</span> and there are <span class="math inline">\(n = 8\)</span> numbers in the distribution, thus the proportion of sixes is <span class="math inline">\(p = \frac{2}{8} = .25\)</span>.</p>
+<p>It is also common to supplement frequency distribution tables with additional information such as the <span class="defword">cumulative frequency</span><label for="tufte-mn-49" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-49" class="margin-toggle"><span class="marginnote">The <strong>cumulative frequency</strong> tells us the number of scores in a distribution that are equal to or lower than a particular sample space element.</span>. For each sample space element, the cumulative frequency <span class="math inline">\((cf)\)</span> is the sum of the frequencies <span class="math inline">\((f)\)</span> of the current and all previous sample space elements.</p>
+<p><span class="math display">\[cf_i= \sum_{j=1}^{i}{f_j}\]</span></p>
+<p>Ordinal, interval, and ratio variables can have cumulative frequencies, but not nominal variables. To calculate cumulative frequencies, the sample space needs to be sorted in a meaningful way, which is not possible with true nominal variables. That is, there are no scores “below” any other scores in nominal variables.</p>
+<p>The cumulative proportion (<span class="math inline">\(cp\)</span>) is the proportion of scores less than or equal to a particular sample space element.</p>
+<p><span class="math display">\[cp_i = \frac{cf_i}{n}\]</span></p>
+<div id="frequency-distribution-tables-in-r" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Frequency Distribution Tables in R</h3>
+<p>Let’s start with a data set from <span class="citation"><label for="tufte-mn-50" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-50" class="margin-toggle">Garcia et al. (2010)<span class="marginnote">Garcia, D. M., Schmitt, M. T., Branscombe, N. R., &amp; Ellemers, N. (2010). Women’s reactions to ingroup members who protest discriminatory treatment: The importance of beliefs about inequality and response appropriateness. <em>European Journal of Social Psychology</em>, <em>40</em>(5), 733–745.</span></span>, which can accessed using the psych package <span class="citation">(<label for="tufte-mn-51" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-51" class="margin-toggle">Revelle, 2020<span class="marginnote">Revelle, W. (2020). <em>Psych: Procedures for psychological, psychometric, and personality research</em>. <a href="https://personality-project.org/r/psych/</span>)</span>.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="descriptive-statistics.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the Garcia data set from the psych package</span></span>
+<span id="cb35-2"><a href="descriptive-statistics.html#cb35-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> psych<span class="sc">::</span>Garcia</span></code></pre></div>
+<p>The sjmisc package <span class="citation">(<label for="tufte-mn-52" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-52" class="margin-toggle">Lüdecke, 2021<span class="marginnote">Lüdecke, D. (2021). <em>Sjmisc: Data and variable transformation functions</em>. <a href="https://strengejacke.github.io/sjmisc/">https://strengejacke.github.io/sjmisc/</a></span>)</span> provides a quick and easy way to create a frequency distribution table with the <code>frq</code> function.</p>
+<pre><code>## 
+## x &lt;numeric&gt;
+## # total N=129  valid N=129  mean=2.12  sd=1.66
+## 
+## Value |  N | Raw % | Valid % | Cum. %
+## -------------------------------------
+##     1 | 73 | 56.59 |   56.59 |  56.59
+##     2 | 24 | 18.60 |   18.60 |  75.19
+##     3 |  4 |  3.10 |    3.10 |  78.29
+##     4 |  8 |  6.20 |    6.20 |  84.50
+##     5 | 12 |  9.30 |    9.30 |  93.80
+##     6 |  7 |  5.43 |    5.43 |  99.22
+##     7 |  1 |  0.78 |    0.78 | 100.00
+##  &lt;NA&gt; |  0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+<p>Typically we use frequency distribution tables to check whether the values of a variable are correct and that the distribution makes sense to us. Thus the <code>frq</code> function is all we need most of the time. However, if you need a publication-ready frequency distribution table, you will probably have to make it from scratch (See Table <a href="descriptive-statistics.html#tab:freqtablepub">4.2</a>).</p>
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:freqtablepub">Table 4.2: </span>Frequency Distribution Table for Anger<br><em>f</em> = Frequency, <em>cf</em> = Cumulative Frequency, <em>p</em> = Proportion, and <em>cp</em> = Cumulative Proportion</span><!--</caption>--></p>
+<table>
+
+
+<thead>
+<tr class="header">
+<th align="right">Anger</th>
+<th align="right"><em>f</em></th>
+<th align="right"><em>cf</em></th>
+<th align="right"><em>p</em></th>
+<th align="right"><em>cp</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">73</td>
+<td align="right">73</td>
+<td align="right">.57</td>
+<td align="right">.57</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">24</td>
+<td align="right">97</td>
+<td align="right">.19</td>
+<td align="right">.75</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">101</td>
+<td align="right">.03</td>
+<td align="right">.78</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">8</td>
+<td align="right">109</td>
+<td align="right">.06</td>
+<td align="right">.84</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">121</td>
+<td align="right">.09</td>
+<td align="right">.94</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">128</td>
+<td align="right">.05</td>
+<td align="right">.99</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">129</td>
+<td align="right">.01</td>
+<td align="right">1.00</td>
+</tr>
+</tbody>
+</table>
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-freqtablepub" class="toggle" type="checkbox">
+<label for="collapsible-freqtablepub" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="descriptive-statistics.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Publication-quality frequency table</span></span>
+<span id="cb37-2"><a href="descriptive-statistics.html#cb37-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="descriptive-statistics.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Anger =</span> anger) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="descriptive-statistics.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Anger, <span class="at">name =</span> <span class="st">&quot;f&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-5"><a href="descriptive-statistics.html#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cf =</span> <span class="fu">cumsum</span>(f),</span>
+<span id="cb37-6"><a href="descriptive-statistics.html#cb37-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">p =</span> f <span class="sc">/</span> <span class="fu">sum</span>(f),</span>
+<span id="cb37-7"><a href="descriptive-statistics.html#cb37-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">cp =</span> <span class="fu">cumsum</span>(p)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-8"><a href="descriptive-statistics.html#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> p<span class="sc">:</span>cp, </span>
+<span id="cb37-9"><a href="descriptive-statistics.html#cb37-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> <span class="cf">function</span>(x) scales<span class="sc">::</span><span class="fu">number</span>(x, .<span class="dv">01</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-10"><a href="descriptive-statistics.html#cb37-10" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">str_remove</span>(<span class="st">&quot;^0&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-11"><a href="descriptive-statistics.html#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="at">.fn =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="st">&quot;*&quot;</span>,x,<span class="st">&quot;*&quot;</span>), <span class="at">.cols =</span> <span class="sc">-</span>Anger) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-12"><a href="descriptive-statistics.html#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="descriptive-statistics.html#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Frequency Distribution Table for Anger&lt;br&gt;</span></span>
+<span id="cb37-14"><a href="descriptive-statistics.html#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="st">        *f* = Frequency, *cf* = Cumulative Frequency</span></span>
+<span id="cb37-15"><a href="descriptive-statistics.html#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="st">        , *p* = Proportion, and *cp* = Cumulative Proportion&quot;</span>, </span>
+<span id="cb37-16"><a href="descriptive-statistics.html#cb37-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">&quot;r&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="measures-of-central-tendency" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Measures of Central Tendency</h2>
+<div id="mode" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Mode</h3>
+<p>The <span class="defword">mode</span><label for="tufte-mn-53" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-53" class="margin-toggle"><span class="marginnote">The <strong>mode</strong> is the value in a distribution that occurs most often.</span> is the most frequent score in a distribution. Suppose we have a distribution that looks like this:</p>
+<p><span class="math display">\[\{1,2,2,2,2,3,3\}\]</span></p>
+<p>Because 2 occurs more frequently than the other values in the distribution, the mode is 2.</p>
+<p>In a frequency distribution table, the mode is the value with the highest value in the <span class="math inline">\(f\)</span> (frequency) column. In Table <a href="descriptive-statistics.html#tab:freqtablepub">4.2</a>, the mode is 1 because it has the highest frequency ( <em>f</em> = 73).</p>
+<p>In a histogram or probability density plot, the mode is the value that corresponds to the highest point in the plot. If two values tie, both values are the mode and the distribution is <span class="defword">bimodal</span><label for="tufte-mn-54" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-54" class="margin-toggle"><span class="marginnote">A <strong>bimodal</strong> distribution has two modes.</span>. Sometimes a distribution has two distinct clusters, each with its own local mode. The greater of these two modes is the <em>major mode</em>, and the lesser is the <em>minor mode</em> (See Figure <a href="descriptive-statistics.html#fig:bimodal">4.1</a>).</p>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:bimodal"></span>
+<img src="toolkit_files/figure-html/bimodal-1.svg" alt="A bimodal distribution"  />
+<!--
+<p class="caption marginnote">-->Figure 4.1: A bimodal distribution<!--</p>-->
+<!--</div>--></span>
+</p>
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-bimodal" class="toggle" type="checkbox">
+<label for="collapsible-bimodal" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="descriptive-statistics.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A bimodal distribution</span></span>
+<span id="cb38-2"><a href="descriptive-statistics.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="fl">3.5</span>, .<span class="dv">01</span>),</span>
+<span id="cb38-3"><a href="descriptive-statistics.html#cb38-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">dnorm</span>(x, <span class="sc">-</span><span class="dv">1</span>, <span class="fl">0.5</span>) <span class="sc">/</span> <span class="fl">0.8</span> <span class="sc">+</span> <span class="fu">dnorm</span>(x, <span class="dv">1</span>, <span class="fl">0.75</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-4"><a href="descriptive-statistics.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> </span>
+<span id="cb38-5"><a href="descriptive-statistics.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> myfills[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="descriptive-statistics.html#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(x <span class="sc">==</span> <span class="sc">-</span><span class="dv">1</span>), </span>
+<span id="cb38-7"><a href="descriptive-statistics.html#cb38-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.25</span>, </span>
+<span id="cb38-8"><a href="descriptive-statistics.html#cb38-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="st">&quot;Major</span><span class="sc">\n</span><span class="st">Mode&quot;</span>, </span>
+<span id="cb38-9"><a href="descriptive-statistics.html#cb38-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">8</span>, </span>
+<span id="cb38-10"><a href="descriptive-statistics.html#cb38-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">lineheight =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb38-11"><a href="descriptive-statistics.html#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(x <span class="sc">==</span> <span class="dv">1</span>), </span>
+<span id="cb38-12"><a href="descriptive-statistics.html#cb38-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.25</span>, </span>
+<span id="cb38-13"><a href="descriptive-statistics.html#cb38-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="st">&quot;Minor</span><span class="sc">\n</span><span class="st">Mode&quot;</span>, </span>
+<span id="cb38-14"><a href="descriptive-statistics.html#cb38-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">8</span>, </span>
+<span id="cb38-15"><a href="descriptive-statistics.html#cb38-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">lineheight =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb38-16"><a href="descriptive-statistics.html#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="cn">NULL</span>, <span class="at">minor_breaks =</span> <span class="cn">NULL</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)) <span class="sc">+</span></span>
+<span id="cb38-17"><a href="descriptive-statistics.html#cb38-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">25</span>))) <span class="sc">+</span> </span>
+<span id="cb38-18"><a href="descriptive-statistics.html#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">30</span>, <span class="at">base_family =</span> bfont) <span class="sc">+</span> </span>
+<span id="cb38-19"><a href="descriptive-statistics.html#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) </span></code></pre></div>
+</div>
+</div>
+</div>
+<p>To compute the mode of a variable, use the <code>mfv</code> (most frequent value) function from the modeest package <span class="citation">(<label for="tufte-mn-55" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-55" class="margin-toggle">Poncet, 2019<span class="marginnote">Poncet, P. (2019). <em>Modeest: Mode estimation</em>. <a href="https://github.com/paulponcet/modeest">https://github.com/paulponcet/modeest</a></span>)</span>:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="descriptive-statistics.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeest)</span>
+<span id="cb39-2"><a href="descriptive-statistics.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mfv</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+</div>
+<div id="median" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Median</h3>
+<p>The <span class="defword">median</span><label for="tufte-mn-56" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-56" class="margin-toggle"><span class="marginnote">The <strong>median</strong> is the point that divides the lower 50 percent of a distribution from the upper 50 percent.</span> is midpoint of a distribution, the point that divides the lower half of the distribution from the upper half. To calculate the median, you first need to sort the scores. If there is an odd number of scores, the median is the middle score. If there an even number of scores, it is the mean of the two middle scores. There are other definitions of the median that are a little more complex, but rarely is precision needed for calculating the median.</p>
+<p>To find the median using a frequency distribution table, find the first sample space element with a cumulative proportion greater than 0.5. For example, in the distribution shown in Table <a href="descriptive-statistics.html#tab:mediantable">4.3</a>, the first cumulative proportion greater than 0.5 occurs at 5, which is therefore the median.</p>
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:mediantable">Table 4.3: </span>Finding the Median in a Frequency Distribution Table.<br>In this case, the median if 5 because it has the first cumulative proportion that is greater than 0.5.</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="right"><em>X</em></th>
+<th align="right">Frequency</th>
+<th align="right">Cumulative Frequency</th>
+<th align="right">Proportion</th>
+<th align="right">Cumulative Proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">.14</td>
+<td align="right">.14</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">.43</td>
+<td align="right">.57</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">.14</td>
+<td align="right">.71</td>
+</tr>
+<tr class="even">
+<td align="right">9</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">.29</td>
+<td align="right">1.00</td>
+</tr>
+</tbody>
+</table>
+<p>If a sample space element’s cumulative proportion is exactly 0.5, average that sample space element with the next highest value. For example, in the distribution in Table <a href="descriptive-statistics.html#tab:frequencydistributiontable">4.1</a>, the cumulative proportion for 4 is exactly 0.5 and the next value is 6. Thus the median is <span class="math inline">\(\frac{4+6}{2}=5\)</span>.</p>
+<p>The median can be computed for ordinal, interval, and ratio variables, but not for nominal variables. Because they have no order, nominal variables have no middle score.</p>
+<p>The <code>median</code> function can compute the median:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="descriptive-statistics.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+</div>
+<div id="mean" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Mean</h3>
+<p>The <span class="defword">arithmetic mean</span><label for="tufte-mn-57" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-57" class="margin-toggle"><span class="marginnote">The <strong>arithmetic mean</strong> is the balance point of a disribution.</span> is the sum of all values of a distribution divided by the size of the distribution.</p>
+<p><span class="math display">\[\mu_X = \frac{\sum_{i = 1}^n {X_i}}{n}\]</span></p>
+<p>Where <span class="math display">\[\begin{align*}
+  \mu_X &amp;= \text{The population mean of } X\\
+  n &amp;= \text{The number of values in } X
+\end{align*}\]</span></p>
+<p>The arithmetic mean can only be calculated with interval or ratio variables. Why? The formula for the mean requires adding numbers, and the operation of addition is not defined for ordinal and nominal values.</p>
+<p>The arithmetic mean is usually the preferred measure of central tendency for interval and ration variables because it is usually more stable from sample to sample than the median and the mode.</p>
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:proconCT">Table 4.4: </span>Comparing Central Tendency Measures</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="left">Mode</th>
+<th align="left">Median</th>
+<th align="left">Mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Standard Error</td>
+<td align="left">Larger</td>
+<td align="left">Smaller</td>
+<td align="left">Smallest</td>
+</tr>
+<tr class="even">
+<td align="left">Algebraic Formula</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="odd">
+<td align="left">Unique Value</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">Sensitive to Outliers/Skewness</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="odd">
+<td align="left">Computable for Nominal Variables</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">Computable for Ordinal Variables</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">Computable for Interval Variables</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">Computable for Ratio Variables</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="expected-values" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Expected Values</h2>
+<p>At one level, the concept of the <span class="defword">expected value</span><label for="tufte-mn-58" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-58" class="margin-toggle"><span class="marginnote">The <strong>expected value</strong> of a random variable is the population mean of the values that the random variable generates.</span> of a random variable is really simple; it is just the population mean of the variable. So why don’t we just talk about population means and be done with this “expected value” business? It just complicates things! True. In this case, however, there is value in letting some simple things appear to become complicated for a while so that later we can show that some apparently complicated things are actually simple.</p>
+<p>Why can’t we just say that the expected value of a random variable is the population mean? You are familiar, of course, with the formula for a mean. You just add up the numbers and divide by the number of numbers <span class="math inline">\(n\)</span>:</p>
+<p><span class="math display">\[
+m_X=\frac{\sum_{i=1}^{n} {x_i}}{n}
+\]</span></p>
+<p>Fine. Easy. Except…hmm…random variables generate an infinite number of numbers. Dividing by infinity is tricky. We’ll have to approach this from a different angle…</p>
+<p>The expected value of a random variable is a weighted mean. A mean of what? Everything in the sample space. How are the sample space elements weighted? Each element in the sample space is multiplied by its probability of occurring.</p>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:pmfX"></span>
+<img src="toolkit_files/figure-html/pmfX-1.svg" alt="Probability distribution of a hypothetical random variable"  />
+<!--
+<p class="caption marginnote">-->Figure 4.2: Probability distribution of a hypothetical random variable<!--</p>-->
+<!--</div>--></span>
+</p>
+<p>Suppose that the sample space of a random variable <span class="math inline">\(X\)</span> is <span class="math inline">\(\{2, 4, 8\}\)</span> with respective probabilities of <span class="math inline">\(\{0.3, 0.2, 0.5\}\)</span>, as shown in Figure <a href="descriptive-statistics.html#fig:pmfX">4.2</a>. The notation for taking the expected value of a random variable <span class="math inline">\(X\)</span> is <span class="math inline">\(\mathcal{E}(X)\)</span>. Can we find the mean of this variable <span class="math inline">\(X\)</span> even if we do not have any samples it generates? Yes. To calculate the expected value of <span class="math inline">\(X\)</span>, multiply each sample space element by its associated probability and then take the sum of all resulting products. Thus,</p>
+<p><span class="math display">\[
+\begin{align*}
+\mathcal{E}(X)&amp;=\sum_{i=1}^{3}{p_i x_i}\\
+&amp;= p_1x_1+p_2x_2+p_3x_3\\
+&amp;= (.3\times 2)+(.2\times 4)+(.5\times 8)\\
+&amp;=5.4
+\end{align*}
+\]</span></p>
+<p>The term <em>expected value</em> might be a little confusing. In this case, 5.4 is the expected value of <span class="math inline">\(X\)</span> but <span class="math inline">\(X\)</span> never once generates a value of 5.4. So the expected value is not “expected” in the sense that we expect to see it often. It is expected to be close to the mean of any randomly selected sample of the variable that is sufficiently large:</p>
+<p><span class="math display">\[
+\mathcal{E}(X)=\lim_{n \to \infty} \frac{1}{n}\sum_{i=1}^{n} {x_i}
+\]</span></p>
+<p>If a random variable <span class="math inline">\(X\)</span> is discrete, its expected value <span class="math inline">\(\mathcal{E}(X)\)</span> is the sum of each member of the sample space <span class="math inline">\(x_i\)</span> multiplied by its probability of occurring <span class="math inline">\(p_i\)</span>. The probability of occurring is the output of <span class="math inline">\(X\)</span>’s probability density function at that location (<span class="math inline">\(p_i=f_X(x_i)\)</span>. Thus,</p>
+<p><span class="math display">\[
+\mathcal{E}(X)=\sum_{i=-\infty}^{\infty}{x_i f_X(x_i)}
+\]</span></p>
+<p>With continuous variables, the number of elements in a sample is infinite. Fortunately, calculus was designed to deal with this kind of infinity. The trick is to imagine that the continuous variable is sliced into bins and that the bins are sliced ever more thinly. If a continuous random variable has probability density function <span class="math inline">\(f_X(x)\)</span>, the expected value is</p>
+<p><span class="math display">\[
+\mathcal{E}(X)=\int_{-\infty}^{\infty} {x f_X(x)\,\mathrm{d}x}
+\]</span></p>
+<p>If we multiply each value of <span class="math inline">\(X\)</span> by the height of its bin (<span class="math inline">\(p\)</span>), we get the mean of the binned distribution. If the bins become ever thinner, as in Figure <a href="descriptive-statistics.html#fig:thinbins">4.3</a>, the product of <span class="math inline">\(X\)</span> and <span class="math inline">\(p\)</span> approximates the expected value of the smooth continuous distribution.</p>
+<div class="figure" style="text-align: center"><span id="fig:thinbins"></span>
+<img src="toolkit_files/figure-html/thinbins-1.svg" alt="Slicing the standard normal distribution into ever thinner bins" width="100%"  />
+<p class="caption marginnote shownote">
+Figure 4.3: Slicing the standard normal distribution into ever thinner bins
+</p>
+</div>
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-thinbins" class="toggle" type="checkbox">
+<label for="collapsible-thinbins" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="descriptive-statistics.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Slicing the standard normal distribution into ever thinner bins</span></span>
+<span id="cb43-2"><a href="descriptive-statistics.html#cb43-2" aria-hidden="true" tabindex="-1"></a>make_bins <span class="ot">&lt;-</span> <span class="cf">function</span>(binPower, binWidth, LowerBound, UpperBound) {</span>
+<span id="cb43-3"><a href="descriptive-statistics.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(LowerBound, UpperBound, binWidth), binPower, binWidth)</span>
+<span id="cb43-4"><a href="descriptive-statistics.html#cb43-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-5"><a href="descriptive-statistics.html#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="descriptive-statistics.html#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap_df</span>(<span class="fu">tibble</span>(<span class="at">binPower =</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
+<span id="cb43-7"><a href="descriptive-statistics.html#cb43-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">binWidth =</span> <span class="dv">2</span> <span class="sc">^</span> (<span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> binPower), </span>
+<span id="cb43-8"><a href="descriptive-statistics.html#cb43-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">LowerBound =</span> <span class="sc">-</span><span class="dv">4</span>, </span>
+<span id="cb43-9"><a href="descriptive-statistics.html#cb43-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">UpperBound =</span> <span class="dv">4</span>), </span>
+<span id="cb43-10"><a href="descriptive-statistics.html#cb43-10" aria-hidden="true" tabindex="-1"></a>        make_bins) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-11"><a href="descriptive-statistics.html#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p =</span> <span class="fu">pnorm</span>(x <span class="sc">+</span> binWidth <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(x <span class="sc">-</span> binWidth <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb43-12"><a href="descriptive-statistics.html#cb43-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">width_label =</span> <span class="fu">factor</span>(<span class="dv">2</span> <span class="sc">^</span> binPower, </span>
+<span id="cb43-13"><a href="descriptive-statistics.html#cb43-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="dv">2</span> <span class="sc">^</span> (<span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb43-14"><a href="descriptive-statistics.html#cb43-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Width = 2&quot;</span>, <span class="st">&quot;Width = 1&quot;</span>,</span>
+<span id="cb43-15"><a href="descriptive-statistics.html#cb43-15" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">paste0</span>(<span class="st">&quot;Width = 1/&quot;</span>,</span>
+<span id="cb43-16"><a href="descriptive-statistics.html#cb43-16" aria-hidden="true" tabindex="-1"></a>                                                <span class="dv">2</span> <span class="sc">^</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))))) <span class="sc">%&gt;%</span></span>
+<span id="cb43-17"><a href="descriptive-statistics.html#cb43-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, p)) <span class="sc">+</span> </span>
+<span id="cb43-18"><a href="descriptive-statistics.html#cb43-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">width =</span> binWidth), </span>
+<span id="cb43-19"><a href="descriptive-statistics.html#cb43-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> myfills[<span class="dv">1</span>], </span>
+<span id="cb43-20"><a href="descriptive-statistics.html#cb43-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, </span>
+<span id="cb43-21"><a href="descriptive-statistics.html#cb43-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">lwd =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb43-22"><a href="descriptive-statistics.html#cb43-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(width_label <span class="sc">~</span> .,  </span>
+<span id="cb43-23"><a href="descriptive-statistics.html#cb43-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb43-24"><a href="descriptive-statistics.html#cb43-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>(<span class="at">base_size =</span> <span class="dv">24</span>, </span>
+<span id="cb43-25"><a href="descriptive-statistics.html#cb43-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">base_family =</span> bfont) <span class="sc">+</span> </span>
+<span id="cb43-26"><a href="descriptive-statistics.html#cb43-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="cn">NULL</span>, </span>
+<span id="cb43-27"><a href="descriptive-statistics.html#cb43-27" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="sc">-</span><span class="dv">4</span><span class="sc">:</span><span class="dv">4</span>, </span>
+<span id="cb43-28"><a href="descriptive-statistics.html#cb43-28" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="cf">function</span>(x) signs<span class="sc">::</span><span class="fu">signs</span>(x, <span class="at">accuracy =</span> <span class="dv">1</span>),</span>
+<span id="cb43-29"><a href="descriptive-statistics.html#cb43-29" aria-hidden="true" tabindex="-1"></a>                     <span class="co"># labels =  paste0(if_else(-4:4 &lt; 0,&quot;−&quot;,&quot;&quot;), abs(-4:4)),</span></span>
+<span id="cb43-30"><a href="descriptive-statistics.html#cb43-30" aria-hidden="true" tabindex="-1"></a>                     <span class="co"># sec.axis = dup_axis(),</span></span>
+<span id="cb43-31"><a href="descriptive-statistics.html#cb43-31" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="fl">0.01</span>,<span class="dv">0</span>)) <span class="sc">+</span> </span>
+<span id="cb43-32"><a href="descriptive-statistics.html#cb43-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>, </span>
+<span id="cb43-33"><a href="descriptive-statistics.html#cb43-33" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb43-34"><a href="descriptive-statistics.html#cb43-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb43-35"><a href="descriptive-statistics.html#cb43-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># strip.text.y = element_blank(), </span></span>
+<span id="cb43-36"><a href="descriptive-statistics.html#cb43-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.placement =</span> <span class="st">&quot;outside&quot;</span>,</span>
+<span id="cb43-37"><a href="descriptive-statistics.html#cb43-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb43-38"><a href="descriptive-statistics.html#cb43-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fu">c</span>(<span class="fu">rep</span>(.<span class="dv">75</span>,<span class="dv">4</span>),<span class="fu">rep</span>(<span class="fl">0.5</span>,<span class="dv">5</span>))))</span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div id="measures-of-variability" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Measures of Variability</h2>
+<div id="variability-of-nominal-variables" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Variability of Nominal Variables</h3>
+<p>I have never needed a statistic that measures the variability of a nominal variable, but if you need one, there are <a href="https://en.wikipedia.org/wiki/Qualitative_variation">many from which to choose</a>. For example, <span class="citation"><label for="tufte-mn-59" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-59" class="margin-toggle">Wilcox (1973)<span class="marginnote">Wilcox, A. R. (1973). Indices of qualitative variation and political measurement. <em>The Western Political Quarterly</em>, <em>26</em>(2), 325. <a href="https://doi.org/10.2307/446831">https://doi.org/10.2307/446831</a></span></span> presented this analog to variance for nominal variables:</p>
+<p><span class="math display">\[
+\text{VA} = 1-\frac{1}{n^2}\frac{k}{k-1}\sum_{i=1}^k\left(f_i-\frac{n}{k}\right)^2
+\]</span></p>
+<p>The qualvar package <span class="citation">(<label for="tufte-mn-60" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-60" class="margin-toggle">Gombin, 2018<span class="marginnote">Gombin, J. (2018). <em>Qualvar: Implements indices of qualitative variation proposed by wilcox (1973)</em>. <a href="http://joelgombin.github.io/qualvar/">http://joelgombin.github.io/qualvar/</a></span>)</span> can compute the primary indices of qualitative variation presented by Wilcox.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="descriptive-statistics.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qualvar)</span>
+<span id="cb44-2"><a href="descriptive-statistics.html#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="descriptive-statistics.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequencies</span></span>
+<span id="cb44-4"><a href="descriptive-statistics.html#cb44-4" aria-hidden="true" tabindex="-1"></a>frequencies <span class="ot">=</span>  <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">60</span>, <span class="at">B =</span> <span class="dv">10</span>, <span class="at">C =</span> <span class="dv">25</span>, <span class="at">D =</span> <span class="dv">5</span>)</span>
+<span id="cb44-5"><a href="descriptive-statistics.html#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="descriptive-statistics.html#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co"># VA</span></span>
+<span id="cb44-7"><a href="descriptive-statistics.html#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">VA</span>(frequencies)</span></code></pre></div>
+<pre><code>## [1] 0.7533333</code></pre>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:nominalvar"></span>
+<img src="toolkit_files/figure-html/nominalvar-1.svg" alt="The Variance Analog (VA) index of qualitative variation ranges from 0 to 1. It equals 0 when every data point is assigned to the same category and 1 when each category has the same frequency."  />
+<!--
+<p class="caption marginnote">-->Figure 4.4: The Variance Analog (VA) index of qualitative variation ranges from 0 to 1. It equals 0 when every data point is assigned to the same category and 1 when each category has the same frequency.<!--</p>-->
+<!--</div>--></span>
+</p>
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-nominalvarCode" class="toggle" type="checkbox">
+<label for="collapsible-nominalvarCode" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="descriptive-statistics.html#cb46-1" aria-hidden="true" tabindex="-1"></a>low_var <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">100</span>, <span class="at">B =</span> <span class="dv">0</span>, <span class="at">C =</span> <span class="dv">0</span>, <span class="at">D =</span> <span class="dv">0</span>)</span>
+<span id="cb46-2"><a href="descriptive-statistics.html#cb46-2" aria-hidden="true" tabindex="-1"></a>mid_var <span class="ot">=</span>  <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">60</span>, <span class="at">B =</span> <span class="dv">10</span>, <span class="at">C =</span> <span class="dv">25</span>, <span class="at">D =</span> <span class="dv">5</span>)</span>
+<span id="cb46-3"><a href="descriptive-statistics.html#cb46-3" aria-hidden="true" tabindex="-1"></a>high_var <span class="ot">=</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">25</span>, <span class="at">B =</span> <span class="dv">25</span>, <span class="at">C =</span> <span class="dv">25</span>, <span class="at">D =</span> <span class="dv">25</span>)</span>
+<span id="cb46-4"><a href="descriptive-statistics.html#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="descriptive-statistics.html#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="descriptive-statistics.html#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">Variability =</span> <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Middle&quot;</span>, <span class="st">&quot;High&quot;</span>),</span>
+<span id="cb46-7"><a href="descriptive-statistics.html#cb46-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">Frequency =</span> <span class="fu">list</span>(low_var, mid_var, high_var),</span>
+<span id="cb46-8"><a href="descriptive-statistics.html#cb46-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">VA =</span> <span class="fu">map_dbl</span>(Frequency, VA)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-9"><a href="descriptive-statistics.html#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Frequency =</span> <span class="fu">map</span>(Frequency, <span class="cf">function</span>(d) <span class="fu">as.data.frame</span>(d) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-10"><a href="descriptive-statistics.html#cb46-10" aria-hidden="true" tabindex="-1"></a>                           tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">&quot;Category&quot;</span>)),</span>
+<span id="cb46-11"><a href="descriptive-statistics.html#cb46-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">Variability =</span> <span class="fu">paste0</span>(Variability, </span>
+<span id="cb46-12"><a href="descriptive-statistics.html#cb46-12" aria-hidden="true" tabindex="-1"></a>                              <span class="st">&quot;</span><span class="sc">\n</span><span class="st">VA = &quot;</span>, </span>
+<span id="cb46-13"><a href="descriptive-statistics.html#cb46-13" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">prob_label</span>(VA)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-14"><a href="descriptive-statistics.html#cb46-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">fct_inorder</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-15"><a href="descriptive-statistics.html#cb46-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(Frequency) <span class="sc">%&gt;%</span>  </span>
+<span id="cb46-16"><a href="descriptive-statistics.html#cb46-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Frequencies =</span> d) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-17"><a href="descriptive-statistics.html#cb46-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Category, Frequencies)) <span class="sc">+</span></span>
+<span id="cb46-18"><a href="descriptive-statistics.html#cb46-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Variability)) <span class="sc">+</span> </span>
+<span id="cb46-19"><a href="descriptive-statistics.html#cb46-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_fill</span>(<span class="fu">aes</span>(<span class="at">label =</span> Frequencies), </span>
+<span id="cb46-20"><a href="descriptive-statistics.html#cb46-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">vjust =</span> <span class="sc">-</span>.<span class="dv">3</span>, </span>
+<span id="cb46-21"><a href="descriptive-statistics.html#cb46-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;gray30&quot;</span>, </span>
+<span id="cb46-22"><a href="descriptive-statistics.html#cb46-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fu">ggtext_size</span>(<span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb46-23"><a href="descriptive-statistics.html#cb46-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.08</span>)), </span>
+<span id="cb46-24"><a href="descriptive-statistics.html#cb46-24" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">20</span>), </span>
+<span id="cb46-25"><a href="descriptive-statistics.html#cb46-25" aria-hidden="true" tabindex="-1"></a>                     <span class="at">minor_breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb46-26"><a href="descriptive-statistics.html#cb46-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> myfills) <span class="sc">+</span></span>
+<span id="cb46-27"><a href="descriptive-statistics.html#cb46-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(Variability)) <span class="sc">+</span> </span>
+<span id="cb46-28"><a href="descriptive-statistics.html#cb46-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>(<span class="at">base_family =</span> bfont, <span class="at">base_size =</span> <span class="dv">30</span>) <span class="sc">+</span> </span>
+<span id="cb46-29"><a href="descriptive-statistics.html#cb46-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb46-30"><a href="descriptive-statistics.html#cb46-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>In all of these indices of qualitative variation, the lowest value is 0 when every data point belongs to the same category (See Figure <a href="descriptive-statistics.html#fig:nominalvar">4.4</a>, left panel). Also, the maximum value is 1 when the data points are equally distributed across categories (See Figure <a href="descriptive-statistics.html#fig:nominalvar">4.4</a>, right panel).</p>
+</div>
+<div id="variability-of-ordinal-variables" class="section level3" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Variability of Ordinal Variables</h3>
+
+</div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="distributions.html"><button class="btn btn-default">Previous</button></a>
+<a href="notation.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+<meta name="github-repo" content="wjschne/psychtoolkit" />
+
+<meta name="author" content="W. Joel Schneider" />
+
+<meta name="date" content="2018-08-24" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+
+<title>Practical Psychometrics: A Psychological Assessment Toolkit</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+<script type="text/x-mathjax-config">
+
+
+MathJax.Hub.Config({
+  TeX: {Augment: {
+    Definitions: {macros: {xfrac: 'XFrac'}},
+    Parse: {prototype: {
+      XFrac: function (name) {
+        var num = this.ParseArg(name);
+        var den = this.ParseArg(name);
+        this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+      }
+    }}
+  }}}
+);
+
+
+</script>
+
+
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+<link rel="stylesheet" href="equity.css" type="text/css" />
+<link rel="stylesheet" href="mycss.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#preface">Preface</a></li>
+<li><a href="notation.html#notation">Notation</a></li>
+<li><a href="random-variables-vectors-and-matrices.html#random-variables-vectors-and-matrices"><span class="toc-section-number">1</span> Random variables, vectors, and matrices</a></li>
+<li><a href="summation.html#summation"><span class="toc-section-number">2</span> Summation</a></li>
+<li><a href="other.html#other"><span class="toc-section-number">3</span> Other</a></li>
+<li><a href="intro.html#intro"><span class="toc-section-number">4</span> Introduction</a></li>
+<li class="has-sub"><a href="variables.html#variables"><span class="toc-section-number">5</span> Variables</a><ul>
+<li><a href="variables.html#nominal"><span class="toc-section-number">5.1</span> Nominal Scales</a></li>
+<li><a href="variables.html#ordinal-scales"><span class="toc-section-number">5.2</span> Ordinal Scales</a></li>
+<li><a href="variables.html#interval-scales"><span class="toc-section-number">5.3</span> Interval Scales</a></li>
+<li><a href="variables.html#ratio-scales"><span class="toc-section-number">5.4</span> Ratio Scales</a></li>
+<li><a href="variables.html#sec:DiscreteVsContinuous"><span class="toc-section-number">5.5</span> Discrete vs. Continuous Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#distributions"><span class="toc-section-number">6</span> Distributions</a><ul>
+<li><a href="distributions.html#random-variables"><span class="toc-section-number">6.1</span> Random Variables</a></li>
+<li><a href="distributions.html#sec:SampleSpace"><span class="toc-section-number">6.2</span> Sample Spaces</a></li>
+<li><a href="distributions.html#sec:ProbabilityDistribution"><span class="toc-section-number">6.3</span> Probability Distributions</a></li>
+<li><a href="distributions.html#sec:DiscreteUniform"><span class="toc-section-number">6.4</span> Discrete Uniform Distributions</a></li>
+<li><a href="distributions.html#parameters-of-random-variables"><span class="toc-section-number">6.5</span> Parameters of Random Variables</a></li>
+<li><a href="distributions.html#sec:pmf"><span class="toc-section-number">6.6</span> Probability Mass Functions</a></li>
+<li><a href="distributions.html#sec:CumDist"><span class="toc-section-number">6.7</span> Cumulative Distribution Functions</a></li>
+<li><a href="distributions.html#sec:Quantile"><span class="toc-section-number">6.8</span> Quantile functions</a></li>
+<li><a href="distributions.html#generating-a-random-sample-in-r"><span class="toc-section-number">6.9</span> Generating a Random Sample in R</a></li>
+<li class="has-sub"><a href="distributions.html#sec:BernoulliDist"><span class="toc-section-number">6.10</span> Bernoulli Distributions</a><ul>
+<li><a href="distributions.html#generating-a-random-sample-from-the-bernoulli-distribution"><span class="toc-section-number">6.10.1</span> Generating a Random Sample from the Bernoulli Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#sec:binomial"><span class="toc-section-number">6.11</span> Binomial Distributions</a><ul>
+<li><a href="distributions.html#clinical-applications-of-the-binomial-distribution"><span class="toc-section-number">6.11.1</span> Clinical Applications of the Binomial Distribution</a></li>
+<li><a href="distributions.html#graphing-the-binomial-distribution"><span class="toc-section-number">6.11.2</span> Graphing the binomial distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#poisson-distributions"><span class="toc-section-number">6.12</span> Poisson Distributions</a><ul>
+<li><a href="distributions.html#a-clinical-application-of-the-the-poisson-distribution"><span class="toc-section-number">6.12.1</span> A clinical application of the the Poisson distribution</a></li>
+</ul></li>
+<li><a href="distributions.html#geometric-distributions"><span class="toc-section-number">6.13</span> Geometric Distributions}</a></li>
+<li><a href="distributions.html#sec:pdf"><span class="toc-section-number">6.14</span> Probability Density Functions</a></li>
+<li class="has-sub"><a href="distributions.html#sec:Uniform"><span class="toc-section-number">6.15</span> Continuous Uniform Distributions</a><ul>
+<li><a href="distributions.html#generating-random-samples-from-the-continuous-uniform-distribution"><span class="toc-section-number">6.15.1</span> Generating random samples from the continuous uniform distribution</a></li>
+<li><a href="distributions.html#using-the-continuous-uniform-distribution-to-generate-random-samples-from-other-distributions"><span class="toc-section-number">6.15.2</span> Using the continuous uniform distribution to generate random samples from other distributions</a></li>
+</ul></li>
+<li><a href="distributions.html#sec:normal"><span class="toc-section-number">6.16</span> Normal Distributions</a></li>
+</ul></li>
+<li><a href="final-words.html#final-words"><span class="toc-section-number">7</span> Final Words</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="summation" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Summation</h1>
+<p>There are two ways to show that a variable is to be summed. The summation sign looks like a really big Σ, the capital Greek letter sigma.</p>
+<p>$$</p>
+<p>_{i = 1}^k X_i</p>
+<p>$$</p>
+</div>
+<p style="text-align: center;">
+<a href="random-variables-vectors-and-matrices.html"><button class="btn btn-default">Previous</button></a>
+<a href="other.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

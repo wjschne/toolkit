@@ -1,0 +1,197 @@
+body {font-family: 'equity_text_a', 'Palatino Linotype',Palatino,serif;
+  background-color:white;
+  font-feature-settings: 'ss02';
+  font-variant-numeric:tabular-nums;
+  line-height: 150%;
+}
+
+h1, h2, h3, h4 {
+  line-height:normal;
+  font-family: 'equity_caps_a_tab', Constantia,'Palatino Linotype',Palatino,serif;
+  }
+
+/*h2 {font-size:22pt}*/
+/*h2 {font-size:19pt}*/
+/*h3 {font-size:15pt}*/
+
+table {
+  font-size: 1.2em;
+  border-collapse: collapse;
+  font-family: 'equity_text_a', 'Palatino Linotype',Palatino,serif;
+}
+
+td, th {padding: 3pt; font-size:1.2em}
+
+/*figcaption{font-size:1.2em;font-weight:bold;text-align:left;}*/
+
+/*h1.title {font-variant:small-caps;   font-style: normal;   font-size:3em;  letter-spacing:0.01em;  font-weight:normal;}*/
+
+h3.subtitle em {
+  font-style: normal;
+  font-size:1.5em;
+  letter-spacing:0.01em;
+  font-weight:normal;
+}
+
+h3.subtitle {
+  margin-top:0px;}
+
+
+
+/*h4.date em {
+  font-style: normal;
+  font-size:1em;
+  font-weight:normal;
+}*/
+
+
+/*caption {color: #101010;font-weight:bold;}*/
+
+/*img {
+    max-width:100%;
+    margin-left:auto;
+    margin-right:auto;
+  }*/
+
+
+.controls {
+ text-align: right;
+ margin-bottom: 1em;
+}
+
+.controls li {
+  display: inline;
+}
+
+button {
+  background: #222;
+  color: #eee;
+  border: 0;
+  font-size: 2rem;
+  border-radius: 0.25rem;
+  font-family: 'equity_text_a_tab', Constantia,'Palatino Linotype',Palatino,serif;
+  font-style:normal
+}
+
+.wrap-collapsible {
+  margin-bottom: 1em;
+  padding: 0em 0em;
+  margin-top: -2em;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+.lbl-toggle {
+  display: block;
+
+  font-weight: normal;
+  font-size: 1.2rem;
+  text-align: center;
+
+  padding: 3px 0px;
+
+  color: #222;
+  background: #ddd;
+
+  cursor: pointer;
+  width: 55%;
+
+  border-radius: 7px;
+  transition: all 0.25s ease-out;
+}
+
+.lbl-toggle:hover {
+  color: #4169e1;
+}
+
+.lbl-toggle::before {
+  content: ' ';
+  display: inline-block;
+
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid currentColor;
+  vertical-align: middle;
+  margin-right: .7rem;
+  transform: translateY(-2px);
+
+  transition: transform .2s ease-out;
+}
+
+.toggle:checked + .lbl-toggle::before {
+  transform: rotate(90deg) translateX(-3px);
+}
+
+.collapsible-content {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height .25s ease-in-out;
+  background-color: #eeeeee;
+  width: 55%;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.toggle:checked + .lbl-toggle + .collapsible-content {
+  max-height: 11350px;
+}
+
+.toggle:checked + .lbl-toggle {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.collapsible-content .content-inner {
+
+  width: 100%;
+  background-color: #eeeeee;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+div.sourceCode{width: 55%;
+               background-color:none;
+			   overflow: visible;}
+pre.sourceCode.r {background-color: #eeeeee;
+                  border-radius: 5px;
+				  padding:4pt;
+				  width:98%;
+				  overflow: visible;}
+
+.content-inner + pre.sourceCode.r {background-color: #eeeeee;
+                  border-radius: 5px;
+				  padding:4pt;
+				  width:100%;
+				  overflow: visible;}
+
+
+
+div.sourceCode + pre.sourceCode {
+	width:100%;
+	overflow: visible;
+}
+.tikz {
+	width:100%;
+	overflow: visible;
+}
+.sourceCode.latex {
+	width:100%;
+	overflow: visible;
+}
+.sourceCode.r {
+	width:100%;
+	overflow: visible;
+}
+
+.content-inner .pre.sourceCode.r {
+	padding:0pt;
+}
+.defword {color: #4169E1}
+.marginnote{color: #4169E1; font-size:1.2rem}
+.figure .marginnote{color: #000000}
+.citation .marginnote{color: #333333; font-size:1rem}
+.shownote{color: #000000}
+a:hover {color: #4169E1}
+
+

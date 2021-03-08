@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+<meta name="github-repo" content="wjschne/psychtoolkit" />
+
+<meta name="author" content="W. Joel Schneider" />
+
+<meta name="date" content="2018-10-09" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+
+<title>Practical Psychometrics: A Psychological Assessment Toolkit</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+<script type="text/x-mathjax-config">
+
+
+MathJax.Hub.Config({
+  TeX: {Augment: {
+    Definitions: {macros: {xfrac: 'XFrac'}},
+    Parse: {prototype: {
+      XFrac: function (name) {
+        var num = this.ParseArg(name);
+        var den = this.ParseArg(name);
+        this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+      }
+    }}
+  }}}
+);
+
+
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+<link rel="stylesheet" href="equity.css" type="text/css" />
+<link rel="stylesheet" href="mycss.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#preface">Preface</a></li>
+<li><a href="intro.html#intro"><span class="toc-section-number">1</span> Introduction</a></li>
+<li class="has-sub"><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a><ul>
+<li><a href="nominal.html#nominal"><span class="toc-section-number">2.1</span> Nominal Scales</a></li>
+<li><a href="ordinal-scales.html#ordinal-scales"><span class="toc-section-number">2.2</span> Ordinal Scales</a></li>
+<li><a href="interval-scales.html#interval-scales"><span class="toc-section-number">2.3</span> Interval Scales</a></li>
+<li><a href="ratio-scales.html#ratio-scales"><span class="toc-section-number">2.4</span> Ratio Scales</a></li>
+<li><a href="sec-DiscreteVsContinuous.html#sec:DiscreteVsContinuous"><span class="toc-section-number">2.5</span> Discrete vs. Continuous Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#distributions"><span class="toc-section-number">3</span> Distributions</a><ul>
+<li class="has-sub"><a href="random-variables.html#random-variables"><span class="toc-section-number">3.1</span> Random Variables</a><ul>
+<li><a href="random-variables.html#sets"><span class="toc-section-number">3.1.1</span> Sets</a></li>
+<li><a href="random-variables.html#sec:SampleSpace"><span class="toc-section-number">3.1.2</span> Sample Spaces</a></li>
+</ul></li>
+<li><a href="sec-ProbabilityDistribution.html#sec:ProbabilityDistribution"><span class="toc-section-number">3.2</span> Probability Distributions</a></li>
+<li class="has-sub"><a href="sec-DiscreteUniform.html#sec:DiscreteUniform"><span class="toc-section-number">3.3</span> Discrete Uniform Distributions</a><ul>
+<li><a href="sec-DiscreteUniform.html#parameters-of-random-variables"><span class="toc-section-number">3.3.1</span> Parameters of Random Variables</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:pmf"><span class="toc-section-number">3.3.2</span> Probability Mass Functions</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:CumDist"><span class="toc-section-number">3.3.3</span> Cumulative Distribution Functions</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:Quantile"><span class="toc-section-number">3.3.4</span> Quantile functions</a></li>
+<li><a href="sec-DiscreteUniform.html#generating-a-random-sample-in-r"><span class="toc-section-number">3.3.5</span> Generating a Random Sample in R</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-BernoulliDist.html#sec:BernoulliDist"><span class="toc-section-number">3.4</span> Bernoulli Distributions</a><ul>
+<li><a href="sec-BernoulliDist.html#generating-a-random-sample-from-the-bernoulli-distribution"><span class="toc-section-number">3.4.1</span> Generating a Random Sample from the Bernoulli Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-binomial.html#sec:binomial"><span class="toc-section-number">3.5</span> Binomial Distributions</a><ul>
+<li><a href="sec-binomial.html#clinical-applications-of-the-binomial-distribution"><span class="toc-section-number">3.5.1</span> Clinical Applications of the Binomial Distribution</a></li>
+<li><a href="sec-binomial.html#graphing-the-binomial-distribution"><span class="toc-section-number">3.5.2</span> Graphing the binomial distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="poisson-distributions.html#poisson-distributions"><span class="toc-section-number">3.6</span> Poisson Distributions</a><ul>
+<li><a href="poisson-distributions.html#a-clinical-application-of-the-the-poisson-distribution"><span class="toc-section-number">3.6.1</span> A clinical application of the the Poisson distribution</a></li>
+</ul></li>
+<li><a href="geometric-distributions.html#geometric-distributions"><span class="toc-section-number">3.7</span> Geometric Distributions}</a></li>
+<li><a href="sec-pdf.html#sec:pdf"><span class="toc-section-number">3.8</span> Probability Density Functions</a></li>
+<li class="has-sub"><a href="sec-Uniform.html#sec:Uniform"><span class="toc-section-number">3.9</span> Continuous Uniform Distributions</a><ul>
+<li><a href="sec-Uniform.html#generating-random-samples-from-the-continuous-uniform-distribution"><span class="toc-section-number">3.9.1</span> Generating random samples from the continuous uniform distribution</a></li>
+<li><a href="sec-Uniform.html#using-the-continuous-uniform-distribution-to-generate-random-samples-from-other-distributions"><span class="toc-section-number">3.9.2</span> Using the continuous uniform distribution to generate random samples from other distributions</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-normal.html#sec:normal"><span class="toc-section-number">3.10</span> Normal Distributions</a><ul>
+<li><a href="sec-normal.html#notation-for-normal-variates"><span class="toc-section-number">3.10.1</span> Notation for Normal Variates</a></li>
+</ul></li>
+<li><a href="half-normal-distribution.html#half-normal-distribution"><span class="toc-section-number">3.11</span> Half-Normal Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">4</span> Descriptive Statistics</a><ul>
+<li><a href="frequency-distribution-tables.html#frequency-distribution-tables"><span class="toc-section-number">4.1</span> Frequency Distribution Tables</a></li>
+<li class="has-sub"><a href="central-tendencies.html#central-tendencies"><span class="toc-section-number">4.2</span> Central Tendencies</a><ul>
+<li><a href="central-tendencies.html#mode"><span class="toc-section-number">4.2.1</span> Mode</a></li>
+</ul></li>
+<li><a href="expected-values.html#expected-values"><span class="toc-section-number">4.3</span> Expected Values</a></li>
+</ul></li>
+<li class="has-sub"><a href="notation.html#notation">Notation</a><ul>
+<li><a href="random-variables-vectors-and-matrices.html#random-variables-vectors-and-matrices"><span class="toc-section-number">4.4</span> Random variables, vectors, and matrices</a></li>
+<li><a href="sets-and-intervals.html#sets-and-intervals"><span class="toc-section-number">4.5</span> Sets and intervals</a></li>
+<li><a href="summation.html#summation"><span class="toc-section-number">4.6</span> Summation</a></li>
+<li><a href="other.html#other"><span class="toc-section-number">4.7</span> Other</a></li>
+</ul></li>
+<li class="has-sub"><a href="references.html#references">References</a><ul>
+<li><a href="r-packages-used-in-this-book.html#r-packages-used-in-this-book">R packages used in this book</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="sec:BernoulliDist" class="section level2">
+<h2><span class="header-section-number">3.4</span> Bernoulli Distributions</h2>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:bernoullipic"></span>
+<img src="Jakob_Bernoulli2.jpg" alt="Jakob Bernoulli (1654--1705)&lt;br&gt;[Image Credits](https://en.wikipedia.org/wiki/File:Jakob_Bernoulli.jpg)" width="414"  />
+<!--
+<p class="caption marginnote">-->Figure 2.9: Jakob Bernoulli (1654–1705)<br><a href="https://en.wikipedia.org/wiki/File:Jakob_Bernoulli.jpg">Image Credits</a><!--</p>-->
+<!--</div>--></span>
+</p>
+<p><label for="tufte-mn-15" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-15" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Notation note:</strong> Whereas <span class="math inline"><span class="math inline">\(\{a,b\}\)</span></span> is the set of just two numbers, <span class="math inline"><span class="math inline">\(a\)</span></span> and <span class="math inline"><span class="math inline">\(b\)</span></span>, <span class="math inline"><span class="math inline">\([a,b]\)</span></span> is the set of all real numbers between <span class="math inline"><span class="math inline">\(a\)</span></span> and <span class="math inline"><span class="math inline">\(b\)</span></span>.</span></span></p>
+<!-- \begin{equation*} -->
+<!-- \boxed{ -->
+<!-- \begin{array}{rccc} -->
+<!-- % \text{\textbf{Bernoulli Distribution}}&&\\ -->
+<!-- \text{Sample Space:} & x&\in&\{0,1\}\\  -->
+<!-- \text{Probability of success in each trial:}  &p&\in&{[0,1]} \\ -->
+<!-- \text{Mean:} & \mu&=&p \\ -->
+<!-- \text{Variance:} & \sigma^2&=&p(1-p) \\ -->
+<!-- \text{Skewness:} & \gamma_1&=&\frac{1-2p}{\sqrt{p(1-p)}} \\ -->
+<!-- \text{Kurtosis:} & \gamma_2&=&\frac{1}{p(1-p)}-6 \\ -->
+<!-- \text{Probability Mass Function:} & f_X(x;p)&=&p^x(1-p)^{1-x} \\ -->
+<!-- \text{Cumulative Distribution Function:} & F_X(x;p)&=&x+p(1-x) \\ -->
+<!-- \end{array} -->
+<!-- } -->
+<!-- \end{equation*} -->
+<!-- \\text{(.*?)} -->
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:bernoullifeatures">Table 2.2: </span>Features of Bernoulli Distributions</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="left">Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sample Space:</td>
+<td align="left"><span class="math inline">\(x \in \{0,1\}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Probability that <span class="math inline">\(x=1\)</span></td>
+<td align="left"><span class="math inline">\(p \in {[0,1]}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Probability that <span class="math inline">\(x=0\)</span></td>
+<td align="left"><span class="math inline">\(q = 1 - p\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Mean</td>
+<td align="left"><span class="math inline">\(\mu = p\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Variance</td>
+<td align="left"><span class="math inline">\(\sigma^2 = pq\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Skewness</td>
+<td align="left"><span class="math inline">\(\gamma_1 = \frac{1 - 2p}{\sqrt{pq}}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Kurtosis</td>
+<td align="left"><span class="math inline">\(\gamma_2 = \frac{1}{pq} - 6\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Probability Mass Function</td>
+<td align="left"><span class="math inline">\(f_X(x;p) = p^xq^{1 - x}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Cumulative Distribution Function</td>
+<td align="left"><span class="math inline">\(F_X(x;p) = x+p(1 - x)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:coin"></span>
+<img src="coin.svg" alt="The probability distribution of a coin toss" width="300"  />
+<!--
+<p class="caption marginnote">-->Figure 2.10: The probability distribution of a coin toss<!--</p>-->
+<!--</div>--></span>
+</p>
+<p>The toss of a single coin has the simplest probability distribution that I can think of—there are only two outcomes and each outcome is equally probable (Figure <a href="sec-BernoulliDist.html#fig:coin">2.10</a>). This is a special case of the <span class="defword">Bernoulli distribution</span>.<label for="tufte-mn-16" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-16" class="margin-toggle"><span class="marginnote">In the <strong>Bernoulli distribution</strong>, there are only two outcomes: a “success” (1) and a “failure” (0). If a success has a probability <span class="math inline">\(p\)</span> then a failure has a probability of <span class="math inline">\(q = 1 - p\)</span>.</span> The Bernoulli distribution can describe any random variable that has two outcomes, one of which has a probability <span class="math inline">\(p\)</span> and the other has a probability <span class="math inline">\(q=1-p\)</span>. In the case of a coin flip, <span class="math inline">\(p=0.5\)</span>. For other variables with a Bernoulli distribution, <span class="math inline">\(p\)</span> can range from 0 to 1.</p>
+<div class="wrap-collapsible" style="margin-top: 0em;">
+<input id="collapsible37" class="toggle" type="checkbox">
+<label for="collapsible37" class="lbl-toggle"><span class="math inline">\(\rm\LaTeX~Code\)</span></label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb10"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb10-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">% Coin toss Bernoulli</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="bu">\documentclass</span>[tikz = true, border = 2pt]{<span class="ex">standalone</span>}</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="fu">\setmainfont</span>{Equity Text A}</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="bu">\usepackage</span>{<span class="ex">tikz</span>}</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="fu">\usetikzlibrary</span>{shapes}</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="bu">\usepackage</span>{<span class="ex">xfrac</span>}</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="kw">\begin</span>{<span class="ex">document</span>}</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">        <span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=0.9]</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">        <span class="fu">\node</span> (H) at (0,2) {</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">            <span class="bu">\includegraphics</span> [width=1.5cm]{<span class="ex">../QuarterHeads.png</span>}</a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">        };</a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">        <span class="fu">\node</span> (T) at (0,0) {</a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">            <span class="bu">\includegraphics</span> [width=1.5cm]{<span class="ex">../QuarterTails.png</span>}</a>
+<a class="sourceLine" id="cb10-17" data-line-number="17">        };</a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">        <span class="fu">\node</span> [fill=gray!50, </a>
+<a class="sourceLine" id="cb10-19" data-line-number="19">               minimum height=1.5cm, </a>
+<a class="sourceLine" id="cb10-20" data-line-number="20">               minimum width=0.1cm, </a>
+<a class="sourceLine" id="cb10-21" data-line-number="21">               single arrow, </a>
+<a class="sourceLine" id="cb10-22" data-line-number="22">               single arrow head extend=.15cm, </a>
+<a class="sourceLine" id="cb10-23" data-line-number="23">               single arrow head indent=.08cm, </a>
+<a class="sourceLine" id="cb10-24" data-line-number="24">               inner sep=1mm] (arrowtails1) at (1.9,2) {};</a>
+<a class="sourceLine" id="cb10-25" data-line-number="25">        <span class="fu">\node</span> [fill=gray!50, </a>
+<a class="sourceLine" id="cb10-26" data-line-number="26">               minimum height=1.5cm, </a>
+<a class="sourceLine" id="cb10-27" data-line-number="27">               minimum width=0.1cm, </a>
+<a class="sourceLine" id="cb10-28" data-line-number="28">               single arrow, </a>
+<a class="sourceLine" id="cb10-29" data-line-number="29">               single arrow head extend=.15cm, </a>
+<a class="sourceLine" id="cb10-30" data-line-number="30">               single arrow head indent=.08cm, </a>
+<a class="sourceLine" id="cb10-31" data-line-number="31">               inner sep=1mm] (arrowheads2) at (1.9,0) {};</a>
+<a class="sourceLine" id="cb10-32" data-line-number="32">        <span class="fu">\node</span>  (p1) at (3.4,2) {<span class="fu">\huge</span>{<span class="ss">$</span><span class="sc">\sfrac</span><span class="ss">{</span><span class="sc">\text</span>{1}<span class="ss">}{</span><span class="sc">\text</span>{2}<span class="ss">}$</span>}};</a>
+<a class="sourceLine" id="cb10-33" data-line-number="33">        <span class="fu">\node</span>  (p2) at (3.4,0) {<span class="fu">\huge</span>{<span class="ss">$</span><span class="sc">\sfrac</span><span class="ss">{</span><span class="sc">\text</span>{1}<span class="ss">}{</span><span class="sc">\text</span>{2}<span class="ss">}$</span>}};</a>
+<a class="sourceLine" id="cb10-34" data-line-number="34">        <span class="fu">\node</span> [text centered,</a>
+<a class="sourceLine" id="cb10-35" data-line-number="35">               anchor=south,</a>
+<a class="sourceLine" id="cb10-36" data-line-number="36">               text height=1.5ex,</a>
+<a class="sourceLine" id="cb10-37" data-line-number="37">               text depth=.25ex] (p3) at (0,3) {<span class="fu">\large</span>{Sample Space}};</a>
+<a class="sourceLine" id="cb10-38" data-line-number="38">        <span class="fu">\node</span> [text centered,</a>
+<a class="sourceLine" id="cb10-39" data-line-number="39">               anchor=south,</a>
+<a class="sourceLine" id="cb10-40" data-line-number="40">               text height=1.5ex,</a>
+<a class="sourceLine" id="cb10-41" data-line-number="41">               text depth=.25ex] (p4) at (3.4,3) {<span class="fu">\large</span>{Probability}};</a>
+<a class="sourceLine" id="cb10-42" data-line-number="42">        <span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</a>
+<a class="sourceLine" id="cb10-43" data-line-number="43"></a>
+<a class="sourceLine" id="cb10-44" data-line-number="44"><span class="kw">\end</span>{<span class="ex">document</span>}</a></code></pre></div>
+</div>
+</div>
+</div>
+<p>In psychological assessment, many of the variables we encounter have a Bernoulli distribution. In ability test items in which there is no partial credit, examinees either succeed or fail. The probability of success on an item (in the whole population) is <span class="math inline">\(p\)</span>. In other words, <span class="math inline">\(p\)</span> is the proportion of the entire population that correctly answers the quesiton. Some ability test items are very easy and the probability of success is high. In such cases, <span class="math inline">\(p\)</span> is close to 1. When <span class="math inline">\(p\)</span> is close to 0, few people succeed and items are deemed hard. Thus, in the context of ability tesing, <span class="math inline">\(p\)</span> is called the <span class="defword">difficulty parameter</span>.<label for="tufte-mn-17" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-17" class="margin-toggle"><span class="marginnote">The <strong>difficulty parameter</strong> is the proportion of people who succeed on an item (or say ‘Yes’ or ‘True’ or otherwise score a 1 on a random variable with a Bernoulli distribution.).</span> This is confusing because when <span class="math inline">\(p\)</span> is high, the item is easy, not difficult. Many people have suggested that it would make more sense to call it the “easiness parameter” but the idea has never caught on.</p>
+<p>True/False and Yes/No items on questionnaires also have Bernoulli distributions. If an item is frequently endorsed as true (“I like ice cream.”), <span class="math inline">\(p\)</span> is high. If an item is infrequently endorsed (“I like black licorice and mayonnaise in my ice cream.”), <span class="math inline">\(p\)</span> is very low. Oddly, the language of ability tests prevails even here. Frequently endorsed questionnaire items are referred to as “easy” and infrequently endorsed items are referred to as “difficult,” even though there is nothing particularly easy or difficult about answering them either way.</p>
+<div id="generating-a-random-sample-from-the-bernoulli-distribution" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Generating a Random Sample from the Bernoulli Distribution</h3>
+<p>In R, there is no specialized function for the Bernoulli distribution because it turns out that the Bernoulli distribution is a special case of the <a href="sec-binomial.html#sec:binomial">binomial distribution</a>, which will be described in the next section. With the function <code>rbinom</code>, we can generate data with a Bernoulli distribution by setting the <code>size</code> parameter equal to 1.</p>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:BernoulliSample"></span>
+<img src="toolkit_files/figure-html/BernoulliSample-1.svg" alt="Counts of a Random Variable with a Bernoulli Distribution $(p = 0.8, n = 1000)$" width="400"  />
+<!--
+<p class="caption marginnote">-->Figure 2.11: Counts of a Random Variable with a Bernoulli Distribution <span class="math inline">\((p = 0.8, n = 1000)\)</span><!--</p>-->
+<!--</div>--></span>
+</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># n = sample size</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co"># p = probability</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">p &lt;-<span class="st"> </span><span class="fl">0.8</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co"># X = sample</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">X &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> p)</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co"># Make a basic plot</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="kw">barplot</span>(<span class="kw">table</span>(X))</a></code></pre></div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="sec-DiscreteUniform.html"><button class="btn btn-default">Previous</button></a>
+<a href="sec-binomial.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

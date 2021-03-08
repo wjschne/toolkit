@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+<meta name="github-repo" content="wjschne/psychtoolkit" />
+
+<meta name="author" content="W. Joel Schneider" />
+
+<meta name="date" content="2018-10-09" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+
+<title>Practical Psychometrics: A Psychological Assessment Toolkit</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+<script type="text/x-mathjax-config">
+
+
+MathJax.Hub.Config({
+  TeX: {Augment: {
+    Definitions: {macros: {xfrac: 'XFrac'}},
+    Parse: {prototype: {
+      XFrac: function (name) {
+        var num = this.ParseArg(name);
+        var den = this.ParseArg(name);
+        this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+      }
+    }}
+  }}}
+);
+
+
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+<link rel="stylesheet" href="equity.css" type="text/css" />
+<link rel="stylesheet" href="mycss.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#preface">Preface</a></li>
+<li><a href="intro.html#intro"><span class="toc-section-number">1</span> Introduction</a></li>
+<li class="has-sub"><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a><ul>
+<li><a href="nominal.html#nominal"><span class="toc-section-number">2.1</span> Nominal Scales</a></li>
+<li><a href="ordinal-scales.html#ordinal-scales"><span class="toc-section-number">2.2</span> Ordinal Scales</a></li>
+<li><a href="interval-scales.html#interval-scales"><span class="toc-section-number">2.3</span> Interval Scales</a></li>
+<li><a href="ratio-scales.html#ratio-scales"><span class="toc-section-number">2.4</span> Ratio Scales</a></li>
+<li><a href="sec-DiscreteVsContinuous.html#sec:DiscreteVsContinuous"><span class="toc-section-number">2.5</span> Discrete vs. Continuous Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#distributions"><span class="toc-section-number">3</span> Distributions</a><ul>
+<li class="has-sub"><a href="random-variables.html#random-variables"><span class="toc-section-number">3.1</span> Random Variables</a><ul>
+<li><a href="random-variables.html#sets"><span class="toc-section-number">3.1.1</span> Sets</a></li>
+<li><a href="random-variables.html#sec:SampleSpace"><span class="toc-section-number">3.1.2</span> Sample Spaces</a></li>
+</ul></li>
+<li><a href="sec-ProbabilityDistribution.html#sec:ProbabilityDistribution"><span class="toc-section-number">3.2</span> Probability Distributions</a></li>
+<li class="has-sub"><a href="sec-DiscreteUniform.html#sec:DiscreteUniform"><span class="toc-section-number">3.3</span> Discrete Uniform Distributions</a><ul>
+<li><a href="sec-DiscreteUniform.html#parameters-of-random-variables"><span class="toc-section-number">3.3.1</span> Parameters of Random Variables</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:pmf"><span class="toc-section-number">3.3.2</span> Probability Mass Functions</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:CumDist"><span class="toc-section-number">3.3.3</span> Cumulative Distribution Functions</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:Quantile"><span class="toc-section-number">3.3.4</span> Quantile functions</a></li>
+<li><a href="sec-DiscreteUniform.html#generating-a-random-sample-in-r"><span class="toc-section-number">3.3.5</span> Generating a Random Sample in R</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-BernoulliDist.html#sec:BernoulliDist"><span class="toc-section-number">3.4</span> Bernoulli Distributions</a><ul>
+<li><a href="sec-BernoulliDist.html#generating-a-random-sample-from-the-bernoulli-distribution"><span class="toc-section-number">3.4.1</span> Generating a Random Sample from the Bernoulli Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-binomial.html#sec:binomial"><span class="toc-section-number">3.5</span> Binomial Distributions</a><ul>
+<li><a href="sec-binomial.html#clinical-applications-of-the-binomial-distribution"><span class="toc-section-number">3.5.1</span> Clinical Applications of the Binomial Distribution</a></li>
+<li><a href="sec-binomial.html#graphing-the-binomial-distribution"><span class="toc-section-number">3.5.2</span> Graphing the binomial distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="poisson-distributions.html#poisson-distributions"><span class="toc-section-number">3.6</span> Poisson Distributions</a><ul>
+<li><a href="poisson-distributions.html#a-clinical-application-of-the-the-poisson-distribution"><span class="toc-section-number">3.6.1</span> A clinical application of the the Poisson distribution</a></li>
+</ul></li>
+<li><a href="geometric-distributions.html#geometric-distributions"><span class="toc-section-number">3.7</span> Geometric Distributions}</a></li>
+<li><a href="sec-pdf.html#sec:pdf"><span class="toc-section-number">3.8</span> Probability Density Functions</a></li>
+<li class="has-sub"><a href="sec-Uniform.html#sec:Uniform"><span class="toc-section-number">3.9</span> Continuous Uniform Distributions</a><ul>
+<li><a href="sec-Uniform.html#generating-random-samples-from-the-continuous-uniform-distribution"><span class="toc-section-number">3.9.1</span> Generating random samples from the continuous uniform distribution</a></li>
+<li><a href="sec-Uniform.html#using-the-continuous-uniform-distribution-to-generate-random-samples-from-other-distributions"><span class="toc-section-number">3.9.2</span> Using the continuous uniform distribution to generate random samples from other distributions</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-normal.html#sec:normal"><span class="toc-section-number">3.10</span> Normal Distributions</a><ul>
+<li><a href="sec-normal.html#notation-for-normal-variates"><span class="toc-section-number">3.10.1</span> Notation for Normal Variates</a></li>
+</ul></li>
+<li><a href="half-normal-distribution.html#half-normal-distribution"><span class="toc-section-number">3.11</span> Half-Normal Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">4</span> Descriptive Statistics</a><ul>
+<li><a href="frequency-distribution-tables.html#frequency-distribution-tables"><span class="toc-section-number">4.1</span> Frequency Distribution Tables</a></li>
+<li class="has-sub"><a href="central-tendencies.html#central-tendencies"><span class="toc-section-number">4.2</span> Central Tendencies</a><ul>
+<li><a href="central-tendencies.html#mode"><span class="toc-section-number">4.2.1</span> Mode</a></li>
+</ul></li>
+<li><a href="expected-values.html#expected-values"><span class="toc-section-number">4.3</span> Expected Values</a></li>
+</ul></li>
+<li class="has-sub"><a href="notation.html#notation">Notation</a><ul>
+<li><a href="random-variables-vectors-and-matrices.html#random-variables-vectors-and-matrices"><span class="toc-section-number">4.4</span> Random variables, vectors, and matrices</a></li>
+<li><a href="sets-and-intervals.html#sets-and-intervals"><span class="toc-section-number">4.5</span> Sets and intervals</a></li>
+<li><a href="summation.html#summation"><span class="toc-section-number">4.6</span> Summation</a></li>
+<li><a href="other.html#other"><span class="toc-section-number">4.7</span> Other</a></li>
+</ul></li>
+<li class="has-sub"><a href="references.html#references">References</a><ul>
+<li><a href="r-packages-used-in-this-book.html#r-packages-used-in-this-book">R packages used in this book</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="sec:DiscreteUniform" class="section level2">
+<h2><span class="header-section-number">3.3</span> Discrete Uniform Distributions</h2>
+<p>The throw of a single die is a member of a family of distributions called the <span class="defword">discrete uniform distribution</span>.<label for="tufte-mn-10" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-10" class="margin-toggle"><span class="marginnote">A <strong>discrete uniform distribution</strong> is a family of random variable distributions in which the sample space is an evenly spaced sequence of numbers, each of which is equally likely to occur.</span> It is “discrete” because the elements in the sample space are countable, with evenly spaced gaps between them. For example, there might be a sequence of 8, 9, 10, and 11 in the sample space but there are no numbers in between. It is “uniform” because all outcomes are equally likely. With dice, the numbers range from a lower bound of 1 to an upper bound of 6. In the family of discrete uniform distributions, the lower and upper bounds are typically integers, mostly likely starting with 1. However, any real number <span class="math inline">\(a\)</span> can be the lower bound and the spacing <span class="math inline">\(k\)</span> between numbers can be any positive real number. For the sake of simplicity and convenience, I will assume that the discrete uniform distribution refers to consecutive integers ranging from a lower bound of <span class="math inline">\(a\)</span> and an upper bound of <span class="math inline">\(b\)</span>.</p>
+<p>This kind of discrete uniform distribution has a number of characteristics listed in Table <a href="sec-DiscreteUniform.html#tab:uniformfeatures">2.1</a>. I will explain each of them in the sections that follow. As we go, I will also explain the mathematical notation. For example, <span class="math inline">\(a \in \{\ldots,-1,0,1,\ldots\}\)</span> means that <span class="math inline">\(a\)</span> is an integer because <span class="math inline">\(\in\)</span> means <em>is a member of</em> and <span class="math inline">\(\{\ldots,-1,0,1,\ldots\}\)</span> is the set of all integers.<label for="tufte-sn-2" class="margin-toggle sidenote-number">2</label><input type="checkbox" id="tufte-sn-2" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">2</span> Sometimes the set of all integers is referred to with the symbol <span class="math inline">\(\mathbb{Z}\)</span></span> <span class="math inline">\(x \in \{a,a+1,\ldots,b\}\)</span> means that the each member of the sample space <span class="math inline">\(x\)</span> is a member of the set of integers that include <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and all the integers between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. The notation for the <a href="sec-DiscreteUniform.html#sec:pmf">probability mass function</a> and the <a href="sec-DiscreteUniform.html#sec:CumDist">cumuluative distribution function</a> function will be explained later in this chapter.</p>
+<!-- $$\begin{equation*} -->
+<!-- \boxed{ -->
+<!-- \begin{array}{rccc} -->
+<!-- %\text{\textbf{Discrete Uniform Distribution}}&&\\ -->
+<!-- \text{Lower Bound:} & a  & {\in} & {\mathbb{Z}}\\ -->
+<!-- \text{Upper Bound:} & b & \in & \mathbb{Z}\\ -->
+<!-- &&&b>a\\ -->
+<!-- \text{Sample Space:} & x &\in&\{a,a+1,\ldots,b\}\\ -->
+<!-- \text{Number of points:} & n&=&b-a+1 \\ -->
+<!-- \text{Mean:} & \mu&=&\frac{a+b}{2} \\ -->
+<!-- \text{Variance:} & \sigma^2&=&\frac{n^2-1}{12} \\ -->
+<!-- \text{Skewness:} & \gamma_1&=&0 \\ -->
+<!-- \text{Kurtosis:} & \gamma_2&=&-\frac{6(n^2+1)}{5(n^2-1)} \\ -->
+<!-- \text{Probability Mass Function:} & f_X(x;a,b)&=&\frac{1}{n} \\ -->
+<!-- \text{Cumulative Distribution Function:} & F_X(x;a,b)&=&\frac{x-a+1}{n} \\ -->
+<!-- \end{array} -->
+<!-- } -->
+<!-- \end{equation*}$$ -->
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:uniformfeatures">Table 2.1: </span>Features of Discrete Uniform Distributions</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="left">Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lower Bound</td>
+<td align="left"><span class="math inline">\(a \in \{\ldots,-1,0,1,\ldots\}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Upper Bound</td>
+<td align="left"><span class="math inline">\(b \in \{a + 1, a + 2, \ldots\}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Sample Space</td>
+<td align="left"><span class="math inline">\(x \in\{a, a + 1,\ldots,b\}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Number of points</td>
+<td align="left"><span class="math inline">\(n=b-a+1\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Mean</td>
+<td align="left"><span class="math inline">\(\mu=\frac{a+b}{2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Variance</td>
+<td align="left"><span class="math inline">\(\sigma^2=\frac{n^2-1}{12}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Skewness</td>
+<td align="left"><span class="math inline">\(\gamma_1=0\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Kurtosis</td>
+<td align="left"><span class="math inline">\(\gamma_2=-\frac{6(n^2+1)}{5(n^2-1)}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Probability Mass Function</td>
+<td align="left"><span class="math inline">\(f_X(x;a,b)=\frac{1}{n}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Cumulative Distribution Function</td>
+<td align="left"><span class="math inline">\(F_X(x;a,b)=\frac{x-a+1}{n}\)</span></td>
+</tr>
+</tbody>
+</table>
+<div id="parameters-of-random-variables" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Parameters of Random Variables</h3>
+<p>The lower bound <span class="math inline">\(a\)</span> and the upper bound <span class="math inline">\(b\)</span> are the discrete uniform distribution’s <span class="defword">parameters</span>.<label for="tufte-mn-11" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-11" class="margin-toggle"><span class="marginnote">A <strong>parameter</strong> is a defining feature of a random variable’s probability distribution.</span> The word <em>parameter</em> has many meanings but here it refers to a characteristic of a distribution family that helps us identify precisely which member of the family we are talking about. Most distribution families have one, two, or three parameters.</p>
+<p>If you have taken an algebra class, you have seen parameters before, though the word <em>parameter</em> many not have been used. Think about the formula of a line:</p>
+<p><span class="math display">\[\begin{equation*}\label{eq:linear}
+y=mx+b
+\end{equation*}\]</span></p>
+<p>Both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are variables, but what are <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span>? Well, you probably remember that <span class="math inline">\(m\)</span> is the slope of the line and that <span class="math inline">\(b\)</span> is the <span class="math inline">\(y\)</span>-intercept. If we know the slope and the intercept of a line, we know exactly which line we are talking about. No additional information is needed to graph the line. Therefore, <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span> are the line’s <em>parameters</em>, because they uniquely identify the line.<label for="tufte-sn-3" class="margin-toggle sidenote-number">3</label><input type="checkbox" id="tufte-sn-3" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">3</span> What about other mathematical functions? Do they have parameters? Yes! All of them do! For example, in the equation for a parabola (<span class="math inline">\(y=ax^2+bx+c\)</span>), <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> determine its precise shape.</span> All lines have a lot in common but there is an infinite variety of lines because the parameters, the slope and the intercept, can take on the value of any real number. Each unique combination of parameter values (slope and intercept) will produce a unique line. So it is with probability distribution families. All family members are alike in many ways but they also differ because of different parameter values.</p>
+<p>The discrete uniform distribution (i.e., the typical variety consisting of consecutive integers) is defined by the lower and upper bound. Once we know the lower bound and the upper bound, we know exactly which distribution we are talking about.<label for="tufte-sn-4" class="margin-toggle sidenote-number">4</label><input type="checkbox" id="tufte-sn-4" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">4</span> If we allow the lower bound to be any real number and the spacing to be any positive real number, the discrete uniform distribution can be specifed by three parameters: the lower bound <span class="math inline">\(a\)</span>, the spacing between numbers <span class="math inline">\(k\)</span> (<span class="math inline">\(k&gt;0\)</span>), and the number of points <span class="math inline">\(n\)</span> (<span class="math inline">\(n\)</span>&gt;1). The upper bound <span class="math inline">\(b\)</span> of such a distribution would be <span class="math inline">\(b=a+k(n-1)\)</span></span> Not all distributions are defined by their lower and upper bounds. Indeed, many distribution families are unbounded on one or both sides. Therefore, other features are used to characterize the distributions, such as the population mean (μ).</p>
+</div>
+<div id="sec:pmf" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Probability Mass Functions</h3>
+<p>Many distribution families are united by the fact that their probability distributions are generated by a particular mathematical function. For discrete distributions, those functions are called <span class="defword">probability mass functions</span>.<label for="tufte-mn-12" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-12" class="margin-toggle"><span class="marginnote">A <strong>probability mass function</strong> is a mathematical expression that gives the probability that a discrete random variable will equal a particular element of the variable’s sample space.</span> In general, a mathematical function is an expression that takes one or more constants (i.e., parameters) and one or more input variables, which are then transformed according to some sort of rule to yield a single number.</p>
+<p>A probability mass function transforms a random variable’s sample space elements into probabilities. In Figure <a href="sec-ProbabilityDistribution.html#fig:dice">2.2</a>, the probability mass function can be thought of as the arrows between the sample space and the probabilities. That is, the probability mass function is the thing that was done to the sample space elements to calculate the probabilities. In Figure <a href="sec-ProbabilityDistribution.html#fig:dice">2.2</a>, each outcome of a throw of the the die was mapped onto a probability of <span class="math inline">\(\xfrac{1}{6}\)</span>. Why <span class="math inline">\(\xfrac{1}{6}\)</span>, and not some other number? The probability mass function of the discrete uniform distribution tells us the answer.</p>
+<div class="figure" style="text-align: center"><span id="fig:pmf"></span>
+<p class="caption marginnote shownote">
+Figure 2.4: Though one may be scarier than the other, both boxes mean the same thing: Probability mass functions tell us how probable each sample space element is.
+</p>
+<img src="pmf.svg" alt="Though one may be scarier than the other, both boxes mean the same thing: Probability mass functions tell us how probable each sample space element is." width="672"  />
+</div>
+<div class="wrap-collapsible">
+<input id="collapsible33" class="toggle" type="checkbox">
+<label for="collapsible33" class="lbl-toggle"><span class="math inline">\(\rm\LaTeX~Code\)</span></label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb4"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">% Probability Mass Function Scary Math</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="bu">\documentclass</span>[tikz = true, border = 2pt]{<span class="ex">standalone</span>}</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="bu">\usepackage</span>{<span class="ex">amsmath</span>}</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="bu">\usepackage</span>{<span class="ex">tikz</span>}</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="fu">\usetikzlibrary</span>{decorations.text, arrows}</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="fu">\usetikzlibrary</span>{shapes}</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="fu">\setmainfont</span>{Equity Text A}</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="kw">\begin</span>{<span class="ex">document</span>}</a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[&gt;=stealth,scale=0.9]</a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="fu">\definecolor</span>{firebrick2}{RGB}{205,38,38};</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="fu">\definecolor</span>{royalblue2}{RGB}{67,110,238};</a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="fu">\node</span> [rectangle,</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">       draw, </a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">       rounded corners= 2pt,</a>
+<a class="sourceLine" id="cb4-19" data-line-number="19">       text depth=0.25ex, </a>
+<a class="sourceLine" id="cb4-20" data-line-number="20">       minimum height = 7mm](ss) at (0,0) {<span class="ss">$</span><span class="sc">\boldsymbol</span><span class="ss">{x}=x_1,x_2,x_3,</span><span class="sc">\ldots</span><span class="ss">,x_n$</span>};</a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="fu">\node</span> [rectangle,</a>
+<a class="sourceLine" id="cb4-22" data-line-number="22">       draw, </a>
+<a class="sourceLine" id="cb4-23" data-line-number="23">       rounded corners= 2pt,</a>
+<a class="sourceLine" id="cb4-24" data-line-number="24">       text depth=0.25ex, </a>
+<a class="sourceLine" id="cb4-25" data-line-number="25">       minimum height = 7mm](ps) at (7,0) {<span class="ss">$</span><span class="sc">\boldsymbol</span><span class="ss">{p}=p_1,p_2,p_3,</span><span class="sc">\ldots</span><span class="ss">,p_n$</span>};</a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="fu">\node</span> [single arrow,</a>
+<a class="sourceLine" id="cb4-27" data-line-number="27">       fill=royalblue2,</a>
+<a class="sourceLine" id="cb4-28" data-line-number="28">       single arrow head extend=1.1ex,</a>
+<a class="sourceLine" id="cb4-29" data-line-number="29">       transform shape,</a>
+<a class="sourceLine" id="cb4-30" data-line-number="30">       minimum height=0.9cm,</a>
+<a class="sourceLine" id="cb4-31" data-line-number="31">       text depth=0.25ex] (fx) at (3.5,0) {<span class="ss">$</span><span class="sc">\quad\;\;</span><span class="ss"> f_X</span><span class="sc">\quad\;\;</span><span class="ss">$</span>};</a>
+<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="fu">\node</span> [text depth=2.25ex,</a>
+<a class="sourceLine" id="cb4-33" data-line-number="33">       text height= 5ex,</a>
+<a class="sourceLine" id="cb4-34" data-line-number="34">       anchor=south,</a>
+<a class="sourceLine" id="cb4-35" data-line-number="35">       yshift=-3.5ex](sst) at (0,0.75) {<span class="fu">\textbf</span>{Sample Space}};</a>
+<a class="sourceLine" id="cb4-36" data-line-number="36"><span class="fu">\node</span> [text depth=2.25ex,</a>
+<a class="sourceLine" id="cb4-37" data-line-number="37">       text height= 5ex,</a>
+<a class="sourceLine" id="cb4-38" data-line-number="38">       anchor=south,</a>
+<a class="sourceLine" id="cb4-39" data-line-number="39">       yshift=-3.5ex](pst) at (7,0.75) {<span class="fu">\textbf</span>{Probabilities}};</a>
+<a class="sourceLine" id="cb4-40" data-line-number="40"><span class="fu">\node</span> [shape=rectangle,</a>
+<a class="sourceLine" id="cb4-41" data-line-number="41">       text depth=2.25ex,</a>
+<a class="sourceLine" id="cb4-42" data-line-number="42">       color=royalblue2,</a>
+<a class="sourceLine" id="cb4-43" data-line-number="43">       align=center,</a>
+<a class="sourceLine" id="cb4-44" data-line-number="44">       text height= 5ex,</a>
+<a class="sourceLine" id="cb4-45" data-line-number="45">       anchor=south,</a>
+<a class="sourceLine" id="cb4-46" data-line-number="46">       yshift=-3.5ex](pmf) at (3.5,0.75) {<span class="fu">\textbf</span>{Probability}<span class="fu">\\</span></a>
+<a class="sourceLine" id="cb4-47" data-line-number="47">    <span class="fu">\textbf</span>{Mass Function}};</a>
+<a class="sourceLine" id="cb4-48" data-line-number="48"><span class="fu">\node</span> [text depth=2.25ex,</a>
+<a class="sourceLine" id="cb4-49" data-line-number="49">       text height= 5ex,</a>
+<a class="sourceLine" id="cb4-50" data-line-number="50">       anchor=south,</a>
+<a class="sourceLine" id="cb4-51" data-line-number="51">       yshift=-3.5ex] (pt) at (3.5,-1.5) {<span class="fu">\textbf</span>{Parameters}};</a>
+<a class="sourceLine" id="cb4-52" data-line-number="52"><span class="fu">\node</span> [rectangle,</a>
+<a class="sourceLine" id="cb4-53" data-line-number="53">       draw, </a>
+<a class="sourceLine" id="cb4-54" data-line-number="54">       rounded corners = 2pt,</a>
+<a class="sourceLine" id="cb4-55" data-line-number="55">       text depth=0.25ex, </a>
+<a class="sourceLine" id="cb4-56" data-line-number="56">       minimum height = 7mm] (pts) at (3.5,-2.25) {<span class="ss">$</span><span class="sc">\boldsymbol</span><span class="ss">{</span><span class="sc">\theta</span><span class="ss">}=</span><span class="sc">\theta</span><span class="ss">_1,</span><span class="sc">\theta</span><span class="ss">_2,</span><span class="sc">\theta</span><span class="ss">_3,</span><span class="sc">\ldots</span><span class="ss">,</span><span class="sc">\theta</span><span class="ss">_k$</span>};</a>
+<a class="sourceLine" id="cb4-57" data-line-number="57"><span class="fu">\node</span> [align=center,</a>
+<a class="sourceLine" id="cb4-58" data-line-number="58">       shape=rectangle,</a>
+<a class="sourceLine" id="cb4-59" data-line-number="59">       rounded corners = 3pt,</a>
+<a class="sourceLine" id="cb4-60" data-line-number="60">       draw](formula) at (3.5,4) {<span class="fu">\textbf</span>{<span class="fu">\Large</span>{Scary~Math!}}<span class="fu">\\</span></a>
+<a class="sourceLine" id="cb4-61" data-line-number="61">    <span class="ss">$f_X</span><span class="sc">\!\left</span><span class="ss">(</span><span class="sc">\boldsymbol</span><span class="ss">{x};</span><span class="sc">\boldsymbol</span><span class="ss">{</span><span class="sc">\theta</span><span class="ss">}</span><span class="sc">\right</span><span class="ss">)=</span><span class="sc">\boldsymbol</span><span class="ss">{p}$</span>};</a>
+<a class="sourceLine" id="cb4-62" data-line-number="62"><span class="fu">\draw</span> [rounded corners=5pt] (-2.5,-3) rectangle (9.5,2.65);</a>
+<a class="sourceLine" id="cb4-63" data-line-number="63"><span class="fu">\node</span> at (3.5,2) {<span class="fu">\textbf</span>{<span class="fu">\large</span>{Slightly Less Scary Math:}}};</a>
+<a class="sourceLine" id="cb4-64" data-line-number="64"><span class="fu">\draw</span>[-&gt;,&gt;=latex&#39;, very thick] (3.5,-1.15) to (3.5,-0.5);</a>
+<a class="sourceLine" id="cb4-65" data-line-number="65"><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</a>
+<a class="sourceLine" id="cb4-66" data-line-number="66"><span class="kw">\end</span>{<span class="ex">document</span>}</a></code></pre></div>
+</div>
+</div>
+</div>
+<p>The probability mass function of the discrete uniform distribution is fairly simple but the notation can be intimidating at first (Figure <a href="sec-DiscreteUniform.html#fig:pmf">2.4</a>). By convention, a single random variable is denoted by a capital letter <span class="math inline">\(X\)</span>. Any particular value of <span class="math inline">\(X\)</span> in its sample space is represented by a lowercase <span class="math inline">\(x\)</span>. In other words, <span class="math inline">\(X\)</span> represents the variable in its totality whereas <span class="math inline">\(x\)</span> is merely one value that <span class="math inline">\(X\)</span> can take on. Confusing? Yes, statisticians work very hard to confuse us—and most of the time they succeed!</p>
+<p>The probability mass function of random variable <span class="math inline">\(X\)</span> is denoted by <span class="math inline">\(f_X(x)\)</span>. This looks strange at first. It means, “When random variable <span class="math inline">\(X\)</span> generates a number, what is the probability that the outcome will be a particular value <span class="math inline">\(x\)</span>?” That is, <span class="math inline">\(f_X(x)=P(X=x)\)</span>, where <span class="math inline">\(P\)</span> means “What is the probability that…?” Thus, <span class="math inline">\(P(X=x)\)</span> reads, “What is the probability that random variable <span class="math inline">\(X\)</span> will generate a number equal to a particular value <span class="math inline">\(x\)</span>?” So, <span class="math inline">\(f_X(7)\)</span> reads, “When random variable <span class="math inline">\(X\)</span> generates a number, what is the probability that the outcome will be 7?”</p>
+<p>Most probability mass functions also have parameters, which are listed after a semi-colon. In the case of the discrete uniform distribution consisting of consecutive integers, the lower and upper bounds <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are included in the function’s notation like so: <span class="math inline">\(f_X(x;a,b)\)</span>. This reads, “For random variable <span class="math inline">\(X\)</span> with parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, what is the probability that the outcome will be <span class="math inline">\(x\)</span>?” Some parameters can be derived from other parameters, as was the case with the number of points <span class="math inline">\(n\)</span> in the sample space of a discrete uniform distribution: <span class="math inline">\(n=b-a+1\)</span>. The probability for each outcome in the sample space is the same and there are <span class="math inline">\(n\)</span> possible outcomes. Therefore, the probability associated with each outcome is <span class="math inline">\(\xfrac{1}{n}\)</span>.</p>
+<p>Putting all of this together, if <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are integers and <span class="math inline">\(a&lt;b\)</span>, for all <span class="math inline">\(n\)</span> integers <span class="math inline">\(x\)</span> between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, inclusive:</p>
+<p><span class="math display">\[\begin{equation*}
+f_X(x;a,b)=\frac{1}{b-a+1}=\frac{1}{n}
+\end{equation*}\]</span>
+Where
+<span class="math display">\[\begin{align*}
+X  &amp;= \text{A random variable with a discrete uniform distribution}\\
+f_X &amp;= \text{The probability mass function of}~X\\
+x &amp;= \text{Any particular member of the sample space of}~X\\
+a &amp;= \text{The lower bound of the sample space}\\
+b &amp;= \text{The upper bound of the sample space}\\
+n &amp;= b-a+1~\text{(The number of points in the sample space)}
+\end{align*}\]</span></p>
+<p>You might notice that <span class="math inline">\(x\)</span> is not needed to calculate the probability. Why? Because this is a <em>uniform</em> distribution. No matter which sample space element <span class="math inline">\(x\)</span> we are talking about, the probability associated with it is always the same. In distributions that are not uniform, the position of <span class="math inline">\(x\)</span> matters and thus influences the probability of its occurrence.</p>
+</div>
+<div id="sec:CumDist" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Cumulative Distribution Functions</h3>
+<p>The <span class="defword">cumulative distribution function</span><label for="tufte-mn-13" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-13" class="margin-toggle"><span class="marginnote">A <strong>cumulative distribution function</strong> is a mathematical expression that gives the probability that a random variable will equal a particular element of the variable’s sample space or less.</span> tells us where a sample space element ranks in a distribution. Whereas the probability mass function tells us the probability that a random variable will generate a particular number, the cumulative distribution function tells us the probability that a random variable will generate a particular number or less. The cumulative distribution function of the roll of a die (Figure <a href="sec-DiscreteUniform.html#fig:cdfDie">2.5</a>) tells us that the probability of rolling at least a 4 is <span class="math inline">\(\xfrac{4}{6}\)</span> (i.e., <span class="math inline">\(\xfrac{2}{3}\)</span>).</p>
+<p><span class="math display">\[F_X(x) = P(X \le x)=p\]</span></p>
+<div class="figure"><span id="fig:cdfDie"></span>
+<p class="caption marginnote shownote">
+Figure 2.5: The cumulative distribution function of the roll of a die is <span class="math inline">\(F_X(x)=\frac{x}{6}\)</span>
+</p>
+<img src="cdfDie.svg" alt="The cumulative distribution function of the roll of a die is $F_X(x)=\frac{x}{6}$" width="672"  />
+</div>
+<div class="wrap-collapsible">
+<input id="collapsible34" class="toggle" type="checkbox">
+<label for="collapsible34" class="lbl-toggle"><span class="math inline">\(\rm\LaTeX~Code\)</span></label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb5"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">% CDF Dice</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="bu">\documentclass</span>[tikz = true, border = 2pt]{<span class="ex">standalone</span>}</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="bu">\usepackage</span>{<span class="ex">tikz</span>}</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="bu">\usepackage</span>{<span class="ex">xfrac</span>}</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="fu">\setmainfont</span>{Equity Text A}</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="fu">\definecolor</span>{firebrick}{RGB}{205,38,38}</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="fu">\definecolor</span>{royalblue}{RGB}{67,110,238}</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="fu">\tikzset</span>{</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">    dot hidden/.style={},</a>
+<a class="sourceLine" id="cb5-14" data-line-number="14">    line hidden/.style={},</a>
+<a class="sourceLine" id="cb5-15" data-line-number="15">    dot colour/.style={dot hidden/.append style={color=#1}},</a>
+<a class="sourceLine" id="cb5-16" data-line-number="16">    dot colour/.default=black,</a>
+<a class="sourceLine" id="cb5-17" data-line-number="17">    line colour/.style={line hidden/.append style={color=#1}},</a>
+<a class="sourceLine" id="cb5-18" data-line-number="18">    line colour/.default=black</a>
+<a class="sourceLine" id="cb5-19" data-line-number="19">}</a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="fu">\NewDocumentCommand</span>{<span class="fu">\drawdie</span>}{O{}m}{</a>
+<a class="sourceLine" id="cb5-22" data-line-number="22">    <span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[x=1em,y=1em,radius=0.1,#1]</a>
+<a class="sourceLine" id="cb5-23" data-line-number="23">    <span class="fu">\draw</span>[rounded corners=2,line hidden] (0,0) rectangle (1,1);</a>
+<a class="sourceLine" id="cb5-24" data-line-number="24">    <span class="fu">\ifodd</span>#2</a>
+<a class="sourceLine" id="cb5-25" data-line-number="25">    <span class="fu">\fill</span>[dot hidden] (0.5,0.5) circle;</a>
+<a class="sourceLine" id="cb5-26" data-line-number="26">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb5-27" data-line-number="27">    <span class="fu">\ifnum</span>#2&gt;1</a>
+<a class="sourceLine" id="cb5-28" data-line-number="28">    <span class="fu">\fill</span>[dot hidden] (0.25,0.25) circle;</a>
+<a class="sourceLine" id="cb5-29" data-line-number="29">    <span class="fu">\fill</span>[dot hidden] (0.75,0.75) circle;</a>
+<a class="sourceLine" id="cb5-30" data-line-number="30">    <span class="fu">\ifnum</span>#2&gt;3</a>
+<a class="sourceLine" id="cb5-31" data-line-number="31">    <span class="fu">\fill</span>[dot hidden] (0.25,0.75) circle;</a>
+<a class="sourceLine" id="cb5-32" data-line-number="32">    <span class="fu">\fill</span>[dot hidden] (0.75,0.25) circle;</a>
+<a class="sourceLine" id="cb5-33" data-line-number="33">    <span class="fu">\ifnum</span>#2&gt;5</a>
+<a class="sourceLine" id="cb5-34" data-line-number="34">    <span class="fu">\fill</span>[dot hidden] (0.75,0.5) circle;</a>
+<a class="sourceLine" id="cb5-35" data-line-number="35">    <span class="fu">\fill</span>[dot hidden] (0.25,0.5) circle;</a>
+<a class="sourceLine" id="cb5-36" data-line-number="36">    <span class="fu">\ifnum</span>#2&gt;7</a>
+<a class="sourceLine" id="cb5-37" data-line-number="37">    <span class="fu">\fill</span>[dot hidden] (0.5,0.75) circle;</a>
+<a class="sourceLine" id="cb5-38" data-line-number="38">    <span class="fu">\fill</span>[dot hidden] (0.5,0.25) circle;</a>
+<a class="sourceLine" id="cb5-39" data-line-number="39">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb5-40" data-line-number="40">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb5-41" data-line-number="41">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb5-42" data-line-number="42">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb5-43" data-line-number="43">    <span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</a>
+<a class="sourceLine" id="cb5-44" data-line-number="44">}  </a>
+<a class="sourceLine" id="cb5-45" data-line-number="45"></a>
+<a class="sourceLine" id="cb5-46" data-line-number="46"><span class="kw">\begin</span>{<span class="ex">document</span>}</a>
+<a class="sourceLine" id="cb5-47" data-line-number="47">    </a>
+<a class="sourceLine" id="cb5-48" data-line-number="48"><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}</a>
+<a class="sourceLine" id="cb5-49" data-line-number="49"><span class="fu">\foreach</span> <span class="fu">\i</span> in {1,...,6} {</a>
+<a class="sourceLine" id="cb5-50" data-line-number="50">    <span class="fu">\node</span> at (0.1,<span class="fu">\i</span>){<span class="ss">$</span><span class="sc">\sfrac</span><span class="ss">{</span><span class="sc">\text</span>{\i}<span class="ss">}{</span><span class="sc">\text</span>{6}<span class="ss">}$</span>};</a>
+<a class="sourceLine" id="cb5-51" data-line-number="51">    <span class="fu">\node</span> at (<span class="fu">\i</span>,0.1){<span class="fu">\large</span>{<span class="fu">\i</span>}};</a>
+<a class="sourceLine" id="cb5-52" data-line-number="52">    <span class="fu">\foreach</span> <span class="fu">\j</span> in {1,...,6} {</a>
+<a class="sourceLine" id="cb5-53" data-line-number="53">        <span class="fu">\ifnum</span> <span class="fu">\j</span>&gt;<span class="fu">\i</span></a>
+<a class="sourceLine" id="cb5-54" data-line-number="54">        <span class="fu">\node</span> at (<span class="fu">\i</span>,<span class="fu">\j</span>) {<span class="fu">\drawdie</span> [scale=2]{<span class="fu">\j</span>}};</a>
+<a class="sourceLine" id="cb5-55" data-line-number="55">        <span class="fu">\else</span></a>
+<a class="sourceLine" id="cb5-56" data-line-number="56">        <span class="fu">\node</span> at (<span class="fu">\i</span>,<span class="fu">\j</span>) {<span class="fu">\drawdie</span> [scale=2,line colour=royalblue,dot colour=royalblue]{<span class="fu">\j</span>}};</a>
+<a class="sourceLine" id="cb5-57" data-line-number="57">        <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb5-58" data-line-number="58">    }</a>
+<a class="sourceLine" id="cb5-59" data-line-number="59">}</a>
+<a class="sourceLine" id="cb5-60" data-line-number="60"></a>
+<a class="sourceLine" id="cb5-61" data-line-number="61"><span class="fu">\draw</span> [firebrick,</a>
+<a class="sourceLine" id="cb5-62" data-line-number="62">       very thick,</a>
+<a class="sourceLine" id="cb5-63" data-line-number="63">       rounded corners] </a>
+<a class="sourceLine" id="cb5-64" data-line-number="64">       (0.55,0.5)-- ++</a>
+<a class="sourceLine" id="cb5-65" data-line-number="65">       (0,1)-- ++</a>
+<a class="sourceLine" id="cb5-66" data-line-number="66">       (1,0)-- ++</a>
+<a class="sourceLine" id="cb5-67" data-line-number="67">       (0,1)-- ++</a>
+<a class="sourceLine" id="cb5-68" data-line-number="68">       (1,0)-- ++</a>
+<a class="sourceLine" id="cb5-69" data-line-number="69">       (0,1)-- ++</a>
+<a class="sourceLine" id="cb5-70" data-line-number="70">       (1,0)-- ++</a>
+<a class="sourceLine" id="cb5-71" data-line-number="71">       (0,1)-- ++</a>
+<a class="sourceLine" id="cb5-72" data-line-number="72">       (1,0)-- ++</a>
+<a class="sourceLine" id="cb5-73" data-line-number="73">       (0,1)-- ++</a>
+<a class="sourceLine" id="cb5-74" data-line-number="74">       (1,0)-- ++</a>
+<a class="sourceLine" id="cb5-75" data-line-number="75">       (0,1)-- ++</a>
+<a class="sourceLine" id="cb5-76" data-line-number="76">       (1,0)-- ++</a>
+<a class="sourceLine" id="cb5-77" data-line-number="77">       (0,-6)--cycle;</a>
+<a class="sourceLine" id="cb5-78" data-line-number="78"><span class="fu">\node</span>[rotate=-90] at (-0.6,3.5) {{Probability}};</a>
+<a class="sourceLine" id="cb5-79" data-line-number="79"><span class="fu">\node</span> at (3.5,-0.5) {{Die roll is this value or less}};</a>
+<a class="sourceLine" id="cb5-80" data-line-number="80"><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</a>
+<a class="sourceLine" id="cb5-81" data-line-number="81"></a>
+<a class="sourceLine" id="cb5-82" data-line-number="82"><span class="kw">\end</span>{<span class="ex">document</span>}</a></code></pre></div>
+</div>
+</div>
+</div>
+<p>The cumulative distribution function is often distinguished from the probability mass function with a capital <span class="math inline">\(F\)</span> instead of a lowercase <span class="math inline">\(f\)</span>. In the case of a discrete uniform distribution consisting of <span class="math inline">\(n\)</span> consecutive integers from <span class="math inline">\(a\)</span> to <span class="math inline">\(b\)</span>, the cumulative distribution function is:</p>
+<p><span class="math display">\[\begin{equation*}
+F_X(x;a,b)=\frac{x-a+1}{b-a+1}=\frac{x-a+1}{n}
+\end{equation*}\]</span>
+Where
+<span class="math display">\[\begin{align*}
+X &amp;= \text{A random variable with a discrete uniform distribution}\\
+F_X &amp;= \text{The cumulative distribution function of}~X\\
+x &amp;= \text{Any particular member of the sample space of}~X\\
+a &amp;= \text{The lower bound of the sample space}\\
+b &amp;= \text{The upper bound of the sample space}\\
+n &amp;= b-a+1~\text{(The number of points in the sample space)}
+\end{align*}\]</span></p>
+<p>In the case of the the six-sided die, the cumulative distribution function is</p>
+<p><span class="math display">\[F_X(x;a=1,b=6)=\frac{x-a+1}{b-a+1}=\frac{x-1+1}{6-1+1}=\frac{x}{6}\]</span></p>
+<p>The cumulative distribution function is so-named because it adds all the probabilities in the probability mass function up to and including a particular member of the sample space. Figure <a href="sec-DiscreteUniform.html#fig:pmf2cdf">2.6</a> shows how the each probability in the cumulative distribution function of the roll of a six-sided die is the sum of the current and all previous probabilities in the probability mass function..</p>
+<div class="figure"><span id="fig:pmf2cdf"></span>
+<p class="caption marginnote shownote">
+Figure 2.6: The cumulative distribution function is the sum of the current and all previous elements of the probability mass function.
+</p>
+<img src="pmf2cdf.gif" alt="The cumulative distribution function is the sum of the current and all previous elements of the probability mass function."  />
+</div>
+<div class="wrap-collapsible">
+<input id="collapsiblepmf2cdf" class="toggle" type="checkbox">
+<label for="collapsiblepmf2cdf" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">crossing</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">         <span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pmf =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cdf =</span> <span class="kw">ifelse</span>(id <span class="op">&lt;</span><span class="st"> </span>x, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">6</span>, x <span class="op">/</span><span class="st"> </span><span class="dv">6</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> cdf)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">yend =</span> cdf <span class="op">-</span><span class="st"> </span>pmf, <span class="dt">xend =</span> x), </a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">               <span class="dt">color =</span> <span class="st">&quot;firebrick&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">yend =</span> pmf, <span class="dt">xend =</span> x), </a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">               <span class="dt">color =</span> <span class="st">&quot;royalblue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pmf), <span class="dt">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;royalblue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> . <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(x <span class="op">&lt;=</span><span class="st"> </span>id), </a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">            <span class="dt">lty =</span> <span class="st">&quot;dotted&quot;</span>, </a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">            <span class="dt">color =</span> <span class="st">&quot;firebrick&quot;</span> ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pmf),</a>
+<a class="sourceLine" id="cb6-15" data-line-number="15">             <span class="dt">color =</span> <span class="st">&quot;royalblue&quot;</span>,</a>
+<a class="sourceLine" id="cb6-16" data-line-number="16">             <span class="dt">size =</span> <span class="dv">5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> . <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(x <span class="op">&lt;=</span><span class="st"> </span>id), </a>
+<a class="sourceLine" id="cb6-18" data-line-number="18">             <span class="dt">color =</span> <span class="st">&quot;firebrick&quot;</span>,</a>
+<a class="sourceLine" id="cb6-19" data-line-number="19">             <span class="dt">size =</span> <span class="fl">3.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&quot;Sample Space&quot;</span>, </a>
+<a class="sourceLine" id="cb6-21" data-line-number="21">                     <span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb6-22" data-line-number="22">                     <span class="dt">expand =</span> <span class="kw">c</span>(<span class="fl">0.03</span>,<span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb6-23" data-line-number="23">                     <span class="dt">minor_breaks =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&quot;Probability&quot;</span>,</a>
+<a class="sourceLine" id="cb6-25" data-line-number="25">                     <span class="dt">breaks =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">6</span> <span class="op">/</span><span class="st"> </span><span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb6-26" data-line-number="26">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">paste0</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">&quot;/&quot;</span>, <span class="dv">6</span>),<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb6-27" data-line-number="27">                     <span class="dt">expand =</span> <span class="kw">c</span>(<span class="fl">0.03</span>,<span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb6-28" data-line-number="28">                     <span class="dt">minor_breaks =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="st">  </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">18</span>, <span class="dt">base_family =</span> bfont) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;point&quot;</span>,</a>
+<a class="sourceLine" id="cb6-32" data-line-number="32">           <span class="dt">size =</span> <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb6-33" data-line-number="33">           <span class="dt">x =</span> <span class="fl">1.2</span>,  </a>
+<a class="sourceLine" id="cb6-34" data-line-number="34">           <span class="dt">y =</span> <span class="fl">5.33</span> <span class="op">/</span><span class="st"> </span><span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb6-35" data-line-number="35">           <span class="dt">color =</span> <span class="st">&quot;royalblue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;point&quot;</span>,</a>
+<a class="sourceLine" id="cb6-37" data-line-number="37">           <span class="dt">size =</span> <span class="fl">3.5</span>, </a>
+<a class="sourceLine" id="cb6-38" data-line-number="38">           <span class="dt">x =</span> <span class="fl">1.2</span>,  </a>
+<a class="sourceLine" id="cb6-39" data-line-number="39">           <span class="dt">y =</span> <span class="fl">5.66</span> <span class="op">/</span><span class="st"> </span><span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb6-40" data-line-number="40">           <span class="dt">color =</span> <span class="st">&quot;firebrick&quot;</span>)  <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-41" data-line-number="41"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>,</a>
+<a class="sourceLine" id="cb6-42" data-line-number="42">           <span class="dt">size =</span> <span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb6-43" data-line-number="43">           <span class="dt">x =</span> <span class="fl">1.33</span>,  </a>
+<a class="sourceLine" id="cb6-44" data-line-number="44">           <span class="dt">y =</span> <span class="fl">5.33</span> <span class="op">/</span><span class="st"> </span><span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb6-45" data-line-number="45">           <span class="dt">color =</span> <span class="st">&quot;royalblue&quot;</span>,</a>
+<a class="sourceLine" id="cb6-46" data-line-number="46">           <span class="dt">label =</span> <span class="st">&quot;Probability Mass Function&quot;</span>,</a>
+<a class="sourceLine" id="cb6-47" data-line-number="47">           <span class="dt">hjust =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb6-48" data-line-number="48">           <span class="dt">family =</span> bfont, </a>
+<a class="sourceLine" id="cb6-49" data-line-number="49">           <span class="dt">label.padding =</span> <span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;lines&quot;</span>), </a>
+<a class="sourceLine" id="cb6-50" data-line-number="50">           <span class="dt">label.size =</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb6-51" data-line-number="51">           ) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-52" data-line-number="52"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>,</a>
+<a class="sourceLine" id="cb6-53" data-line-number="53">           <span class="dt">size =</span> <span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb6-54" data-line-number="54">           <span class="dt">x =</span> <span class="fl">1.33</span>,  </a>
+<a class="sourceLine" id="cb6-55" data-line-number="55">           <span class="dt">y =</span> <span class="fl">5.66</span> <span class="op">/</span><span class="st"> </span><span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb6-56" data-line-number="56">           <span class="dt">color =</span> <span class="st">&quot;firebrick&quot;</span>,</a>
+<a class="sourceLine" id="cb6-57" data-line-number="57">           <span class="dt">label =</span> <span class="st">&quot;Cumulative Distribution Function&quot;</span>,</a>
+<a class="sourceLine" id="cb6-58" data-line-number="58">           <span class="dt">hjust =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb6-59" data-line-number="59">           <span class="dt">family =</span> bfont, </a>
+<a class="sourceLine" id="cb6-60" data-line-number="60">           <span class="dt">label.padding =</span> <span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;lines&quot;</span>), </a>
+<a class="sourceLine" id="cb6-61" data-line-number="61">           <span class="dt">label.size =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-62" data-line-number="62"><span class="st">  </span><span class="kw">transition_states</span>(id,<span class="dv">2</span>,<span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-63" data-line-number="63"><span class="st">  </span><span class="kw">ease_aes</span>(<span class="st">&quot;sine-in-out&quot;</span>)</a>
+<a class="sourceLine" id="cb6-64" data-line-number="64"></a>
+<a class="sourceLine" id="cb6-65" data-line-number="65"><span class="kw">animate</span>(p, </a>
+<a class="sourceLine" id="cb6-66" data-line-number="66">        <span class="dt">device =</span> <span class="st">&quot;svg&quot;</span>,</a>
+<a class="sourceLine" id="cb6-67" data-line-number="67">        <span class="dt">renderer =</span> <span class="kw">magick_renderer</span>(), </a>
+<a class="sourceLine" id="cb6-68" data-line-number="68">        <span class="dt">width =</span> <span class="dv">8</span>,</a>
+<a class="sourceLine" id="cb6-69" data-line-number="69">        <span class="dt">height =</span> <span class="dv">8</span>)</a></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div id="sec:Quantile" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> Quantile functions</h3>
+<p>The inverse of the cumulative distribution function is the <span class="defword">quantile function</span>.<label for="tufte-mn-14" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-14" class="margin-toggle"><span class="marginnote">A <strong>quantile function</strong> tells us which value in the sample space of a random variable is greater than a particular proportion of the values the random variable generates.</span> The cumulative distribution starts with a value <span class="math inline">\(x\)</span> in the sample space and tells us <span class="math inline">\(p\)</span>, the proportion of values in that distribution that are less than or equal to <span class="math inline">\(x\)</span>. A quantile function starts with a proportion <span class="math inline">\(p\)</span> and tells us the value <span class="math inline">\(x\)</span> that splits the distribution such that the proportion <span class="math inline">\(p\)</span> of the distribution is less than or equal to <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[
+\begin{array}{rc}
+\text{Cumulative Distribution Function:} &amp; F_X(x) = p \\
+\text{Quantile Function:} &amp; Q_X(p) = x
+\end{array}
+\]</span></p>
+<p>As seen in Figure <a href="sec-DiscreteUniform.html#fig:cdfvquantile">2.7</a>, if you see a graph of a continuous distribution function, just flip the <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> axes and you have a graph of a quantile function!</p>
+<div class="figure fullwidth"><span id="fig:cdfvquantile"></span>
+<img src="toolkit_files/figure-html/cdfvquantile-1.svg" alt="The quantile function is the inverse of the cumulative distribution function: Just flip the X and Y axes!" width="1200"  />
+<p class="caption marginnote shownote">
+Figure 2.7: The quantile function is the inverse of the cumulative distribution function: Just flip the X and Y axes!
+</p>
+</div>
+<div class="wrap-collapsible">
+<input id="collapsible35" class="toggle" type="checkbox">
+<label for="collapsible35" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">d &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.01</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> <span class="kw">pnorm</span>(x))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(x, p)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_path</span>(</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;closed&quot;</span>,</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">                  <span class="dt">ends =</span> <span class="st">&quot;both&quot;</span>,</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">                  <span class="dt">angle =</span> <span class="dv">12</span>,</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">                  <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.15</span>, <span class="st">&quot;inches&quot;</span>)),</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">    <span class="dt">color =</span> <span class="st">&quot;royalblue&quot;</span>,</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">    <span class="dt">lwd =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="kw">expression</span>(Sample <span class="op">~</span><span class="st"> </span>Space <span class="op">~</span><span class="st"> </span>(<span class="kw">italic</span>(x)))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="kw">expression</span>(Proportion <span class="op">~</span><span class="st"> </span>(<span class="kw">italic</span>(p)))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="st">  </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">18</span>, <span class="dt">base_family =</span> bfont) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dv">8</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="st">  </span><span class="kw">annotate</span>(</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">    <span class="st">&quot;label&quot;</span>,</a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">    <span class="dt">x =</span> <span class="fl">-1.5</span>,</a>
+<a class="sourceLine" id="cb7-20" data-line-number="20">    <span class="dt">y =</span> <span class="fl">.5</span> <span class="op">+</span><span class="st"> </span><span class="fl">.25</span> <span class="op">/</span><span class="st"> </span><span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb7-21" data-line-number="21">    <span class="dt">label =</span> <span class="st">&#39;italic(X)%~%italic(N)*group(&quot;(&quot;,list(0,1^2),&quot;)&quot;)&#39;</span>,</a>
+<a class="sourceLine" id="cb7-22" data-line-number="22">    <span class="dt">parse =</span> T,</a>
+<a class="sourceLine" id="cb7-23" data-line-number="23">    <span class="dt">family =</span> bfont,</a>
+<a class="sourceLine" id="cb7-24" data-line-number="24">    <span class="dt">label.size =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb7-25" data-line-number="25">    <span class="dt">label.padding =</span> <span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;mm&quot;</span>),</a>
+<a class="sourceLine" id="cb7-26" data-line-number="26">    <span class="dt">size =</span> <span class="dv">6</span></a>
+<a class="sourceLine" id="cb7-27" data-line-number="27">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="kw">expression</span>(Cumulative<span class="op">~</span>Distribution<span class="op">~</span>Function<span class="op">~</span><span class="kw">italic</span>(F[X](x)) <span class="op">==</span><span class="st"> </span><span class="kw">italic</span>(p))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="st">  </span><span class="kw">theme</span>(</a>
+<a class="sourceLine" id="cb7-30" data-line-number="30">    <span class="dt">title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>, <span class="dt">hjust =</span> <span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb7-31" data-line-number="31">    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb7-32" data-line-number="32">    <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.7</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb7-33" data-line-number="33">  )</a>
+<a class="sourceLine" id="cb7-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb7-35" data-line-number="35">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(p, x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-36" data-line-number="36"><span class="st">  </span><span class="kw">geom_path</span>(</a>
+<a class="sourceLine" id="cb7-37" data-line-number="37">    <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;closed&quot;</span>,</a>
+<a class="sourceLine" id="cb7-38" data-line-number="38">                  <span class="dt">ends =</span> <span class="st">&quot;both&quot;</span>,</a>
+<a class="sourceLine" id="cb7-39" data-line-number="39">                  <span class="dt">angle =</span> <span class="dv">12</span>,</a>
+<a class="sourceLine" id="cb7-40" data-line-number="40">                  <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.15</span>, <span class="st">&quot;inches&quot;</span>)),</a>
+<a class="sourceLine" id="cb7-41" data-line-number="41">    <span class="dt">color =</span> <span class="st">&quot;royalblue&quot;</span>,</a>
+<a class="sourceLine" id="cb7-42" data-line-number="42">    <span class="dt">lwd =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb7-43" data-line-number="43">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-44" data-line-number="44"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="kw">expression</span>(Sample <span class="op">~</span><span class="st"> </span>Space <span class="op">~</span><span class="st"> </span>(<span class="kw">italic</span>(x)))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-45" data-line-number="45"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="kw">expression</span>(Proportion <span class="op">~</span><span class="st"> </span>(<span class="kw">italic</span>(p)))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-46" data-line-number="46"><span class="st">  </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">18</span>, <span class="dt">base_family =</span> bfont) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-47" data-line-number="47"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">8</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-48" data-line-number="48"><span class="st">  </span><span class="kw">annotate</span>(</a>
+<a class="sourceLine" id="cb7-49" data-line-number="49">    <span class="st">&quot;label&quot;</span>,</a>
+<a class="sourceLine" id="cb7-50" data-line-number="50">    <span class="dt">y =</span> <span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb7-51" data-line-number="51">    <span class="dt">x =</span> <span class="fl">1.25</span> <span class="op">/</span><span class="st"> </span><span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb7-52" data-line-number="52">    <span class="dt">label =</span> <span class="st">&#39;italic(X)%~%italic(N)*group(&quot;(&quot;,list(0,1^2),&quot;)&quot;)&#39;</span>,</a>
+<a class="sourceLine" id="cb7-53" data-line-number="53">    <span class="dt">parse =</span> T,</a>
+<a class="sourceLine" id="cb7-54" data-line-number="54">    <span class="dt">family =</span> bfont,</a>
+<a class="sourceLine" id="cb7-55" data-line-number="55">    <span class="dt">label.size =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb7-56" data-line-number="56">    <span class="dt">label.padding =</span> <span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;mm&quot;</span>),</a>
+<a class="sourceLine" id="cb7-57" data-line-number="57">    <span class="dt">size =</span> <span class="dv">6</span></a>
+<a class="sourceLine" id="cb7-58" data-line-number="58">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-59" data-line-number="59"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="kw">expression</span>(Quantile<span class="op">~</span>Function<span class="op">~</span><span class="kw">italic</span>(Q[X](p)) <span class="op">==</span><span class="st"> </span><span class="kw">italic</span>(x))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-60" data-line-number="60"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">14</span>, <span class="dt">hjust =</span> <span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb7-61" data-line-number="61">        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb7-62" data-line-number="62"></a>
+<a class="sourceLine" id="cb7-63" data-line-number="63"><span class="kw">library</span>(patchwork)</a>
+<a class="sourceLine" id="cb7-64" data-line-number="64"></a>
+<a class="sourceLine" id="cb7-65" data-line-number="65">p1 <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div id="generating-a-random-sample-in-r" class="section level3">
+<h3><span class="header-section-number">3.3.5</span> Generating a Random Sample in R</h3>
+<p>In R, the <code>sample</code> function generates numbers from the continuous uniform distribution.</p>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:discreteplot"></span>
+<img src="toolkit_files/figure-html/discreteplot-1.svg" alt="Frequency distribution of a discrete uniform random variable from 1 to 6 ($n$ = 6,000)"  />
+<!--
+<p class="caption marginnote">-->Figure 2.8: Frequency distribution of a discrete uniform random variable from 1 to 6 (<span class="math inline">\(n\)</span> = 6,000)<!--</p>-->
+<!--</div>--></span>
+</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># n = the sample size</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">n &lt;-<span class="st"> </span><span class="dv">6000</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co"># a = the lower bound</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">a &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co"># b = the upper bound</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">b &lt;-<span class="st"> </span><span class="dv">6</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co"># The sample space is the sequence of integers from a to b</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">sample_space &lt;-<span class="st"> </span><span class="kw">seq</span>(a, b)</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co"># X = the sample with a discrete uniform distribution</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co"># The sample function selects n values</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co"># from the sample space with replacement at random</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">X &lt;-<span class="st"> </span><span class="kw">sample</span>(sample_space, </a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">            <span class="dt">size =</span> n, </a>
+<a class="sourceLine" id="cb8-14" data-line-number="14">            <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible36" class="toggle" type="checkbox">
+<label for="collapsible36" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">X =</span> <span class="kw">factor</span>(X)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(X) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Frequency =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(X,Frequency, <span class="dt">fill =</span> X)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">width =</span> <span class="fl">0.7</span>, <span class="dt">fill =</span> <span class="st">&quot;royalblue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label =</span> Frequency), </a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">             <span class="dt">vjust =</span> <span class="fl">-0.3</span>, </a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">             <span class="dt">label.size =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">             <span class="dt">label.padding =</span> <span class="kw">unit</span>(<span class="dv">0</span>,<span class="st">&quot;mm&quot;</span>), </a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">             <span class="dt">family =</span> bfont,</a>
+<a class="sourceLine" id="cb9-11" data-line-number="11">             <span class="dt">size =</span> <span class="dv">8</span>,</a>
+<a class="sourceLine" id="cb9-12" data-line-number="12">             <span class="dt">color =</span> <span class="st">&quot;gray30&quot;</span>,</a>
+<a class="sourceLine" id="cb9-13" data-line-number="13">             <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="st">  </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">28</span>, </a>
+<a class="sourceLine" id="cb9-15" data-line-number="15">                <span class="dt">base_family =</span> bfont) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&quot;Count&quot;</span>, </a>
+<a class="sourceLine" id="cb9-17" data-line-number="17">                     <span class="dt">expand =</span> <span class="kw">expand_scale</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.075</span>)), </a>
+<a class="sourceLine" id="cb9-18" data-line-number="18">                     <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1000</span>,<span class="dv">200</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid.major.x =</span> <span class="kw">element_blank</span>(), </a>
+<a class="sourceLine" id="cb9-21" data-line-number="21">        <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) </a></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="sec-ProbabilityDistribution.html"><button class="btn btn-default">Previous</button></a>
+<a href="sec-BernoulliDist.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

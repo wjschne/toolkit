@@ -1,0 +1,62 @@
+\documentclass[tikz = true,border = 2pt]{standalone}
+\usepackage{tikz}
+\usepackage{fontspec}
+\setmainfont{Equity Text A}
+\definecolor[named]{fillColor}{RGB}{39,64,139}
+\begin{document}
+\begin{tikzpicture}[x=1pt,
+                      y=1pt,
+                      xscale=.4,
+                      yscale=.66,
+                      axisline/.style={
+                      	draw=black,
+                      	line width= 0.4pt,
+                      	line join=round,
+                      	line cap=round},
+                      axislabel/.style={
+                      	text=black,
+                      	inner sep=0pt,
+                      	outer sep=0pt,
+                      	anchor=east},
+                      xaxislabel/.style={
+                      	text=black,
+                      	inner sep=0pt,
+                      	outer sep=0pt},
+                       bar/.style={
+                      	draw=white,
+                      	line width= 0.4pt,
+                      	line join=round,
+                      	line cap=round,
+                      	fill=fillColor,
+                        rounded corners = 1.5pt}                ]
+
+% X-axis
+\node[xaxislabel] at (100, 39) {0};
+\node[xaxislabel] at (200, 39) {1};
+\node[xaxislabel] at (300, 39) {2};
+\node[scale= 1.14] at (204.07, 19) {Number of Heads};
+
+% Y-axis
+\path[axisline] ( 42, 50) -- ( 42,250);
+\path[axisline] ( 40, 50) -- ( 42, 50);
+\path[axisline] ( 40,150) -- ( 42,150);
+\path[axisline] ( 40,250) -- ( 42,250);
+\node[axislabel] at ( 37, 50) {0};
+\node[axislabel] at ( 37,150) {.25};
+\node[axislabel] at ( 37,250) {.50};
+
+% Bars
+\path[bar] (50, 50.00) rectangle (150,150);
+\path[bar] (150, 50.00) rectangle (250,250);
+\path[bar] (250, 50.00) rectangle (350,150);
+\node at (100,  80) {\includegraphics [width=36pt]{../QuarterTails.png}};
+\node at (100, 120) {\includegraphics [width=36pt]{../QuarterTails.png}};
+\node at (200,  80) {\includegraphics [width=36pt]{../QuarterHeads.png}};
+\node at (200, 120) {\includegraphics [width=36pt]{../QuarterTails.png}};
+\node at (200, 180) {\includegraphics [width=36pt]{../QuarterTails.png}};
+\node at (200, 220) {\includegraphics [width=36pt]{../QuarterHeads.png}};
+\node at (300,  80) {\includegraphics [width=36pt]{../QuarterHeads.png}};
+\node at (300, 120) {\includegraphics [width=36pt]{../QuarterHeads.png}};
+
+\end{tikzpicture}
+\end{document}

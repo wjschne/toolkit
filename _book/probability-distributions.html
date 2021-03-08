@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+<meta name="github-repo" content="wjschne/psychtoolkit" />
+
+<meta name="author" content="W. Joel Schneider" />
+
+<meta name="date" content="2018-07-30" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+
+<title>Practical Psychometrics: A Psychological Assessment Toolkit</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#preface">Preface</a></li>
+<li><a href="notation.html#notation">Notation</a></li>
+<li><a href="intro.html#intro"><span class="toc-section-number">1</span> Introduction</a></li>
+<li class="has-sub"><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a><ul>
+<li><a href="variables.html#nominal"><span class="toc-section-number">2.1</span> Nominal scales</a></li>
+<li><a href="variables.html#ordinal-scales"><span class="toc-section-number">2.2</span> Ordinal scales</a></li>
+<li><a href="variables.html#interval-scales"><span class="toc-section-number">2.3</span> Interval scales}</a></li>
+<li><a href="variables.html#ratio-scales"><span class="toc-section-number">2.4</span> Ratio scales</a></li>
+<li><a href="variables.html#sec:DiscreteVsContinuous"><span class="toc-section-number">2.5</span> Discrete vs. Continuous Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="probability-distributions.html#probability-distributions"><span class="toc-section-number">3</span> Probability Distributions</a><ul>
+<li><a href="probability-distributions.html#random-variables"><span class="toc-section-number">3.1</span> Random Variables</a></li>
+<li><a href="probability-distributions.html#sec:SampleSpace"><span class="toc-section-number">3.2</span> Sample Spaces</a></li>
+<li><a href="probability-distributions.html#sec:ProbabilityDistribution"><span class="toc-section-number">3.3</span> Probability Distributions</a></li>
+<li><a href="probability-distributions.html#sec:DiscreteUniform"><span class="toc-section-number">3.4</span> Discrete Uniform Distributions</a></li>
+<li><a href="probability-distributions.html#parameters-of-random-variables"><span class="toc-section-number">3.5</span> Parameters of Random Variables</a></li>
+<li><a href="probability-distributions.html#sec:pmf"><span class="toc-section-number">3.6</span> Probability Mass Functions</a></li>
+<li><a href="probability-distributions.html#sec:CumDist"><span class="toc-section-number">3.7</span> Cumulative Distribution Functions</a></li>
+<li><a href="probability-distributions.html#sec:Quantile"><span class="toc-section-number">3.8</span> Quantile functions</a></li>
+<li><a href="probability-distributions.html#generating-a-random-sample-in-excel-and-r"><span class="toc-section-number">3.9</span> Generating a Random Sample in Excel and R}</a></li>
+<li><a href="probability-distributions.html#sec:BernoulliDist"><span class="toc-section-number">3.10</span> Bernoulli Distributions</a></li>
+<li><a href="probability-distributions.html#binomial-distributions"><span class="toc-section-number">3.11</span> Binomial Distributions</a></li>
+<li><a href="probability-distributions.html#poisson-distributions"><span class="toc-section-number">3.12</span> Poisson Distributions}</a></li>
+<li><a href="probability-distributions.html#geometric-distributions"><span class="toc-section-number">3.13</span> Geometric Distributions}</a></li>
+<li><a href="probability-distributions.html#sec:pdf"><span class="toc-section-number">3.14</span> Probability Density Functions</a></li>
+<li><a href="probability-distributions.html#sec:Uniform"><span class="toc-section-number">3.15</span> Continuous Uniform Distributions</a></li>
+<li><a href="probability-distributions.html#normal-distributions"><span class="toc-section-number">3.16</span> Normal Distributions</a></li>
+</ul></li>
+<li><a href="final-words.html#final-words"><span class="toc-section-number">4</span> Final Words</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="probability-distributions" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Probability Distributions</h1>
+<div id="random-variables" class="section level2">
+<h2><span class="header-section-number">3.1</span> Random Variables</h2>
+<p>Because we first learn about variables in an algebra class, we tend to think of variables as having values that can be solved for—if we have enough information about them. If I say that <span class="math inline">\(x\)</span> is a variable and that <span class="math inline">\(x+6=8\)</span>, we can use algebra to find that <span class="math inline">\(x\)</span> must equal 2.</p>
+<p><em>Random variables</em><label for="tufte-mn-25" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-25" class="margin-toggle"><span class="marginnote"><em>Random variables</em> have values that are determined by a random process.</span> are not like algebraic variables. Random variables simply take on values because of some random process. If we say that the outcome of a throw of a six-sided die is a random variable, there is nothing to “solve for.” There is no equation that determines the value of the die. Instead, it is determined by chance and the physical constraints of the die. That is, the outcome must be one of the numbers printed on the die and the six numbers are equally likely to occur. This illustrates an important point. The word <em>random</em> here does not mean “anything can happen.” Random variables have outcomes that are subject to random processes, but those random processes <em>do</em> have constraints on them such that some outcomes are more likely than others—and some outcomes never occur at all.</p>
+<p>When we say that the throw of a six-sided die is a random variable, we are not talking about any particular throw of a particular die but, in a sense, <em>every</em> throw (that has ever happened or ever could happen) of <em>every</em> die (that has ever existed or could exist). Imagine an immense, roaring, neverending, cascading flow of dice falling from the sky. As each die lands and disappears, a giant scoreboard nearby records the relative frequencies of ones, twos, threes, fours, fives, and sixes. That’s a random variable.</p>
+</div>
+<div id="sec:SampleSpace" class="section level2">
+<h2><span class="header-section-number">3.2</span> Sample Spaces</h2>
+<p>The set of all possible outcomes of a random variable is the <em>sample space</em>.<label for="tufte-mn-26" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-26" class="margin-toggle"><span class="marginnote">A <em>sample space</em> is the set of all possible values that a random variable can assume.</span> Continuing with our example, the sample space of a single throw of a six-sided die is the set <span class="math inline">\(\big\{\)</span>,,,,,<span class="math inline">\(\big\}\)</span>. <em>Sample space} is a curious term. Why </em>sample} and why <em>space}? With random variables, </em>populations<em><label for="tufte-mn-27" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-27" class="margin-toggle"><span class="marginnote">A <em>population</em> consists of all entities under consideration.</span> are infinitely large, at least theoretically. Random variables just keep spitting out numbers forever! So any time we actually observe numbers generated by a random variable, we are always observing a </em>sample<em>;<label for="tufte-mn-28" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-28" class="margin-toggle"><span class="marginnote">A <em>sample</em> is a subset of a population.</span> actual infinites cannot be observed in their entirety. A </em>space* is a set that has mathematical structure. Most random variables generate either integers or real numbers, both of which are structured in many ways (e.g., order).</p>
+<p>Unlike distributions having to do with dice, many distributions have a sample space with an infinite number of elements. Actually there are two kinds of infinity we can consider. One distribution we will discuss later is the Poisson distribution. Its sample space is the set of whole numbers: <span class="math inline">\(\{0,1,2,...\}\)</span>, which extends to positive infinity. The sample space of continuous variables is infinitely large for another reason. Between any two points in a continuous distribution, there is an infinite number of other points. For example, in the continuous uniform distribution, the sample space consists of all real numbers between two points. Many continuous distributions have sample spaces that involve both kinds of infinity. For example, the sample space of the normal distribution consists of all real numbers from negative infinity to positive infinity.</p>
+</div>
+<div id="sec:ProbabilityDistribution" class="section level2">
+<h2><span class="header-section-number">3.3</span> Probability Distributions</h2>
+
+<p>Each element of a random variable’s sample space has some probability associated with it. When we list the probabilities of each possible outcome, we have specified the variable’s <em>probability distribution</em><label for="tufte-mn-29" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-29" class="margin-toggle"><span class="marginnote">In a <em>probability distribution</em>, there is an assignment of a probability to each possible element in a variable’s sample space.</span>. In other words, if we know the probability distribution of a variable, we know how probable each outcome is. In the case of a throw of a single die, each outcome is equally likely (Figure @reg(fig:dice)).</p>
+<p>There is an infinite variety of probability distributions, but a small subset of them have been given names. Now, one can manage one’s affairs quite well without ever knowing what a Bernoulli distribution is, or what a <span class="math inline">\(\chi{^2}\)</span> distribution is, or even what a normal distribution is. However, sometimes life is a little easier if we have names for useful things that occur often. Most of the distributions with names are not really single distributions, but families of distributions. The various members of a family are unique but they are united by the fact that their probability distributions are generated by a particular mathematical function (more on that later). In such cases, the probability distribution is often represented by a graph in which the sample space is on the <span class="math inline">\(X\)</span>-axis and the associated probabilities are on the <span class="math inline">\(Y\)</span>-axis. In Figure @reg(fig:pdfIllustration), 16 probability distributions that might be interesting and useful to clinicians are illustrated. Keep in mind that what are pictured are only particular members of the families listed; some family members look quite different from what is shown in Figure @reg(fig:pdfIllustration).</p>
+
+</div>
+<div id="sec:DiscreteUniform" class="section level2">
+<h2><span class="header-section-number">3.4</span> Discrete Uniform Distributions</h2>
+<p>The throw of a single die is a member of a family of distributions called the <em>discrete uniform distribution</em>.<label for="tufte-mn-30" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-30" class="margin-toggle"><span class="marginnote">A <em>discrete uniform distribution</em> is a family of random variable distributions in which the sample space is an evenly spaced sequence of numbers, each of which is equally likely to occur.</span> It is “discrete” because the elements in the sample space are countable, with evenly spaced gaps between them. For example, there might be a sequence of 8, 9, 10,and 11 in the sample space but there are no numbers in between. It is “uniform” because all outcomes are equally likely. With dice, the numbers range from a lower bound of 1 to an upper bound of 6. In the family of discrete uniform distributions, the lower and upper bounds are typically integers, mostly likely starting with 1. However, any real number <span class="math inline">\(a\)</span> can be the lower bound and the spacing <span class="math inline">\(k\)</span> between numbers can be any positive real number. For the sake of simplicity and convenience, I will assume that the discrete uniform distribution refers to consecutive integers ranging from a lower bound of <span class="math inline">\(a\)</span> and an upper bound of <span class="math inline">\(b\)</span>.</p>
+<p>This kind of discrete uniform distribution has a number of characteristics listed below. I will explain each of them in the sections that follow.<label for="tufte-mn-31" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-31" class="margin-toggle"><span class="marginnote">As we go, I will also explain the mathematical notation. For example, <span class="math inline">\(a \in \mathbb{Z}\)</span> means that <span class="math inline">\(a\)</span> is an integer because <span class="math inline">\(\in\)</span> means <em>is a member of</em> and <span class="math inline">\(\mathbb{Z}\)</span> is the set of all integers.</span></p>
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+\setlength{\extrarowheight}{3pt}
+\begin{array}{rccc}
+%\text{\textbf{Discrete Uniform Distribution}}&amp;&amp;\\
+\text{Lower Bound:} &amp; a  &amp; \hyperref [note:In]{\in} &amp;\hyperref [note:Z]{\mathbb{Z}}\\
+\text{Upper Bound:} &amp; b &amp; \in &amp; \mathbb{Z}\\
+&amp;&amp;&amp;b&gt;a\\
+\text{Sample Space:} &amp; x &amp;\in&amp;\{a,a+1,\hdots,b\}\\
+\text{Number of points:} &amp; n&amp;=&amp;b-a+1 \\
+\text{Mean:} &amp; \mu&amp;=&amp;\frac{a+b}{2} \\
+\text{Variance:} &amp; \sigma^2&amp;=&amp;\frac{n^2-1}{12} \\
+\text{Skewness:} &amp; \gamma_1&amp;=&amp;0 \\
+\text{Kurtosis:} &amp; \gamma_2&amp;=&amp;-\frac{6(n^2+1)}{5(n^2-1)} \\
+\text{Probability Mass Function:} &amp; f_X(x;a,b)&amp;=&amp;\frac{1}{n} \\
+\text{Cumulative Distribution Function:} &amp; F_X(x;a,b)&amp;=&amp;\frac{x-a+1}{n} \\
+\end{array}
+}
+\end{equation*}\]</span></p>
+</div>
+<div id="parameters-of-random-variables" class="section level2">
+<h2><span class="header-section-number">3.5</span> Parameters of Random Variables</h2>
+<p>The lower bound <span class="math inline">\(a\)</span>, the spacing between numbers <span class="math inline">\(k\)</span>, and the number of points <span class="math inline">\(n\)</span> are the discrete uniform distribution’s <em>parameters</em>.<label for="tufte-mn-32" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-32" class="margin-toggle"><span class="marginnote">A <em>parameter</em> is a defining feature of a random variable’s probability distribution.</span> If we restrict ourselves to the more common case in which the sample space consists of consecutive integers, we can say that the parameters are simply the lower bound <span class="math inline">\(a\)</span> and the upper bound <span class="math inline">\(b\)</span>. The word <em>parameter</em> has many meanings but here it refers to a characteristic of a distribution family that helps us identify precisely which member of the family we are talking about. Most distribution families have one, two, or three parameters.</p>
+<p>If you have taken an algebra class, you have seen parameters before, though the word <em>parameter</em> many not have been used. Think about the formula of a line:
+<span class="math display">\[\begin{equation*}\label{eq:linear}
+y=mx+b
+\end{equation*}\]</span>
+Both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are variables, but what are <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span>? Well, you probably remember that <span class="math inline">\(m\)</span> is the slope of the line and that <span class="math inline">\(b\)</span> is the <span class="math inline">\(y\)</span>-intercept. If we know the slope and the intercept of a line, we know exactly which line we are talking about. No additional information is needed to graph the line. Therefore, <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span> are the line’s <em>parameters</em>, because they uniquely identify the line.<label for="tufte-sn-7" class="margin-toggle sidenote-number">7</label><input type="checkbox" id="tufte-sn-7" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">7</span> What about other mathematical functions? Do they have parameters? Yes! All of them do! For example, in the equation for a parabola (<span class="math inline">\(y=ax^2+bx+c\)</span>), <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> determine its precise shape.</span> All lines have a lot in common but there is an infinite variety of lines because the parameters, the slope and the intercept, can take on the value of any real number. Each unique combination of parameter values (slope and intercept) will produce a unique line. So it is with probability distribution families. All family members are alike in many ways but they also differ because of different parameter values.</p>
+<p>The discrete uniform distribution (i.e., the typical variety consisting of consecutive integers) is defined by the lower and upper bound. Once we know the lower bound and the upper bound, we know exactly which distribution we are talking about.<label for="tufte-sn-8" class="margin-toggle sidenote-number">8</label><input type="checkbox" id="tufte-sn-8" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">8</span> If we allow the lower bound to be any real number and the spacing to be any positive real number, the discrete uniform distribution can be specifed by three parameters: the lower bound <span class="math inline">\(a\)</span>, the spacing between numbers <span class="math inline">\(k\)</span> (<span class="math inline">\(k&gt;0\)</span>), and the number of points <span class="math inline">\(n\)</span> (<span class="math inline">\(n\)</span>&gt;1). The upper bound <span class="math inline">\(b\)</span> of such a distribution would be <span class="math inline">\(b=a+k(n-1)\)</span></span> Not all distributions are defined by their lower and upper bounds. Indeed, many distribution families are unbounded on one or both sides. Therefore, other features are used to characterize the distributions, such as the population mean.</p>
+</div>
+<div id="sec:pmf" class="section level2">
+<h2><span class="header-section-number">3.6</span> Probability Mass Functions</h2>
+<p>Many distribution families are united by the fact that their probability distributions are generated by a particular mathematical function. For discrete distributions, those functions are called <em>probability mass functions</em>.<label for="tufte-mn-33" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-33" class="margin-toggle"><span class="marginnote">A <em>probability mass function (pmf)</em> is a mathematical expression that gives the probability that a discrete random variable will equal a particular element of the variable’s sample space.</span> In general, a mathematical function is an expression that takes one or more constants (i.e., parameters) and one or more input variables, which are then transformed according to some sort of rule to yield a single number.</p>
+<p>A probability mass function transforms a random variable’s sample space elements into probabilities. In Figure @reg(fig:dice), the probability mass function can be thought of as the arrows between the sample space and the probabilities. That is, the probability mass function is the thing that was done to the sample space elements to calculate the probabilities. In Figure @reg(fig:dice), each outcome of a throw of the the die was mapped onto a probability of <span class="math inline">\(\sfrac{1}{6}\)</span>. Why <span class="math inline">\(\sfrac{1}{6}\)</span>, and not some other number? The probability mass function of the discrete uniform distribution tells us the answer.</p>
+
+<p>The probability mass function of the discrete uniform distribution is fairly simple but the notation can be intimidating at first (Figure @reg(fig:pmf)). By convention, a single random variable is denoted by a capital letter <span class="math inline">\(X\)</span>. Any particular value of <span class="math inline">\(X\)</span> in its sample space is represented by a lowercase <span class="math inline">\(x\)</span>. In other words, <span class="math inline">\(X\)</span> represents the variable in its totality whereas <span class="math inline">\(x\)</span> is merely one value that <span class="math inline">\(X\)</span> can take on. Confusing? Yes, statisticians very work hard to confuse us—and most of the time they succeed!</p>
+<p>The probability mass function of random variable <span class="math inline">\(X\)</span> is denoted by <span class="math inline">\(f_X(x)\)</span>. This looks strange at first. It means, “When random variable <span class="math inline">\(X\)</span> generates a number, what is the probability that the outcome will be a particular value <span class="math inline">\(x\)</span>?” That is, <span class="math inline">\(f_X(x)=P(X=x)\)</span>, where <span class="math inline">\(P\)</span> means “What is the probability that…?” Thus, <span class="math inline">\(P(X=x)\)</span> reads, “What is the probability that random variable <span class="math inline">\(X\)</span> will generate a number equal to a particular value <span class="math inline">\(x\)</span>?” So, <span class="math inline">\(f_X(7)\)</span> reads, “When random variable <span class="math inline">\(X\)</span> generates a number, what is the probability that the number will equal 7?”</p>
+<p>Most probability mass functions also have parameters, which are listed after a semi-colon. In the case of the discrete uniform distribution consisting of consecutive integers, the lower and upper bounds <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are included in the function’s notation like so: <span class="math inline">\(f_X(x;a,b)\)</span>. This reads, “For random variable <span class="math inline">\(X\)</span> with parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, what is the probability that the outcome will be <span class="math inline">\(x\)</span>?” Some parameters can be derived from other parameters, as was the case with the number of points <span class="math inline">\(n\)</span> in the sample space of a discrete uniform distribution: <span class="math inline">\(n=b-a+1\)</span>. The probability for each outcome in the sample space is the same and there are <span class="math inline">\(n\)</span> possible outcomes. Therefore, the probability associated with each outcome is <span class="math inline">\(\sfrac{1}{n}\)</span>.</p>
+<p>Putting all of this together, if <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are integers and <span class="math inline">\(a&lt;b\)</span>, for all <span class="math inline">\(n\)</span> integers <span class="math inline">\(x\)</span> between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>,inclusive:
+<span class="math display">\[\begin{equation}
+f_X(x;a,b)=\frac{1}{b-a+1}=\frac{1}{n}
+\end{equation}\]</span>
+Where
+\begin{conditions<em>}
+X &amp; A random variable with a discrete uniform distribution\
+f_X &amp; The probability mass function of <span class="math inline">\(X\)</span>\
+x &amp; Any particular member of the sample space of <span class="math inline">\(X\)</span>\
+a &amp; The lower bound of the sample space\
+b &amp; The upper bound of the sample space\
+n &amp; The number of points in the sample space
+\end{conditions</em>}
+You might notice that <span class="math inline">\(x\)</span> is not needed to calculate the probability. Why? Because this is a *uniform} distribution. No matter which sample space element <span class="math inline">\(x\)</span> we are talking about, the probability associated with it is always the same. In all distributions that are not uniform, the position of <span class="math inline">\(x\)</span> matters and thus influences the probability of its occurrence.</p>
+</div>
+<div id="sec:CumDist" class="section level2">
+<h2><span class="header-section-number">3.7</span> Cumulative Distribution Functions</h2>
+The <em>cumulative distribution function (cdf)</em><label for="tufte-mn-34" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-34" class="margin-toggle"><span class="marginnote">A <em>cumulative distribution function (cdf)</em> is a mathematical expression that gives the probability that a random variable will equal a particular element of the variable’s sample space or less.</span> tells us where a sample space element ranks in a distribution. Whereas the probability mass function tells us the probability that a random variable will generate a particular number, the cumulative distribution function tells us the probability that a random variable will generate a particular number or less. The cumulative distribution function of the roll of a die (Figure @reg(fig:cdfDie)) tells us that the probability of rolling at least a  is <span class="math inline">\(\sfrac{4}{6}\)</span> (i.e., <span class="math inline">\(\sfrac{2}{3}\)</span>).
+
+<p>The cumulative distribution function is often distinguished from the probability mass function with a capital <span class="math inline">\(F\)</span> instead of a lowercase <span class="math inline">\(f\)</span>. In the case of a discrete uniform distribution consisting of <span class="math inline">\(n\)</span> consecutive integers from <span class="math inline">\(a\)</span> to <span class="math inline">\(b\)</span>, the cumulative distribution function is:
+<span class="math display">\[\begin{equation}
+F_X(x;a,b)=\frac{x-a+1}{b-a+1}=\frac{x-a+1}{n}
+\end{equation}\]</span>
+Where
+\begin{conditions<em>}
+X &amp; A random variable with a discrete uniform distribution\
+F_X &amp; The cumulative distribution function of <span class="math inline">\(X\)</span>\
+x &amp; Any particular member of the sample space of <span class="math inline">\(X\)</span>\
+a &amp; The lower bound of the sample space\
+b &amp; The upper bound of the sample space\
+n &amp; The number of points in the sample space
+\end{conditions</em>}</p>
+</div>
+<div id="sec:Quantile" class="section level2">
+<h2><span class="header-section-number">3.8</span> Quantile functions</h2>
+<p>The inverse of the cumulative distribution function is the <em>quantile function</em>.<label for="tufte-mn-35" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-35" class="margin-toggle"><span class="marginnote">A <em>quantile function</em> tells us which value in the sample space of a random variable is greater than a particular proportion of the values the random variable generates.</span> The cumulative distribution starts with a value <span class="math inline">\(X\)</span> in the sample space and tells us <span class="math inline">\(p\)</span>, the proportion of values in that distribution that are less than or equal to <span class="math inline">\(X\)</span>. A quantile function starts with a proportion <span class="math inline">\(p\)</span> and tells us the value <span class="math inline">\(X\)</span> that splits the distribution such that the proportion <span class="math inline">\(p\)</span> of the distribution is less than or equal to <span class="math inline">\(X\)</span>. As seen in Figure @reg(fig:quantile), if you see a graph of a continuous distribution function, just flip the X and Y axes and you have a graph of a quantile function!</p>
+
+</div>
+<div id="generating-a-random-sample-in-excel-and-r" class="section level2">
+<h2><span class="header-section-number">3.9</span> Generating a Random Sample in Excel and R}</h2>
+<p>To generate a number from the discrete uniform distribution in Excel, use the  function. For example, to generate a random number between 1 and 100, in any cell type:\
+\
+This cell can be copied as many times as is needed to generate a random sample.</p>
+<p>In R, the <code>runif</code> function generates numbers from the . To make the distribution discrete, the <code>ceiling</code> function rounds the numbers up to the nearest integer.<label for="tufte-sn-9" class="margin-toggle sidenote-number">9</label><input type="checkbox" id="tufte-sn-9" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">9</span> A common mistake is to use traditional rounding (up  down to the nearest integer), which makes the lower and upper bounds only half as likely to occur as all the numbers in between.</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># n = the sample size</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># a = the lower bound</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">a &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># b = the upper bound</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">b &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># s = the sample with a discrete uniform distribution The runif function</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># generates a number from the continuous uniform distribution.  The ceiling</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co"># function rounds up to the nearest integer.</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">s &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">runif</span>(n, a <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, b))</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co"># Generate a bare-bones plot of the frequency distribution of the sample</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="kw">hist</span>(s)</a></code></pre></div>
+</div>
+<div id="sec:BernoulliDist" class="section level2">
+<h2><span class="header-section-number">3.10</span> Bernoulli Distributions</h2>
+
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+\setlength{\extrarowheight}{3pt}
+\begin{array}{rccc}
+% \text{\textbf{Bernoulli Distribution}}&amp;&amp;\\
+\text{Sample Space:} &amp; x&amp;\in&amp;\{0,1\}\\ 
+\text{Probability of success in each trial:}  &amp;p&amp;\in&amp;\hyperref [note:Interval]{[0,1]} \\
+\text{Mean:} &amp; \mu&amp;=&amp;p \\
+\text{Variance:} &amp; \sigma^2&amp;=&amp;p(1-p) \\
+\text{Skewness:} &amp; \gamma_1&amp;=&amp;\frac{1-2p}{\sqrt{p(1-p)}} \\
+\text{Kurtosis:} &amp; \gamma_2&amp;=&amp;\frac{1}{p(1-p)}-6 \\
+\text{Probability Mass Function:} &amp; f_X(x;p)&amp;=&amp;p^x(1-p)^{1-x} \\
+\text{Cumulative Distribution Function:} &amp; F_X(x;p)&amp;=&amp;x+p(1-x) \\
+\end{array}
+}
+\end{equation*}\]</span></p>
+<p>The toss of a single coin has the simplest probability distribution that I can think of—there are only two outcomes and each outcome is equally probable (Figure @reg(fig:coin)). This is a special case of the <em>Bernoulli distribution</em>.<label for="tufte-mn-36" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-36" class="margin-toggle"><span class="marginnote">In the <em>Bernoulli distribution</em>, there are only two outcomes: a “success” (1) and a “failure” (0). If a success has a probability <span class="math inline">\(p\)</span> then a failure has a probability of <span class="math inline">\(1-p\)</span>.</span> The Bernoulli distribution can describe any random variable that has two outcomes, one of which has a probability <span class="math inline">\(p\)</span> and the other has a probability <span class="math inline">\(q=1-p\)</span>. In the case of a coin flip, <span class="math inline">\(p=0.5\)</span>. For other variables with a Bernoulli distribution, <span class="math inline">\(p\)</span> can range from 0 to 1.</p>
+
+<p>In psychological assessment, many of the variables we encounter have a Bernoulli distribution. In ability test items in which there is no partial credit, examinees either succeed or fail. The probability of success on an item (in the whole population) is <em>p</em>. In other words, <em>p</em> is the proportion of the entire population that correctly answers the quesiton. Some ability test items are very easy and the probability of success is high. In such cases, <span class="math inline">\(p\)</span> is close to 1. When <span class="math inline">\(p\)</span> is close to 0, few people succeed and items are deemed hard. Thus, in the context of ability tesing, <span class="math inline">\(p\)</span> is called the <em>difficulty parameter</em>.<label for="tufte-mn-37" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-37" class="margin-toggle"><span class="marginnote">The <em>difficulty parameter</em> is the proportion of people who succeed on an item (or say ‘Yes’ or ‘True’ or otherwise score a 1 on a random variable with a Bernoulli distribution.).</span> This is confusing because when <span class="math inline">\(p\)</span> is high, the item is easy, not difficult. Many people have suggested that it would make more sense to call it the “easiness parameter” but the idea has never caught on.</p>
+<p>True/False and Yes/No items on questionnaires also have Bernoulli distributions. If an item is frequently endorsed as true (“I like ice cream.”), <span class="math inline">\(p\)</span> is high. If an item is infrequently endorsed (“I like black licorice and mayonnaise in my ice cream.”), <span class="math inline">\(p\)</span> is very low. Oddly, the language of ability tests prevails even here. Frequently endorsed questionnaire items are referred to as “easy” and infrequently endorsed items are referred to as “difficult,” even though there is nothing particularly easy or difficult about answering them either way.</p>
+
+<p>In Excel, the  function generates a random real number between 0 and 1. The  function rounds down to the nearest integer. To generate either a 0 or a 1, with 1 having a probability of <span class="math inline">\(p\)</span>:\
+</p>
+<p>In R, the same idea is used but the names of functions are different. We have already used the <code>runif</code>, which generates real numbers between two values. By default, <code>runif</code> has a lower bound of 0 and an upper bound of 1. The <code>floor</code> function rounds round to the nearest integer. Using the <code>runif</code> and <code>floor</code> functions together produces the Bernoulli distribution.</p>
+<pre class="rbernoullisample"><code># n = sample size
+n &lt;- 1000
+# p = probability
+p &lt;- 0.8
+# s = sample
+s &lt;- floor(runif(n) + p)
+# bare-bones plot
+barplot(table(s))</code></pre>
+</div>
+<div id="binomial-distributions" class="section level2">
+<h2><span class="header-section-number">3.11</span> Binomial Distributions</h2>
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+\setlength{\extrarowheight}{3pt}
+\begin{array}{rccc}
+% \text{\textbf{Binomial Distribution}}&amp;&amp;\\
+\text{Number of Trials:} &amp; n &amp; \in &amp; \hyperref [note:N1]{\mathbb{N}_1}\\
+\text{Sample Space:} &amp; x&amp;\in&amp;\{0,...,n\}\\
+\text{Probability of success in each trial:}  &amp;p&amp;\in&amp;[0,1] \\
+\text{Probability of failure in each trial:}  &amp;q&amp;=&amp;1-p\\
+\text{Mean:} &amp; \mu&amp;=&amp;np\\
+\text{Variance:} &amp; \sigma^2&amp;=&amp;npq\\
+\text{Skewness:} &amp; \gamma_1&amp;=&amp;\frac{1-2p}{\sqrt{npq}} \\
+\text{Kurtosis:} &amp; \gamma_2&amp;=&amp;\frac{1}{npq}-\frac{6}{n} \\
+\text{Probability Mass Function:} &amp; f_X(x;n,p)&amp;=&amp;\hyperref [note:binomial]{\binom{n}{x}}p^x q^{n-x} \\
+\text{Cumulative Distribution Function:} &amp; F_X(x;n,p)&amp;=&amp;\sum_{i=0}^{x}{\binom{n}{i}p^i q^{n-i}} \\
+\end{array}
+}
+\end{equation*}\]</span></p>
+<p>Let’s extend the idea of coin tosses and see where it leads. Imagine that two coins are tossed at the same time and we count how many heads there are. The outcome we might observe will be zero, one, or two heads. Thus, the sample space for the outcome of the tossing of two coins is the set <span class="math inline">\(\{0,1,2\}\)</span> heads. There is only one way that we will observe no heads (both coins tails) and only one way that we will observe two heads (both coins heads). In contrast, as seen in Figure @reg(fig:twocoin), there are two ways that we can observe one head (heads-tails &amp; tails-heads).</p>
+
+<p>The probability distribution of the number of heads observed when two coins are tossed at the same time is a member of the <em>binomial distribution</em> family. The binomial distribution occurs when <em>independent</em><label for="tufte-mn-38" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-38" class="margin-toggle"><span class="marginnote">Two random variable are said to be <em>independent</em> if the outcome of one variable does not alter the probability of any outcome in the other variable.</span> random variables with the same  are added together.</p>
+<p>Imagine that a die is rolled 10 times and we count how often a  occurs.<label for="tufte-sn-10" class="margin-toggle sidenote-number">10</label><input type="checkbox" id="tufte-sn-10" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">10</span> Wait! Hold on! I thought that throwing dice resulted in a (discrete) <em>uniform</em> distribution. Well, it still does. However, now we are asking a different question. We are only concerned with two outcomes each time the die is thrown:  and not . This is a Bernoulli distribution, not a uniform distribution, because the probability of the two events is unequal: {<span class="math inline">\(\sfrac{1}{6},\sfrac{5}{6}\)</span>}</span> Each roll of the die is called a <em>trial</em>.<label for="tufte-mn-39" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-39" class="margin-toggle"><span class="marginnote">Every time a random variable generates a number, that instance of the variable is called a <em>trial</em>, which is also known as an <em>experiment</em>.</span> The sample space of this random variable is <span class="math inline">\(\{0,1,2,...,10\}\)</span>. What is the probability that a  will occur 5 times? or 1 time? or not at all? Such questions are answered by the binomial distribution’s :
+<span class="math display">\[\begin{equation}\label{eq:binomialpmf}
+f_X(x;n,p)=\binom{n}{x}p^x\left(1-p\right)^{n-x}
+\end{equation}\]</span>
+Applied to this example,
+\begin{conditions<em>}
+X &amp; The random variable (i.e., the number of times that  occurs when the die is thrown 10 times)\
+x &amp; Any particular member of the sample space (i.e., <span class="math inline">\(x \in \{0,1,2,...,10\}\)</span>.)\
+n &amp; The number of times that the die is thrown (i.e., <span class="math inline">\(n=10\)</span>).\
+p &amp; The probability that a  will occur on a single throw of the die (i.e., <span class="math inline">\(p=\sfrac{1}{6}\)</span>).\
+ &amp; The </em>binomial coefficient}. It is just a shortcut notation for <span class="math inline">\(\binom{n}{x}=\frac{n!}{x!\left(n-x\right)!}\)</span>. Read aloud, <span class="math inline">\(\binom{n}{x}\)</span> is “<span class="math inline">\(n\)</span> choose <span class="math inline">\(x\)</span>” or the number of combinations that <span class="math inline">\(n\)</span> things have when taken <span class="math inline">\(x\)</span> at a time.
+\end{conditions*}</p>
+<p>Since <span class="math inline">\(n=10\)</span> and <span class="math inline">\(p=\sfrac{1}{6}\)</span>, the probability mass function from Equation~@reg(eq:binomialpmf) simplifies to:</p>
+<p><span class="math display">\[\begin{equation*}\label{eq:pmf6}
+f_X(x)=\binom{10}{x}\left(\frac{1}{6}\right)^x\left(\frac{5}{6}\right)^{10-x}
+\end{equation*}\]</span></p>
+\begin{marginfigure}
+<img src="toolkit_files/figure-html/pmf6-1.png"  />
+
+<p>\end{marginfigure}</p>
+<p>If we take each element <span class="math inline">\(x\)</span> of the sample space from 0 to 10 and plug it into the equation above, the probability distribution will look like Figure @reg(fig:pmf6).</p>
+
+<p>When would a binomial distribution be used by a clinician? One particularly important use of the binomial distribution is in the detection of <em>malingering</em>.<label for="tufte-mn-40" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-40" class="margin-toggle"><span class="marginnote">A person who <em>malingers</em> is pretending to be sick to avoid work or some other responsibility.</span> Sometimes people pretend to have memory loss or attention problems in order to win a lawsuit or collect insurance benefits. There are a number of ways to detect malingering but a common method is to give a very easy test of memory in which the person has at least a 50% chance of getting each test item correct even if the person guesses randomly.</p>
+<p>Suppose that there are 20 questions. Even if a person has the worst memory possible, that person is likely to get about half the questions correct. However, it is possible for someone with a legitimate memory problem to guess randomly and by bad luck answer fewer than half of the questions correctly. Suppose that a person gets 4 questions correct. How likely is that that a person would, by random guessing, only answer 4 or fewer questions correctly?</p>
+<p>We can use the binomial distribution’s cumulative distribution function. However, doing so by hand is rather tedious. In Excel, the answer can be found quite easily:<label for="tufte-sn-11" class="margin-toggle sidenote-number">11</label><input type="checkbox" id="tufte-sn-11" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">11</span> In Excel, all the probability distribution functions have a final argument which determines whether the function is a cumulative distribution function or a probability mass function (or probability density function for continous variables). If the final argument of the function is , then it is a cumulative distribution function. If , it is a probability mass function (or probability density function).</span></p>
+<p>)</p>
+<p>Using R, the answer is found with the <code>pbinom</code> function:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">pbinom</span>(<span class="dv">4</span>,<span class="dv">20</span>,<span class="fl">0.5</span>)</a></code></pre></div>
+Using either method, we can see that the probability of randomly guessing and getting 4 or fewer items correct out of 20 items total is approximately <span class="math inline">\(\Sexpr{round(p,3)}\)</span>, which is so low that the hypothesis that the person is malingering seems plausible.^[Note here that there is big difference between these two questions:
+
+<p>Here we answer only the first question. It is an important one, but the answer to the second question is probably the one that we really want to know. We will answer it in another chapter when we discuss positive predictive power. For now, we should just remember that the questions are different and that the answers can be quite different from each other.]</p>
+
+<p>In Excel, the  function will calculate the binomial distribution’s probability mass function and the cumulative distribution function. Let’s say that <span class="math inline">\(n=10\)</span> and <span class="math inline">\(p=0.8\)</span>.</p>
+<p>First we need a series of integers from 0 to 10 (the number of Bernoulli trials) arranged in a column. We could enter each number one by one but there is a faster way. In cell , enter 0. In cell , enter 1. Now select both cells (Click down on cell , drag to cell , and release.). Position the mouse over the lower right corner of cell  and the mouse cursor icon will change from a thick white plus to thin black plus. Now, click and drag to cell  and release. Now you should see the a column of integers from 0 to 10.</p>
+<p>In cell , type *Probability Mass Function}. In cell , type:\
+\
+and press . It would be tedious to type the same fomula ten more times. Fortunately, Excel has many shortcuts. Click cell . Position the mouse icon over the lower right corner of cell  (The cursor will change to a thin black plus again.) and double-click. Excel has extended the series all to the down to cell !</p>
+<p>Now, in cell , type *Cumulative Distribution Function}. In cell , type:\
+\
+and press . This is the same formula as was in cell  except that the  argument has been changed to . Extend the series by double-clicking the lower right corner of cell .</p>
+<p>To create the graph, select the range  (Click down on cell , drag to cell , and release.). The next step depends on which version of Excel you have but basically you insert a scatterplot. The default graph probably does not look very good but with some playing around, you can produce a graph to your liking. You can see a graph that looks good to me in Figure @reg(fig:BinomialDist). I put the legend at the top, added major and minor gridlines on both axes, set the axis limits manually, increased the font sizes, changed the colors of the lines and markers, changed the markers to circles, set the dash type of lines to dashed, and resized the graph.</p>
+
+<p>In R, graphing the binomial distribution is fairly simple if a barebones plot is needed. First, the sample space is generated (a sequence from 0 to 10.), usding the  function. The associated probability mass function probabilities are found using the  function. The cumulative distribution function probabilities are found using the  function.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># Make a sequence of numbers from 0 to 10</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">SampleSpace &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># Probability mass distribution for binomial distribution with n = 10, p =</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># 0.8</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">pmfBinomial &lt;-<span class="st"> </span><span class="kw">dbinom</span>(SampleSpace, <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">prob =</span> <span class="fl">0.8</span>)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># Cumulative distribution function for binomial distribution with n = 10, p</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co"># = 0.8</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">cdfBinomial &lt;-<span class="st"> </span><span class="kw">pbinom</span>(SampleSpace, <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">prob =</span> <span class="fl">0.8</span>)</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co"># Generate a bare-bones plot of the probability mass distribution</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="kw">plot</span>(pmfBinomial <span class="op">~</span><span class="st"> </span>SampleSpace)</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co"># Generate a bare-bones plot of the cumulative distribution function</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="kw">plot</span>(cdfBinomial <span class="op">~</span><span class="st"> </span>SampleSpace)</a></code></pre></div>
+<p>However, making the graph look professional involves quite a bit of code that can look daunting at first. However, the results are often worth the effort. At first glance, it might not seem that much different from Excel graphs. However, a closer look reveals many subtle differences that make for a more aesthetically pleasing graph. Try running the code below to see the difference. Make sure to export the graph to .pdf to make it look truly presentation-worthy!</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Generate a graph for presentation or publication; The pdf function makes a</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co"># .pdf file that will look better than most other formats.</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">pdf</span>(<span class="dt">file =</span> <span class="st">&quot;BinomialDistribution.pdf&quot;</span>)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># The par function sets many different kinds of graphic parameters; Set the</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co"># 4 margin sizes with the mar parameter</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co"># Make the plot; NA in the first position means that nothing will be plotted</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co"># at first; xlim=c(0,10) means the x-axis limits are 0 and 10; ylim=c(0,1)</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co"># means the y-axis limits are 0 and 1; main is the plot title; xlab is the</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co"># x-axis title; ylab is the y-axis title; axes=FALSE means to not display</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co"># the default axes; font.lab=2 means that the axis titles are bold The</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co"># expression function allows for equations and text formatting</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="kw">plot</span>(<span class="ot">NA</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">main =</span> <span class="kw">expression</span>(<span class="st">&quot;Binomial Distribution&quot;</span> <span class="op">~</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="st">    </span><span class="kw">group</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">list</span>(<span class="kw">italic</span>(n) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>, <span class="kw">italic</span>(p) <span class="op">==</span><span class="st"> </span><span class="fl">0.8</span>), <span class="st">&quot;)&quot;</span>)), <span class="dt">xlab =</span> <span class="st">&quot;Sample Space&quot;</span>, </a>
+<a class="sourceLine" id="cb5-15" data-line-number="15">    <span class="dt">ylab =</span> <span class="st">&quot;Probability&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">font.lab =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co"># Make gridlines; v=seq(0,10) means make vertical lines at 0 through 10;</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co"># h=seq(0,1,0.1) means make horizontal lines at 0 through 1 at 0.1</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co"># intervals; col=&#39;lightgray&#39; means that the gridlines are light gray; lty=3</span></a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co"># means that the gridlines have a dotted line type;</span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">col =</span> <span class="st">&quot;lightgray&quot;</span>, <span class="dt">lty =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>), <span class="dt">col =</span> <span class="st">&quot;lightgray&quot;</span>, <span class="dt">lty =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co"># Add the probability mass function; type = &#39;b&#39; means to plot both lines and</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co"># points; lty=2 means line type is dashed; lwd=2 means line width is 2</span></a>
+<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co"># points; col=&#39;blue&#39; means make the lines and points blue; pch=19 means that</span></a>
+<a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co"># the points should be filled circles;</span></a>
+<a class="sourceLine" id="cb5-26" data-line-number="26"><span class="kw">lines</span>(<span class="dt">x =</span> SampleSpace, <span class="dt">y =</span> pmfBinomial, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, </a>
+<a class="sourceLine" id="cb5-27" data-line-number="27">    <span class="dt">pch =</span> <span class="dv">19</span>)</a>
+<a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co"># Add the cumulative distribution function; cex=0.7 means make the dots at</span></a>
+<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="co"># 70% the default size so that they do not completely cover the pmf series</span></a>
+<a class="sourceLine" id="cb5-30" data-line-number="30"><span class="kw">lines</span>(<span class="dt">x =</span> SampleSpace, <span class="dt">y =</span> cdfBinomial, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, </a>
+<a class="sourceLine" id="cb5-31" data-line-number="31">    <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</a>
+<a class="sourceLine" id="cb5-32" data-line-number="32"><span class="co"># Add custom x-axis; at=SampleSpace means to label each point in the</span></a>
+<a class="sourceLine" id="cb5-33" data-line-number="33"><span class="co"># SampleSpace variable (0 to 10); cex.axis=0.8 means to size the axis labels</span></a>
+<a class="sourceLine" id="cb5-34" data-line-number="34"><span class="co"># at 80% of the default size;</span></a>
+<a class="sourceLine" id="cb5-35" data-line-number="35"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at =</span> SampleSpace, <span class="dt">cex.axis =</span> <span class="fl">0.8</span>)</a>
+<a class="sourceLine" id="cb5-36" data-line-number="36"><span class="co"># Add custom y-axis; at=seq(0,1,0.1) means to label each point from 0 to 1,</span></a>
+<a class="sourceLine" id="cb5-37" data-line-number="37"><span class="co"># at 0.1 intervals; las=1 means to make the labels horizontal</span></a>
+<a class="sourceLine" id="cb5-38" data-line-number="38"><span class="kw">axis</span>(<span class="dv">2</span>, <span class="dt">at =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>), <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">cex.axis =</span> <span class="fl">0.8</span>)</a>
+<a class="sourceLine" id="cb5-39" data-line-number="39"><span class="co"># xpd=NA allows for text to appear outside the plot region. Otherwise it is</span></a>
+<a class="sourceLine" id="cb5-40" data-line-number="40"><span class="co"># clipped.</span></a>
+<a class="sourceLine" id="cb5-41" data-line-number="41"><span class="kw">par</span>(<span class="dt">xpd =</span> <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb5-42" data-line-number="42"><span class="co"># Add text at point (x,y); cex=0.8 means size the text at 80% of the default</span></a>
+<a class="sourceLine" id="cb5-43" data-line-number="43"><span class="co"># text size; adj=0 means left justify the text (0.5 means center and 1 means</span></a>
+<a class="sourceLine" id="cb5-44" data-line-number="44"><span class="co"># right justify);</span></a>
+<a class="sourceLine" id="cb5-45" data-line-number="45"><span class="kw">text</span>(<span class="dt">x =</span> <span class="dv">7</span>, <span class="dt">y =</span> <span class="kw">dbinom</span>(<span class="dv">7</span>, <span class="dv">10</span>, <span class="fl">0.8</span>), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">labels =</span> <span class="st">&quot;Probability Mass Function&quot;</span>, </a>
+<a class="sourceLine" id="cb5-46" data-line-number="46">    <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">0.575</span>, <span class="dv">2</span>), <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">srt =</span> <span class="dv">45</span>)</a>
+<a class="sourceLine" id="cb5-47" data-line-number="47"><span class="kw">text</span>(<span class="dt">x =</span> <span class="dv">8</span>, <span class="dt">y =</span> <span class="kw">pbinom</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="fl">0.8</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">labels =</span> <span class="st">&quot;Cumulative Distribution Function&quot;</span>, </a>
+<a class="sourceLine" id="cb5-48" data-line-number="48">    <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">2</span>), <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">srt =</span> <span class="dv">69</span>)</a>
+<a class="sourceLine" id="cb5-49" data-line-number="49"><span class="kw">dev.off</span>()  <span class="co">#Ends pdf function</span></a>
+<a class="sourceLine" id="cb5-50" data-line-number="50">pander<span class="op">::</span><span class="kw">openFileInOS</span>(<span class="st">&quot;BinomialDistribution.pdf&quot;</span>)</a></code></pre></div>
+</div>
+<div id="poisson-distributions" class="section level2">
+<h2><span class="header-section-number">3.12</span> Poisson Distributions}</h2>
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+\setlength{\extrarowheight}{3pt}
+\begin{array}{rccc}
+% \text{\textbf{Poisson Distribution}}&amp;&amp;\\
+\text{Parameter:} &amp; \lambda &amp; \in &amp; \mathbb{R}\\
+&amp; &amp; &amp; \lambda&gt;0\\
+\text{Sample Space:} &amp; x&amp;\in&amp; \hyperref [note:N0]{\mathbb{N}_0}\\
+\text{Mean:} &amp; \mu&amp;=&amp; \lambda\\
+\text{Variance:} &amp; \sigma^2&amp;=&amp;\lambda\\
+\text{Skewness:} &amp; \gamma_1&amp;=&amp;\frac{1}{\sqrt{\lambda}} \\
+\text{Kurtosis:} &amp; \gamma_2&amp;=&amp;\frac{1}{\lambda}\\
+\text{Probability Mass Function:} &amp; f_X(x;\lambda)&amp;=&amp;\frac{\lambda^x}{e^{\lambda} x!} \\
+\text{Cumulative Distribution Function:} &amp; F_X(x;\lambda)&amp;=&amp; \sum_{i=0}^{x}{\frac{\lambda^i}{e^{\lambda} i!}} \\
+\end{array}
+}
+\end{equation*}\]</span></p>
+<p>If an event occurs at random, is equally likely to occur at any moment, and on average occurs a certain number of times per interval, then the probability distribution of the number of times that the event will occur during any particular interval will have a <em>Poisson distribution</em>.<label for="tufte-mn-41" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-41" class="margin-toggle"><span class="marginnote">The <em>Poisson distribution</em> is a discrete distribution used to model how often an event will occur during a partiuclar interval of time.</span> As seen in the box below, the Poisson distribution has a single parameter <span class="math inline">\(\lambda\)</span>, which is the mean (and, interestingly, also the variance).</p>
+
+<p>Suppose that you begin treating an adult male client who has panic attacks that come at unpredictable times. Some weeks there are no panic attacks and some weeks there are many, but on average he has 2 panic attacks each week. The client knows this because he has kept detailed records in a spreadsheet for the last 5 years. The client had sought treatment once before, but terminated early and abruptly because, according to him, “It wasn’t working.” After sensitive querying, you discover that he expected that treatment should have quickly reduced the frequency of panic attacks to zero. When that did not happen, he became discouraged and stopped the treatment.</p>
+<p>Because your client is well educated and quantitatively inclined, you decide to to use the data he has collected as part of the intervention and to set a more realistic set of expectations.</p>
+<p>You plot the frequency of how often he had 0 panic attacks in a week, 1 panic attack in a week, 2 panic attacks in a week, and so forth, as shown in blue in Figure @reg(fig:PanicFrequency). Because you have read this book, you immediately recognize that this is a Poisson distribution with <span class="math inline">\(\lambda=2\)</span>. When you graph an actual Poison distribution and compare it with your client’s data, you see that it is almost a perfect match.<label for="tufte-sn-12" class="margin-toggle sidenote-number">12</label><input type="checkbox" id="tufte-sn-12" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">12</span> Note that I am <strong>not</strong> claiming that all clients’ panic attack frequencies have this kind of distribution. It just so happens to apply in this instance.</span> Then you explain that although the goal is permanent cessation of the panic attacks, sometimes an intervention can be considered successful if the frequency of panic attacks is merely reduced. For example, suppose that in the early stages of treatment the frequency of panic attacks were reduced from twice per week to once every other week (<span class="math inline">\(\lambda=0.5\)</span>), on average. If such a reduction were achieved, there would still be weeks in which two or more panic attacks occur. According to Figure @reg(fig:PanicFrequency), this will occur about <span class="math inline">\(\Sexpr{round(100-100*ppois(1,0.5))}\)</span>% of the time.</p>
+\begin{figure}
+<img src="toolkit_files/figure-html/PanicFrequency-1.png"  />
+
+<p>\end{figure}</p>
+<p>Excel, you can use the  function to plot the Poisson probability mass function. For example, if the average number of events per time period is <span class="math inline">\({\color{xGreen}2}\)</span>, then the probability that there will be <span class="math inline">\({\color{xBlue}0}\)</span> events is \
+\
+Although the Poisson distribution extends to positive infinity, it often approaches zero probability fairly quickly. In this case, the client never had more than 7 panic attacks in a week. Thus, we need to repeat this calculation seven more times (i.e., , ,…) as seen in Figure @reg(fig:ExcelPanic). Veteran Excel users know shortcuts such that this process it not at all tedious and can be done in just a few seconds.<label for="tufte-sn-13" class="margin-toggle sidenote-number">13</label><input type="checkbox" id="tufte-sn-13" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">13</span> I recommend the video tutorials by  to readers wishing to take their Excel skills to the next level.</span></p>
+
+<p>In R, we use the <code>dpois</code> function:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># Make a sequence of integers from 0 to 7</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">PanicAttacks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># Generate the probability mass function with lambda = 2</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">Probability &lt;-<span class="st"> </span><span class="kw">dpois</span>(PanicAttacks,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co"># Bare-bones plot of the Poisson distribution&#39;s probability mass function</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="kw">plot</span>(Probability<span class="op">~</span>PanicAttacks) </a></code></pre></div>
+<p>To calculate the cumulative distribution function of Poisson distribution in Excel, just change the last argument of the  function to . For example, if we want to estimate the probability of having 4 panic attacks or more in a week if <span class="math inline">\(\lambda={\color{xGreen}2}\)</span>, we must subtract the probability of having {3} panic attacks or less from 1, like so:\
+</p>
+<p>Graphing the cumulative distribution function in R makes use of the <code>ppois</code> function.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Generate the cumulative distribution function with lambda = 2</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">CumulativeProbability &lt;-<span class="st"> </span><span class="kw">ppois</span>(PanicAttacks,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co"># Bare-bones plot of the Poisson distribution&#39;s cumulative distribution function</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">plot</span>(CumulativeProbability<span class="op">~</span>PanicAttacks) </a></code></pre></div>
+<p>With some cosmetic changes and an additional series with <span class="math inline">\(\lambda=0.5\)</span>, the plot can look like Figure @reg(fig:PoissonCumulative)</p>
+\begin{figure}
+<img src="toolkit_files/figure-html/PanicCumulativeFrequency-1.png"  />
+
+<p>\end{figure}</p>
+</div>
+<div id="geometric-distributions" class="section level2">
+<h2><span class="header-section-number">3.13</span> Geometric Distributions}</h2>
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+\setlength{\extrarowheight}{3pt}
+\begin{array}{rccc}
+% \text{\textbf{Geometric Distribution}}&amp;&amp;\\
+\text{Probability of success in each trial:}  &amp;p&amp;\in&amp;[0,1] \\
+\text{Sample Space:} &amp; x&amp;\in&amp; \hyperref [note:N1]{\mathbb{N}_1}\\
+\text{Mean:} &amp; \mu&amp;=&amp; \frac{1}{p}\\
+\text{Variance:} &amp; \sigma^2&amp;=&amp;\frac{1-p}{p^2}\\
+\text{Skewness:} &amp; \gamma_1&amp;=&amp;\frac{2-p}{\sqrt{1-p}} \\
+\text{Kurtosis:} &amp; \gamma_2&amp;=&amp;6+\frac{p^2}{1-p}\\
+\text{Probability Mass Function:} &amp; f_X(x;p)&amp;=&amp;(1-p)^{x-1}p^x \\
+\text{Cumulative Distribution Function:} &amp; F_X(x;p)&amp;=&amp; 1-(1-p)^x \\
+\end{array}
+}
+\end{equation*}\]</span></p>
+<p>Atul Gawande  tells a marvelous anecdote about how a doctor used some statistics to help a young patient with cystic fibrosis to return to taking her medication more regularly. Because the story is full of pathos and masterfully told, I will not repeat a clumbsy version of it here. However, unlike Gawande, I <em>will</em> show how the doctor’s statistics were calculated.</p>
+<p>According to the story, if a patient fails to take medication, the risk of a person with cystic fibrosis getting a bad lung illness on any particular day is 0.005. If medication is taken, the risk is 0.0005. Although these probabilities are both close to zero, over the the course of a year, they result in very different levels of risk. Off medication, the patient has about a <span class="math inline">\(\Sexpr{round(pgeom(365,0.005),2)}\)</span>% chance of getting sick within a year’s time. On medication, the patient’s risk falls to <span class="math inline">\(\Sexpr{round(pgeom(365,0.0005),2)}\)</span>%. As seen in Figure @reg(fig:CysticFibrosisRisk), the cumulative risk over the course of 10 years is quite different. Without medication, the probability of becoming seriously ill within 10 years at least once is almost certain. With medication, however, a small but substantial percentage (<span class="math inline">\(\Sexpr{100-round(100*pgeom(10*365,0.0005))}\)</span>%) of patients will go at least 10 years without becoming ill.</p>
+\begin{figure}
+<embed src="toolkit_files/figure-html/WithMedicationCDF-1.pdf"  type="application/pdf" />
+
+<p>\end{figure}</p>
+<p>Such calculations make use of the <em>geometric distribution</em>. Consider a series of  in which an event has a probability <span class="math inline">\(p\)</span> of occurring on any particular trial. The probability mass function of the geometric distribution will tell us the probability that the <span class="math inline">\(x^{th}\)</span> trial will be the first time the event occurs.</p>
+<p><span class="math display">\[\begin{equation}
+f_X(x;p)=(1-p)^{x-1}p^x
+\end{equation}\]</span>
+Where
+\begin{conditions<em>}
+X &amp; A random variable with a geometric distribution\
+f_X &amp; The probability mass function of <span class="math inline">\(X\)</span>\
+x &amp; The number of Bernoulli trials on which the event first occurs\
+p &amp; The probability of an event occurring on a single Bernoulli trial\
+\end{conditions</em>}</p>
+<p>Although Excel does not have specialized functions related to the geometric distribution, the probability mass function is easy to calculate. For example, if <span class="math inline">\(p={\color{xBlue}0.6}\)</span> and <span class="math inline">\(x={\color{xGreen}5}\)</span>, then the probability that the first “success” will occur on the <span class="math inline">\(5^{th}\)</span> trial is calculated like so:\
+</p>
+<p>In R, the probability mass function of the geometric distribution uses the <code>dgeom</code> function:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># Make a sequence of integers from 1 to 10</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co"># Generate the probability mass function with p = 0.6</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">Probability &lt;-<span class="st"> </span><span class="kw">dgeom</span>(x,<span class="dt">prob=</span><span class="fl">0.6</span>)</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co"># Bare-bones plot of the geometric distribution&#39;s probability mass function</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="kw">plot</span>(Probability<span class="op">~</span>x) </a></code></pre></div>
+<p>The cumulative distribution function of the geometric distribution was used to create Figure @reg(fig:CysticFibrosisRisk). It tells us the probability that the event will occur on the <span class="math inline">\(x^{th}\)</span> trial or earlier:</p>
+<p><span class="math display">\[\begin{equation}
+F_X(x;p)=1-(1-p)^x
+\end{equation}\]</span></p>
+<p>Using Excel, we can calculate the probability that an event with a <span class="math inline">\(p={\color{xBlue}0.6}\)</span> probability will occur for the first time on the <span class="math inline">\(x={\color{xGreen}5}^{th}\)</span> trial or earlier like so:\
+</p>
+<p>In R, the cumulative distribution function of the geometric distribution uses the <code>pgeom</code> function:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Generate the cumulative distribution function with p = 0.6</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">CumulativeProbability &lt;-<span class="st"> </span><span class="kw">pgeom</span>(x,<span class="dt">prob=</span><span class="fl">0.6</span>)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co"># Bare-bones plot of the geometric distribution&#39;s cumulative distribution function</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">plot</span>(CumulativeProbability<span class="op">~</span>x) </a></code></pre></div>
+</div>
+<div id="sec:pdf" class="section level2">
+<h2><span class="header-section-number">3.14</span> Probability Density Functions</h2>
+<p>Although there are many more discrete distribution families, we will now consider some continuous distribution families. Most of what we have learned about discrete distributions applies to continuous distributions. However, there is a need of a name change for the probability mass function. In a discrete distribution, we can calculate an actual probability for a particular value in the sample space. In continuous distributions, doing so can be tricky. We can always calculate the probability that a score in a particular interval will occur. However, in continuous distributions, the intervals can become very small, approaching a width of 0. When that happens, the probability associated with that interval also approaches 0. Yet, some parts of the distribution are more probable than others. Therefore, we need a measure of probability that tells us the probability of a value <em>relative</em> to other values: the <em>probability density function (pdf)</em>}.<label for="tufte-mn-42" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-42" class="margin-toggle"><span class="marginnote">The <em>probability density function (pdf)</em> is function that can show relative likelihoods of sample space elements of a continuous random variable.</span></p>
+<p>Considering the entire sample space of a discrete distribution, all of the associated probabilities from the probability mass function sum to 1. In a probability density function, it is the area under the curve that must sum to 1. That is, there is a 100% probability that a value generated by the random variable will be somewhere under the curve. There is nowhere else for it to go!</p>
+<p>However, unlike probability mass functions, probability density functions do not generate probabilties. Remember, the probability of any value in the sample space of a continuous variable is infinitesimal. We can only compare the probabilities to each other. To see this, compare the discrete uniform distribution and continuous uniform distribution in Figure @reg(fig:pdfIllustration). Both distributions range from 1 to 4. In the discrete distribution, there are 4 points, each with a probability of 0.25. It is easy to see that these probabilities sum to 1. Because of the scale of the figure, it is not easy to see exactly how high the probability density function is in the continuous distribution. It happens to be <span class="math inline">\(\sfrac{1}{3}\)</span>. Why? First, it does not mean that each value has a <span class="math inline">\(\sfrac{1}{3}\)</span> probability. There are an infinite number of points between 1 and 4 and it would be absurd if each of them had a <span class="math inline">\(\sfrac{1}{3}\)</span> probability. The distance between 1 and 4 is 3. In order for the rectangle to have an area of 1, its height must be <span class="math inline">\(\sfrac{1}{3}\)</span>. What does that <span class="math inline">\(\sfrac{1}{3}\)</span> mean, then? In the case of a single value in the sample space, it does not mean much at all. It is simply a value that we can compare to other values in the sample space. It could be scaled to any value but for the sake of convenience it is scaled such that the area under the curve is 1.</p>
+<p>Note that some probability density functions can produce values greater than 1. If the range of a continuous uniform distribution is less than 1, at least some portions of the curve must be greater than 1 to make the area under the curve equal 1. For example, if the bounds of a continous distribution are 0 and <span class="math inline">\(\sfrac{1}{3}\)</span>, the average height of the probability density function would need to be 3 so that the total area is equal to 1.</p>
+</div>
+<div id="sec:Uniform" class="section level2">
+<h2><span class="header-section-number">3.15</span> Continuous Uniform Distributions</h2>
+
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+\setlength{\extrarowheight}{3pt}
+\begin{array}{rccc}
+%\text{\textbf{Uniform Distributions}}&amp;&amp;\\
+\text{Lower Bound:} &amp; a  &amp; \hyperref [note:In]{\in} &amp;\hyperref [note:R]{\mathbb{R}}\\
+\text{Upper Bound:} &amp; b &amp; \in &amp; \mathbb{R}\\
+&amp;&amp;&amp;b&gt;a\\
+\text{Sample Space:} &amp; x &amp;\in&amp;\hyperref [note:Interval]{\lbrack a,b\rbrack}\\
+\text{Mean:} &amp; \mu&amp;=&amp;\frac{a+b}{2} \\
+\text{Variance:} &amp; \sigma^2&amp;=&amp;\frac{(b-a)^2-1}{12} \\
+\text{Skewness:} &amp; \gamma_1&amp;=&amp;0 \\
+\text{Kurtosis:} &amp; \gamma_2&amp;=&amp;-\frac{6}{5} \\
+\text{Probability Density Function:} &amp; f_X(x;a,b)&amp;=&amp;\frac{1}{b-a} \\
+\text{Cumulative Distribution Function:} &amp; F_X(x;a,b)&amp;=&amp;\frac{x-a}{b-a} \\
+\end{array}
+}
+\end{equation*}\]</span></p>
+<p>Unlike the , the uniform distribution is .<label for="tufte-sn-14" class="margin-toggle sidenote-number">14</label><input type="checkbox" id="tufte-sn-14" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">14</span> For the sake of clarity, the uniform distribution is often referred to as the *continuous uniform distribution}.</span> In both distributions, there is an upper and lower bound and all members of the sample space are equally probable.</p>
+
+<p>In Excel, the  function generates a random number from the continuous uniform distribition with a lower bound of 0 and an upper bound of 1. To make the distribution have different lower and upper bounds, <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, use this formula:</p>
+<p></p>
+<p>Thus, to generate a number from the continuous uniform distribution ranging from 1 to 99, use:</p>
+<p></p>
+
+<p>Uniform distributions can begin and end at any real number but one member of the uniform distribution family is particularly important. The cumulative distribution function of any continous distribution converts into a continuous uniform distribution. A distribution’s  converts a continuous uniform distribution into that distribution. Most of the time, this process also works for discrete distributions. This process is particularly useful for generating random numbers with an unusual distribution. If the distribution’s quantile function is known, a sample with a continuous uniform distribution can easily be generated and converted.</p>
+<p>For example, the  function in Excel generates random numbers between 0 and 1 with a continuous uniform distribution. The  function is the binomial distribution’s quantile function. Suppose that <span class="math inline">\(n\)</span> (number of Bernoulli trials) is 5 and <span class="math inline">\(p\)</span> (probability of success on each Bernoulli trial) is 0.6. A randomly generated number from the binomial distribution with <span class="math inline">\(n=5\)</span> and <span class="math inline">\(p=0.6\)</span> is generated like so:</p>
+<p></p>
+<p>Excel has quantile functions for many distributions (e.g., ). This method of combinding  and a quantile function works reasonably well in Excel for quick-and-dirty projects but when high levels of accuracy are needed, random samples should be generated in a dedicated statistical package.</p>
+</div>
+<div id="normal-distributions" class="section level2">
+<h2><span class="header-section-number">3.16</span> Normal Distributions</h2>
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+\setlength{\extrarowheight}{3pt}
+\begin{array}{rccc}
+\text{Sample Space:} &amp; x &amp;\in&amp;\hyperref [note:R]{\mathbb{R}}\\
+\text{Mean:} &amp; \mu&amp;=&amp;\frac{a+b}{2} \\
+\text{Variance:} &amp; \sigma^2&amp;=&amp;\frac{(b-a)^2-1}{12} \\
+\text{Skewness:} &amp; \gamma_1&amp;=&amp;0 \\
+\text{Kurtosis:} &amp; \gamma_2&amp;=&amp;-\frac{6}{5} \\
+\text{Probability Density Function:} &amp; f_X(x;a,b)&amp;=&amp;\frac{1}{b-a} \\
+\text{Cumulative Distribution Function:} &amp; F_X(x;a,b)&amp;=&amp;\frac{x-a}{b-a} \\
+\end{array}
+}
+\end{equation*}\]</span></p>
+<p>The normal distribution is probably the most important distribution in statistics and in psychological assessment. In the absence of other information, assuming that an individual difference variable is normally distributed is a good bet. Not a sure bet, of course, but a good bet. Why? What is so special about the normal distribution? To get a sense of the answer to this question, consider what happens to the binomial distribution as the number of events (<span class="math inline">\(n\)</span>) increases. To make the example more concrete, let’s assume that we are tossing coins and counting the number of heads (<span class="math inline">\(p=0.5\)</span>). In Figure @/ref(fig:ManyCoins), the first plot shows the probability mass function for the number of heads when there is a single coin (<span class="math inline">\(n=1\)</span>). In the second plot, <span class="math inline">\(n=2\)</span> coins. That is, if we flip 2 coins, there will be 0, 1, or 2 heads. In each subsequent plot, we double the number of coins that we flip simultaneously. Even with as few as 4 coins, the distribution begins to resemble the normal distribution, although the resemblance is very rough. With 128 coins, however, the resemblance is very close.</p>
+<p>This resemblance to the normal distribution in the example is not coincidental to the fact that <span class="math inline">\(p=0.5\)</span>, making the binomial distribution symmetric. If <span class="math inline">\(p\)</span> is extreme (close to 0 or 1), the binomial distribution is assymetric. However, if <span class="math inline">\(n\)</span> is large enough, the binomial distribution becomes very close to normal.</p>
+<p>Many other distributions (e.g., Poisson, Student’s T, F, and <span class="math inline">\(\chi^2\)</span>) have distinctive shapes under some conditions but approximate the normal distribution in others. Why? In the conditions in which non-normal distributions approximate the normal distribution, it is because, like in Figure @reg(fig:ManyCoins), many independent events are summed.</p>
+\begin{figure*}
+
+<img src="toolkit_files/figure-html/ManyCoins-1.png"  />
+
+<p>\end{figure*}</p>
+\begin{figure*}
+
+<img src="toolkit_files/figure-html/Percentiles-1.svg"  />
+
+<p>\end{figure*}</p>
+<p>In the distribution in Figure @reg(fig:twocoin), because there is a 50% chance of heads, <span class="math inline">\(p = 0.5\)</span>. Because there are two coins, <span class="math inline">\(n = 2\)</span>. We can use the binomial distribution’s probability mass function (Eq.~@reg(eq:binomialpmf)) to see how the shape of the distribution changes as we increase the number of coins tossed (Figure @reg(fig:ManyCoins)).</p>
+
+</div>
+</div>
+<p style="text-align: center;">
+<a href="variables.html"><button class="btn btn-default">Previous</button></a>
+<a href="final-words.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

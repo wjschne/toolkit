@@ -1,0 +1,138 @@
+% Encoding: UTF-8
+@article{borsboom2004psychometrics,
+  title={Why psychometrics is not pathological: A comment on {M}ichell},
+  author={Borsboom, Denny and Mellenbergh, Gideon J},
+  journal={Theory \& Psychology},
+  volume={14},
+  number={1},
+  pages={105--120},
+  year={2004},
+  publisher={Sage Publications}
+}
+
+@article{cicchetti2006rating,
+  title={Rating scales, scales of measurement, issues of reliability: Resolving some critical issues for clinicians and researchers},
+  author={Cicchetti, Domenic and Bronen, Richard and Spencer, Susan and Haut, Sheryl and Berg, Anne and Oliver, Patricia and Tyrer, Peter},
+  journal={The Journal of nervous and mental disease},
+  volume={194},
+  number={8},
+  pages={557--564},
+  year={2006},
+  publisher={LWW}
+}
+
+@book{clark2004natural,
+  title={Natural-born cyborgs: Minds, technologies, and the future of human intelligence},
+  author={Clark, Andy},
+  year={2004},
+  publisher={Oxford University Press, USA},
+  address={New York}
+}
+
+@book{embretson2000item,
+  title={Item response theory for psychologists},
+  author={Embretson, Susan E and Reise, Steven P},
+  year={2000},
+  publisher={Lawrence Erlbaum},
+  address={Mahwah, NJ}
+}
+
+@book{gawande2007better,
+  title={Better: A Surgeon's Notes on Performance},
+  author={Gawande, Atul},
+  year={2007},
+  publisher={Metropolitan Books},
+  address={New York, NY}
+}
+
+@book{jensen2006clocking,
+  title={Clocking the mind: Mental chronometry and individual differences},
+  author={Jensen, Arthur Robert},
+  year={2006},
+  publisher={Elsevier Science Limited},
+  address = {Amsterdam},
+  isbn = {978-0080449395}
+}
+
+@book{ley1972quantitative,
+  title={Quantitative aspects of psychological assessment: An introduction},
+  author={Ley, Philip},
+  year={1972},
+  publisher={Duckworth},
+  address={London}
+}
+
+@article{michell1997quantitative,
+  title={Quantitative science and the definition of measurement in psychology},
+  author={Michell, Joel},
+  journal={British Journal of Psychology},
+  volume={88},
+  number={3},
+  pages={355--383},
+  year={1997},
+  publisher={Wiley Online Library}
+}
+
+@article{michell2004item,
+  title={Item response models, Pathological science and the shape of error: Reply to {B}orsboom and {M}ellenbergh},
+  author={Michell, Joel},
+  journal={Theory \& Psychology},
+  volume={14},
+  number={1},
+  pages={121--129},
+  year={2004},
+  publisher={Sage Publications}
+}
+@article{michell2008psychometrics,
+  title={Is psychometrics pathological science?},
+  author={Michell, Joel},
+  journal={Measurement},
+  volume={6},
+  number={1-2},
+  pages={7--24},
+  year={2008},
+  publisher={Taylor \& Francis}
+}
+@article{stevens1946theory,
+  title={On the Theory of Scales of Measurement},
+  author={Stanley Smith Stevens},
+  journal={Science},
+  volume={103},
+  number={2684},
+  pages={677--680},
+  year={1946},
+  publisher={American Association for the Advancement of Science}
+}
+
+@book{houts1975myth,
+  title={The myth of measurability},
+  editor={Houts, Paul L.},
+  lccn={76054045},
+  url={http://books.google.com/books?id=fkANAQAAMAAJ},
+  year={1975},
+  publisher={Hart Publishing},
+  address={New York}
+}
+
+@article{zacharias1975trouble,
+  title={The trouble with {IQ} tests.},
+  author={Zacharias, Jerrold R},
+  journal={National Elementary Principal},
+  volume={54},
+  number={4},
+  pages={23--29},
+  year={1975},
+  publisher={ERIC}
+}
+@Article{garcia2010women,
+  author    = {Garcia, Donna M and Schmitt, Michael T and Branscombe, Nyla R and Ellemers, Naomi},
+  title     = {Women's reactions to ingroup members who protest discriminatory treatment: The importance of beliefs about inequality and response appropriateness},
+  journal   = {European Journal of Social Psychology},
+  year      = {2010},
+  volume    = {40},
+  number    = {5},
+  pages     = {733--745},
+  publisher = {Wiley Online Library},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

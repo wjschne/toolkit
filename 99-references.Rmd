@@ -1,0 +1,39 @@
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+
+
+
+## R packages used in this book {-}
+
+* `bookdown` [@R-bookdown]
+* `dplyr` [@R-dplyr]
+* `extrafont` [@R-extrafont]
+* `fBasics` [@R-fBasics]
+* `forcats` [@R-forcats]
+* `fMultivar` [@R-fMultivar]
+* `gganimate` [@R-gganimate]
+* `ggforce` [@R-ggforce]
+* `ggplot2` [@R-ggplot2]
+* `IDPmisc` [@R-IDPmisc]
+* `knitr` [@R-knitr]
+* `lattice` [@R-knitr]
+* `purrr` [@R-purrr]
+* `rmarkdown` [@R-rmarkdown]
+* `sjmisc` [@R-sjmisc]
+* `sn` [@R-sn]
+* `stringr` [@R-stringr]
+* `stats` [@R-base]
+* `tibble` [@R-tibble]
+* `tidyr` [@R-tidyr]
+* `tidyverse` [@R-tidyverse]
+* `tikzDevice` [@R-tikzDevice]
+* `tufte` [@R-tufte]
+
+
+
+
+
+
+
+

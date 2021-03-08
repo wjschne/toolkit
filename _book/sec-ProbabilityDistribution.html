@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+<meta name="github-repo" content="wjschne/psychtoolkit" />
+
+<meta name="author" content="W. Joel Schneider" />
+
+<meta name="date" content="2018-10-09" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+
+<title>Practical Psychometrics: A Psychological Assessment Toolkit</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+<script type="text/x-mathjax-config">
+
+
+MathJax.Hub.Config({
+  TeX: {Augment: {
+    Definitions: {macros: {xfrac: 'XFrac'}},
+    Parse: {prototype: {
+      XFrac: function (name) {
+        var num = this.ParseArg(name);
+        var den = this.ParseArg(name);
+        this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+      }
+    }}
+  }}}
+);
+
+
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+<link rel="stylesheet" href="equity.css" type="text/css" />
+<link rel="stylesheet" href="mycss.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#preface">Preface</a></li>
+<li><a href="intro.html#intro"><span class="toc-section-number">1</span> Introduction</a></li>
+<li class="has-sub"><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a><ul>
+<li><a href="nominal.html#nominal"><span class="toc-section-number">2.1</span> Nominal Scales</a></li>
+<li><a href="ordinal-scales.html#ordinal-scales"><span class="toc-section-number">2.2</span> Ordinal Scales</a></li>
+<li><a href="interval-scales.html#interval-scales"><span class="toc-section-number">2.3</span> Interval Scales</a></li>
+<li><a href="ratio-scales.html#ratio-scales"><span class="toc-section-number">2.4</span> Ratio Scales</a></li>
+<li><a href="sec-DiscreteVsContinuous.html#sec:DiscreteVsContinuous"><span class="toc-section-number">2.5</span> Discrete vs. Continuous Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#distributions"><span class="toc-section-number">3</span> Distributions</a><ul>
+<li class="has-sub"><a href="random-variables.html#random-variables"><span class="toc-section-number">3.1</span> Random Variables</a><ul>
+<li><a href="random-variables.html#sets"><span class="toc-section-number">3.1.1</span> Sets</a></li>
+<li><a href="random-variables.html#sec:SampleSpace"><span class="toc-section-number">3.1.2</span> Sample Spaces</a></li>
+</ul></li>
+<li><a href="sec-ProbabilityDistribution.html#sec:ProbabilityDistribution"><span class="toc-section-number">3.2</span> Probability Distributions</a></li>
+<li class="has-sub"><a href="sec-DiscreteUniform.html#sec:DiscreteUniform"><span class="toc-section-number">3.3</span> Discrete Uniform Distributions</a><ul>
+<li><a href="sec-DiscreteUniform.html#parameters-of-random-variables"><span class="toc-section-number">3.3.1</span> Parameters of Random Variables</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:pmf"><span class="toc-section-number">3.3.2</span> Probability Mass Functions</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:CumDist"><span class="toc-section-number">3.3.3</span> Cumulative Distribution Functions</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:Quantile"><span class="toc-section-number">3.3.4</span> Quantile functions</a></li>
+<li><a href="sec-DiscreteUniform.html#generating-a-random-sample-in-r"><span class="toc-section-number">3.3.5</span> Generating a Random Sample in R</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-BernoulliDist.html#sec:BernoulliDist"><span class="toc-section-number">3.4</span> Bernoulli Distributions</a><ul>
+<li><a href="sec-BernoulliDist.html#generating-a-random-sample-from-the-bernoulli-distribution"><span class="toc-section-number">3.4.1</span> Generating a Random Sample from the Bernoulli Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-binomial.html#sec:binomial"><span class="toc-section-number">3.5</span> Binomial Distributions</a><ul>
+<li><a href="sec-binomial.html#clinical-applications-of-the-binomial-distribution"><span class="toc-section-number">3.5.1</span> Clinical Applications of the Binomial Distribution</a></li>
+<li><a href="sec-binomial.html#graphing-the-binomial-distribution"><span class="toc-section-number">3.5.2</span> Graphing the binomial distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="poisson-distributions.html#poisson-distributions"><span class="toc-section-number">3.6</span> Poisson Distributions</a><ul>
+<li><a href="poisson-distributions.html#a-clinical-application-of-the-the-poisson-distribution"><span class="toc-section-number">3.6.1</span> A clinical application of the the Poisson distribution</a></li>
+</ul></li>
+<li><a href="geometric-distributions.html#geometric-distributions"><span class="toc-section-number">3.7</span> Geometric Distributions}</a></li>
+<li><a href="sec-pdf.html#sec:pdf"><span class="toc-section-number">3.8</span> Probability Density Functions</a></li>
+<li class="has-sub"><a href="sec-Uniform.html#sec:Uniform"><span class="toc-section-number">3.9</span> Continuous Uniform Distributions</a><ul>
+<li><a href="sec-Uniform.html#generating-random-samples-from-the-continuous-uniform-distribution"><span class="toc-section-number">3.9.1</span> Generating random samples from the continuous uniform distribution</a></li>
+<li><a href="sec-Uniform.html#using-the-continuous-uniform-distribution-to-generate-random-samples-from-other-distributions"><span class="toc-section-number">3.9.2</span> Using the continuous uniform distribution to generate random samples from other distributions</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-normal.html#sec:normal"><span class="toc-section-number">3.10</span> Normal Distributions</a><ul>
+<li><a href="sec-normal.html#notation-for-normal-variates"><span class="toc-section-number">3.10.1</span> Notation for Normal Variates</a></li>
+</ul></li>
+<li><a href="half-normal-distribution.html#half-normal-distribution"><span class="toc-section-number">3.11</span> Half-Normal Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">4</span> Descriptive Statistics</a><ul>
+<li><a href="frequency-distribution-tables.html#frequency-distribution-tables"><span class="toc-section-number">4.1</span> Frequency Distribution Tables</a></li>
+<li class="has-sub"><a href="central-tendencies.html#central-tendencies"><span class="toc-section-number">4.2</span> Central Tendencies</a><ul>
+<li><a href="central-tendencies.html#mode"><span class="toc-section-number">4.2.1</span> Mode</a></li>
+</ul></li>
+<li><a href="expected-values.html#expected-values"><span class="toc-section-number">4.3</span> Expected Values</a></li>
+</ul></li>
+<li class="has-sub"><a href="notation.html#notation">Notation</a><ul>
+<li><a href="random-variables-vectors-and-matrices.html#random-variables-vectors-and-matrices"><span class="toc-section-number">4.4</span> Random variables, vectors, and matrices</a></li>
+<li><a href="sets-and-intervals.html#sets-and-intervals"><span class="toc-section-number">4.5</span> Sets and intervals</a></li>
+<li><a href="summation.html#summation"><span class="toc-section-number">4.6</span> Summation</a></li>
+<li><a href="other.html#other"><span class="toc-section-number">4.7</span> Other</a></li>
+</ul></li>
+<li class="has-sub"><a href="references.html#references">References</a><ul>
+<li><a href="r-packages-used-in-this-book.html#r-packages-used-in-this-book">R packages used in this book</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="sec:ProbabilityDistribution" class="section level2">
+<h2><span class="header-section-number">3.2</span> Probability Distributions</h2>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:dice"></span>
+<img src="dice.svg" alt="The probability distribution of a throw of a single die" width="300"  />
+<!--
+<p class="caption marginnote">-->Figure 2.2: The probability distribution of a throw of a single die<!--</p>-->
+<!--</div>--></span>
+</p>
+<p>Each element of a random variable’s sample space has some probability associated with it. When we list the probabilities of each possible outcome, we have specified the variable’s <span class="defword">probability distribution</span><label for="tufte-mn-9" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-9" class="margin-toggle"><span class="marginnote">In a <strong>probability distribution</strong>, there is an assignment of a probability to each possible element in a variable’s sample space.</span>. In other words, if we know the probability distribution of a variable, we know how probable each outcome is. In the case of a throw of a single die, each outcome is equally likely (Figure <a href="sec-ProbabilityDistribution.html#fig:dice">2.2</a>).</p>
+<div class="wrap-collapsible" style="margin-top: 0em;">
+<input id="collapsible31" class="toggle" type="checkbox">
+<label for="collapsible31" class="lbl-toggle"><span class="math inline">\(\rm\LaTeX~Code\)</span></label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb2"><pre class="sourceCode tikz"><code class="sourceCode latex"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">% Dice PMF</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="bu">\documentclass</span>[tikz = true, border = 2pt]{<span class="ex">standalone</span>}</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="bu">\usepackage</span>{<span class="ex">tikz</span>}</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="bu">\usepackage</span>{<span class="ex">xfrac</span>}</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="fu">\usetikzlibrary</span>{shapes,calc}</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="fu">\setmainfont</span>{Equity Text A}</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="fu">\tikzset</span>{</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">    dot hidden/.style={},</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">    line hidden/.style={},</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">    dot colour/.style={dot hidden/.append style={color=#1}},</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">    dot colour/.default=black,</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">    line colour/.style={line hidden/.append style={color=#1}},</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    line colour/.default=black</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">}</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="bu">\usepackage</span>{<span class="ex">xparse</span>}</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="fu">\NewDocumentCommand</span>{<span class="fu">\drawdie</span>}{O{}m}{</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">    <span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[x=1em,y=1em,radius=0.1,#1]</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">    <span class="fu">\draw</span>[rounded corners=2,line hidden] (0,0) rectangle (1,1);</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">    <span class="fu">\ifodd</span>#2</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">    <span class="fu">\fill</span>[dot hidden] (0.5,0.5) circle;</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">    <span class="fu">\ifnum</span>#2&gt;1</a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">    <span class="fu">\fill</span>[dot hidden] (0.25,0.25) circle;</a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">    <span class="fu">\fill</span>[dot hidden] (0.75,0.75) circle;</a>
+<a class="sourceLine" id="cb2-28" data-line-number="28">    <span class="fu">\ifnum</span>#2&gt;3</a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">    <span class="fu">\fill</span>[dot hidden] (0.25,0.75) circle;</a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">    <span class="fu">\fill</span>[dot hidden] (0.75,0.25) circle;</a>
+<a class="sourceLine" id="cb2-31" data-line-number="31">    <span class="fu">\ifnum</span>#2&gt;5</a>
+<a class="sourceLine" id="cb2-32" data-line-number="32">    <span class="fu">\fill</span>[dot hidden] (0.75,0.5) circle;</a>
+<a class="sourceLine" id="cb2-33" data-line-number="33">    <span class="fu">\fill</span>[dot hidden] (0.25,0.5) circle;</a>
+<a class="sourceLine" id="cb2-34" data-line-number="34">    <span class="fu">\ifnum</span>#2&gt;7</a>
+<a class="sourceLine" id="cb2-35" data-line-number="35">    <span class="fu">\fill</span>[dot hidden] (0.5,0.75) circle;</a>
+<a class="sourceLine" id="cb2-36" data-line-number="36">    <span class="fu">\fill</span>[dot hidden] (0.5,0.25) circle;</a>
+<a class="sourceLine" id="cb2-37" data-line-number="37">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb2-38" data-line-number="38">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb2-39" data-line-number="39">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb2-40" data-line-number="40">    <span class="fu">\fi</span></a>
+<a class="sourceLine" id="cb2-41" data-line-number="41">    <span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</a>
+<a class="sourceLine" id="cb2-42" data-line-number="42">}  </a>
+<a class="sourceLine" id="cb2-43" data-line-number="43"></a>
+<a class="sourceLine" id="cb2-44" data-line-number="44"><span class="kw">\begin</span>{<span class="ex">document</span>}    </a>
+<a class="sourceLine" id="cb2-45" data-line-number="45">    <span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}</a>
+<a class="sourceLine" id="cb2-46" data-line-number="46">    <span class="fu">\foreach</span> <span class="fu">\n</span> in {1,...,6} {</a>
+<a class="sourceLine" id="cb2-47" data-line-number="47">        <span class="fu">\node</span> at (<span class="ss">$(0,7)-(0,</span><span class="sc">\n</span><span class="ss">)$</span>) {<span class="fu">\drawdie</span> [scale = 2]{<span class="fu">\n</span>}};</a>
+<a class="sourceLine" id="cb2-48" data-line-number="48">        <span class="fu">\node</span> [fill=gray!50,</a>
+<a class="sourceLine" id="cb2-49" data-line-number="49">               minimum height = 2cm,</a>
+<a class="sourceLine" id="cb2-50" data-line-number="50">               minimum width = 0.1cm,</a>
+<a class="sourceLine" id="cb2-51" data-line-number="51">               single arrow,</a>
+<a class="sourceLine" id="cb2-52" data-line-number="52">               single arrow head extend =.15cm,</a>
+<a class="sourceLine" id="cb2-53" data-line-number="53">               single arrow head indent =.08cm,</a>
+<a class="sourceLine" id="cb2-54" data-line-number="54">               inner sep=1mm] at (<span class="ss">$(1.55,7)-(0,</span><span class="sc">\n</span><span class="ss">)$</span>) {};</a>
+<a class="sourceLine" id="cb2-55" data-line-number="55">        <span class="fu">\node</span>  (p1) at (3,<span class="fu">\n</span>) {<span class="fu">\large</span>{<span class="ss">$</span><span class="sc">\sfrac</span><span class="ss">{</span><span class="sc">\text</span>{1}<span class="ss">}{</span><span class="sc">\text</span>{6}<span class="ss">}$</span>}};</a>
+<a class="sourceLine" id="cb2-56" data-line-number="56">    }</a>
+<a class="sourceLine" id="cb2-57" data-line-number="57">    <span class="fu">\node</span> [text centered,</a>
+<a class="sourceLine" id="cb2-58" data-line-number="58">           anchor=south,</a>
+<a class="sourceLine" id="cb2-59" data-line-number="59">           text height = 1.5ex,</a>
+<a class="sourceLine" id="cb2-60" data-line-number="60">           text depth = .25ex] (p3) at (0,6.6) {<span class="fu">\large</span>{{Sample Space}}};</a>
+<a class="sourceLine" id="cb2-61" data-line-number="61">    <span class="fu">\node</span> [text centered,</a>
+<a class="sourceLine" id="cb2-62" data-line-number="62">           anchor = south,</a>
+<a class="sourceLine" id="cb2-63" data-line-number="63">           text height = 1.5ex,</a>
+<a class="sourceLine" id="cb2-64" data-line-number="64">           text depth = .25ex] (p4) at (3,6.6) {<span class="fu">\large</span>{{Probability}}};</a>
+<a class="sourceLine" id="cb2-65" data-line-number="65">    <span class="kw">\end</span>{<span class="ex">tikzpicture</span>}   </a>
+<a class="sourceLine" id="cb2-66" data-line-number="66"><span class="kw">\end</span>{<span class="ex">document</span>}</a></code></pre></div>
+</div>
+</div>
+</div>
+<p>There is an infinite variety of probability distributions, but a small subset of them have been given names. Now, one can manage one’s affairs quite well without ever knowing what a Bernoulli distribution is, or what a <span class="math inline">\(\chi{^2}\)</span> distribution is, or even what a normal distribution is. However, sometimes life is a little easier if we have names for useful things that occur often. Most of the distributions with names are not really single distributions, but families of distributions. The various members of a family are unique but they are united by the fact that their probability distributions are generated by a particular mathematical function (more on that later). In such cases, the probability distribution is often represented by a graph in which the sample space is on the <span class="math inline">\(X\)</span>-axis and the associated probabilities are on the <span class="math inline">\(Y\)</span>-axis. In Figure <a href="sec-ProbabilityDistribution.html#fig:pdfIllustration">2.3</a>, 16 probability distributions that might be interesting and useful to clinicians are illustrated. Keep in mind that what are pictured are only particular members of the families listed; some family members look quite different from what is shown in Figure <a href="sec-ProbabilityDistribution.html#fig:pdfIllustration">2.3</a>.</p>
+<div class="figure fullwidth"><span id="fig:pdfIllustration"></span>
+<img src="pdfIllustration.svg" alt="A gallery of useful distributions" width="1200"  />
+<p class="caption marginnote shownote">
+Figure 2.3: A gallery of useful distributions
+</p>
+</div>
+<div class="wrap-collapsible">
+<input id="collapsible32" class="toggle" type="checkbox">
+<label for="collapsible32" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Run output file pdfIllustration.tex in LaTeX</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">tikzpackages &lt;-<span class="st"> </span><span class="kw">paste</span>(</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="st">&quot;</span><span class="ch">\\</span><span class="st">usepackage{tikz}&quot;</span>,</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="st">&quot;</span><span class="ch">\\</span><span class="st">usepackage{amsmath}&quot;</span>,</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="st">&quot;</span><span class="ch">\\</span><span class="st">usepackage[active,tightpage,psfixbb]{preview}&quot;</span>,</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="st">&quot;</span><span class="ch">\\</span><span class="st">PreviewEnvironment{pgfpicture}&quot;</span>,</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">collapse =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">)</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">tikzDevice<span class="op">::</span><span class="kw">tikz</span>(<span class="st">&#39;pdfIllustration.tex&#39;</span>,</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">                 <span class="dt">standAlone=</span><span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">                 <span class="dt">packages =</span> tikzpackages, </a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">                 <span class="dt">width =</span> <span class="dv">11</span>, </a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">                 <span class="dt">height =</span> <span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="kw">par</span>(</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">  <span class="dt">mar =</span> <span class="kw">c</span>(<span class="fl">1.75</span>, <span class="fl">1.3</span>, <span class="fl">1.75</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-17" data-line-number="17">  <span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb3-18" data-line-number="18">  <span class="dt">las =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-19" data-line-number="19">  <span class="dt">xpd =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">  <span class="dt">family =</span> <span class="st">&#39;serif&#39;</span>,</a>
+<a class="sourceLine" id="cb3-21" data-line-number="21">  <span class="dt">pty =</span> <span class="st">&quot;s&quot;</span>,</a>
+<a class="sourceLine" id="cb3-22" data-line-number="22">  <span class="dt">mgp =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">0.5</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-23" data-line-number="23">  <span class="dt">tcl =</span> <span class="fl">-0.3</span>,</a>
+<a class="sourceLine" id="cb3-24" data-line-number="24">  <span class="dt">cex =</span> <span class="fl">1.35</span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25">)</a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co"># Bernoulli</span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-29" data-line-number="29">  <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>) <span class="op">~</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb3-30" data-line-number="30">  <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,</a>
+<a class="sourceLine" id="cb3-31" data-line-number="31">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb3-32" data-line-number="32">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-33" data-line-number="33">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-34" data-line-number="34">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-35" data-line-number="35">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-36" data-line-number="36">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-37" data-line-number="37">  <span class="dt">main =</span> <span class="st">&quot;Bernoulli&quot;</span>,</a>
+<a class="sourceLine" id="cb3-38" data-line-number="38">  <span class="dt">lty =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb3-39" data-line-number="39">  <span class="dt">pch =</span> <span class="dv">19</span>,</a>
+<a class="sourceLine" id="cb3-40" data-line-number="40">  <span class="dt">xaxp =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb3-41" data-line-number="41">  <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb3-42" data-line-number="42">)</a>
+<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="kw">text</span>(<span class="dt">x =</span> <span class="fl">.7</span>, <span class="dt">y =</span> <span class="fl">.8</span>, <span class="st">&quot;$p=0.8$&quot;</span>)</a>
+<a class="sourceLine" id="cb3-44" data-line-number="44"></a>
+<a class="sourceLine" id="cb3-45" data-line-number="45"><span class="co"># Binomial</span></a>
+<a class="sourceLine" id="cb3-46" data-line-number="46"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-47" data-line-number="47">  <span class="kw">dbinom</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="dv">5</span>, <span class="fl">0.2</span>) <span class="op">~</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb3-48" data-line-number="48">  <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,</a>
+<a class="sourceLine" id="cb3-49" data-line-number="49">  <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb3-50" data-line-number="50">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-51" data-line-number="51">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-52" data-line-number="52">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-53" data-line-number="53">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-54" data-line-number="54">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-55" data-line-number="55">  <span class="dt">main =</span> <span class="st">&quot;Binomial&quot;</span>,</a>
+<a class="sourceLine" id="cb3-56" data-line-number="56">  <span class="dt">lty =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb3-57" data-line-number="57">  <span class="dt">pch =</span> <span class="dv">19</span></a>
+<a class="sourceLine" id="cb3-58" data-line-number="58">)</a>
+<a class="sourceLine" id="cb3-59" data-line-number="59"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-60" data-line-number="60">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="fl">3.5</span>, <span class="fl">3.5</span>),</a>
+<a class="sourceLine" id="cb3-61" data-line-number="61">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">35</span>, <span class="fl">.25</span>),</a>
+<a class="sourceLine" id="cb3-62" data-line-number="62">  <span class="kw">c</span>(<span class="st">&quot;$p=0.2$&quot;</span>, <span class="st">&quot;$n=5$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-63" data-line-number="63">  <span class="dt">adj =</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-64" data-line-number="64">)</a>
+<a class="sourceLine" id="cb3-65" data-line-number="65"></a>
+<a class="sourceLine" id="cb3-66" data-line-number="66"><span class="co"># Poisson</span></a>
+<a class="sourceLine" id="cb3-67" data-line-number="67"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-68" data-line-number="68">  <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">3</span>) <span class="op">~</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb3-69" data-line-number="69">  <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,</a>
+<a class="sourceLine" id="cb3-70" data-line-number="70">  <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb3-71" data-line-number="71">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-72" data-line-number="72">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-73" data-line-number="73">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-74" data-line-number="74">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-75" data-line-number="75">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-76" data-line-number="76">  <span class="dt">main =</span> <span class="st">&quot;Poisson&quot;</span>,</a>
+<a class="sourceLine" id="cb3-77" data-line-number="77">  <span class="dt">lty =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb3-78" data-line-number="78">  <span class="dt">pch =</span> <span class="dv">19</span></a>
+<a class="sourceLine" id="cb3-79" data-line-number="79">)</a>
+<a class="sourceLine" id="cb3-80" data-line-number="80"><span class="kw">text</span>(<span class="dt">x =</span> <span class="dv">7</span>, <span class="dt">y =</span> <span class="fl">.15</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">lambda=3$&quot;</span>)</a>
+<a class="sourceLine" id="cb3-81" data-line-number="81"></a>
+<a class="sourceLine" id="cb3-82" data-line-number="82"><span class="co"># Geometric</span></a>
+<a class="sourceLine" id="cb3-83" data-line-number="83"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-84" data-line-number="84">  <span class="kw">dgeom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">prob =</span> <span class="fl">0.8</span>) <span class="op">~</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb3-85" data-line-number="85">  <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,</a>
+<a class="sourceLine" id="cb3-86" data-line-number="86">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">.8</span>),</a>
+<a class="sourceLine" id="cb3-87" data-line-number="87">  <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb3-88" data-line-number="88">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-89" data-line-number="89">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-90" data-line-number="90">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-91" data-line-number="91">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-92" data-line-number="92">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-93" data-line-number="93">  <span class="dt">main =</span> <span class="st">&quot;Geometric&quot;</span>,</a>
+<a class="sourceLine" id="cb3-94" data-line-number="94">  <span class="dt">lty =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb3-95" data-line-number="95">  <span class="dt">pch =</span> <span class="dv">19</span></a>
+<a class="sourceLine" id="cb3-96" data-line-number="96">)</a>
+<a class="sourceLine" id="cb3-97" data-line-number="97"><span class="kw">text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="fl">.6</span>, <span class="st">&quot;$p=0.8$&quot;</span>)</a>
+<a class="sourceLine" id="cb3-98" data-line-number="98"></a>
+<a class="sourceLine" id="cb3-99" data-line-number="99"><span class="co"># Discrete Uniform</span></a>
+<a class="sourceLine" id="cb3-100" data-line-number="100"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-101" data-line-number="101">  <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">4</span>, <span class="dv">4</span>) <span class="op">~</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb3-102" data-line-number="102">  <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,</a>
+<a class="sourceLine" id="cb3-103" data-line-number="103">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb3-104" data-line-number="104">  <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb3-105" data-line-number="105">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-106" data-line-number="106">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-107" data-line-number="107">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-108" data-line-number="108">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-109" data-line-number="109">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-110" data-line-number="110">  <span class="dt">main =</span> <span class="st">&quot;Discrete Uniform&quot;</span>,</a>
+<a class="sourceLine" id="cb3-111" data-line-number="111">  <span class="dt">lty =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb3-112" data-line-number="112">  <span class="dt">pch =</span> <span class="dv">19</span></a>
+<a class="sourceLine" id="cb3-113" data-line-number="113">)</a>
+<a class="sourceLine" id="cb3-114" data-line-number="114"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-115" data-line-number="115">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb3-116" data-line-number="116">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">.5</span>),</a>
+<a class="sourceLine" id="cb3-117" data-line-number="117">  <span class="kw">c</span>(<span class="st">&quot;$a=1$&quot;</span>, <span class="st">&quot;$b=4$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-118" data-line-number="118">  <span class="dt">adj =</span> <span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb3-119" data-line-number="119">)</a>
+<a class="sourceLine" id="cb3-120" data-line-number="120"></a>
+<a class="sourceLine" id="cb3-121" data-line-number="121"><span class="co"># Continuous</span></a>
+<a class="sourceLine" id="cb3-122" data-line-number="122"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-123" data-line-number="123">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>, <span class="dv">0</span>) <span class="op">~</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb3-124" data-line-number="124">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-125" data-line-number="125">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb3-126" data-line-number="126">  <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb3-127" data-line-number="127">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-128" data-line-number="128">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-129" data-line-number="129">  <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb3-130" data-line-number="130">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-131" data-line-number="131">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-132" data-line-number="132">  <span class="dt">main =</span> <span class="st">&quot;Continuous Uniform&quot;</span></a>
+<a class="sourceLine" id="cb3-133" data-line-number="133">)</a>
+<a class="sourceLine" id="cb3-134" data-line-number="134"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-135" data-line-number="135">  <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb3-136" data-line-number="136">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-137" data-line-number="137">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-138" data-line-number="138">  <span class="dt">xpd =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb3-139" data-line-number="139">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-140" data-line-number="140">)</a>
+<a class="sourceLine" id="cb3-141" data-line-number="141"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-142" data-line-number="142">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb3-143" data-line-number="143">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">.5</span>),</a>
+<a class="sourceLine" id="cb3-144" data-line-number="144">  <span class="kw">c</span>(<span class="st">&quot;$a=1$&quot;</span>, <span class="st">&quot;$b=4$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-145" data-line-number="145">  <span class="dt">adj =</span> <span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb3-146" data-line-number="146">)</a>
+<a class="sourceLine" id="cb3-147" data-line-number="147"></a>
+<a class="sourceLine" id="cb3-148" data-line-number="148"><span class="co"># Normal</span></a>
+<a class="sourceLine" id="cb3-149" data-line-number="149">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.02</span>)</a>
+<a class="sourceLine" id="cb3-150" data-line-number="150"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-151" data-line-number="151">  <span class="kw">dnorm</span>(x) <span class="op">~</span><span class="st"> </span>x,</a>
+<a class="sourceLine" id="cb3-152" data-line-number="152">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-153" data-line-number="153">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-154" data-line-number="154">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-155" data-line-number="155">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-156" data-line-number="156">  <span class="dt">main =</span> <span class="st">&quot;Normal&quot;</span>,</a>
+<a class="sourceLine" id="cb3-157" data-line-number="157">  <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb3-158" data-line-number="158">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-159" data-line-number="159">  <span class="dt">axes =</span> F</a>
+<a class="sourceLine" id="cb3-160" data-line-number="160">)</a>
+<a class="sourceLine" id="cb3-161" data-line-number="161"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-162" data-line-number="162">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-163" data-line-number="163">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">dnorm</span>(x), <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-164" data-line-number="164">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-165" data-line-number="165">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-166" data-line-number="166">  <span class="dt">xpd =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb3-167" data-line-number="167">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-168" data-line-number="168">)</a>
+<a class="sourceLine" id="cb3-169" data-line-number="169"><span class="kw">axis</span>(<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb3-170" data-line-number="170"></a>
+<a class="sourceLine" id="cb3-171" data-line-number="171"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-172" data-line-number="172">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-1.5</span>),</a>
+<a class="sourceLine" id="cb3-173" data-line-number="173">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">35</span>, <span class="fl">.25</span>),</a>
+<a class="sourceLine" id="cb3-174" data-line-number="174">  <span class="kw">c</span>(<span class="st">&quot;$</span><span class="ch">\\</span><span class="st">mu=0$&quot;</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">sigma^2=1$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-175" data-line-number="175">  <span class="dt">adj =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb3-176" data-line-number="176">)</a>
+<a class="sourceLine" id="cb3-177" data-line-number="177"></a>
+<a class="sourceLine" id="cb3-178" data-line-number="178"></a>
+<a class="sourceLine" id="cb3-179" data-line-number="179">center_neg &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb3-180" data-line-number="180">  signs &lt;-<span class="st"> </span><span class="kw">sign</span>(x)</a>
+<a class="sourceLine" id="cb3-181" data-line-number="181">  <span class="kw">paste0</span>(<span class="kw">ifelse</span>(signs <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>,<span class="st">&quot;$&quot;</span>,<span class="st">&quot;&quot;</span>), x, <span class="kw">ifelse</span>(signs <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>,<span class="st">&quot;</span><span class="ch">\\</span><span class="st">phantom{-}$&quot;</span>,<span class="st">&quot;&quot;</span>))</a>
+<a class="sourceLine" id="cb3-182" data-line-number="182">}</a>
+<a class="sourceLine" id="cb3-183" data-line-number="183"></a>
+<a class="sourceLine" id="cb3-184" data-line-number="184">all_tick_labels &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">side =</span> <span class="dv">1</span>, at, <span class="dt">labels =</span> at) {</a>
+<a class="sourceLine" id="cb3-185" data-line-number="185">  <span class="kw">axis</span>(side, <span class="dt">labels =</span> <span class="kw">rep</span>(<span class="st">&quot;&quot;</span>,<span class="kw">length</span>(at)), <span class="dt">at =</span> at)</a>
+<a class="sourceLine" id="cb3-186" data-line-number="186"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(at)) <span class="kw">axis</span>(side, <span class="dt">at =</span> at[i], <span class="dt">labels =</span> labels[i],<span class="dt">tick =</span> F)</a>
+<a class="sourceLine" id="cb3-187" data-line-number="187">}</a>
+<a class="sourceLine" id="cb3-188" data-line-number="188">axis_ticks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb3-189" data-line-number="189">axis_labs &lt;-<span class="st"> </span><span class="kw">center_neg</span>(axis_ticks)</a>
+<a class="sourceLine" id="cb3-190" data-line-number="190"><span class="kw">all_tick_labels</span>(<span class="dv">1</span>, <span class="dt">at =</span> axis_ticks, <span class="dt">labels =</span>axis_labs)</a>
+<a class="sourceLine" id="cb3-191" data-line-number="191"></a>
+<a class="sourceLine" id="cb3-192" data-line-number="192"></a>
+<a class="sourceLine" id="cb3-193" data-line-number="193"><span class="co"># Student t</span></a>
+<a class="sourceLine" id="cb3-194" data-line-number="194">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="fl">0.02</span>)</a>
+<a class="sourceLine" id="cb3-195" data-line-number="195"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-196" data-line-number="196">  <span class="kw">dt</span>(x, <span class="dv">2</span>) <span class="op">~</span><span class="st"> </span>x,</a>
+<a class="sourceLine" id="cb3-197" data-line-number="197">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-198" data-line-number="198">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-199" data-line-number="199">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-200" data-line-number="200">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-201" data-line-number="201">  <span class="dt">main =</span> <span class="st">&quot;Student&#39;s $</span><span class="ch">\\</span><span class="st">boldsymbol{t}$&quot;</span>,</a>
+<a class="sourceLine" id="cb3-202" data-line-number="202">  <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb3-203" data-line-number="203">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-204" data-line-number="204">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>),</a>
+<a class="sourceLine" id="cb3-205" data-line-number="205">  <span class="dt">axes =</span> F</a>
+<a class="sourceLine" id="cb3-206" data-line-number="206">)</a>
+<a class="sourceLine" id="cb3-207" data-line-number="207"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-208" data-line-number="208">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-209" data-line-number="209">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">dt</span>(x, <span class="dv">2</span>), <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-210" data-line-number="210">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-211" data-line-number="211">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-212" data-line-number="212">  <span class="dt">xpd =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb3-213" data-line-number="213">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-214" data-line-number="214">)</a>
+<a class="sourceLine" id="cb3-215" data-line-number="215"><span class="kw">text</span>(<span class="dt">x =</span> <span class="dv">3</span>, <span class="dt">y =</span> <span class="fl">.3</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">nu=2$&quot;</span>)</a>
+<a class="sourceLine" id="cb3-216" data-line-number="216"><span class="kw">axis</span>(<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb3-217" data-line-number="217">axis_ticks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb3-218" data-line-number="218">axis_labs &lt;-<span class="st"> </span><span class="kw">center_neg</span>(axis_ticks)</a>
+<a class="sourceLine" id="cb3-219" data-line-number="219"><span class="kw">all_tick_labels</span>(<span class="dv">1</span>, <span class="dt">at =</span> axis_ticks, <span class="dt">labels =</span>axis_labs)</a>
+<a class="sourceLine" id="cb3-220" data-line-number="220"></a>
+<a class="sourceLine" id="cb3-221" data-line-number="221"><span class="co"># Chi-Square</span></a>
+<a class="sourceLine" id="cb3-222" data-line-number="222">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb3-223" data-line-number="223"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-224" data-line-number="224">  <span class="kw">dchisq</span>(x, <span class="dv">13</span>) <span class="op">~</span><span class="st"> </span>x,</a>
+<a class="sourceLine" id="cb3-225" data-line-number="225">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-226" data-line-number="226">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-227" data-line-number="227">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-228" data-line-number="228">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-229" data-line-number="229">  <span class="dt">main =</span> <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">boldsymbol{</span><span class="ch">\\</span><span class="st">chi^2}$&quot;</span>,</a>
+<a class="sourceLine" id="cb3-230" data-line-number="230">  <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb3-231" data-line-number="231">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-232" data-line-number="232">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb3-233" data-line-number="233">)</a>
+<a class="sourceLine" id="cb3-234" data-line-number="234"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-235" data-line-number="235">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-236" data-line-number="236">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">dchisq</span>(x, <span class="dv">13</span>), <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-237" data-line-number="237">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-238" data-line-number="238">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-239" data-line-number="239">  <span class="dt">xpd =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb3-240" data-line-number="240">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-241" data-line-number="241">)</a>
+<a class="sourceLine" id="cb3-242" data-line-number="242"><span class="kw">text</span>(<span class="dt">x =</span> <span class="dv">20</span>, <span class="dt">y =</span> <span class="fl">.08</span>, <span class="st">&quot;$k=2$&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb3-243" data-line-number="243"></a>
+<a class="sourceLine" id="cb3-244" data-line-number="244"><span class="co"># F</span></a>
+<a class="sourceLine" id="cb3-245" data-line-number="245">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">6</span>, <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb3-246" data-line-number="246"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-247" data-line-number="247">  <span class="kw">df</span>(x, <span class="dv">3</span>, <span class="dv">120</span>) <span class="op">~</span><span class="st"> </span>x,</a>
+<a class="sourceLine" id="cb3-248" data-line-number="248">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-249" data-line-number="249">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-250" data-line-number="250">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-251" data-line-number="251">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-252" data-line-number="252">  <span class="dt">main =</span> <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">boldsymbol{F}$&quot;</span>,</a>
+<a class="sourceLine" id="cb3-253" data-line-number="253">  <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb3-254" data-line-number="254">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-255" data-line-number="255">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.8</span>)</a>
+<a class="sourceLine" id="cb3-256" data-line-number="256">)</a>
+<a class="sourceLine" id="cb3-257" data-line-number="257"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-258" data-line-number="258">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-259" data-line-number="259">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">df</span>(x, <span class="dv">3</span>, <span class="dv">120</span>), <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-260" data-line-number="260">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-261" data-line-number="261">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-262" data-line-number="262">  <span class="dt">xpd =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-263" data-line-number="263">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-264" data-line-number="264">)</a>
+<a class="sourceLine" id="cb3-265" data-line-number="265"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-266" data-line-number="266">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb3-267" data-line-number="267">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">6</span>, <span class="fl">.4</span>),</a>
+<a class="sourceLine" id="cb3-268" data-line-number="268">  <span class="kw">c</span>(<span class="st">&quot;$d_1=3$&quot;</span>, <span class="st">&quot;$d_2=120$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-269" data-line-number="269">  <span class="dt">adj =</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-270" data-line-number="270">)</a>
+<a class="sourceLine" id="cb3-271" data-line-number="271"></a>
+<a class="sourceLine" id="cb3-272" data-line-number="272"><span class="co"># Weibull</span></a>
+<a class="sourceLine" id="cb3-273" data-line-number="273">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">6.5</span>, <span class="fl">11.5</span>, <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb3-274" data-line-number="274"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-275" data-line-number="275">  <span class="kw">dweibull</span>(x, <span class="dv">20</span>, <span class="dv">10</span>) <span class="op">~</span><span class="st"> </span>x,</a>
+<a class="sourceLine" id="cb3-276" data-line-number="276">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-277" data-line-number="277">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-278" data-line-number="278">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-279" data-line-number="279">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-280" data-line-number="280">  <span class="dt">main =</span> <span class="st">&quot;Weibull&quot;</span>,</a>
+<a class="sourceLine" id="cb3-281" data-line-number="281">  <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb3-282" data-line-number="282">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-283" data-line-number="283">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.8</span>)</a>
+<a class="sourceLine" id="cb3-284" data-line-number="284">)</a>
+<a class="sourceLine" id="cb3-285" data-line-number="285"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-286" data-line-number="286">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-287" data-line-number="287">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">dweibull</span>(x, <span class="dv">20</span>, <span class="dv">10</span>), <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-288" data-line-number="288">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-289" data-line-number="289">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-290" data-line-number="290">  <span class="dt">xpd =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-291" data-line-number="291">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-292" data-line-number="292">)</a>
+<a class="sourceLine" id="cb3-293" data-line-number="293"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-294" data-line-number="294">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb3-295" data-line-number="295">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">6</span>, <span class="fl">.4</span>),</a>
+<a class="sourceLine" id="cb3-296" data-line-number="296">  <span class="kw">c</span>(<span class="st">&quot;$k=20$&quot;</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">lambda=10$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-297" data-line-number="297">  <span class="dt">adj =</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-298" data-line-number="298">)</a>
+<a class="sourceLine" id="cb3-299" data-line-number="299"></a>
+<a class="sourceLine" id="cb3-300" data-line-number="300"><span class="co"># Beta</span></a>
+<a class="sourceLine" id="cb3-301" data-line-number="301">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb3-302" data-line-number="302"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-303" data-line-number="303">  <span class="kw">dbeta</span>(x, <span class="dv">2</span>, <span class="fl">2.5</span>) <span class="op">~</span><span class="st"> </span>x,</a>
+<a class="sourceLine" id="cb3-304" data-line-number="304">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-305" data-line-number="305">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-306" data-line-number="306">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-307" data-line-number="307">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-308" data-line-number="308">  <span class="dt">main =</span> <span class="st">&quot;Beta&quot;</span>,</a>
+<a class="sourceLine" id="cb3-309" data-line-number="309">  <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb3-310" data-line-number="310">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-311" data-line-number="311">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb3-312" data-line-number="312">  <span class="dt">xaxp =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb3-313" data-line-number="313">)</a>
+<a class="sourceLine" id="cb3-314" data-line-number="314"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-315" data-line-number="315">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-316" data-line-number="316">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">dbeta</span>(x, <span class="dv">2</span>, <span class="fl">2.5</span>), <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-317" data-line-number="317">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-318" data-line-number="318">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-319" data-line-number="319">  <span class="dt">xpd =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-320" data-line-number="320">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-321" data-line-number="321">)</a>
+<a class="sourceLine" id="cb3-322" data-line-number="322"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-323" data-line-number="323">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="fl">0.75</span>, <span class="fl">0.75</span>),</a>
+<a class="sourceLine" id="cb3-324" data-line-number="324">  <span class="dt">y =</span> <span class="kw">c</span>(<span class="fl">1.75</span>, <span class="fl">1.25</span>),</a>
+<a class="sourceLine" id="cb3-325" data-line-number="325">  <span class="kw">c</span>(<span class="st">&quot;$</span><span class="ch">\\</span><span class="st">alpha=2$&quot;</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">beta=2.5$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-326" data-line-number="326">  <span class="dt">adj =</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-327" data-line-number="327">)</a>
+<a class="sourceLine" id="cb3-328" data-line-number="328"></a>
+<a class="sourceLine" id="cb3-329" data-line-number="329"><span class="co"># Log Normal</span></a>
+<a class="sourceLine" id="cb3-330" data-line-number="330">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">.999</span>, <span class="fl">0.001</span>), <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="fl">.05</span>))</a>
+<a class="sourceLine" id="cb3-331" data-line-number="331"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-332" data-line-number="332">  <span class="kw">dlnorm</span>(x, <span class="dv">2</span>, <span class="fl">.5</span>) <span class="op">~</span><span class="st"> </span>x,</a>
+<a class="sourceLine" id="cb3-333" data-line-number="333">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-334" data-line-number="334">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-335" data-line-number="335">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-336" data-line-number="336">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-337" data-line-number="337">  <span class="dt">main =</span> <span class="st">&quot;Log Normal&quot;</span>,</a>
+<a class="sourceLine" id="cb3-338" data-line-number="338">  <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb3-339" data-line-number="339">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-340" data-line-number="340">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>)</a>
+<a class="sourceLine" id="cb3-341" data-line-number="341">)</a>
+<a class="sourceLine" id="cb3-342" data-line-number="342"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-343" data-line-number="343">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-344" data-line-number="344">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">dlnorm</span>(x, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-345" data-line-number="345">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-346" data-line-number="346">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-347" data-line-number="347">  <span class="dt">xpd =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-348" data-line-number="348">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-349" data-line-number="349">)</a>
+<a class="sourceLine" id="cb3-350" data-line-number="350"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-351" data-line-number="351">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb3-352" data-line-number="352">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">3</span>, <span class="fl">.2</span>),</a>
+<a class="sourceLine" id="cb3-353" data-line-number="353">  <span class="kw">c</span>(<span class="st">&quot;$</span><span class="ch">\\</span><span class="st">mu=2$&quot;</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">sigma=0.5$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-354" data-line-number="354">  <span class="dt">adj =</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-355" data-line-number="355">)</a>
+<a class="sourceLine" id="cb3-356" data-line-number="356"></a>
+<a class="sourceLine" id="cb3-357" data-line-number="357"></a>
+<a class="sourceLine" id="cb3-358" data-line-number="358"><span class="co"># Skew Normal</span></a>
+<a class="sourceLine" id="cb3-359" data-line-number="359">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb3-360" data-line-number="360"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-361" data-line-number="361">  sn<span class="op">::</span><span class="kw">dsn</span>(x, <span class="dv">2</span>, <span class="fl">2.5</span>) <span class="op">~</span><span class="st"> </span>x,</a>
+<a class="sourceLine" id="cb3-362" data-line-number="362">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-363" data-line-number="363">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-364" data-line-number="364">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-365" data-line-number="365">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-366" data-line-number="366">  <span class="dt">main =</span> <span class="st">&quot;Skew Normal&quot;</span>,</a>
+<a class="sourceLine" id="cb3-367" data-line-number="367">  <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb3-368" data-line-number="368">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-369" data-line-number="369">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb3-370" data-line-number="370">  <span class="dt">axes =</span> F</a>
+<a class="sourceLine" id="cb3-371" data-line-number="371">)</a>
+<a class="sourceLine" id="cb3-372" data-line-number="372"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-373" data-line-number="373">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-374" data-line-number="374">  <span class="kw">c</span>(<span class="dv">0</span>, sn<span class="op">::</span><span class="kw">dsn</span>(</a>
+<a class="sourceLine" id="cb3-375" data-line-number="375">    x,</a>
+<a class="sourceLine" id="cb3-376" data-line-number="376">    <span class="dt">xi =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-377" data-line-number="377">    <span class="dt">omega =</span> <span class="fl">1.5</span>,</a>
+<a class="sourceLine" id="cb3-378" data-line-number="378">    <span class="dt">alpha =</span> <span class="dv">-4</span></a>
+<a class="sourceLine" id="cb3-379" data-line-number="379">  ), <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-380" data-line-number="380">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-381" data-line-number="381">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-382" data-line-number="382">  <span class="dt">xpd =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-383" data-line-number="383">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-384" data-line-number="384">)</a>
+<a class="sourceLine" id="cb3-385" data-line-number="385"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-386" data-line-number="386">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">3.9</span>, <span class="fl">-3.9</span>, <span class="fl">-3.9</span>),</a>
+<a class="sourceLine" id="cb3-387" data-line-number="387">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">45</span>, <span class="fl">.35</span>, <span class="fl">.25</span>),</a>
+<a class="sourceLine" id="cb3-388" data-line-number="388">  <span class="kw">c</span>(<span class="st">&quot;$</span><span class="ch">\\</span><span class="st">xi=1$&quot;</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">omega=1.5$&quot;</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">alpha=-4$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-389" data-line-number="389">  <span class="dt">adj =</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-390" data-line-number="390">)</a>
+<a class="sourceLine" id="cb3-391" data-line-number="391"></a>
+<a class="sourceLine" id="cb3-392" data-line-number="392"><span class="kw">axis</span>(<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb3-393" data-line-number="393">axis_ticks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb3-394" data-line-number="394">axis_labs &lt;-<span class="st"> </span><span class="kw">center_neg</span>(axis_ticks)</a>
+<a class="sourceLine" id="cb3-395" data-line-number="395"><span class="kw">all_tick_labels</span>(<span class="dv">1</span>, <span class="dt">at =</span> axis_ticks, <span class="dt">labels =</span>axis_labs)</a>
+<a class="sourceLine" id="cb3-396" data-line-number="396"></a>
+<a class="sourceLine" id="cb3-397" data-line-number="397"><span class="co"># Normal Mixture</span></a>
+<a class="sourceLine" id="cb3-398" data-line-number="398">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb3-399" data-line-number="399">y &lt;-<span class="st"> </span>(<span class="kw">dnorm</span>(x, <span class="dv">-2</span>, <span class="fl">0.5</span>) <span class="op">*</span><span class="st"> </span><span class="fl">.25</span> <span class="op">+</span><span class="st"> </span><span class="kw">dnorm</span>(x))</a>
+<a class="sourceLine" id="cb3-400" data-line-number="400"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-401" data-line-number="401">  y <span class="op">~</span><span class="st"> </span>x,</a>
+<a class="sourceLine" id="cb3-402" data-line-number="402">  <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-403" data-line-number="403">  <span class="dt">col =</span> <span class="st">&quot;violet&quot;</span>,</a>
+<a class="sourceLine" id="cb3-404" data-line-number="404">  <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-405" data-line-number="405">  <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-406" data-line-number="406">  <span class="dt">main =</span> <span class="st">&quot;Normal Mixture&quot;</span>,</a>
+<a class="sourceLine" id="cb3-407" data-line-number="407">  <span class="dt">lwd =</span> <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb3-408" data-line-number="408">  <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-409" data-line-number="409">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb3-410" data-line-number="410">  <span class="dt">axes =</span> F</a>
+<a class="sourceLine" id="cb3-411" data-line-number="411">)</a>
+<a class="sourceLine" id="cb3-412" data-line-number="412"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-413" data-line-number="413">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-414" data-line-number="414">  <span class="kw">c</span>(<span class="dv">0</span>, y, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-415" data-line-number="415">  <span class="dt">col =</span> <span class="st">&quot;royalblue2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-416" data-line-number="416">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-417" data-line-number="417">  <span class="dt">xpd =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-418" data-line-number="418">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-419" data-line-number="419">)</a>
+<a class="sourceLine" id="cb3-420" data-line-number="420"><span class="kw">polygon</span>(</a>
+<a class="sourceLine" id="cb3-421" data-line-number="421">  <span class="kw">c</span>(<span class="kw">min</span>(x), x, <span class="kw">max</span>(x)),</a>
+<a class="sourceLine" id="cb3-422" data-line-number="422">  <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">dnorm</span>(x, <span class="dv">-2</span>, <span class="fl">0.5</span>) <span class="op">*</span><span class="st"> </span><span class="fl">.25</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb3-423" data-line-number="423">  <span class="dt">col =</span> <span class="st">&quot;firebrick2&quot;</span>,</a>
+<a class="sourceLine" id="cb3-424" data-line-number="424">  <span class="dt">lwd =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-425" data-line-number="425">  <span class="dt">xpd =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb3-426" data-line-number="426">  <span class="dt">border =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb3-427" data-line-number="427">)</a>
+<a class="sourceLine" id="cb3-428" data-line-number="428"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-429" data-line-number="429">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.85</span>, <span class="fl">-0.85</span>),</a>
+<a class="sourceLine" id="cb3-430" data-line-number="430">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">45</span>, <span class="fl">.35</span>),</a>
+<a class="sourceLine" id="cb3-431" data-line-number="431">  <span class="kw">c</span>(<span class="st">&quot;$</span><span class="ch">\\</span><span class="st">mu_1=-2$&quot;</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">sigma_1^2=0.5$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-432" data-line-number="432">  <span class="dt">adj =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb3-433" data-line-number="433">)</a>
+<a class="sourceLine" id="cb3-434" data-line-number="434"><span class="kw">text</span>(</a>
+<a class="sourceLine" id="cb3-435" data-line-number="435">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="fl">3.5</span>, <span class="fl">3.5</span>),</a>
+<a class="sourceLine" id="cb3-436" data-line-number="436">  <span class="dt">y =</span> <span class="kw">c</span>(.<span class="dv">45</span>, <span class="fl">.35</span>),</a>
+<a class="sourceLine" id="cb3-437" data-line-number="437">  <span class="kw">c</span>(<span class="st">&quot;$</span><span class="ch">\\</span><span class="st">mu_2=0$&quot;</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">sigma_2^2=1$&quot;</span>),</a>
+<a class="sourceLine" id="cb3-438" data-line-number="438">  <span class="dt">adj =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb3-439" data-line-number="439">)</a>
+<a class="sourceLine" id="cb3-440" data-line-number="440"><span class="kw">axis</span>(<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb3-441" data-line-number="441">axis_ticks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb3-442" data-line-number="442">axis_labs &lt;-<span class="st"> </span><span class="kw">center_neg</span>(axis_ticks)</a>
+<a class="sourceLine" id="cb3-443" data-line-number="443"><span class="kw">all_tick_labels</span>(<span class="dv">1</span>, <span class="dt">at =</span> axis_ticks, <span class="dt">labels =</span>axis_labs)</a>
+<a class="sourceLine" id="cb3-444" data-line-number="444"><span class="co"># Bivariate Normal</span></a>
+<a class="sourceLine" id="cb3-445" data-line-number="445"></a>
+<a class="sourceLine" id="cb3-446" data-line-number="446">x =<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb3-447" data-line-number="447">X =<span class="st"> </span>fMultivar<span class="op">::</span><span class="kw">grid2d</span>(x)</a>
+<a class="sourceLine" id="cb3-448" data-line-number="448">z =<span class="st"> </span>fMultivar<span class="op">::</span><span class="kw">dnorm2d</span>(X<span class="op">$</span>x, X<span class="op">$</span>y, <span class="dt">rho =</span> <span class="fl">0.6</span>)</a>
+<a class="sourceLine" id="cb3-449" data-line-number="449">Z =<span class="st"> </span><span class="kw">list</span>(<span class="dt">x =</span> x,</a>
+<a class="sourceLine" id="cb3-450" data-line-number="450">         <span class="dt">y =</span> x,</a>
+<a class="sourceLine" id="cb3-451" data-line-number="451">         <span class="dt">z =</span> <span class="kw">matrix</span>(z, <span class="dt">ncol =</span> <span class="kw">length</span>(x)))</a>
+<a class="sourceLine" id="cb3-452" data-line-number="452"><span class="kw">persp</span>(</a>
+<a class="sourceLine" id="cb3-453" data-line-number="453">  Z,</a>
+<a class="sourceLine" id="cb3-454" data-line-number="454">  <span class="dt">theta =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb3-455" data-line-number="455">  <span class="dt">phi =</span> <span class="dv">25</span>,</a>
+<a class="sourceLine" id="cb3-456" data-line-number="456">  <span class="dt">col =</span> <span class="st">&quot;royalblue1&quot;</span>,</a>
+<a class="sourceLine" id="cb3-457" data-line-number="457">  <span class="dt">xlab =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">X&quot;</span>,</a>
+<a class="sourceLine" id="cb3-458" data-line-number="458">  <span class="dt">ylab =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">Y&quot;</span>,</a>
+<a class="sourceLine" id="cb3-459" data-line-number="459">  <span class="dt">zlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb3-460" data-line-number="460">  <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">.20</span>),</a>
+<a class="sourceLine" id="cb3-461" data-line-number="461">  <span class="dt">border =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb3-462" data-line-number="462">  <span class="dt">expand =</span> <span class="fl">.7</span>,</a>
+<a class="sourceLine" id="cb3-463" data-line-number="463">  <span class="dt">box =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb3-464" data-line-number="464">  <span class="dt">ticktype =</span> <span class="st">&quot;simple&quot;</span>,</a>
+<a class="sourceLine" id="cb3-465" data-line-number="465">  <span class="dt">ltheta =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb3-466" data-line-number="466">  <span class="dt">shade =</span> <span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb3-467" data-line-number="467">  <span class="dt">main =</span> <span class="st">&quot;Bivariate Normal&quot;</span>,</a>
+<a class="sourceLine" id="cb3-468" data-line-number="468">  <span class="dt">lwd =</span> <span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb3-469" data-line-number="469">)</a>
+<a class="sourceLine" id="cb3-470" data-line-number="470"><span class="kw">text</span>(<span class="kw">c</span>(<span class="op">-</span>.<span class="dv">11</span>, <span class="fl">.32</span>), <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">42</span>, <span class="fl">-.25</span>), <span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>))</a>
+<a class="sourceLine" id="cb3-471" data-line-number="471"><span class="kw">text</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="st">&quot;$</span><span class="ch">\\</span><span class="st">rho_{XY}=0.6$&quot;</span>)</a>
+<a class="sourceLine" id="cb3-472" data-line-number="472"><span class="kw">dev.off</span>()</a></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="random-variables.html"><button class="btn btn-default">Previous</button></a>
+<a href="sec-DiscreteUniform.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

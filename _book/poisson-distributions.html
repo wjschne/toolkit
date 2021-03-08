@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+<meta name="github-repo" content="wjschne/psychtoolkit" />
+
+<meta name="author" content="W. Joel Schneider" />
+
+<meta name="date" content="2018-10-09" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+
+<title>Practical Psychometrics: A Psychological Assessment Toolkit</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+<script type="text/x-mathjax-config">
+
+
+MathJax.Hub.Config({
+  TeX: {Augment: {
+    Definitions: {macros: {xfrac: 'XFrac'}},
+    Parse: {prototype: {
+      XFrac: function (name) {
+        var num = this.ParseArg(name);
+        var den = this.ParseArg(name);
+        this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+      }
+    }}
+  }}}
+);
+
+
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+<link rel="stylesheet" href="equity.css" type="text/css" />
+<link rel="stylesheet" href="mycss.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#preface">Preface</a></li>
+<li><a href="intro.html#intro"><span class="toc-section-number">1</span> Introduction</a></li>
+<li class="has-sub"><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a><ul>
+<li><a href="nominal.html#nominal"><span class="toc-section-number">2.1</span> Nominal Scales</a></li>
+<li><a href="ordinal-scales.html#ordinal-scales"><span class="toc-section-number">2.2</span> Ordinal Scales</a></li>
+<li><a href="interval-scales.html#interval-scales"><span class="toc-section-number">2.3</span> Interval Scales</a></li>
+<li><a href="ratio-scales.html#ratio-scales"><span class="toc-section-number">2.4</span> Ratio Scales</a></li>
+<li><a href="sec-DiscreteVsContinuous.html#sec:DiscreteVsContinuous"><span class="toc-section-number">2.5</span> Discrete vs. Continuous Variables</a></li>
+</ul></li>
+<li class="has-sub"><a href="distributions.html#distributions"><span class="toc-section-number">3</span> Distributions</a><ul>
+<li class="has-sub"><a href="random-variables.html#random-variables"><span class="toc-section-number">3.1</span> Random Variables</a><ul>
+<li><a href="random-variables.html#sets"><span class="toc-section-number">3.1.1</span> Sets</a></li>
+<li><a href="random-variables.html#sec:SampleSpace"><span class="toc-section-number">3.1.2</span> Sample Spaces</a></li>
+</ul></li>
+<li><a href="sec-ProbabilityDistribution.html#sec:ProbabilityDistribution"><span class="toc-section-number">3.2</span> Probability Distributions</a></li>
+<li class="has-sub"><a href="sec-DiscreteUniform.html#sec:DiscreteUniform"><span class="toc-section-number">3.3</span> Discrete Uniform Distributions</a><ul>
+<li><a href="sec-DiscreteUniform.html#parameters-of-random-variables"><span class="toc-section-number">3.3.1</span> Parameters of Random Variables</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:pmf"><span class="toc-section-number">3.3.2</span> Probability Mass Functions</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:CumDist"><span class="toc-section-number">3.3.3</span> Cumulative Distribution Functions</a></li>
+<li><a href="sec-DiscreteUniform.html#sec:Quantile"><span class="toc-section-number">3.3.4</span> Quantile functions</a></li>
+<li><a href="sec-DiscreteUniform.html#generating-a-random-sample-in-r"><span class="toc-section-number">3.3.5</span> Generating a Random Sample in R</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-BernoulliDist.html#sec:BernoulliDist"><span class="toc-section-number">3.4</span> Bernoulli Distributions</a><ul>
+<li><a href="sec-BernoulliDist.html#generating-a-random-sample-from-the-bernoulli-distribution"><span class="toc-section-number">3.4.1</span> Generating a Random Sample from the Bernoulli Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-binomial.html#sec:binomial"><span class="toc-section-number">3.5</span> Binomial Distributions</a><ul>
+<li><a href="sec-binomial.html#clinical-applications-of-the-binomial-distribution"><span class="toc-section-number">3.5.1</span> Clinical Applications of the Binomial Distribution</a></li>
+<li><a href="sec-binomial.html#graphing-the-binomial-distribution"><span class="toc-section-number">3.5.2</span> Graphing the binomial distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="poisson-distributions.html#poisson-distributions"><span class="toc-section-number">3.6</span> Poisson Distributions</a><ul>
+<li><a href="poisson-distributions.html#a-clinical-application-of-the-the-poisson-distribution"><span class="toc-section-number">3.6.1</span> A clinical application of the the Poisson distribution</a></li>
+</ul></li>
+<li><a href="geometric-distributions.html#geometric-distributions"><span class="toc-section-number">3.7</span> Geometric Distributions}</a></li>
+<li><a href="sec-pdf.html#sec:pdf"><span class="toc-section-number">3.8</span> Probability Density Functions</a></li>
+<li class="has-sub"><a href="sec-Uniform.html#sec:Uniform"><span class="toc-section-number">3.9</span> Continuous Uniform Distributions</a><ul>
+<li><a href="sec-Uniform.html#generating-random-samples-from-the-continuous-uniform-distribution"><span class="toc-section-number">3.9.1</span> Generating random samples from the continuous uniform distribution</a></li>
+<li><a href="sec-Uniform.html#using-the-continuous-uniform-distribution-to-generate-random-samples-from-other-distributions"><span class="toc-section-number">3.9.2</span> Using the continuous uniform distribution to generate random samples from other distributions</a></li>
+</ul></li>
+<li class="has-sub"><a href="sec-normal.html#sec:normal"><span class="toc-section-number">3.10</span> Normal Distributions</a><ul>
+<li><a href="sec-normal.html#notation-for-normal-variates"><span class="toc-section-number">3.10.1</span> Notation for Normal Variates</a></li>
+</ul></li>
+<li><a href="half-normal-distribution.html#half-normal-distribution"><span class="toc-section-number">3.11</span> Half-Normal Distribution</a></li>
+</ul></li>
+<li class="has-sub"><a href="descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">4</span> Descriptive Statistics</a><ul>
+<li><a href="frequency-distribution-tables.html#frequency-distribution-tables"><span class="toc-section-number">4.1</span> Frequency Distribution Tables</a></li>
+<li class="has-sub"><a href="central-tendencies.html#central-tendencies"><span class="toc-section-number">4.2</span> Central Tendencies</a><ul>
+<li><a href="central-tendencies.html#mode"><span class="toc-section-number">4.2.1</span> Mode</a></li>
+</ul></li>
+<li><a href="expected-values.html#expected-values"><span class="toc-section-number">4.3</span> Expected Values</a></li>
+</ul></li>
+<li class="has-sub"><a href="notation.html#notation">Notation</a><ul>
+<li><a href="random-variables-vectors-and-matrices.html#random-variables-vectors-and-matrices"><span class="toc-section-number">4.4</span> Random variables, vectors, and matrices</a></li>
+<li><a href="sets-and-intervals.html#sets-and-intervals"><span class="toc-section-number">4.5</span> Sets and intervals</a></li>
+<li><a href="summation.html#summation"><span class="toc-section-number">4.6</span> Summation</a></li>
+<li><a href="other.html#other"><span class="toc-section-number">4.7</span> Other</a></li>
+</ul></li>
+<li class="has-sub"><a href="references.html#references">References</a><ul>
+<li><a href="r-packages-used-in-this-book.html#r-packages-used-in-this-book">R packages used in this book</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="poisson-distributions" class="section level2">
+<h2><span class="header-section-number">3.6</span> Poisson Distributions</h2>
+<p><label for="tufte-mn-21" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-21" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Notation note</strong>: The notation <span class="math inline"><span class="math inline">\((0,\infty]\)</span></span> means all real numbers greater than 0.</span></span></p>
+<!-- \begin{equation*} -->
+<!-- \boxed{ -->
+<!-- \begin{array}{rccc} -->
+<!-- % \text{\textbf{Poisson Distribution}}&&\\ -->
+<!-- \text{Parameter:} & \lambda & \in & \mathbb{R}\\ -->
+<!-- & & & \lambda>0\\ -->
+<!-- \text{Sample Space:} & x&\in& \mathbb{N}_0\\ -->
+<!-- \text{Mean:} & \mu&=& \lambda\\ -->
+<!-- \text{Variance:} & \sigma^2&=&\lambda\\ -->
+<!-- \text{Skewness:} & \gamma_1&=&\frac{1}{\sqrt{\lambda}} \\ -->
+<!-- \text{Kurtosis:} & \gamma_2&=&\frac{1}{\lambda}\\ -->
+<!-- \text{Probability Mass Function:} & f_X(x;\lambda)&=&\frac{\lambda^x}{e^{\lambda} x!} \\ -->
+<!-- \text{Cumulative Distribution Function:} & F_X(x;\lambda)&=& \sum_{i=0}^{x}{\frac{\lambda^i}{e^{\lambda} i!}} \\ -->
+<!-- \end{array} -->
+<!-- } -->
+<!-- \end{equation*} -->
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:PoissonFeatures">Table 2.4: </span>Features of Poisson Distributions</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="left">Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Parameter</td>
+<td align="left"><span class="math inline">\(\lambda \in (0,\infty]\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Sample Space</td>
+<td align="left"><span class="math inline">\(x\in \{0,1,2,\ldots\}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Mean</td>
+<td align="left"><span class="math inline">\(\mu = \lambda\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Variance</td>
+<td align="left"><span class="math inline">\(\sigma^2 = \lambda\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Skewness</td>
+<td align="left"><span class="math inline">\(\gamma_1 = \frac{1}{\sqrt{\lambda}}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Kurtosis</td>
+<td align="left"><span class="math inline">\(\gamma_2 = \frac{1}{\lambda}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Probability Mass Function</td>
+<td align="left"><span class="math inline">\(f_X(x;\lambda) = \frac{\lambda^x}{e^{\lambda} x!}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Cumulative Distribution Function</td>
+<td align="left"><span class="math inline">\(F_X(x;\lambda) = \sum_{i=0}^{x}{\frac{\lambda^i}{e^{\lambda} i!}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Imagine that an event happens sporatically at random and we measure how often it occurs in regular time intervals (e.g., events per hour). Sometimes the event does not occur in the inteveral, sometimes just once, and sometimes more than once. However, we notice that over many intervals, the average number of events is constant. The distribution of the number of events in each interval will follow a <span class="defword">Poisson distribution</span>.<label for="tufte-mn-22" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-22" class="margin-toggle"><span class="marginnote">The <strong>Poisson distribution</strong> is a discrete distribution used to model how often an event will occur during a partiuclar interval of time.</span> Although “Poisson” means “fish” in French, fish have nothing to do with it. This distribution was named after the scholar who discovered it, Siméon Denis Poisson.</p>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:PoissonPortrait"></span>
+<img src="Simeon_Poisson.jpg" alt="Siméon Denis Poisson (1781--1840)&lt;br&gt;[Image Credits](https://en.wikipedia.org/wiki/File:Simeon_Poisson.jpg)" width="1000"  />
+<!--
+<p class="caption marginnote">-->Figure 2.15: Siméon Denis Poisson (1781–1840)<br><a href="https://en.wikipedia.org/wiki/File:Simeon_Poisson.jpg">Image Credits</a><!--</p>-->
+<!--</div>--></span>
+</p>
+<p>The Poisson distribution has a single parameter <em>λ</em>, the average number of events per time interval. Interestingly, <em>λ</em> is both the mean and the variance of this distribution. The distribution shape will differ depending on how long our interval is. If an event occurs on average 30 times per hour, <em>λ</em> = 30. If we count how often the event occurs in 10-minute intervals, the same even will occur about 5 times per interval, on average (i.e., <em>λ</em> = 1). If we choose to count how often the same event occurs every minute, then <em>λ</em> = 0.5.</p>
+<div class="figure"><span id="fig:samelambda"></span>
+<p class="caption marginnote shownote">
+Figure 2.16: The shape of the Poisson Distribution depends on the interval used for counting events. Here, the event occurs once per minute, on average.
+</p>
+<img src="toolkit_files/figure-html/samelambda-1.svg" alt="The shape of the Poisson Distribution depends on the interval used for counting events. Here, the event occurs once per minute, on average."  />
+</div>
+<div class="wrap-collapsible">
+<input id="collapsible312" class="toggle" type="checkbox">
+<label for="collapsible312" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">crossing</span>(<span class="dt">lambda =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">5</span>, <span class="dv">30</span>), <span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">60</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> <span class="kw">dpois</span>(x, lambda)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lambda =</span> <span class="kw">factor</span>(lambda, <span class="dt">labels =</span> <span class="kw">paste0</span>(</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">    <span class="st">&quot;Every &quot;</span>,</a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">    <span class="kw">c</span>(<span class="st">&quot;30 Seconds&quot;</span>, <span class="st">&quot;5 Minutes&quot;</span>, <span class="st">&quot;Half Hour&quot;</span>),</a>
+<a class="sourceLine" id="cb18-6" data-line-number="6">    <span class="st">&quot; (\u03BB = &quot;</span>,</a>
+<a class="sourceLine" id="cb18-7" data-line-number="7">    <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">5</span>, <span class="dv">30</span>),</a>
+<a class="sourceLine" id="cb18-8" data-line-number="8">    <span class="st">&quot;)&quot;</span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9">  ))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, p, <span class="dt">color =</span> lambda)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="st">  </span><span class="kw">facet_grid</span>(lambda <span class="op">~</span><span class="st"> </span>., <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&quot;Number of Events&quot;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">120</span>, <span class="dv">20</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;royalblue&quot;</span>, <span class="st">&quot;darkorchid&quot;</span>, <span class="st">&quot;firebrick&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="st">  </span><span class="kw">theme_light</span>(<span class="dt">base_size =</span> <span class="dv">20</span>, <span class="dt">base_family =</span> bfont) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&quot;Probability&quot;</span>)</a></code></pre></div>
+</div>
+</div>
+</div>
+<div id="a-clinical-application-of-the-the-poisson-distribution" class="section level3">
+<h3><span class="header-section-number">3.6.1</span> A clinical application of the the Poisson distribution</h3>
+<p>Suppose that you begin treating an adult male client who has panic attacks that come at unpredictable times. Some weeks there are no panic attacks and some weeks there are many, but on average he has 2 panic attacks each week. The client knows this because he has kept detailed records in a spreadsheet for the last 5 years. The client had sought treatment once before, but terminated early and abruptly because, according to him, “It wasn’t working.” After sensitive querying, you discover that he expected that treatment should have quickly reduced the frequency of panic attacks to zero. When that did not happen, he became discouraged and stopped the treatment.</p>
+<p>Because your client is well educated and quantitatively inclined, you decide to to use the data he has collected as part of the intervention and to set a more realistic set of expectations.</p>
+<p>You plot the frequency of how often he had 0 panic attacks in a week, 1 panic attack in a week, 2 panic attacks in a week, and so forth, as shown in red in Figure <a href="poisson-distributions.html#fig:PanicFrequency">2.17</a>. Because you have read this book, you immediately recognize that this is a Poisson distribution with <em>λ</em> = 2. When you graph an actual Poison distribution and compare it with your client’s data, you see that it is almost a perfect match.<label for="tufte-sn-6" class="margin-toggle sidenote-number">6</label><input type="checkbox" id="tufte-sn-6" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">6</span> Note that I am <strong>not</strong> claiming that all clients’ panic attack frequencies have this kind of distribution. It just so happens to apply in this instance.</span> Then you explain that although the goal is permanent cessation of the panic attacks, sometimes an intervention can be considered successful if the frequency of panic attacks is merely reduced. For example, suppose that in the early stages of treatment the frequency of panic attacks were reduced from twice per week to once every other week (<em>λ</em> = 0.5), on average. If such a reduction were achieved, there would still be weeks in which two or more panic attacks occur. According to Figure <a href="poisson-distributions.html#fig:PanicCumulativeFrequency">2.20</a>, this will occur about 9% of the time.</p>
+<div class="figure"><span id="fig:PanicFrequency"></span>
+<p class="caption marginnote shownote">
+Figure 2.17: The variability of a hypothetical client’s panic attack frequency before and after treatment
+</p>
+<img src="toolkit_files/figure-html/PanicFrequency-1.svg" alt="The variability of a hypothetical client's panic attack frequency before and after treatment"  />
+</div>
+<div class="wrap-collapsible">
+<input id="collapsible313" class="toggle" type="checkbox">
+<label for="collapsible313" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">d_label &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">  <span class="dt">Time =</span> <span class="kw">c</span>(<span class="st">&quot;After&quot;</span>, <span class="st">&quot;Before&quot;</span>),</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">  <span class="dt">Proportion =</span> <span class="kw">dpois</span>(x, <span class="dt">lambda =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">  <span class="dt">Label =</span> <span class="kw">c</span>(<span class="st">&quot;After Treatment: \u03BB = 0.5&quot;</span>,</a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">            <span class="st">&quot;Before Treatment: \u03BB = 2&quot;</span>)</a>
+<a class="sourceLine" id="cb19-7" data-line-number="7">)</a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb19-10" data-line-number="10">  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb19-11" data-line-number="11">  <span class="dt">Before =</span> <span class="kw">dpois</span>(x, <span class="dt">lambda =</span> <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb19-12" data-line-number="12">  <span class="dt">After =</span> <span class="kw">dpois</span>(x, <span class="dt">lambda =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb19-13" data-line-number="13">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-14" data-line-number="14"><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> Time, <span class="dt">value =</span> Proportion,<span class="op">-</span>x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-15" data-line-number="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, Proportion, <span class="dt">color =</span> Time)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">linetype =</span> <span class="st">&quot;dotted&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-17" data-line-number="17"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-18" data-line-number="18"><span class="st">  </span><span class="kw">geom_label</span>(</a>
+<a class="sourceLine" id="cb19-19" data-line-number="19">    <span class="dt">data =</span> d_label,</a>
+<a class="sourceLine" id="cb19-20" data-line-number="20">    <span class="kw">aes</span>(<span class="dt">label =</span> Label),</a>
+<a class="sourceLine" id="cb19-21" data-line-number="21">    <span class="dt">hjust =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb19-22" data-line-number="22">    <span class="dt">nudge_x =</span> <span class="fl">0.2</span>,</a>
+<a class="sourceLine" id="cb19-23" data-line-number="23">    <span class="dt">family =</span> bfont,</a>
+<a class="sourceLine" id="cb19-24" data-line-number="24">    <span class="dt">label.padding =</span> <span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;lines&quot;</span>),</a>
+<a class="sourceLine" id="cb19-25" data-line-number="25">    <span class="dt">label.size =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb19-26" data-line-number="26">    <span class="dt">size =</span> <span class="dv">6</span></a>
+<a class="sourceLine" id="cb19-27" data-line-number="27">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-28" data-line-number="28"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;royalblue&quot;</span>, <span class="st">&quot;firebrick&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-29" data-line-number="29"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&quot;Panic Attacks Per Week&quot;</span>,</a>
+<a class="sourceLine" id="cb19-30" data-line-number="30">                     <span class="dt">breaks =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb19-31" data-line-number="31">                     <span class="dt">minor_breaks =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-32" data-line-number="32"><span class="st">  </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>, <span class="dt">base_family =</span> bfont) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-33" data-line-number="33"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+</div>
+</div>
+</div>
+<p>In R, you can use the <code>dpois</code> function to plot the Poisson probability mass function. For example, if the average number of events per time period is <em>λ</em> = 2, then the probability that there will be 0 events is <code>dpois(x = 0, lambda = 2)</code>, which evaluates to 0.1353.</p>
+<p>To calculate the cumulative distribution function of Poisson distribution in R, use the <code>ppois</code> function. For example, if we want to estimate the probability of having 4 panic attacks or more in a week if <em>λ</em> = 2, we must subtract the probability of having 3 panic attacks or less from 1, like so:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">ppois</span>(<span class="dt">q =</span> <span class="dv">3</span>, <span class="dt">lambda =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><span class="math inline">\(p = 0.143\)</span></p>
+<p>Here is a simple way to plot the probability mass function and the cumulative distribution function using the <code>dpois</code> and <code>ppois</code> functions:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># Make a sequence of integers from 0 to 7</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">PanicAttacks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co"># Generate the probability mass function with lambda = 2</span></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">Probability &lt;-<span class="st"> </span><span class="kw">dpois</span>(PanicAttacks, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="co"># Basic plot of the Poisson distribution&#39;s probability mass function</span></a>
+<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="kw">plot</span>(Probability <span class="op">~</span><span class="st"> </span>PanicAttacks, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>) </a></code></pre></div>
+<div class="figure"><span id="fig:Panicpmf"></span>
+<p class="caption marginnote shownote">
+Figure 2.18: Poisson Probability Mass Function (λ = 2)
+</p>
+<img src="toolkit_files/figure-html/Panicpmf-1.svg" alt="Poisson Probability Mass Function (&amp;lambda; = 2)"  />
+</div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># Generate the cumulative distribution function with lambda = 2</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">CumulativeProbability &lt;-<span class="st"> </span><span class="kw">ppois</span>(PanicAttacks, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co"># Basic plot of the Poisson distribution&#39;s cumulative distribution function</span></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="kw">plot</span>(CumulativeProbability <span class="op">~</span><span class="st"> </span>PanicAttacks, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>) </a></code></pre></div>
+<div class="figure"><span id="fig:PanicCDF"></span>
+<p class="caption marginnote shownote">
+Figure 2.19: Poisson Cumulative Distribution Function (λ = 2)
+</p>
+<img src="toolkit_files/figure-html/PanicCDF-1.svg" alt="Poisson Cumulative Distribution Function (&amp;lambda; = 2)"  />
+</div>
+<p>With an additional series with <em>λ</em> = 0.5, the plot can look like Figure <a href="poisson-distributions.html#fig:PanicCumulativeFrequency">2.20</a>.</p>
+<div class="figure"><span id="fig:PanicCumulativeFrequency"></span>
+<p class="caption marginnote shownote">
+Figure 2.20: The cumulative distribution function of a hypothetical client’s panic attack frequency before and after treatment
+</p>
+<img src="toolkit_files/figure-html/PanicCumulativeFrequency-1.svg" alt="The cumulative distribution function of a hypothetical client's panic attack frequency before and after treatment"  />
+</div>
+<div class="wrap-collapsible">
+<input id="collapsible314" class="toggle" type="checkbox">
+<label for="collapsible314" class="lbl-toggle">R Code</label>
+<div class="collapsible-content">
+<div class="content-inner">
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">d_label &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">  <span class="dt">Time =</span> <span class="kw">c</span>(<span class="st">&quot;After&quot;</span>, <span class="st">&quot;Before&quot;</span>),</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">  <span class="dt">Proportion =</span> <span class="kw">ppois</span>(x, <span class="dt">lambda =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">  <span class="dt">Label =</span> <span class="kw">c</span>(<span class="st">&quot;After Treatment: \u03BB = 0.5&quot;</span>,</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">            <span class="st">&quot;Before Treatment: \u03BB = 2&quot;</span>)</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">)</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9"><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb23-11" data-line-number="11">  <span class="dt">Before =</span> <span class="kw">ppois</span>(x, <span class="dt">lambda =</span> <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb23-12" data-line-number="12">  <span class="dt">After =</span> <span class="kw">ppois</span>(x, <span class="dt">lambda =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb23-13" data-line-number="13">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-14" data-line-number="14"><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> Time, <span class="dt">value =</span> Proportion,<span class="op">-</span>x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-15" data-line-number="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, Proportion, <span class="dt">color =</span> Time)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">linetype =</span> <span class="st">&quot;dotted&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-17" data-line-number="17"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-18" data-line-number="18"><span class="st">  </span><span class="kw">geom_label</span>(</a>
+<a class="sourceLine" id="cb23-19" data-line-number="19">    <span class="dt">data =</span> d_label,</a>
+<a class="sourceLine" id="cb23-20" data-line-number="20">    <span class="kw">aes</span>(<span class="dt">label =</span> Label),</a>
+<a class="sourceLine" id="cb23-21" data-line-number="21">    <span class="dt">hjust =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb23-22" data-line-number="22">    <span class="dt">nudge_x =</span> <span class="fl">0.2</span>,</a>
+<a class="sourceLine" id="cb23-23" data-line-number="23">    <span class="dt">family =</span> bfont,</a>
+<a class="sourceLine" id="cb23-24" data-line-number="24">    <span class="dt">label.padding =</span> <span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;lines&quot;</span>),</a>
+<a class="sourceLine" id="cb23-25" data-line-number="25">    <span class="dt">label.size =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb23-26" data-line-number="26">    <span class="dt">size =</span> <span class="dv">6</span></a>
+<a class="sourceLine" id="cb23-27" data-line-number="27">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-28" data-line-number="28"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;royalblue&quot;</span>, <span class="st">&quot;firebrick&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-29" data-line-number="29"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.2</span>), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-30" data-line-number="30"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&quot;Panic Attacks Per Week&quot;</span>,</a>
+<a class="sourceLine" id="cb23-31" data-line-number="31">                     <span class="dt">breaks =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb23-32" data-line-number="32">                     <span class="dt">minor_breaks =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-33" data-line-number="33"><span class="st">  </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>, <span class="dt">base_family =</span> bfont) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-34" data-line-number="34"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="sec-binomial.html"><button class="btn btn-default">Previous</button></a>
+<a href="geometric-distributions.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>
