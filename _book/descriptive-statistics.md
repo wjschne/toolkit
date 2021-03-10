@@ -1,7 +1,7 @@
 --- 
 title: "Practical Psychometrics: A Psychological Assessment Toolkit"
 author: "W. Joel Schneider"
-date: "2021-03-04"
+date: "2021-03-09"
 site: bookdown::bookdown_site
 output:
   bookdown::tufte_html_book:
@@ -18,7 +18,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 csl: apa.csl
 link-citations: yes
-github-repo: wjschne/psychtoolkit
+github-repo: wjschne/toolkit
 ---
 
 # Preface {-}
@@ -129,7 +129,7 @@ It is common to include alongside the frequencies of each value the proportion (
 
 $$p_i = \frac{f_i}{n}$$
 
-In Table \@ref(tab:frequencydistributiontable), the frequency of sixes is $f=2$ and there are $n = 8$ numbers in the distribution, thus the proportion of sixes is $p = \frac{2}{8} = .25$.
+In Table&nbsp;\@ref(tab:frequencydistributiontable), the frequency of sixes is $f=2$ and there are $n = 8$ numbers in the distribution, thus the proportion of sixes is $p = \frac{2}{8} = .25$.
 
 It is also common to supplement frequency distribution tables with additional information such as the [cumulative frequency]{.defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">The **cumulative frequency** tells us the number of scores in a distribution that are equal to or lower than a particular sample space element.</span>. For each sample space element, the cumulative frequency $(cf)$ is the sum of the frequencies $(f)$ of the current and all previous sample space elements.
 
@@ -216,6 +216,26 @@ d %>%
 ```
 
 </div></div></div>
+
+### Frequency Distribution Bar Plots
+
+
+
+<div class="figure" style="text-align: center">
+<p class="caption">(\#fig:freqbarplot)Frequency Distribution Bar Plot</p><img src="toolkit_files/figure-html/freqbarplot-1.svg" alt="Frequency Distribution Bar Plot"  /></div>
+
+<div class="figure" style="text-align: center">
+<p class="caption">(\#fig:freqstepplot)Cumulative Frequency Step Plot</p><img src="toolkit_files/figure-html/freqstepplot-1.svg" alt="Cumulative Frequency Step Plot"  /></div>
+
+
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="toolkit_files/figure-html/unnamed-chunk-1-1.svg" alt="Cumulative Frequency Stacked Bar Plot"  />
+<!--
+<p class="caption marginnote">-->(\#fig:unnamed-chunk-1)Cumulative Frequency Stacked Bar Plot<!--</p>-->
+<!--</div>--></span></p>
+
 
 ## Measures of Central Tendency
 
@@ -465,6 +485,8 @@ pmap_df(tibble(binPower = -1:4,
 
 ### Variability of Nominal Variables
 
+For most purposes, the visual inspection of a frequency distribution table or bar plot is all that is needed to understand a nominal variable's variability.
+
 I have never needed a statistic that measures the variability of a nominal variable, but if you need one, there are [many from which to choose](https://en.wikipedia.org/wiki/Qualitative_variation). For example, @Wilcox1973 presented this analog to variance for nominal variables:
 
 $$
@@ -543,6 +565,11 @@ tibble(Variability = c("Low", "Middle", "High"),
 In all of these indices of qualitative variation, the lowest value is 0 when every data point belongs to the same category (See Figure&nbsp;\@ref(fig:nominalvar), left panel). Also, the maximum value is 1 when the data points are equally distributed across categories (See Figure&nbsp;\@ref(fig:nominalvar), right panel).
 
 ### Variability of Ordinal Variables
+
+
+
+
+
 
 
 

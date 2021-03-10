@@ -103,3 +103,7 @@ random-variables-vectors-and-matrices
 sets-and-intervals
 summation
 other
+frequency-distribution-bar-plots
+fig:freqbarplot
+fig:freqstepplot
+fig:unnamed-chunk-1

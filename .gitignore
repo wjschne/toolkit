@@ -6,3 +6,6 @@
 *.log
 *.gz
 toolkit.Rproj
+_book/
+_bookdown_files/
+.Rproj.user*

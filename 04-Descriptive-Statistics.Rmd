@@ -33,7 +33,7 @@ It is common to include alongside the frequencies of each value the proportion (
 
 $$p_i = \frac{f_i}{n}$$
 
-In Table \@ref(tab:frequencydistributiontable), the frequency of sixes is $f=`r sixes`$ and there are $n = `r sample_size`$ numbers in the distribution, thus the proportion of sixes is $p = \frac{`r sixes`}{`r sample_size`} = `r WJSmisc::remove_leading_zero(sixes / sample_size)`$.
+In Table&nbsp;\@ref(tab:frequencydistributiontable), the frequency of sixes is $f=`r sixes`$ and there are $n = `r sample_size`$ numbers in the distribution, thus the proportion of sixes is $p = \frac{`r sixes`}{`r sample_size`} = `r WJSmisc::remove_leading_zero(sixes / sample_size)`$.
 
 It is also common to supplement frequency distribution tables with additional information such as the [cumulative frequency]{.defword}`r tufte::margin_note("The **cumulative frequency** tells us the number of scores in a distribution that are equal to or lower than a particular sample space element.")`. For each sample space element, the cumulative frequency $(cf)$ is the sum of the frequencies $(f)$ of the current and all previous sample space elements.
 
@@ -93,6 +93,71 @@ d %>%
 ```
 
 </div></div></div>
+
+### Frequency Distribution Bar Plots
+
+
+
+```{r freqbarplot, fig.height=7, fig.cap="Frequency Distribution Bar Plot"}
+d %>% 
+  rename(Anger = anger) %>% 
+  count(Anger, name = "f") %>% 
+  mutate(cf = cumsum(f),
+         p = f / sum(f),
+         cp = cumsum(p)) %>% 
+  ggplot(aes(Anger, f)) + 
+  geom_col(fill = myfills[1]) + 
+  geom_text_fill(aes(label = f), vjust = -0.5) +
+  scale_x_continuous(breaks = 1:7, minor_breaks = NULL) + 
+  scale_y_continuous("Frequency") +
+  theme(panel.grid.major.x = element_blank())       
+```
+
+```{r freqstepplot, fig.cap="Cumulative Frequency Step Plot", fig.height=7}
+d %>% 
+  rename(Anger = anger) %>% 
+  count(Anger, name = "f") %>% 
+  mutate(cf = cumsum(f),
+         p = f / sum(f),
+         cp = cumsum(p)) %>% 
+  ggplot(aes(Anger, cf)) + 
+  geom_step(direction = "mid") +
+  geom_text_fill(aes(label = cf), vjust = -0.5) + 
+  geom_text_fill(aes(label = signs::signs(f, accuracy = 1, add_plusses = T), 
+                     y = cf - f / 2)) + 
+  scale_x_continuous(breaks = 1:7, minor_breaks = NULL) + 
+  scale_y_continuous("Cumulative Frequency", limits = c(0, NA))
+```
+
+
+```{r, fig.width=2, fig.margin = TRUE, fig.align='default', warning=FALSE, fig.cap="Cumulative Frequency Stacked Bar Plot"}
+d_freq <- d %>% 
+  rename(Anger = anger) %>% 
+  count(Anger, name = "f") %>% 
+  mutate(cf = cumsum(f),
+         p = f / sum(f),
+         cp = cumsum(p))
+d_freq %>% 
+  ggplot(aes(factor("Anger"), cp - p / 2)) + 
+  geom_tile(aes(height = p, fill = factor(Anger)), 
+            width = 1.2) +
+  geom_text(aes(label = paste0(Anger, 
+                               " (", 
+                               scales::percent(p, accuracy = 1),
+                               ")"))) + 
+
+  scale_y_continuous("Cumulative Percent", 
+                              breaks = c(0, d_freq$cp), 
+                              minor_breaks = NULL, 
+                     labels = function(p) scales::percent(p, accuracy = 1), 
+                     sec.axis = sec_axis(name = "Cumulative Frequency"))  +
+  scale_fill_viridis_d(alpha = 0.8) +
+  scale_x_discrete(NULL) +
+  theme(legend.position = "none", 
+        panel.grid = element_blank(), 
+        axis.text.y = element_text(vjust = c(rep(0.5, 7), -0.3))) 
+```
+
 
 ## Measures of Central Tendency
 
@@ -450,6 +515,8 @@ animate(p,
 
 ### Variability of Nominal Variables
 
+For most purposes, the visual inspection of a frequency distribution table or bar plot is all that is needed to understand a nominal variable's variability.
+
 I have never needed a statistic that measures the variability of a nominal variable, but if you need one, there are [many from which to choose](https://en.wikipedia.org/wiki/Qualitative_variation). For example, @Wilcox1973 presented this analog to variance for nominal variables:
 
 $$
@@ -519,6 +586,13 @@ tibble(Variability = c("Low", "Middle", "High"),
 In all of these indices of qualitative variation, the lowest value is 0 when every data point belongs to the same category (See Figure&nbsp;\@ref(fig:nominalvar), left panel). Also, the maximum value is 1 when the data points are equally distributed across categories (See Figure&nbsp;\@ref(fig:nominalvar), right panel).
 
 ### Variability of Ordinal Variables
+
+
+
+```{r}
+
+```
+
 
 
 
