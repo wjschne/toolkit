@@ -1,7 +1,7 @@
 fig:philipley
 fig:Stevens
-fig:dichomomy
-fig:dichotomous
+fig:dichotomy
+fig:dichotomized
 fig:Likert
 fig:differentiation
 fig:suds
@@ -42,10 +42,15 @@ tab:normalfeatures
 fig:ManyCoins
 fig:PercentileContinuous
 fig:halfnormal
+tab:halfnormalfeatures
 fig:gosset
+tab:tfeatures
 fig:tnorm
 tab:frequencydistributiontable
 tab:freqtablepub
+fig:freqbarplot
+fig:freqstackedbarplot
+fig:freqstepplot
 fig:bimodal
 tab:mediantable
 tab:proconCT
@@ -88,9 +93,10 @@ sec:normal
 notation-for-normal-variates
 half-normal-distribution
 the-students-t-distribution
-descriptive-statistics
+descriptives
 frequency-distribution-tables
 frequency-distribution-tables-in-r
+frequency-distribution-bar-plots
 measures-of-central-tendency
 mode
 median
@@ -103,7 +109,3 @@ random-variables-vectors-and-matrices
 sets-and-intervals
 summation
 other
-frequency-distribution-bar-plots
-fig:freqbarplot
-fig:freqstepplot
-fig:unnamed-chunk-1

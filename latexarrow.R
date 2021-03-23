@@ -8,11 +8,6 @@ ar_width = 0.1
 
 library(bezier)
 
-p <- matrix(c())
-
-
-bezier()
-
 t <- seq(0, 1, length=100)
 
 apex <- c(0,ar_height)

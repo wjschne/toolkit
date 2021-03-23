@@ -1,4 +1,5 @@
 book_filename: "toolkit"
+before_chapter_script: "loader.R"
 language:
   ui:
     chapter_name: "Chapter "

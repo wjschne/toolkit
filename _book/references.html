@@ -5,16 +5,16 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="References | Practical Psychometrics: A Psychological Assessment Toolkit" />
+<meta property="og:title" content="References | Practical Psychometrics" />
 <meta property="og:type" content="book" />
 
 
 
-<meta name="github-repo" content="wjschne/psychtoolkit" />
+<meta name="github-repo" content="wjschne/toolkit" />
 
 <meta name="author" content="W. Joel Schneider" />
 
-<meta name="date" content="2021-03-07" />
+<meta name="date" content="2021-03-23" />
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -23,9 +23,9 @@ MathJax.Hub.Config({
 </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta name="description" content="References | Practical Psychometrics: A Psychological Assessment Toolkit">
+<meta name="description" content="References | Practical Psychometrics">
 
-<title>References | Practical Psychometrics: A Psychological Assessment Toolkit</title>
+<title>References | Practical Psychometrics</title>
 
 <script src="libs/header-attrs-2.7.2/header-attrs.js"></script>
 <link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
@@ -34,6 +34,7 @@ MathJax.Hub.Config({
 
 
 MathJax.Hub.Config({
+  jax: ["input/TeX","output/SVG"]
   TeX: {Augment: {
     Definitions: {macros: {xfrac: 'XFrac'}},
     Parse: {prototype: {
@@ -162,10 +163,45 @@ div.csl-indent {
 <ul>
 <li><a href="index.html#preface">Preface</a></li>
 <li><a href="intro.html#intro"><span class="toc-section-number">1</span> Introduction</a></li>
-<li><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a></li>
-<li><a href="distributions.html#distributions"><span class="toc-section-number">3</span> Distributions</a></li>
-<li><a href="descriptive-statistics.html#descriptive-statistics"><span class="toc-section-number">4</span> Descriptive Statistics</a></li>
-<li><a href="notation.html#notation">Notation</a></li>
+<li><a href="variables.html#variables"><span class="toc-section-number">2</span> Variables</a>
+<ul>
+<li><a href="variables.html#nominal"><span class="toc-section-number">2.1</span> Nominal Scales</a></li>
+<li><a href="variables.html#ordinal-scales"><span class="toc-section-number">2.2</span> Ordinal Scales</a></li>
+<li><a href="variables.html#interval-scales"><span class="toc-section-number">2.3</span> Interval Scales</a></li>
+<li><a href="variables.html#ratio-scales"><span class="toc-section-number">2.4</span> Ratio Scales</a></li>
+<li><a href="variables.html#sec:DiscreteVsContinuous"><span class="toc-section-number">2.5</span> Discrete vs. Continuous Variables</a></li>
+</ul></li>
+<li><a href="distributions.html#distributions"><span class="toc-section-number">3</span> Distributions</a>
+<ul>
+<li><a href="distributions.html#random-variables"><span class="toc-section-number">3.1</span> Random Variables</a></li>
+<li><a href="distributions.html#sets"><span class="toc-section-number">3.2</span> Sets</a></li>
+<li><a href="distributions.html#sec:SampleSpace"><span class="toc-section-number">3.3</span> Sample Spaces</a></li>
+<li><a href="distributions.html#sec:ProbabilityDistribution"><span class="toc-section-number">3.4</span> Probability Distributions</a></li>
+<li><a href="distributions.html#sec:DiscreteUniform"><span class="toc-section-number">3.5</span> Discrete Uniform Distributions</a></li>
+<li><a href="distributions.html#sec:BernoulliDist"><span class="toc-section-number">3.6</span> Bernoulli Distributions</a></li>
+<li><a href="distributions.html#sec:binomial"><span class="toc-section-number">3.7</span> Binomial Distributions</a></li>
+<li><a href="distributions.html#poisson-distributions"><span class="toc-section-number">3.8</span> Poisson Distributions</a></li>
+<li><a href="distributions.html#geometric-distributions"><span class="toc-section-number">3.9</span> Geometric Distributions</a></li>
+<li><a href="distributions.html#sec:pdf"><span class="toc-section-number">3.10</span> Probability Density Functions</a></li>
+<li><a href="distributions.html#sec:Uniform"><span class="toc-section-number">3.11</span> Continuous Uniform Distributions</a></li>
+<li><a href="distributions.html#sec:normal"><span class="toc-section-number">3.12</span> Normal Distributions</a></li>
+<li><a href="distributions.html#half-normal-distribution"><span class="toc-section-number">3.13</span> Half-Normal Distribution</a></li>
+<li><a href="distributions.html#the-students-t-distribution"><span class="toc-section-number">3.14</span> The Student’s <em>t</em> Distribution</a></li>
+</ul></li>
+<li><a href="descriptives.html#descriptives"><span class="toc-section-number">4</span> Descriptives</a>
+<ul>
+<li><a href="descriptives.html#frequency-distribution-tables"><span class="toc-section-number">4.1</span> Frequency Distribution Tables</a></li>
+<li><a href="descriptives.html#measures-of-central-tendency"><span class="toc-section-number">4.2</span> Measures of Central Tendency</a></li>
+<li><a href="descriptives.html#expected-values"><span class="toc-section-number">4.3</span> Expected Values</a></li>
+<li><a href="descriptives.html#measures-of-variability"><span class="toc-section-number">4.4</span> Measures of Variability</a></li>
+</ul></li>
+<li><a href="notation.html#notation">Notation</a>
+<ul>
+<li><a href="notation.html#random-variables-vectors-and-matrices"><span class="toc-section-number">4.5</span> Random variables, vectors, and matrices</a></li>
+<li><a href="notation.html#sets-and-intervals"><span class="toc-section-number">4.6</span> Sets and intervals</a></li>
+<li><a href="notation.html#summation"><span class="toc-section-number">4.7</span> Summation</a></li>
+<li><a href="notation.html#other"><span class="toc-section-number">4.8</span> Other</a></li>
+</ul></li>
 <li><a href="references.html#references">References</a></li>
 </ul>
 </div>
@@ -175,35 +211,7 @@ div.csl-indent {
 <div class="col-sm-12">
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
-<div id="r-packages-used-in-this-book" class="section level2 unnumbered">
-<h2>R packages used in this book</h2>
-<ul>
-<li><code>bookdown</code> <span class="citation">(<label for="tufte-mn-61" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-61" class="margin-toggle">Xie, 2021a<span class="marginnote">Xie, Y. (2021a). <em>Bookdown: Authoring books and technical documents with r markdown</em>.</span>)</span></li>
-<li><code>dplyr</code> <span class="citation">(<label for="tufte-mn-62" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-62" class="margin-toggle">Wickham et al., 2021<span class="marginnote">Wickham, H., François, R., Henry, L., &amp; Müller, K. (2021). <em>Dplyr: A grammar of data manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a></span>)</span></li>
-<li><code>extrafont</code> <span class="citation">(<label for="tufte-mn-63" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-63" class="margin-toggle">Winston Chang, 2014<span class="marginnote">Winston Chang. (2014). <em>Extrafont: Tools for using fonts</em>. <a href="https://github.com/wch/extrafont">https://github.com/wch/extrafont</a></span>)</span></li>
-<li><code>fBasics</code> <span class="citation">(<label for="tufte-mn-64" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-64" class="margin-toggle">Wuertz et al., 2020a<span class="marginnote">Wuertz, D., Setz, T., &amp; Chalabi, Y. (2020a). <em>fBasics: Rmetrics - markets and basic statistics</em>. <a href="https://www.rmetrics.org">https://www.rmetrics.org</a></span>)</span></li>
-<li><code>forcats</code> <span class="citation">(<label for="tufte-mn-65" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-65" class="margin-toggle">Wickham, 2021<span class="marginnote">Wickham, H. (2021). <em>Forcats: Tools for working with categorical variables (factors)</em>. <a href="https://CRAN.R-project.org/package=forcats">https://CRAN.R-project.org/package=forcats</a></span>)</span></li>
-<li><code>fMultivar</code> <span class="citation">(<label for="tufte-mn-66" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-66" class="margin-toggle">Wuertz et al., 2020b<span class="marginnote">Wuertz, D., Setz, T., &amp; Chalabi, Y. (2020b). <em>fMultivar: Rmetrics - analysing and modeling multivariate financial return distributions</em>. <a href="https://www.rmetrics.org">https://www.rmetrics.org</a></span>)</span></li>
-<li><code>gganimate</code> <span class="citation">(<label for="tufte-mn-67" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-67" class="margin-toggle">Pedersen &amp; Robinson, 2020<span class="marginnote">Pedersen, T. L., &amp; Robinson, D. (2020). <em>Gganimate: A grammar of animated graphics</em>. <a href="https://CRAN.R-project.org/package=gganimate">https://CRAN.R-project.org/package=gganimate</a></span>)</span></li>
-<li><code>ggforce</code> <span class="citation">(<label for="tufte-mn-68" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-68" class="margin-toggle">Pedersen, 2020<span class="marginnote">Pedersen, T. L. (2020). <em>Ggforce: Accelerating ggplot2</em>. <a href="https://CRAN.R-project.org/package=ggforce">https://CRAN.R-project.org/package=ggforce</a></span>)</span></li>
-<li><code>ggplot2</code> <span class="citation">(<label for="tufte-mn-69" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-69" class="margin-toggle">Wickham et al., 2020<span class="marginnote">Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H., &amp; Dunnington, D. (2020). <em>ggplot2: Create elegant data visualisations using the grammar of graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a></span>)</span></li>
-<li><code>IDPmisc</code> <span class="citation">(<label for="tufte-mn-70" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-70" class="margin-toggle">Locher, 2020<span class="marginnote">Locher, R. (2020). <em>IDPmisc: Utilities of institute of data analyses and process design (www.zhaw.ch/idp)</em>. <a href="https://CRAN.R-project.org/package=IDPmisc">https://CRAN.R-project.org/package=IDPmisc</a></span>)</span></li>
-<li><code>knitr</code> <span class="citation">(<label for="tufte-mn-71" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-71" class="margin-toggle">Xie, 2021b<span class="marginnote">Xie, Y. (2021b). <em>Knitr: A general-purpose package for dynamic report generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a></span>)</span></li>
-<li><code>lattice</code> <span class="citation">(<label for="tufte-mn-72" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-72" class="margin-toggle">Xie, 2021b<span class="marginnote">Xie, Y. (2021b). <em>Knitr: A general-purpose package for dynamic report generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a></span>)</span></li>
-<li><code>purrr</code> <span class="citation">(<label for="tufte-mn-73" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-73" class="margin-toggle">Henry &amp; Wickham, 2020<span class="marginnote">Henry, L., &amp; Wickham, H. (2020). <em>Purrr: Functional programming tools</em>. <a href="https://CRAN.R-project.org/package=purrr">https://CRAN.R-project.org/package=purrr</a></span>)</span></li>
-<li><code>rmarkdown</code> <span class="citation">(<label for="tufte-mn-74" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-74" class="margin-toggle">Allaire et al., 2021<span class="marginnote">Allaire, J., Xie, Y., McPherson, J., Luraschi, J., Ushey, K., Atkins, A., Wickham, H., Cheng, J., Chang, W., &amp; Iannone, R. (2021). <em>Rmarkdown: Dynamic documents for r</em>.</span>)</span></li>
-<li><code>sjmisc</code> <span class="citation">(<label for="tufte-mn-75" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-75" class="margin-toggle">Lüdecke, 2021<span class="marginnote">Lüdecke, D. (2021). <em>Sjmisc: Data and variable transformation functions</em>. <a href="https://strengejacke.github.io/sjmisc/">https://strengejacke.github.io/sjmisc/</a></span>)</span></li>
-<li><code>sn</code> <span class="citation">(<label for="tufte-mn-76" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-76" class="margin-toggle">Azzalini, 2020<span class="marginnote">Azzalini, A. (2020). <em>Sn: The skew-normal and related distributions such as the skew-t</em>. <a href="http://azzalini.stat.unipd.it/SN">http://azzalini.stat.unipd.it/SN</a></span>)</span></li>
-<li><code>stringr</code> <span class="citation">(<label for="tufte-mn-77" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-77" class="margin-toggle">Wickham, 2019a<span class="marginnote">Wickham, H. (2019a). <em>Stringr: Simple, consistent wrappers for common string operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a></span>)</span></li>
-<li><code>stats</code> <span class="citation">(<label for="tufte-mn-78" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-78" class="margin-toggle">R Core Team, 2020<span class="marginnote">R Core Team. (2020). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a></span>)</span></li>
-<li><code>tibble</code> <span class="citation">(<label for="tufte-mn-79" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-79" class="margin-toggle">Müller &amp; Wickham, 2021<span class="marginnote">Müller, K., &amp; Wickham, H. (2021). <em>Tibble: Simple data frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a></span>)</span></li>
-<li><code>tidyr</code> <span class="citation">(<label for="tufte-mn-80" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-80" class="margin-toggle">Wickham, 2020<span class="marginnote">Wickham, H. (2020). <em>Tidyr: Tidy messy data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a></span>)</span></li>
-<li><code>tidyverse</code> <span class="citation">(<label for="tufte-mn-81" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-81" class="margin-toggle">Wickham, 2019b<span class="marginnote">Wickham, H. (2019b). <em>Tidyverse: Easily install and load the tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a></span>)</span></li>
-<li><code>tikzDevice</code> <span class="citation">(<label for="tufte-mn-82" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-82" class="margin-toggle">Sharpsteen &amp; Bracken, 2020<span class="marginnote">Sharpsteen, C., &amp; Bracken, C. (2020). <em>tikzDevice: R graphics output in LaTeX format</em>. <a href="https://github.com/daqana/tikzDevice">https://github.com/daqana/tikzDevice</a></span>)</span></li>
-<li><code>tufte</code> <span class="citation">(<label for="tufte-mn-83" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-83" class="margin-toggle">Xie &amp; Allaire, 2021<span class="marginnote">Xie, Y., &amp; Allaire, J. (2021). <em>Tufte: Tufte’s styles for r markdown documents</em>. <a href="https://github.com/rstudio/tufte">https://github.com/rstudio/tufte</a></span>)</span></li>
-</ul>
 
-</div>
 </div>
 <p style="text-align: center;">
 <a href="notation.html"><button class="btn btn-default">Previous</button></a>

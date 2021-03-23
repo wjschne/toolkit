@@ -1,12 +1,13 @@
 --- 
-title: "Practical Psychometrics: A Psychological Assessment Toolkit"
+title: "Practical Psychometrics"
+subtitle: "A Psychological Assessment Toolkit"
 author: "W. Joel Schneider"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output:
   bookdown::tufte_html_book:
     toc: TRUE
-    toc_depth: 1
+    toc_depth: 2
     css: [toc.css,equity.css,mycss.css]
     tufte_features: []
     keep_md: true
@@ -19,42 +20,21 @@ bibliography: [book.bib, packages.bib]
 csl: apa.csl
 link-citations: yes
 github-repo: wjschne/toolkit
+nocite: |
+  @R-bookdown, @R-dplyr, @R-extrafont, @R-fBasics, @R-forcats, @R-fMultivar, @R-gganimate, @R-ggforce, @R-ggplot2, @R-IDPmisc, @R-knitr, @R-knitr, @R-purrr, @R-rmarkdown, @R-sjmisc, @R-sn, @R-stringr, @R-base, @R-tibble, @R-tidyr, @R-tidyverse, @R-tikzDevice, @R-tufte
 ---
 
 # Preface {-}
 
-This book is not nearly complete. I started in 2012 or so. I hope someday to finish it. 
-
-<!-- <toggle-section open="false"> -->
-<!-- <h5>Code</h5> -->
-
-<!-- hello -->
-
-<!-- </toggle-section> -->
+I have ambitious goals for this book, but it is not nearly complete. I have been working on it off and on since 2012. Eventually it will have one or more R packages to accompany it. 
 
 ```{r setup, include=FALSE}
 
-source("loader.R")
-knitr::write_bib(c(
-  .packages(), 
-  'bookdown', 
-  'knitr', 
-  'rmarkdown',
-  'sn',
-  'fMultivar',
-  'IDPmisc',
-  'tidyverse',
-  'extrafont',
-  'sn',
-  'sjmisc',
-  'psych',
-  'tikzDevice',
-  'gganimate',
-  'ggforce',
-  'qualvar',
-  'patchwork',
-  'simstandard',
-  'modeest'), 'packages.bib')
+# source("loader.R")
+
+packages <- c(
+  .packages())
+knitr::write_bib(packages, 'packages.bib')
 ```
 
 ```{r makesvg, eval=F}
@@ -72,6 +52,15 @@ c("SUDS",
   "twocoin",
   "halfnormal") %>% walk(pdf2svg)
 ```
+
+Most of the figures and tables for this book were created in R or in $\LaTeX$. To make the content as accessible and transparent as possible, I have included buttons that will reveal the code used to make each figure or table. For example, the initial setup code used for this book can be seen by clicking the button below:
+
+```{r setupCode, code = readLines("loader.R"), button_r = TRUE}
+
+```
+
+In addition, all the files and code used to create this book can be found in its [Github repository](https://github.com/wjschne/toolkit).
+
 
 
 

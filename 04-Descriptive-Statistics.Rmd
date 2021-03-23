@@ -1,8 +1,8 @@
 ```{r loadpacksdist3, include = F}
-source("loader.R")
+# source("loader.R")
 ```
 
-# Descriptive Statistics
+# Descriptives
 
 When we encounter large lists of unsorted numbers, we have no natural capacity to perceive the list's fundamental characteristics such its average or its variability. Therefore, we need [descriptive statistics]{.defword}`r tufte::margin_note("**Descriptive statistics** summarize noteworthy characteristics of samples.")` to quantify salient characteristics of distributions, or we need to display the numbers in a plot, making them easier to understand and communicate.
 
@@ -47,16 +47,17 @@ $$cp_i = \frac{cf_i}{n}$$
 
 ### Frequency Distribution Tables in R
 
-Let's start with a data set from @garcia2010women, which can accessed using the psych package [@R-psych].
+Let's start with a data set from @garcia2010women, which can accessed via the psych package. 
 
 ```{r garcia, echo = TRUE}
 # Get the Garcia data set from the psych package
 d <- psych::Garcia
+
 ```
 
 The sjmisc package [@R-sjmisc] provides a quick and easy way to create a frequency distribution table with the `frq` function.
 
-```{r frq}
+```{r frq, echo = TRUE}
 sjmisc::frq(d$anger)
 ```
 
@@ -65,99 +66,148 @@ Typically we use frequency distribution tables to check whether the values of a 
 ```{r freqtablepub}
 # Publication-quality frequency table
 d %>% 
-  rename(Anger = anger) %>% 
-  count(Anger, name = "f") %>% 
+  rename(X = anger) %>% 
+  count(X, name = "f") %>% 
   mutate(cf = cumsum(f),
          p = f / sum(f),
          cp = cumsum(p)) %>% 
   mutate(across(.cols = p:cp, 
                 .fns = function(x) scales::number(x, .01) %>% 
                   str_remove("^0"))) %>% 
-  rename_with(.fn = function(x) paste0("*",x,"*"), .cols = -Anger) %>% 
-
+  rename_with(.fn = function(x) paste0("*",x,"*"), .cols = -X) %>% 
+  mutate(` ` = "") %>% 
   kable(caption = "Frequency Distribution Table for Anger<br>
-        *f* = Frequency, *cf* = Cumulative Frequency
-        , *p* = Proportion, and *cp* = Cumulative Proportion", 
-        digits = 2, align = "r")
+        *f*&nbsp;=&nbsp;Frequency, *cf*&nbsp;=&nbsp;Cumulative Frequency
+        , *p*&nbsp;=&nbsp;Proportion, and *cp*&nbsp;=&nbsp;Cumulative Proportion", 
+        digits = 2, align = "r", 
+        format = "html") %>% 
+  html_table_width(c(30, rep(100, 4), 20))
 ```
 
 
-<div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible-freqtablepub" class="toggle" type="checkbox">
-<label for="collapsible-freqtablepub" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
 
-```{r freqtablepubCode, eval=FALSE, echo=TRUE, ref.label="freqtablepub"}
+```{r freqtablepubCode, button_r=TRUE, ref.label="freqtablepub"}
 
 ```
-
-</div></div></div>
 
 ### Frequency Distribution Bar Plots
 
-
-
-```{r freqbarplot, fig.height=7, fig.cap="Frequency Distribution Bar Plot"}
-d %>% 
-  rename(Anger = anger) %>% 
-  count(Anger, name = "f") %>% 
-  mutate(cf = cumsum(f),
-         p = f / sum(f),
-         cp = cumsum(p)) %>% 
-  ggplot(aes(Anger, f)) + 
-  geom_col(fill = myfills[1]) + 
-  geom_text_fill(aes(label = f), vjust = -0.5) +
-  scale_x_continuous(breaks = 1:7, minor_breaks = NULL) + 
-  scale_y_continuous("Frequency") +
-  theme(panel.grid.major.x = element_blank())       
-```
-
-```{r freqstepplot, fig.cap="Cumulative Frequency Step Plot", fig.height=7}
-d %>% 
-  rename(Anger = anger) %>% 
-  count(Anger, name = "f") %>% 
-  mutate(cf = cumsum(f),
-         p = f / sum(f),
-         cp = cumsum(p)) %>% 
-  ggplot(aes(Anger, cf)) + 
-  geom_step(direction = "mid") +
-  geom_text_fill(aes(label = cf), vjust = -0.5) + 
-  geom_text_fill(aes(label = signs::signs(f, accuracy = 1, add_plusses = T), 
-                     y = cf - f / 2)) + 
-  scale_x_continuous(breaks = 1:7, minor_breaks = NULL) + 
-  scale_y_continuous("Cumulative Frequency", limits = c(0, NA))
-```
-
-
-```{r, fig.width=2, fig.margin = TRUE, fig.align='default', warning=FALSE, fig.cap="Cumulative Frequency Stacked Bar Plot"}
+```{r freqbarplot, fig.height=7, fig.cap="Frequency Distribution Bar Plot", fig.margin = TRUE, fig.align='default'}
+# Make frequency data
 d_freq <- d %>% 
   rename(Anger = anger) %>% 
   count(Anger, name = "f") %>% 
   mutate(cf = cumsum(f),
          p = f / sum(f),
          cp = cumsum(p))
+
+# Frequency Bar Plot
 d_freq %>% 
-  ggplot(aes(factor("Anger"), cp - p / 2)) + 
-  geom_tile(aes(height = p, fill = factor(Anger)), 
+  ggplot(aes(Anger, f)) + 
+  geom_col(fill = myfills[1]) + 
+  geom_text_fill(aes(label = f), vjust = -0.5, size = ggtext_size(30)) +
+  scale_x_continuous(breaks = 1:7, minor_breaks = NULL) + 
+  scale_y_continuous("Frequency", expand = expansion(c(0, 0.09))) +
+  theme_minimal(base_size = 30, base_family = bfont) + 
+  theme(panel.grid.major.x = element_blank())       
+```
+
+
+```{r freqstackedbarplot, fig.width=2.25, fig.margin = TRUE, fig.align='default', warning=FALSE, fig.cap="Cumulative Frequency Stacked Bar Plot"}
+# Stacked Frequency Bar Plot
+d_freq %>% 
+  ggplot(aes(factor("Anger"), cf - f / 2)) + 
+  geom_tile(aes(height = f, fill = factor(Anger)), 
             width = 1.2) +
   geom_text(aes(label = paste0(Anger, 
                                " (", 
+                               f, ", ", 
                                scales::percent(p, accuracy = 1),
                                ")"))) + 
-
-  scale_y_continuous("Cumulative Percent", 
-                              breaks = c(0, d_freq$cp), 
-                              minor_breaks = NULL, 
-                     labels = function(p) scales::percent(p, accuracy = 1), 
-                     sec.axis = sec_axis(name = "Cumulative Frequency"))  +
-  scale_fill_viridis_d(alpha = 0.8) +
+  scale_y_continuous("Cumulative Frequency", 
+                     breaks = c(0, d_freq$cf), 
+                     minor_breaks = NULL, 
+                     expand = expansion(c(0,.04)),
+                     sec.axis = sec_axis(
+                       trans = ~ .x, 
+                       labels = scales::percent(c(0,d_freq$cp), accuracy = 1), 
+                       breaks = c(0, d_freq$cf),
+                       name = NULL))  +
+  scale_fill_manual(values = tinter::tinter(myfills[1], 9)) +
   scale_x_discrete(NULL) +
   theme(legend.position = "none", 
         panel.grid = element_blank(), 
         axis.text.y = element_text(vjust = c(rep(0.5, 7), -0.3))) 
 ```
 
+
+
+```{r freqstepplot, fig.cap="Cumulative Frequency Step Plot", fig.height=7, fig.margin=TRUE, fig.align='default'}
+# Frequency Step Plot
+d_freq %>% 
+  ggplot(aes(Anger, cf)) + 
+  geom_step(direction = "mid", color = myfills[1], size = 0.5) +
+  geom_text_fill(aes(label = cf), 
+                 vjust = -0.5, 
+                 color = myfills[1],
+                 size = ggtext_size(30)) + 
+  geom_text_fill(aes(label = signs::signs(f, accuracy = 1, add_plusses = T)), 
+                 vjust = 1.5,
+                 color = "gray40",
+                 size = ggtext_size(30)) + 
+  scale_x_continuous(breaks = 1:7, 
+                     expand = expansion()) + 
+  scale_y_continuous("Cumulative Frequency", 
+                     limits = c(0, NA), 
+                     breaks = 0, 
+                     minor_breaks = NULL,
+                     expand = expansion(mult = c(0.001, 0.07))) +
+  theme_minimal(base_size = 30, base_family = bfont) + 
+  theme(panel.grid.major.x = element_blank()) +
+  annotate(geom = "segment", 
+           x = 0.5,
+           y = 0, 
+           xend = 0.5, 
+           yend = 73, 
+           color = myfills[1], 
+           size = 1) +
+  annotate(geom = "segment", 
+           x = 0.5, 
+           y = 73, 
+           xend = 1, 
+           yend = 73, 
+           color = myfills[1], 
+           size = 0.5) +
+  annotate(geom = "segment", 
+           x = 7, 
+           y = 129, 
+           xend = 7.5, 
+           yend = 129, 
+           color = myfills[1], 
+           size = 0.5) 
+  
+```
+
+In Figure&nbsp;\@ref(fig:freqbarplot), the frequency distribution from Table&nbsp;\@ref(tab:freqtablepub) is translated into a standard bar plot. A column bar plot allows for easy comparison of the frequency of each category. For example, in Figure&nbsp;\@ref(fig:freqbarplot), it is clear that by far the most frequent level of Anger is 1.
+
+
+```{r freqbarplotCode, ref.label='freqbarplot', button_r=TRUE}
+
+```
+
+
+A stacked bar chart emphasizes the proportions of each category compared to the whole. It also allows for the visual display of the cumulative frequencies and proportions. For example, in Figure&nbsp;\@ref(fig:freqstackedbarplot), it is easy to see that more than half of participants have an anger level of 1, and three quarters have an anger level of 2 or less.
+
+
+```{r freqstackedbarplotCode, ref.label='freqstackedbarplot', button_r=TRUE}
+
+```
+
+A step line plot can show the cumulative frequency's relationship with the variable. For example, in  Figure&nbsp;\@ref(fig:freqstepplot), it appears that the cumulative frequency rises quickly at first but then rises slowly and steadily thereafter.
+
+```{r freqstepplotCode, ref.label='freqstepplot', button_r=TRUE}
+
+```
 
 ## Measures of Central Tendency
 
@@ -180,7 +230,9 @@ d_mode <- d %>%
 
 In a frequency distribution table, the mode is the value with the highest value in the $f$ (frequency) column. In Table&nbsp;\@ref(tab:freqtablepub), the mode is `r d_mode$anger` because it has the highest frequency (&#8239;*f*&nbsp;=&nbsp;`r d_mode$n`). 
 
-In a histogram or probability density plot, the mode is the value that corresponds to the highest point in the plot. If two values tie, both values are the mode and the distribution is [bimodal]{.defword}`r tufte::margin_note("A **bimodal** distribution has two modes.")`. Sometimes a distribution has two distinct clusters, each with its own local mode. The greater of these two modes is the *major mode*, and the lesser is the *minor mode* (See Figure&nbsp;\@ref(fig:bimodal)).
+In a bar plot, histogram, or probability density plot, the mode is the value that corresponds to the highest point in the plot. For example, in Figure&nbsp;\@ref(fig:freqbarplot), the modal value is 1 because its frequency of 73 is the highest point in the bar plot. In Figure&nbsp;\@ref(fig:bimodal), the mode is &minus;1 because that is the highest point in the density plot. 
+
+If two values tie, both values are the mode and the distribution is [bimodal]{.defword}`r tufte::margin_note("A **bimodal** distribution has two modes.")`. Sometimes a distribution has two distinct clusters, each with its own local mode. The greater of these two modes is the *major mode*, and the lesser is the *minor mode* (See Figure&nbsp;\@ref(fig:bimodal)).
 
 ```{r bimodal, fig.cap="A bimodal distribution", fig.margin = TRUE, fig.align='default'}
 # A bimodal distribution
@@ -204,18 +256,9 @@ tibble(x = seq(-3, 3.5, .01),
   theme(panel.grid.major.x = element_blank()) 
 ```
 
-
-<div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible-bimodal" class="toggle" type="checkbox">
-<label for="collapsible-bimodal" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-
-```{r bimodalCode, ref.label='bimodal', echo=TRUE, eval=FALSE}
+```{r bimodalCode, ref.label='bimodal', button_r=TRUE}
 
 ```
-
-</div></div></div>
 
 To compute the mode of a variable, use the `mfv` (most frequent value) function from the modeest package [@R-modeest]:
 
@@ -244,7 +287,7 @@ map2(X, reps, rep) %>% unlist %>%
     mutate(across(.cols = p:cp, 
                 .fns = function(x) scales::number(x, .01) %>% 
                   str_remove("^0"))) %>%
-  knitr::kable(caption = "Finding the Median in a Frequency Distribution Table.<br>In this case, the median if 5 because it has the first cumulative proportion that is greater than 0.5.", 
+  knitr::kable(caption = "Finding the Median in a Frequency Distribution Table.<br>In this case, the median is 5 because it has the first cumulative proportion that is greater than 0.5.", 
                digits = 2, 
                align = "r",
                col.names = c("*X*","Frequency", "Cumulative Frequency" ,"Proportion", "Cumulative Proportion"))
@@ -341,23 +384,31 @@ tibble(x = factor(c(2,4,8), levels = 1:8),
        p = c(0.3, 0.2, 0.5)) %>% 
   ggplot(aes(x,p)) + 
   geom_col(fill = myfills[1]) + 
-  geom_text(aes(label = WJSmisc::remove_leading_zero(p)), 
+  geom_text(aes(label = prob_label(p)), 
             vjust = -0.4, 
             family = bfont, 
-            size = 6) + 
+            size = ggtext_size(18)) + 
   theme_minimal(base_family = bfont, 
                 base_size = 18) + 
   scale_y_continuous("Probability", 
                      expand = expansion(mult = c(.01, .10)),
                      breaks = seq(0,1,.1),
-                     labels = WJSmisc::remove_leading_zero
+                     labels = prob_label
                      ) + 
   scale_x_discrete("Sample Space", drop = F ) + 
   theme(panel.grid.major.x = element_blank())
 
 ```
 
-Suppose that the sample space of a random variable $X$ is $\{2, 4, 8\}$ with respective probabilities of $\{0.3, 0.2, 0.5\}$, as shown in Figure \@ref(fig:pmfX). The notation for taking the expected value of a random variable $X$ is $\mathcal{E}(X)$. Can we find the mean of this variable $X$ even if we do not have any samples it generates? Yes. To calculate the expected value of $X$, multiply each sample space element by its associated probability and then take the sum of all resulting products. Thus,
+
+Suppose that the sample space of a random variable *X* is {2, 4, 8} with respective probabilities of {0.3, 0.2, 0.5}, as shown in Figure&nbsp;\@ref(fig:pmfX). 
+
+```{r pmfXCode, button_r=TRUE, ref.label='pmfX'}
+
+```
+
+
+The notation for taking the expected value of a random variable $X$ is $\mathcal{E}(X)$. Can we find the mean of this variable $X$ even if we do not have any samples it generates? Yes. To calculate the expected value of $X$, multiply each sample space element by its associated probability and then take the sum of all resulting products. Thus,
 
 $$
 \begin{align*}
@@ -396,15 +447,15 @@ make_bins <- function(binPower, binWidth, LowerBound, UpperBound) {
   tibble(x = seq(LowerBound, UpperBound, binWidth), binPower, binWidth)
 }
 
-pmap_df(tibble(binPower = -1:4, 
+pmap_df(tibble(binPower = 0:4, 
                binWidth = 2 ^ (-1 * binPower), 
                LowerBound = -4, 
                UpperBound = 4), 
         make_bins) %>% 
   mutate(p = pnorm(x + binWidth / 2) - pnorm(x - binWidth / 2),
          width_label = factor(2 ^ binPower, 
-                              levels = 2 ^ (-1:4),
-                              labels = c("Width = 2", "Width = 1",
+                              levels = 2 ^ (0:4),
+                              labels = c("Width = 1",
                                          paste0("Width = 1/",
                                                 2 ^ (1:4))))) %>%
   ggplot(aes(x, p)) + 
@@ -429,6 +480,10 @@ pmap_df(tibble(binPower = -1:4,
         strip.placement = "outside",
         strip.text.y = element_text(angle = 0),
         axis.text.x = element_text(hjust = c(rep(.75,4),rep(0.5,5))))
+
+```
+
+```{r thinbinsCode,ref.label="thinbins", button_r=TRUE}
 
 ```
 
@@ -499,25 +554,13 @@ animate(p,
         pointsize = 18)
 ```
 
-<div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible-thinbins" class="toggle" type="checkbox">
-<label for="collapsible-thinbins" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
 
-```{r thinbinsCode, echo=T, ref.label="thinbins", eval=F}
-
-```
-
-</div></div></div>
 
 ## Measures of Variability
 
 ### Variability of Nominal Variables
 
-For most purposes, the visual inspection of a frequency distribution table or bar plot is all that is needed to understand a nominal variable's variability.
-
-I have never needed a statistic that measures the variability of a nominal variable, but if you need one, there are [many from which to choose](https://en.wikipedia.org/wiki/Qualitative_variation). For example, @Wilcox1973 presented this analog to variance for nominal variables:
+For most purposes, the visual inspection of a frequency distribution table or bar plot is all that is needed to understand a nominal variable's variability. I have never needed a statistic that measures the variability of a nominal variable, but if you need one, there are [many from which to choose](https://en.wikipedia.org/wiki/Qualitative_variation). For example, @Wilcox1973 presented this analog to variance for nominal variables:
 
 $$
 \text{VA} = 1-\frac{1}{n^2}\frac{k}{k-1}\sum_{i=1}^k\left(f_i-\frac{n}{k}\right)^2
@@ -537,7 +580,7 @@ VA(frequencies)
 
 
 ```{r nominalvar, fig.cap="The Variance Analog (VA) index of qualitative variation ranges from 0 to 1. It equals 0 when every data point is assigned to the same category and 1 when each category has the same frequency.", fig.height=7, fig.margin=T, fig.align='default'}
-
+# The Variance Analog (VA) index of qualitative variation
 low_var <- c(A = 100, B = 0, C = 0, D = 0)
 mid_var =  c(A = 60, B = 10, C = 25, D = 5)
 high_var = c(A = 25, B = 25, C = 25, D = 25)
@@ -571,23 +614,17 @@ tibble(Variability = c("Low", "Middle", "High"),
 ```
 
 
-<div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible-nominalvarCode" class="toggle" type="checkbox">
-<label for="collapsible-nominalvarCode" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-
-```{r nominalvarCode, ref.label="nominalvar", echo=TRUE, eval=FALSE}
+```{r nominalvarCode, ref.label="nominalvar", button_r=TRUE}
 
 ```
 
-</div></div></div>
+
 
 In all of these indices of qualitative variation, the lowest value is 0 when every data point belongs to the same category (See Figure&nbsp;\@ref(fig:nominalvar), left panel). Also, the maximum value is 1 when the data points are equally distributed across categories (See Figure&nbsp;\@ref(fig:nominalvar), right panel).
 
 ### Variability of Ordinal Variables
 
-
+As with nominal variables, a bar plot or frequency distribution table can tell you most of what you want to know about the variability of an ordinal variable. If you need a quantitative measure of how much an ordinal variable varies, you have many options.
 
 ```{r}
 

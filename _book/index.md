@@ -1,12 +1,13 @@
 --- 
-title: "Practical Psychometrics: A Psychological Assessment Toolkit"
+title: "Practical Psychometrics"
+subtitle: "A Psychological Assessment Toolkit"
 author: "W. Joel Schneider"
-date: "2021-03-07"
+date: "2021-03-23"
 site: bookdown::bookdown_site
 output:
   bookdown::tufte_html_book:
     toc: TRUE
-    toc_depth: 1
+    toc_depth: 2
     css: [toc.css,equity.css,mycss.css]
     tufte_features: []
     keep_md: true
@@ -18,22 +19,203 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 csl: apa.csl
 link-citations: yes
-github-repo: wjschne/psychtoolkit
+github-repo: wjschne/toolkit
+nocite: |
+  @R-bookdown, @R-dplyr, @R-extrafont, @R-fBasics, @R-forcats, @R-fMultivar, @R-gganimate, @R-ggforce, @R-ggplot2, @R-IDPmisc, @R-knitr, @R-knitr, @R-purrr, @R-rmarkdown, @R-sjmisc, @R-sn, @R-stringr, @R-base, @R-tibble, @R-tidyr, @R-tidyverse, @R-tikzDevice, @R-tufte
 ---
+
 
 # Preface {-}
 
-This book is not nearly complete. I hope someday to finish it.
-
-<!-- <toggle-section open="false"> -->
-<!-- <h5>Code</h5> -->
-
-<!-- hello -->
-
-<!-- </toggle-section> -->
+I have ambitious goals for this book, but it is not nearly complete. I have been working on it off and on since 2012. Eventually it will have one or more R packages to accompany it. 
 
 
 
+
+
+Most of the figures and tables for this book were created in R or in $\LaTeX$. To make the content as accessible and transparent as possible, I have included buttons that will reveal the code used to make each figure or table. For example, the initial setup code used for this book can be seen by clicking the button below:
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-setupCode" class="toggle" type="checkbox">
+<label for="collapsible-setupCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
+<div class="content-inner">
+
+```r
+# Load packages
+library(extrafont)
+loadfonts("win")
+library(tufte)
+library(knitr)
+library(sn)
+library(fMultivar)
+library(IDPmisc)
+library(psych)
+library(tidyverse)
+library(gganimate)
+library(ggforce)
+library(sjmisc)
+library(WJSmisc)
+library(tippy)
+library(tikzDevice)
+library(patchwork)
+library(qualvar)
+library(modeest)
+library(tinter)
+library(ggfx)
+library(ggtext)
+
+
+# Set options
+options(knitr.kable.digits = 2, knitr.kable.na = '')
+knitr::opts_chunk$set(echo = F,
+                      fig.width = 7,
+                      fig.height = 5,
+                      fig.align = 'center',
+                      # out.width = "100%",
+                      dev = "svg",
+                      cache = TRUE)
+
+# Default fonts and colors
+bfont = "Equity Text A Tab"
+bsize = 16
+myfills <- c("royalblue4", "firebrick4", "#51315E")
+alpha(myfills)
+# Function for converting base size to geom_text size
+ggtext_size <- function(base_size, ratio = 0.8) {
+  ratio * base_size / ggplot2:::.pt
+}
+
+btxt_size = ggtext_size(bsize)
+
+# Default geoms and themes
+ggplot2::update_geom_defaults("text",
+                              list(family = bfont, size = btxt_size))
+ggplot2::update_geom_defaults("label",
+                              list(
+                                family = bfont,
+                                size = btxt_size,
+                                label.padding = unit(0, "lines"),
+                                label.size = 0
+                              ))
+ggplot2::update_geom_defaults("density", list(fill = myfills[1]))
+geom_text_fill <- function(...) {
+  geom_label(...,
+             label.padding = unit(0, "lines"),
+             label.size = 0)
+}
+theme_set(theme_minimal(base_size = bsize, base_family = bfont))
+
+
+# Probability labels
+prob_label <- function(p,
+                       accuracy = 0.01,
+                       digits = NULL) {
+  if (is.null(digits)) {
+    l <- scales::number(p, accuracy = accuracy) %>%
+      str_remove("^0")
+  } else {
+    l <- formatC(p,
+                 digits = digits,
+                 format = "fg") %>%
+      str_remove("^0")
+  }
+
+  l[p == 0] <- "0"
+  l[p == 1] <- "1"
+  l
+}
+
+# Set table column width
+# https://github.com/rstudio/bookdown/issues/122#issuecomment-221101375
+html_table_width <- function(kable_output, width){
+  width_html <- paste0(paste0('<col width="', width, '">'), collapse = "\n")
+  sub("</caption>", paste0("</caption>\n", width_html), kable_output)
+}
+
+# Hooks -------
+
+# Enclose collapsible r chunk in  button
+knitr::opts_hooks$set(button_r = function(options) {
+  if (isTRUE(options$button_r)) {
+    options$button_before_r <- TRUE
+    options$button_after <- TRUE
+    options$echo = TRUE; options$eval = FALSE
+  }
+
+  options
+})
+
+# Enclose collapsible latex chunk in  button
+knitr::opts_hooks$set(button_latex = function(options) {
+  if (isTRUE(options$button_latex)) {
+    options$button_before_latex <- TRUE
+    options$button_after <- TRUE
+    options$echo = TRUE; options$eval = FALSE
+  }
+
+  options
+})
+
+# before button for collapsible r chunk
+knit_hooks$set(
+  button_before_r = function(before, options, envir) {
+    if (before) {
+      return(
+        paste0(
+          '<div class="wrap-collapsible" style="margin-top: 1em">',
+          "\n",
+          '<input id="collapsible-',
+          options$label,
+          '" class="toggle" type="checkbox">',
+          "\n",
+          '<label for="collapsible-',
+          options$label,
+          '" class="lbl-toggle">R Code</label>',
+          '<div class="collapsible-content">',
+          "\n",
+          '<div class="content-inner">'
+        )
+      )
+    }
+  }
+)
+
+# before button for collapsible latex chunk
+knit_hooks$set(
+  button_before_latex = function(before, options, envir) {
+    if (before) {
+      codetype = "$\\rm\\LaTeX~Code$"
+      return(
+        paste0(
+          '<div class="wrap-collapsible" style="margin-top: 1em">',
+          "\n",
+          '<input id="collapsible-',
+          options$label,
+          '" class="toggle" type="checkbox">',
+          "\n",
+          '<label for="collapsible-',
+          options$label,
+          '" class="lbl-toggle">',
+          codetype,
+          '</label>',
+          '<div class="collapsible-content">',
+          "\n",
+          '<div class="content-inner">'
+        )
+      )
+    }
+  }
+)
+
+# After button for collapsible chunks
+knit_hooks$set(button_after = function(before, options, envir) {
+  if (!before) return('</div></div></div>')
+})
+```
+
+</div></div></div>
+
+In addition, all the files and code used to create this book can be found in its [Github repository](https://github.com/wjschne/toolkit).
 
 
 
@@ -41,33 +223,31 @@ This book is not nearly complete. I hope someday to finish it.
 
 <!--chapter:end:index.Rmd-->
 
+
 # Introduction {#intro}
 
 Although great painters can make good art with cheap brushes, they need high quality tools to work at the upper limits of their craft. On the other hand, giving an untrained person an expensive set of brushes is unlikely to result in noticeably better art. So it is with these tools. They are of little use to unprepared hands---and in foolish hands, they might even be dangerous. But in hands caring and competent, they can make reasoning more rigorous, results more robust, and recommendations more relevant.
 
-We can choose to spend assessment time and resources wisely in a comprehensive psychological assessment, but interviews, test administration, and behavioral observations necessarily take many hours of focused concentration. Scoring tests and integrating test information can take even more time. Then there is the considerable task of actually writing the report.^[Putting together my first psychological evaluation report one summer in Texas, I fretted, sweated, and labored for more than 30 hours! Even now, at my fastest, it still takes me at least 3 hours of uninterrupted work to write what I consider to be a good report.] Finally, the results of the report are presented to the client and other decision-makers. If we invest this much time and effort in the process, it makes sense to make the most of it. Unfortunately, while making the most of it, it is easy to go too far---making reckless recommendations from iffy inferences and flights of fancy.
+We can choose to spend assessment time and resources wisely in a comprehensive psychological assessment, but interviews, test administration, and behavioral observations necessarily take many hours of focused concentration. Scoring tests and integrating test information can take even more time. Then there is the considerable task of actually writing the report, which typically requires many hours. Finally, the results of the report are presented to the client and other decision-makers. If we invest this much time and effort in the process, it makes sense to make the most of it. Unfortunately, while making the most of it, it is easy to go too far---making reckless recommendations from iffy inferences and flights of fancy.
 
-Humans are very very good at some things that are extraordinarily complex, such as pattern recognition. Humans are not so great at combining numeric data in their heads to come to valid conclusions. When Andy  @clark2004natural [p. 5] said that biological brains are "to put it bluntly, bad at logic, good at Frisbee," it was no insult to Frisbee aficionados---robots are no match for humans at the sport. Furthermore, certain kinds of formal logic, though once considered to be the pinnacle of human intellect, are actually fairly simple for computers. Thus, we should let computers do what they do best: calculate. We humans have the job of deciding which calculations the computers should perform, interpreting what the results mean, and deciding how the new information should be used.
+Humans are very very good at some things that are extraordinarily complex, such as pattern recognition. Humans are not so great at combining numeric data in their heads to come to valid conclusions. When Andy @clark2004natural [p. 5] said that biological brains are "to put it bluntly, bad at logic, good at Frisbee," it was no insult to Frisbee aficionados---robots are no match for humans at the sport. Furthermore, certain kinds of formal logic, though once considered to be the pinnacle of human intellect, are actually fairly simple for computers. Thus, we should let computers do what they do best: calculate. We humans have the job of deciding which calculations the computers should perform, interpreting what the results mean, and deciding how the new information should be used.
 
 Most introductory psychometrics textbooks are designed to help researchers create well constructed tests and therefore cover many details that are not useful to clinicians and fail to cover many practical issues that clinicians should know about. This book is intended to help you extract useful information from the data you already have in ways that you may not have known were possible. That my emphasis is on the practical in no way implies that this book is dumbed down. My aim is to make psychometrics useful to clinicians. If some useful ideas are complex, I hope to make them accessible---but without resorting to superficial glossing. Some background knowledge of psychometrics is necessary to understand how these tools work and, more importantly, when their underlying assumptions have been violated.
 
 <p><span class="marginnote shownote">
 <!--
 <div class="figure">-->
-<img src="Philley2.png" alt="Philip Ley (1933--2015)&lt;br&gt;[Image Credit](https://thepsychologist.bps.org.uk/phil-ley-1933-2015)" width="328"  />
+<img src="Philley2.png" alt="Philip Ley (1933--2015)&lt;br&gt;[Image Credit](https://thepsychologist.bps.org.uk/phil-ley-1933-2015)" width="100%"  />
 <!--
 <p class="caption marginnote">-->(\#fig:philipley)Philip Ley (1933--2015)<br>[Image Credit](https://thepsychologist.bps.org.uk/phil-ley-1933-2015)<!--</p>-->
 <!--</div>--></span></p>
 
-
-This book probably never would have been written had I not several years ago stumbled across Ley's [-@ley1972quantitative]  *Quantitative aspects of psychological assessment*. I admire the book's blend of clarity, practicality, and depth. Why did I write my own book instead of recommending that clinicians download and use Ley's book? Well, I do recommend reading Ley's book. In contrast to my approach, Ley often takes time to gently lay out mathematical proofs of many ideas. Thus Ley's book is a wonderfully beginner-friendly introduction to the often considerably less accessible corpus of academic writings on psychometrics. I wanted to present much of the same material but with more of an eye to application. I also wanted to present many ideas not included in Ley's book. In addition, I chose to write this book because I believe that Ley had the right idea but that in an era in which no one had a home computer, few clinicians would have the knowledge, motivation, and stamina to use his equations on a regular basis. Now that computers are used by all clinicians, equations like those presented by Ley can be be made easy to use. All of the "tools" in this toolkit have been made into computer programs which can be downloaded for free at my website:
-
-http://assessingpsyche.com
+This book probably never would have been written had I not several years ago stumbled across Ley's [-@ley1972quantitative] *Quantitative aspects of psychological assessment*. I admire the book's blend of clarity, practicality, and depth. Why did I write my own book instead of recommending that clinicians download and use Ley's book? Well, I do recommend reading Ley's book. In contrast to my approach, Ley often takes time to gently lay out mathematical proofs of many ideas. Thus Ley's book is a wonderfully beginner-friendly introduction to the often considerably less accessible corpus of academic writings on psychometrics. I wanted to present much of the same material but with more of an eye to application. I also wanted to present many ideas not included in Ley's book. In addition, I chose to write this book because I believe that Ley had the right idea but that in an era in which no one had a home computer, few clinicians would have the knowledge, motivation, and stamina to use his equations on a regular basis. Now that computers are used by all clinicians, equations like those presented by Ley can be be made easy to use. All of the "tools" in this toolkit have been included in [unpublished package] (Schneider, 2021), a package in the R programming environment [@R-base].
 
 <!--chapter:end:01-intro.Rmd-->
 
-# Variables
 
+# Variables
 
 
 
@@ -81,14 +261,13 @@ The classic [taxonomy]{class=defword}<label for="tufte-mn-" class="margin-toggle
 <p class="caption">(\#fig:Stevens)Stevens' levels of measurement</p><img src="Stevens.svg" alt="Stevens' levels of measurement" width="672"  /></div>
 
 
-<div class="wrap-collapsible">
-<input id="collapsible" class="toggle" type="checkbox">
-<label for="collapsible" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-StevensCode" class="toggle" type="checkbox">
+<label for="collapsible-StevensCode" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
 <div class="content-inner">
 
 ```tikz
-
 % Stevens NOIR
 \documentclass[tikz = true, border = 1pt]{standalone}
 \usepackage{amsmath}
@@ -128,135 +307,155 @@ The classic [taxonomy]{class=defword}<label for="tufte-mn-" class="margin-toggle
 	\end{tikzpicture}
 \end{document}
 ```
-</div>
-</div>
-</div>
 
-
-
-
+</div></div></div>
 
 ## Nominal Scales {#nominal}
 
 In a [nominal scale]{class=defword},<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **nominal scale** groups observations into unordered categories.</span> we note only that some things are different from others and that they belong to two or more </span>[mutually exclusive]{class=defword} categories. <label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">In **mutually exclusive** categories nothing belongs to more than one category (at the same time and in the same sense).</span> If we say that a person has Down syndrome (trisomy 21), we are implicitly using a nominal scale in which there are people with Down syndrome and people without Down syndrome. In a true nominal scale, there are no cases that fall between categories. To be sure, we might have some difficulty figuring out and reliably agreeing upon the category to which something belongs---but there is no conceptual space between categories.
 
-In the messy world of observable reality, few true nominal variables exist as defined here. Most so-called nominal variables in psychology are merely nominal-*ish*. With respect to Down syndrome, we could say that people either have three copies of the 21^st^ chromosome or they do not. However, if we did say that---and meant it---we'd be wrong. In point of fact, there are many cases of partial trisomy. There are other cases of Down syndrome in which part of chromosome 21 is copied to another chromosome. However, because cases like this are sufficiently rare and because such distinctions are usually not of vital importance, Down Syndrome is treated as if it were a true nominal variable. Even though Down Syndrome might technically come in degrees (both phenotypically and in terms of the underlying chromosomal abnormalities), the distinction between not having the condition and not having it is not [arbitrary]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">**Arbitrary** refers to things that are decided not by necessity but by preference, convenience, or whim.</span> 
+In the messy world of observable reality, few true nominal variables exist as defined here. Most so-called nominal variables in psychology are merely nominal-*ish*. With respect to Down syndrome, we could say that people either have three copies of the 21st chromosome or they do not. However, if we did say that---and meant it---we'd be wrong. In point of fact, there are many cases of partial trisomy. There are other cases of Down syndrome in which part of chromosome 21 is copied to another chromosome. However, because cases like this are sufficiently rare and because such distinctions are usually not of vital importance, Down Syndrome is treated as if it were a true nominal variable. Even though Down Syndrome might technically come in degrees (both phenotypically and in terms of the underlying chromosomal abnormalities), the distinction between not having the condition and not having it is not [arbitrary]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">**Arbitrary** refers to things that are decided not by necessity but by preference, convenience, or whim.</span> 
 
 <div class="figure" style="text-align: center">
-<p class="caption">(\#fig:dichomomy)A (nearly) true dichotomy</p><img src="dichotomy.svg" alt="A (nearly) true dichotomy" width="672"  /></div>
+<p class="caption">(\#fig:dichotomy)A (nearly) true dichotomy</p><img src="dichotomy.svg" alt="A (nearly) true dichotomy" width="100%"  /></div>
 
 
 
-<div class="wrap-collapsible">
-<input id="collapsible1" class="toggle" type="checkbox">
-<label for="collapsible1" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-dichotomyCode" class="toggle" type="checkbox">
+<label for="collapsible-dichotomyCode" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
 <div class="content-inner">
-
-
 
 ```tikz
-\documentclass[tikz = true, border = 3pt]{standalone}
-\usepackage[latin1]{inputenc}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{graphicx}
+\documentclass[tikz = true, border=0mm]{standalone}
 \usepackage{tikz}
-\usetikzlibrary{positioning, calc}
-\usetikzlibrary{intersections}
-\usetikzlibrary{decorations.pathreplacing}
-\usetikzlibrary{decorations.text}
-\usetikzlibrary{arrows,shapes,backgrounds, shadows,fadings}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows,shapes}
+\usepackage{fontspec}
+\setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
+\definecolor{firebrick4}{HTML}{8B1A1A}
+\definecolor{royalblue4}{RGB}{39,64,139}
+\definecolor{myviolet}{HTML}{51315E}
+
 \begin{document}
 	\begin{tikzpicture}
-    [node distance=1cm and 1cm, 
-post/.style={->,draw,shorten >=2pt,shorten <=2pt,>=latex', thick, font=\large}, 
-    ob/.style={rectangle,inner sep=1mm, minimum width=2.5cm, minimum height=2.5cm, rounded corners=1mm,font=\large, text = white}]
-    \definecolor{firebrick2}{RGB}{205,38,38};
-    \definecolor{royalblue2}{RGB}{67,110,238};
-    \node [ob,fill=violet!80] (All) at (0,0) {\begin{tabular}{c} All\\Children\end{tabular}};
-    \node (Trisomy) [shape=diamond, below= of All,fill=black!60,shape aspect=1.5, text = white, font = \large] {Trisomy 21?};
-    \node [ob,fill=firebrick2,left=of Trisomy] (Down) {\begin{tabular}{c} Down\\Syndrome\end{tabular}};
-    \node [ob,fill=royalblue2, right=of Trisomy] (NoDown) {\begin{tabular}{c} No Down\\Syndrome\end{tabular}}; 
-    \draw[post] (All) to (Trisomy);
-    \draw[post] (Trisomy) -- (Down) node [midway,above] {Yes};
-    \draw[post] (Trisomy) -- (NoDown) node [midway,above] {No};
+    [node distance=1.1cm and 1.1cm,
+    post/.style={->,
+    	         black!70,
+    	         shorten >=2pt,
+    	         shorten <=2pt,
+    	         >=latex', 
+    	         very thick, 
+    	         font=\large}, 
+    ob/.style={rectangle,
+    	       inner sep=1mm,
+    	       minimum width=2.5cm, 
+    	       minimum height=2.5cm, 
+    	       rounded corners=0.75mm,
+    	       font=\large, 
+    	       text = white}]
+    \node[shape=diamond, 
+          fill=myviolet,
+          rounded corners=0.5mm,
+          shape aspect=1.25, 
+          text = white, 
+          font = \large] (Trisomy) at (0,0) {Trisomy 21?};
+    \node [ob,
+           fill=firebrick4,
+           left=of Trisomy,
+           align=center] (Down) {Down\\Syndrome};
+    \node [ob,
+          fill=royalblue4, 
+          right=of Trisomy, 
+          align=center] (NoDown) {No Down\\Syndrome}; 
+    \draw[post] (Trisomy) -- (Down) node [pos=.46,above] {Yes};
+    \draw[post] (Trisomy) -- (NoDown) node [pos=.46,above] {No};
 \end{tikzpicture}
 \end{document}
-
 ```
 
+</div></div></div>
 
-</div>
-</div>
-</div>
 
 
 <div class="figure" style="text-align: center">
-<p class="caption">(\#fig:dichotomous)A dichomized continuum</p><img src="toolkit_files/figure-html/dichotomous-1.svg" alt="A dichomized continuum"  /></div>
+<p class="caption">(\#fig:dichotomized)A dichomized continuum</p><img src="toolkit_files/figure-html/dichotomized-1.svg" alt="A dichomized continuum" width="100%"  /></div>
 
-<div class="wrap-collapsible">
-<input id="collapsible2" class="toggle" type="checkbox">
-<label for="collapsible2" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-dichotomousCode" class="toggle" type="checkbox">
+<label for="collapsible-dichotomousCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
-
-
 ```r
-par(mar = c(2.5, 0, 0, 0), 
-    family = "Equity Text A Tab",
-    mgp = c(1.5, 0.25, 0),
-    tcl = -0.3,
-    cex = 1.2)
-cord.x <- c(-4, seq(-4,-2, 0.01),-2)
-cord.y <- c(0, 0.9 * dnorm(seq(-4,-2, 0.01)), 0)
-curve(
-  dnorm(x, 0, 1) * .9,
-  xlim = c(-4, 4),
-  axes = F,
-  xlab = "IQ and Adaptive Functioning",
-  ylab = "",
-  ylim = (c(0, .43)),
-  col = NA
-)
-polygon(cord.x, cord.y, col = "firebrick2", border = NA)
-cord.x <- c(-2, seq(-2, 4, 0.01), 4)
-cord.y <- c(0, 0.9 * dnorm(seq(-2, 4, 0.01)), 0)
-polygon(cord.x, cord.y, col = "royalblue2", border = NA)
-axis(1, 
-     at = seq(-4, 4, 1), 
-     line = 0,
-     labels = seq(40, 160, 15))
-segments(-2, dnorm(-2),-2, .4, lty = 2)
-# abline(h = 0)
-IDPmisc::Arrows(
-  x1 = c(-2.1,-1.9),
-  y1 = c(0.38, 0.38),
-  x2 = c(-4, 4),
-  y2 = c(0.38, 0.38),
-  open = FALSE,
-  sh.col = c("firebrick2", "royalblue2"),
-  sh.lwd = 3,
-  h.lwd = 1,
-  sh.adj = 1,
-  size = 0.75
-)
-text(-3, .38, "Intellectual\nDisability", col = "firebrick3", pos = 3, cex = 1.1)
-text(0, .38, "No Intellectual\nDisability", col = "royalblue3", pos = 3, cex = 1.1)
+# A dichotomized continuum
+ggplot() + 
+  # geom_vline(xintercept = 70, linetype = "dashed") + 
+  stat_function(xlim = c(40, 70), 
+                fun = dnorm, 
+                args = list(mean = 100, sd = 15), 
+                geom = "area", 
+                fill = myfills[2], 
+                n = 1000) + 
+  stat_function(xlim = c(70, 160), 
+                fun = dnorm, 
+                args = list(mean = 100, sd = 15), 
+                geom = "area", 
+                fill = myfills[1], 
+                n = 1000) + 
+  geom_segment(data = tibble(x = c(71, 69), 
+                             xend = c(160, 40), 
+                             y = dnorm(100, 100, 15) * 1.024),
+               aes(x = x, 
+                   y = y, 
+                   xend = xend, 
+                   yend = y), 
+               color = myfills[1:2], 
+               linejoin = "mitre",
+               arrow = arrow(type = "closed", 
+                             angle = 15, 
+                             length = unit(2.25, "mm"))) + 
+  geom_text(data = tibble(x = c(100, 55), 
+                          y = dnorm(100, 100, 15) * 1.02,
+                          l = c("No Intellectual\nDisability", 
+                                "Intellectual\nDisability")),
+            aes(x = x, 
+                y = y,
+                label = l),
+            size = ggtext_size(bsize),
+            vjust = -0.3, 
+            lineheight = 1,
+            color = myfills[1:2]) +
+  annotate("segment", 
+           x = 70, 
+           xend = 70, 
+           size = 0.25,
+           y = dnorm(70, 100, 15), 
+           yend = dnorm(100, 100, 15) * 1.14,
+           linetype = "dashed",
+           color = "gray30") +
+  scale_x_continuous("IQ and a Adaptive Functioning", 
+                     breaks = seq(40, 160, 15),
+                     expand = expansion(0)) + 
+  scale_y_continuous(NULL, breaks = NULL, 
+                     expand = expansion(c(.02,0))) + 
+  # theme_minimal(base_size = bsize, base_family = bfont) + 
+  ggthemes::theme_tufte(base_size = bsize) +
+  theme(
+    axis.ticks.x = element_line(size = 0.25),
+        # axis.line.x = element_line(size = 0.25),
+        # panel.grid = element_blank()
+        ) +
+  coord_cartesian(xlim = c(40, 161), clip = "off") +
+  ggthemes::geom_rangeframe(data = tibble(x = c(40, 160)), aes(x = x), size = 0.25)
 ```
 
-
-</div>
-</div>
-</div>
+</div></div></div>
 
 
+In contrast, consider the diagnosis of *intellectual disability*. We might have only two categories in our coding scheme (Intellectual Disability: Yes or No), but it is widely recognized that the condition comes in degrees (e.g., *none, borderline, mild, moderate, severe,* and *profound*). Thus, intellectual disability is not even conceptually nominal. It is a continuum that has been divided at a convenient but mostly arbitrary point (Figure&nbsp;\@ref(fig:dichotomized)). Distinguishing between a [dichotomous]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **dichotomy** is a division of something into two categories.</span> variable that is nominal by nature and one that has an underlying continuum matters because there are statistics that apply only to the latter type of variable (e.g., the tetrachoric correlation coefficient, Pearson & Heron [-@pearson1913theories]). Even so, in many procedures, the two types of dichotomies can be treated identically (e.g., comparing the means of two groups with an independent-samples *t*-test).
 
-In contrast, consider the diagnosis of *intellectual disability*, what has historically been called "mental retardation." We might have only two categories in our coding scheme (Intellectual Disability: Yes or No) but it is widely recognized that the condition comes in degrees (e.g., *none, borderline, mild, moderate, severe,* and *profound*). Thus, intellectual disability is not even conceptually nominal. It is a continuum that has been divided at a convenient but mostly arbitrary point (Figure&nbsp;\@ref(fig:dichotomous)). Distinguishing between a [dichotomous]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **dichotomy** is a division of something into two categories.</span> variable that is nominal by nature and one that has an underlying continuum matters because there are statistics that apply only to the latter type of variable (e.g., the tetrachoric correlation coefficient). Even so, in many procedures, the two types of dichotomies can be treated identically (e.g., comparing the means of two groups with an independent-samples *t*-test).
-
-What if the categories in a nominal scale are not mutually exclusive? For example, suppose that we have a variable in which people can be classified as having either Down syndrome or Klinefelter syndrome (a condition in which a person has two X chromosomes and one Y chromosome). Obviously, this is a [false dichotomy]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">In a **false dichotomy**, two alternatives are presented as if they are the only alternatives when, in fact, there are others available.</span> Most people have neither condition. Thus, we need to expand the nominal variable to have three categories: Down syndrome, Klinefelter syndrome, and neither. What if a person has both Down syndrome *and* Klinefelter syndrome? Okay, we just add a fourth category: both. This combinatorial approach is not so much a problem for some purposes (e.g., the ABO blood group system), but for many variables, it quickly becomes unwieldy. If we wanted to describe all chromosomal abnormalities with a single nominal variable, the number of combinations increases exponentially with each new category added. This might be okay if having two or more chromosomal abnormalities is very rare. If, however, the categories are not mutually exclusive and combinations are common enough to matter, it is generally easiest to make the variable into two or more nominal variables (Down syndrome: Yes or no; Klinefelter syndrome: Yes or no; Edwards syndrome: Yes or no; and so forth). Some false dichotomies are so commonly used that people know what you mean, even though they are incomplete (e.g., Democrat vs. Republican) or potentially insensitive to people who do not fit neatly into any of the typical categories (e.g., male vs. female).
+What if the categories in a nominal scale are not mutually exclusive? For example, suppose that we have a variable in which people can be classified as having either Down syndrome or Klinefelter syndrome (a condition in which a person has two X chromosomes and one Y chromosome). Obviously, this is a [false dichotomy]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">In a **false dichotomy**, two alternatives are presented as if they are the only alternatives when, in fact, there are others available.</span> Most people have neither condition. Thus, we need to expand the nominal variable to have three categories: Down syndrome, Klinefelter syndrome, and neither. What if a person has both Down syndrome *and* Klinefelter syndrome? Okay, we just add a fourth category: both. This combinatorial approach is not so much a problem for some purposes (e.g., the ABO blood group system), but for many variables, it quickly becomes unwieldy. If we wanted to describe all chromosomal abnormalities with a single nominal variable, the number of combinations increases exponentially with each new category added. This might be okay if having two or more chromosomal abnormalities is very rare. If, however, the categories are not mutually exclusive and combinations are common enough to matter, it is generally easiest to make the variable into two or more nominal variables (Down syndrome: Yes or No; Klinefelter syndrome: Yes or No; Edwards syndrome: Yes or No; and so forth). Some false dichotomies are so commonly used that people know what you mean, even though they are incomplete (e.g., Democrat vs. Republican) or potentially insensitive to people who do not fit neatly into any of the typical categories (e.g., male vs. female).
 
 When we list the categories of a nominal variable, the order in which we do so is mostly arbitrary. In the variable *college major*, no major intrinsically comes before any other. It is convenient to list the categories alphabetically but the order is different in different languages and will change as the names of college majors evolve. However, strict alphabetical order is not always logical or convenient.^[For example, in a variable such as *ethnic identity*, the number of possible categories is very large so members of very small groups are given the option of writing in their answer next to the word "other." The *other* category is placed at the end of the list to avoid confusion.]
 
@@ -267,17 +466,57 @@ In an [ordinal scale]{class=defword},<label for="tufte-mn-" class="margin-toggle
 <p><span class="marginnote shownote">
 <!--
 <div class="figure">-->
-<img src="Likert.svg" alt="In a Likert-type scale, the distances between categories are undefined." width="300"  />
+<img src="Likert.svg" alt="In a Likert scale, the distances between categories are undefined." width="300"  />
 <!--
-<p class="caption marginnote">-->(\#fig:Likert)In a Likert-type scale, the distances between categories are undefined.<!--</p>-->
+<p class="caption marginnote">-->(\#fig:Likert)In a Likert scale, the distances between categories are undefined.<!--</p>-->
 <!--</div>--></span></p>
 
+Most measurement in psychological assessment involves ordinal scales, though in many cases ordinal scales might appear to be other types of scales. Questionnaires that use Likert scales are clearly ordinal (e.g., Figure&nbsp;\@ref(fig:Likert)). Even though true/false items on questionnaires might seem like nominal scales, they are usually ordinal because the answer indicates whether a person has either more or less of an attribute. That is, *more* and *less* are inherently ordinal concepts. Likewise, ability test items are ordinal, even though *correct* vs. *incorrect* might seem like nominal categories. Ability tests are designed such that a correct response indicates more ability than an incorrect response. The ordinal nature of ability test items is especially clear in cases that allow for partial credit. 
 
 
 
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-LikertCode" class="toggle" type="checkbox">
+<label for="collapsible-LikertCode" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
+<div class="content-inner">
 
+```tikz
+% Likert Scale
 
-Most measurement in psychological assessment involves ordinal scales, though in many cases ordinal scales might appear to be other types of scales. Questionnaires that use Likert-type scales are very clearly ordinal (e.g., Figure&nbsp;\@ref(fig:Likert)). Even though true/false items on questionnaires might seem like nominal scales, they are usually ordinal because the answer indicates whether a person has either more or less of an attribute. That is, *more* and *less* are inherently ordinal concepts. Likewise, ability test items are ordinal, even though *correct* vs. *incorrect* might seem like nominal categories. Ability tests are designed such that a correct response indicates more ability than an incorrect response. The ordinal nature of ability test items is especially clear in cases that allow for partial credit. 
+\documentclass[tikz = true, border = 2pt]{standalone}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning, calc}
+\usetikzlibrary{intersections}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{arrows,shapes,backgrounds, shadows,fadings}
+\usepackage{fontspec}
+\setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
+\begin{document}
+	
+	\begin{tikzpicture} [font=\normalsize]
+	\node [align=center,text width=3cm] (sd)  {\textbf{Strongly Disagree}};
+	\node [align=center,text width=3cm,above=of sd]  (d) {\textbf{Disagree}};
+	\node [align=center,text width=3cm,above=of d]  (n) {\textbf{Neutral}}; 
+	\node [align=center,text width=3cm,above=of n] (a)  {\textbf{Agree}};
+	\node [align=center,text width=3cm,above=of a] (sa) {\textbf{Strongly Agree}};
+	\draw [decoration={brace,amplitude=3mm}, decorate] (d.east) -- (sd.east) node[midway, rotate=-90,align=center,yshift=2em]{Distance?};
+	\draw [decoration={brace,amplitude=3mm}, decorate] (d.west) -- (n.west) node[midway, rotate=90,align=center,yshift=2em]{Distance?};
+	\draw [decoration={brace,amplitude=3mm}, decorate] (a.east) -- (n.east) node[midway, rotate=-90,align=center,yshift=2em]{Distance?};
+	\draw [decoration={brace,amplitude=3mm}, decorate] (a.west) -- (sa.west) node[midway, rotate=90,align=center,yshift=2em]{Distance?};
+	\draw (sd.north) -- (d.south);
+	\draw (d.north) -- (n.south);
+	\draw (n.north) -- (a.south);
+	\draw (a.north) -- (sa.south);
+	\end{tikzpicture}
+\end{document}
+```
+
+</div></div></div>
 
 Some scales are only partially ordinal. For example, *educational attainment* is ordinal up to a certain point in most societies, but branches out as people acquire specialized training. For a career in psychology, the educational sequence is high school diploma, associate's degree, bachelor's degree, master's degree, and doctoral degree.^[Obviously, some of these degrees can be skipped and the endpoint is different for different careers in psychology. Furthermore, not all degrees fit neatly in this sequence (e.g., the school psychology specialist degree).] However, this is not the sequence for real estate agents, hair stylists, and pilots. If we wanted to compare educational degrees across professions, how would we rank them? For example, how would we compare a law degree with a doctorate in geology? Are they the same? Does one degree indicate higher educational attainment than the other? The answers depend on the criteria that we care about---and different people care about different things. Thus, it is difficult to say that we have an ordinal scale when we compare educational attainment across professions. 
 
@@ -286,15 +525,15 @@ Some scales are only partially ordinal. For example, *educational attainment* is
 <p class="caption">(\#fig:differentiation)Anxiety is more differentiated at higher levels of distress</p><img src="toolkit_files/figure-html/differentiation-1.svg" alt="Anxiety is more differentiated at higher levels of distress" width="672"  /></div>
 
 
-<div class="wrap-collapsible">
-<input id="collapsible3" class="toggle" type="checkbox">
-<label for="collapsible3" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-unnamed-chunk-4" class="toggle" type="checkbox">
+<label for="collapsible-unnamed-chunk-4" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
-
-
 ```r
+# Anxiety is more differentiated at higher levels of distress
+
 bezierCurve <- function(x, y, n=10) {
   {
     outx <- NULL
@@ -366,11 +605,7 @@ par(family = "Equity Text A Tab",
   mtext("Distress", side = 1, line = 2.8, cex = 1.7, adj = .422)
 ```
 
-
-</div>
-</div>
-</div>
-
+</div></div></div>
 
 Like educational attainment, many psychological traits are more differentiated at some points in the continuum than at others. For example, as seen in Figure&nbsp;\@ref(fig:differentiation), it sometimes convenient to lump the various flavors of trait anxiety together at the low and middle range of distress and then to distinguish among them at the high end. It is difficult to say who is more anxious, a person who is extremely paranoid^[Although *paranoia* is not traditionally considered a type of anxiety, it is clear that anxiety (about the possibly malevolent intentions of others) is a core feature of the trait.] or a person with a severe case of panic disorder. We can say that each is more anxious than the average person (an ordinal comparison) but each has a qualitatively different kind of anxiety. This problem is easily solved by simply talking about two different scales (paranoia and panic). However, there are different kinds of paranoia (e.g., different mixtures of hostility, fear, and psychosis) and different kinds of panic (e.g., panic vs. fear of panic). One can always divide psychological variables into ever narrower categories, making comparisons among and across related constructs problematic. At some point, we gloss over certain qualitative differences and treat them as if they were comparable, even though, strictly speaking, they are not.
 
@@ -391,13 +626,61 @@ With [interval scales]{class=defword}, <label for="tufte-mn-" class="margin-togg
 <p class="caption marginnote">-->(\#fig:suds)Subjective units of distress may not be of equal length<!--</p>-->
 <!--</div>--></span></p>
 
-
-
-
-
-
-
 It is not always easy to distinguish between an interval scale and an ordinal scale. Therapists sometimes ask clients to rate their distress "on a scale from 0 to 10." Probably, in the mind of the therapist, the distance between each point of the scale is equal. In the mind of the client, however, it may not work that way. In Figure&nbsp;\@ref(fig:suds), a hypothetical client thinks of the distance between 9 and 10 as much greater than the distance between 0 and 1. 
+
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-sudsCode" class="toggle" type="checkbox">
+<label for="collapsible-sudsCode" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
+<div class="content-inner">
+
+```tikz
+% Subjective Units of Distress
+
+\documentclass[tikz = true, border = 2pt]{standalone}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning, calc}
+\usetikzlibrary{intersections}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{arrows,shapes,backgrounds, shadows,fadings}
+
+\usepackage{fontspec}
+\setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
+
+\begin{document}
+	
+\begin{tikzpicture}[scale=1]
+\definecolor{firebrick2}{RGB}{205,38,38};
+\definecolor{royalblue2}{RGB}{67,110,238};
+\pgfmathtruncatemacro{\T}{10}
+\tikzstyle{every node}=[draw=none,shape=circle,ball color=royalblue2,minimum size=5.5mm, white];
+\foreach \n in {0,...,\T} 
+\node (\n) at (0,\n) {\footnotesize{\n}};
+\foreach \n [remember=\n as \lastn (initially 0)] in {0,...,\T} 
+\draw (\lastn) -- (\n);
+\tikzstyle{every node}=[draw=none,shape=circle,ball color=firebrick2,minimum size=5.5mm, white];
+\def\myarray{{0,0.63,1.45,2.36,3.33,4.35,5.42,6.52,7.65,8.81,11}};
+\foreach \x [count=\xi] in {0,...,10} 
+\node (\x) at (1,\myarray[\x]) {\footnotesize{\x}};
+\foreach \x [remember=\x as \lastx (initially 0)] in {0,...,\T} 
+\draw (\lastx) -- (\x);
+\tikzstyle{every node}=[rotate=-90];
+\node at (-0.8,5) {\small{Scale you think your client is using (equal intervals)}};
+\node at (1.8,5) {\small{Scale your client is actually using (for now, at least)}};
+\end{tikzpicture} 
+\end{document}
+```
+
+</div></div></div>
+
+
+
 
 It is doubtful that any subjectively scaled measurement is a true interval scale. Even so, it is clear that some ordinal scales are more interval-like than others. Using item response theory [@embretson2000item], it is possible to sum many ordinal-level items and scale the total score such that it approximates an interval scale. It is important to note, however, that item response theory does not accomplish magic. The application of item response theory in this way is justified only if the ordinal items are measuring an underlying construct that is by nature at the interval (or ratio) level. No amount of statistical wizardry can alter the nature of the underlying construct. Sure, you can apply fancy math to the numbers, but a construct that is ordinal by nature will remain ordinal no matter what you do or convince yourself that you have done.
 
@@ -420,10 +703,10 @@ Interval and ratio variables can be either discrete or continuous. [Discrete var
 <div class="figure" style="text-align: center">
 <p class="caption">(\#fig:DiscreteContinuous)Discrete variables have gaps whereas continuous variables have none.</p><img src="DiscreteContinuous.svg" alt="Discrete variables have gaps whereas continuous variables have none." width="700"  /></div>
 
-<div class="wrap-collapsible">
-<input id="collapsible4" class="toggle" type="checkbox">
-<label for="collapsible4" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-DiscreteContinuousCode" class="toggle" type="checkbox">
+<label for="collapsible-DiscreteContinuousCode" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
 <div class="content-inner">
 
 ```tikz
@@ -466,15 +749,16 @@ Interval and ratio variables can be either discrete or continuous. [Discrete var
 \end{tikzpicture}
 \end{document}
 ```
-</div>
-</div>
-</div>
+
+</div></div></div>
+
 
 
 When a variable can assume any value within a specified interval, the variable is said to be [continuous]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **continuous variable** can take on any value within a specified range.</span> In theory, this means that fractions and decimals can be used to achieve any level of precision that we desire. In practice, we must round the numbers at some point, technically making the variable discrete. 
 
 
 <!--chapter:end:02-variables.Rmd-->
+
 
 # Distributions
 
@@ -484,24 +768,22 @@ When a variable can assume any value within a specified interval, the variable i
 
 Because we first learn about variables in an algebra class, we tend to think of variables as having values that can be solved for---if we have enough information about them. If I say that $x$ is a variable and that $x+6=8$, we can use algebra to find that $x$ must equal 2.
 
-[Random variables]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">**Random variables** have values that are determined by a random process.</span> are not like algebraic variables. Random variables simply take on values because of some random process. If we say that the outcome of a throw of a six-sided die is a random variable, there is nothing to "solve for." There is no equation that determines the value of the die. Instead, it is determined by chance and the physical constraints of the die. That is, the outcome must be one of the numbers printed on the die and the six numbers are equally likely to occur. This illustrates an important point. The word *random* here does not mean "anything can happen." On a six-sided die, you will never roll a 7, 3.5, $\sqrt{\pi}$, &minus;36,000, or any other number that does not appear on the six sides of the die. Random variables have outcomes that are subject to random processes, but those random processes *do*  have constraints on them such that some outcomes are more likely than others---and some outcomes never occur at all. 
+[Random variables]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">**Random variables** have values that are determined by a random process.</span> are not like algebraic variables. Random variables simply take on values because of some random process. If we say that the outcome of a throw of a six-sided die is a random variable, there is nothing to "solve for." There is no equation that determines the value of the die. Instead, it is determined by chance and the physical constraints of the die. That is, the outcome must be one of the numbers printed on the die, and the six numbers are equally likely to occur. This illustrates an important point. The word *random* here does not mean "anything can happen." On a six-sided die, you will never roll a 7, 3.5, $\sqrt{\pi}$, &minus;36,000, or any other number that does not appear on the six sides of the die. Random variables have outcomes that are subject to random processes, but those random processes *do*  have constraints on them such that some outcomes are more likely than others---and some outcomes never occur at all. 
 
 <p><span class="marginnote shownote">
 <!--
 <div class="figure">-->
-<img src="randomvariable.gif" alt="Rolling a six-sided die is a process that creates a randomly ordered series of integers from 1 to 6."  />
+<img src="randomvariable.gif" alt="Rolling a six-sided die is a process that creates a randomly ordered series of integers from 1 to 6." width="25%"  />
 <!--
 <p class="caption marginnote">-->(\#fig:randomvariable)Rolling a six-sided die is a process that creates a randomly ordered series of integers from 1 to 6.<!--</p>-->
 <!--</div>--></span></p>
 
 When we say that the throw of a six-sided die is a random variable, we are not talking about any particular throw of a particular die but, in a sense, *every* throw (that has ever happened or ever could happen) of *every* die (that has ever existed or could exist). Imagine an immense, roaring, neverending, cascading flow of dice falling from the sky. As each die lands and disappears, a giant scoreboard nearby records the relative frequencies of ones, twos, threes, fours, fives, and sixes. That's a random variable.
 
-<div class="wrap-collapsible" style="margin-top: 0em;">
-<input id="collapsiblerandomvariable" class="toggle" type="checkbox">
-<label for="collapsiblerandomvariable" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-randomvariableCode" class="toggle" type="checkbox">
+<label for="collapsible-randomvariableCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
-
 
 ```r
 # Function to make dice
@@ -586,6 +868,8 @@ animate(p,
 
 </div></div></div>
 
+
+
 ## Sets
 
 A [set]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **set** is a collection of distinct objects.</span> refers to a collection of objects. Each distinct object in a set is an [element]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">An **element** is a distinct member of a set.</span> 
@@ -596,7 +880,6 @@ To show that a list of discrete elements is a set, we can use curly braces. For 
 
 ### Interval Sets
 
-With continuous variables, we can define sets in terms of intervals. Whereas the discrete set $\{0,1\}$ refers just to the numbers 0 and 1, the interval set $(0,1)$ refers to all the numbers between 0 and 1. As shown in (Figure&nbsp;\@ref(fig:intervalnotation)), some intervals include their endpoints and others do not.
 
 
 <p><span class="marginnote shownote">
@@ -608,14 +891,17 @@ With continuous variables, we can define sets in terms of intervals. Whereas the
 <!--</div>--></span></p>
 
 
+
+
+With continuous variables, we can define sets in terms of intervals. Whereas the discrete set $\{0,1\}$ refers just to the numbers 0 and 1, the interval set $(0,1)$ refers to all the numbers between 0 and 1. As shown in (Figure&nbsp;\@ref(fig:intervalnotation)), some intervals include their endpoints and others do not.
+
 <div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible-intervalnotation" class="toggle" type="checkbox">
-<label for="collapsible-intervalnotation" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<input id="collapsible-intervalnotationCode" class="toggle" type="checkbox">
+<label for="collapsible-intervalnotationCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
-
 ```r
+# Interval notation
 tibble(lb = 1L,
        ub = 5L,
        y = 1:4,
@@ -658,6 +944,7 @@ tibble(lb = 1L,
 
 </div></div></div>
 
+
 ## Sample Spaces {#sec:SampleSpace}
 
 The set of all possible outcomes of a random variable is the [sample space]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **sample space** is the set of all possible values that a random variable can assume.</span> Continuing with our example, the sample space of a single throw of a six-sided die is the set $\{1,2,3,4,5,6\}$. *Sample space* is a curious term. Why *sample* and why *space*? With random variables, [populations]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **population** consists of all entities under consideration.</span> are infinitely large, at least theoretically. Random variables just keep spitting out numbers forever! So any time we actually observe numbers generated by a random variable, we are always observing a [sample]{class=defword};<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **sample** is a subset of a population.</span> actual infinities cannot be observed in their entirety. A *space* is a set that has mathematical structure. Most random variables generate either integers or real numbers, both of which are structured in many ways (e.g., order).
@@ -678,12 +965,10 @@ The sample space of continuous variables is infinitely large for another reason.
 
 Each element of a random variable's sample space occurs with a particular probability. When we list the probabilities of each possible outcome, we have specified the variable's [probability distribution]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">In a **probability distribution**, there is an assignment of a probability to each possible element in a variable's sample space.</span>. In other words, if we know the probability distribution of a variable, we know how probable each outcome is. In the case of a throw of a single die, each outcome is equally likely (Figure&nbsp;\@ref(fig:dice)). 
 
-<div class="wrap-collapsible" style="margin-top: 0em;">
-<input id="collapsible31" class="toggle" type="checkbox">
-<label for="collapsible31" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-DicePMF" class="toggle" type="checkbox">
+<label for="collapsible-DicePMF" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
 <div class="content-inner">
-
 
 ```tikz
 % Dice PMF
@@ -753,9 +1038,8 @@ Each element of a random variable's sample space occurs with a particular probab
 	\end{tikzpicture}	
 \end{document}
 ```
-</div>
-</div>
-</div>
+
+</div></div></div>
 
 There is an infinite variety of probability distributions, but a small subset of them have been given names. Now, one can manage one's affairs quite well without ever knowing what a Bernoulli distribution is, or what a $\chi{^2}$ distribution is, or even what a normal distribution is. However, sometimes life is a little easier if we have names for useful things that occur often. Most of the distributions with names are not really single distributions, but families of distributions. The various members of a family are unique but they are united by the fact that their probability distributions are generated by a particular mathematical function (more on that later). In such cases, the probability distribution is often represented by a graph in which the sample space is on the $X$-axis and the associated probabilities are on the $Y$-axis. In Figure&nbsp;\@ref(fig:pdfIllustration), 16 probability distributions that might be interesting and useful to clinicians are illustrated. Keep in mind that what are pictured are only particular members of the families listed; some family members look quite different from what is shown in Figure&nbsp;\@ref(fig:pdfIllustration).
 
@@ -764,14 +1048,14 @@ There is an infinite variety of probability distributions, but a small subset of
 <p class="caption marginnote shownote">(\#fig:pdfIllustration)A gallery of useful distributions</p>
 </div>
 
-<div class="wrap-collapsible">
-<input id="collapsible32" class="toggle" type="checkbox">
-<label for="collapsible32" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-pdfIllustrationCode" class="toggle" type="checkbox">
+<label for="collapsible-pdfIllustrationCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
-
 ```r
+# A gallery of useful distributions
 # Run output file pdfIllustration.tex in LaTeX
 # pdflatex --enable-write18 --extra-mem-bot=10000000 --synctex=1 pdfIllustration.tex
 tikzpackages <- paste(
@@ -783,7 +1067,7 @@ tikzpackages <- paste(
 )
 
 tikzDevice::tikz('pdfIllustration.tex',
-                 standAlone=TRUE, 
+                 standAlone = TRUE, 
                  packages = tikzpackages, 
                  width = 11, 
                  height = 11)
@@ -852,7 +1136,7 @@ plot(
   lty = 3,
   pch = 19
 )
-text(x = 7, y = .15, "$\\lambda=3$")
+text(x = 7, y = .15, r"($\lambda=3$)")
 
 # Geometric
 plot(
@@ -962,7 +1246,7 @@ for (i in 1:length(at)) axis(side, at = at[i], labels = labels[i],tick = F)
 }
 axis_ticks <- seq(-4,4,2)
 axis_labs <- center_neg(axis_ticks)
-all_tick_labels(1, at = axis_ticks, labels =axis_labs)
+all_tick_labels(1, at = axis_ticks, labels = axis_labs)
 
 
 # Student t
@@ -991,7 +1275,7 @@ text(x = 3, y = .3, "$\\nu=2$")
 axis(2)
 axis_ticks <- seq(-6,6,2)
 axis_labs <- center_neg(axis_ticks)
-all_tick_labels(1, at = axis_ticks, labels =axis_labs)
+all_tick_labels(1, at = axis_ticks, labels = axis_labs)
 
 # Chi-Square
 x <- seq(0, 40, 0.05)
@@ -1247,10 +1531,7 @@ text(0, 0.25, "$\\rho_{XY}=0.6$")
 dev.off()
 ```
 
-
-</div>
-</div>
-</div>
+</div></div></div>
 
 ## Discrete Uniform Distributions {#sec:DiscreteUniform}
 
@@ -1259,41 +1540,58 @@ The throw of a single die is a member of a family of distributions called the [d
 This kind of discrete uniform distribution has a number of characteristics listed in Table&nbsp;\@ref(tab:uniformfeatures). I will explain each of them in the sections that follow. As we go, I will also explain the mathematical notation. For example, $a \in \{\ldots,-1,0,1,\ldots\}$ means that $a$ is an integer because $\in$ means *is a member of* and $\{\ldots,-1,0,1,\ldots\}$ is the set of all integers.^[Sometimes the set of all integers is referred to with the symbol $\mathbb{Z}$] $x \in \{a,a+1,\ldots,b\}$ means that the each member of the sample space $x$ is a member of the set of integers that include $a$, $b$, and all the integers between $a$ and $b$. The notation for the [probability mass function](#sec:pmf) and the [cumuluative distribution function](#sec:CumDist) function will be explained later in this chapter.
 
 
-<!-- $$\begin{equation*} -->
-<!-- \boxed{ -->
-<!-- \begin{array}{rccc} -->
-<!-- %\text{\textbf{Discrete Uniform Distribution}}&&\\ -->
-<!-- \text{Lower Bound:} & a  & {\in} & {\mathbb{Z}}\\ -->
-<!-- \text{Upper Bound:} & b & \in & \mathbb{Z}\\ -->
-<!-- &&&b>a\\ -->
-<!-- \text{Sample Space:} & x &\in&\{a,a+1,\ldots,b\}\\ -->
-<!-- \text{Number of points:} & n&=&b-a+1 \\ -->
-<!-- \text{Mean:} & \mu&=&\frac{a+b}{2} \\ -->
-<!-- \text{Variance:} & \sigma^2&=&\frac{n^2-1}{12} \\ -->
-<!-- \text{Skewness:} & \gamma_1&=&0 \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&-\frac{6(n^2+1)}{5(n^2-1)} \\ -->
-<!-- \text{Probability Mass Function:} & f_X(x;a,b)&=&\frac{1}{n} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;a,b)&=&\frac{x-a+1}{n} \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*}$$ -->
-
-
-
-Table: (\#tab:uniformfeatures)Features of Discrete Uniform Distributions
-
-|Feature                          |Symbol                                |
-|:--------------------------------|:-------------------------------------|
-|Lower Bound                      |$a \in \{\ldots,-1,0,1,\ldots\}$      |
-|Upper Bound                      |$b \in \{a + 1, a + 2,  \ldots\}$     |
-|Sample Space                     |$x \in\{a, a + 1,\ldots,b\}$          |
-|Number of points                 |$n=b-a+1$                             |
-|Mean                             |$\mu=\frac{a+b}{2}$                   |
-|Variance                         |$\sigma^2=\frac{n^2-1}{12}$           |
-|Skewness                         |$\gamma_1=0$                          |
-|Kurtosis                         |$\gamma_2=-\frac{6(n^2+1)}{5(n^2-1)}$ |
-|Probability Mass Function        |$f_X(x;a,b)=\frac{1}{n}$              |
-|Cumulative Distribution Function |$F_X(x;a,b)=\frac{x-a+1}{n}$          |
+<table>
+<caption>(\#tab:uniformfeatures)Features of Discrete Uniform Distributions</caption>
+<col width="400">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Symbol </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Lower Bound </td>
+   <td style="text-align:left;"> $a \in \{\ldots,-1,0,1,\ldots\}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper Bound </td>
+   <td style="text-align:left;"> $b \in \{a + 1, a + 2,  \ldots\}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample Space </td>
+   <td style="text-align:left;"> $x \in\{a, a + 1,\ldots,b\}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Number of points </td>
+   <td style="text-align:left;"> $n=b-a+1$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mean </td>
+   <td style="text-align:left;"> $\mu=\frac{a+b}{2}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Variance </td>
+   <td style="text-align:left;"> $\sigma^2=\frac{n^2-1}{12}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skewness </td>
+   <td style="text-align:left;"> $\gamma_1=0$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:left;"> $\gamma_2=-\frac{6(n^2+1)}{5(n^2-1)}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Mass Function </td>
+   <td style="text-align:left;"> $f_X(x;a,b)=\frac{1}{n}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> $F_X(x;a,b)=\frac{x-a+1}{n}$ </td>
+  </tr>
+</tbody>
+</table>
 
 ### Parameters of Random Variables 
 
@@ -1317,17 +1615,17 @@ Many distribution families are united by the fact that their probability distrib
 A probability mass function transforms a random variable's sample space elements into probabilities. In Figure&nbsp;\@ref(fig:dice), the probability mass function can be thought of as the arrows between the sample space and the probabilities. That is, the probability mass function is the thing that was done to the sample space elements to calculate the probabilities. In Figure&nbsp;\@ref(fig:dice), each outcome of a throw of the the die was mapped onto a probability of &frac16;. Why &frac16;, and not some other number? The probability mass function of the discrete uniform distribution tells us the answer. 
 
 <div class="figure" style="text-align: center">
-<p class="caption">(\#fig:pmf)Though one may be scarier than the other, both boxes mean the same thing: Probability mass functions tell us how probable each sample space element is.</p><img src="pmf.svg" alt="Though one may be scarier than the other, both boxes mean the same thing: Probability mass functions tell us how probable each sample space element is." width="672"  /></div>
+<p class="caption">(\#fig:pmf)Probability mass functions tell us how probable each sample space element is. That is, they are functions that convert samples spaces $(\boldsymbol{x})$ into probabilities $(\boldsymbol{p})$ according to specific parameters $(\boldsymbol{\theta}).$</p><img src="pmf.svg" alt="Probability mass functions tell us how probable each sample space element is. That is, they are functions that convert samples spaces $(\boldsymbol{x})$ into probabilities $(\boldsymbol{p})$ according to specific parameters $(\boldsymbol{\theta}).$" width="672"  /></div>
 
-<div class="wrap-collapsible">
-<input id="collapsible33" class="toggle" type="checkbox">
-<label for="collapsible33" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
+
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-scarymath" class="toggle" type="checkbox">
+<label for="collapsible-scarymath" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
 <div class="content-inner">
 
-
 ```tikz
-% Probability Mass Function Scary Math
+% Probability mass functions tell us how probable each sample space element is
 
 \documentclass[tikz = true, border = 2pt]{standalone}
 
@@ -1336,12 +1634,11 @@ A probability mass function transforms a random variable's sample space elements
 \usetikzlibrary{decorations.text, arrows}
 \usetikzlibrary{shapes}
 \usepackage{fontspec}
-\setmainfont{Equity Text A Tab}
+\setmainfont{Equity Text A}
 
 \begin{document}
 \begin{tikzpicture}[>=stealth,scale=0.9]
-\definecolor{firebrick2}{RGB}{205,38,38};
-\definecolor{royalblue2}{RGB}{67,110,238};
+\definecolor{royalblue2}{RGB}{39,64,139};
 \node [rectangle,
        draw, 
        rounded corners= 2pt,
@@ -1357,7 +1654,7 @@ A probability mass function transforms a random variable's sample space elements
        single arrow head extend=1.1ex,
        transform shape,
        minimum height=0.9cm,
-       text depth=0.25ex] (fx) at (3.5,0) {$\quad\;\; f_X\quad\;\;$};
+       text depth=0.25ex, text=white] (fx) at (3.5,0) {$\quad\;\; f_X\quad\;\;$};
 \node [text depth=2.25ex,
        text height= 5ex,
        anchor=south,
@@ -1383,22 +1680,19 @@ A probability mass function transforms a random variable's sample space elements
        rounded corners = 2pt,
        text depth=0.25ex, 
        minimum height = 7mm] (pts) at (3.5,-2.25) {$\boldsymbol{\theta}=\theta_1,\theta_2,\theta_3,\ldots,\theta_k$};
-\node [align=center,
-       shape=rectangle,
-       rounded corners = 3pt,
-       draw](formula) at (3.5,4) {\textbf{\Large{Scary~Math!}}\\
-	$f_X\!\left(\boldsymbol{x};\boldsymbol{\theta}\right)=\boldsymbol{p}$};
-\draw [rounded corners=5pt] (-2.5,-3) rectangle (9.5,2.65);
-\node at (3.5,2) {\textbf{\large{Slightly Less Scary Math:}}};
+%\node [align=center,
+%       shape=rectangle,
+%       rounded corners = 3pt,
+%       draw](formula) at (3.5,4) {\textbf{\Large{Scary~Math!}}\\
+%	$f_X\!\left(\boldsymbol{x};\boldsymbol{\theta}\right)=\boldsymbol{p}$};
+%\draw [rounded corners=5pt] (-2.5,-3) rectangle (9.5,2.65);
+\node at (3.5,2) {$f_X\!\left(\boldsymbol{x};\boldsymbol{\theta}\right)=\boldsymbol{p}$};
 \draw[->,>=latex', very thick] (3.5,-1.15) to (3.5,-0.5);
 \end{tikzpicture}
 \end{document}
 ```
 
-</div>
-</div>
-</div>
-
+</div></div></div>
 
 The probability mass function of the discrete uniform distribution is fairly simple but the notation can be intimidating at first (Figure&nbsp;\@ref(fig:pmf)). By convention, a single random variable is denoted by a capital letter $X$. Any particular value of $X$ in its sample space is represented by a lowercase $x$. In other words, $X$ represents the variable in its totality whereas $x$ is merely one value that $X$ can take on. Confusing? Yes, statisticians work very hard to confuse us---and most of the time they succeed! 
 
@@ -1425,23 +1719,29 @@ You might notice that $x$ is not needed to calculate the probability. Why? Becau
 
 ### Cumulative Distribution Functions {#sec:CumDist}
 
-The [cumulative distribution function]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **cumulative distribution function** is a mathematical expression that gives the probability that a random variable will equal a particular element of the variable's sample space or less.</span> tells us where a sample space element ranks in a distribution. Whereas the probability mass function tells us the probability that a random variable will generate a particular number, the cumulative distribution function tells us the probability that a random variable will generate a particular number or less. The cumulative distribution function of the roll of a die (Figure&nbsp;\@ref(fig:cdfDie)) tells us that the probability of rolling at least a 4 is 4&frasl;6 (i.e., &frac23;).
+The [cumulative distribution function]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **cumulative distribution function** is a mathematical expression that gives the probability that a random variable will equal a particular element of the variable's sample space or less.</span> tells us where a sample space element ranks in a distribution. Whereas the probability mass function tells us the probability that a random variable will generate a particular number, the cumulative distribution function tells us the probability that a random variable will generate a particular number or less. 
 
 $$F_X(x) = P(X \le x)=p$$
 
 
-<div class="figure" style="text-align: center">
-<p class="caption">(\#fig:cdfDie)The cumulative distribution function of the roll of a die is $F_X(x)=\frac{x}{6}$</p><img src="cdfDie.svg" alt="The cumulative distribution function of the roll of a die is $F_X(x)=\frac{x}{6}$" width="672"  /></div>
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="cdfDie.svg" alt="The cumulative distribution function of the roll of a die is $F_X(x)=\frac{x}{6}$" width="100%"  />
+<!--
+<p class="caption marginnote">-->(\#fig:cdfDie)The cumulative distribution function of the roll of a die is $F_X(x)=\frac{x}{6}$<!--</p>-->
+<!--</div>--></span></p>
+
+The cumulative distribution function of the roll of a die (Figure&nbsp;\@ref(fig:cdfDie)) tells us that the probability of rolling at least a 4 is 4&frasl;6 (i.e., &frac23;).
 
 
 
-<div class="wrap-collapsible">
-<input id="collapsible34" class="toggle" type="checkbox">
-<label for="collapsible34" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
+
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-cdfDice" class="toggle" type="checkbox">
+<label for="collapsible-cdfDice" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
 <div class="content-inner">
-
-
 
 ```tikz
 % CDF Dice
@@ -1530,7 +1830,6 @@ $$F_X(x) = P(X \le x)=p$$
 
 </div></div></div>
 
-
 The cumulative distribution function is often distinguished from the probability mass function with a capital $F$ instead of a lowercase $f$. In the case of a discrete uniform distribution consisting of $n$ consecutive integers from $a$ to $b$, the cumulative distribution function is:
 
 \begin{equation*}
@@ -1557,15 +1856,14 @@ The cumulative distribution function is so-named because it adds all the probabi
 
 
 
-<div class="wrap-collapsible">
-<input id="collapsiblepmf2cdf" class="toggle" type="checkbox">
-<label for="collapsiblepmf2cdf" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-pmf2cdfCode" class="toggle" type="checkbox">
+<label for="collapsible-pmf2cdfCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
-
-
 ```r
+# The cumulative distribution function is the sum of the current 
+# and all previous elements of the probability mass function
 p <- crossing(id = 1:6,
          x = 1:6) %>% 
   mutate(pmf = 1 / 6) %>% 
@@ -1643,6 +1941,14 @@ animate(p,
 
 The inverse of the cumulative distribution function is the [quantile function]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **quantile function** tells us which value in the sample space of a random variable is greater than a particular proportion of the values the random variable generates.</span> The cumulative distribution starts with a value $x$ in the sample space and tells us $p$, the proportion of values in that distribution that are less than or equal to $x$. A quantile function starts with a proportion $p$ and tells us the value $x$ that splits the distribution such that the proportion $p$ of the distribution is less than or equal to $x$. 
 
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="toolkit_files/figure-html/cdfvquantile-1.svg" alt="The quantile function is the inverse of the cumulative distribution function: Just flip the X and Y axes!"  />
+<!--
+<p class="caption marginnote">-->(\#fig:cdfvquantile)The quantile function is the inverse of the cumulative distribution function: Just flip the X and Y axes!<!--</p>-->
+<!--</div>--></span></p>
+
 $$
 \begin{array}{rc}
 \text{Cumulative Distribution Function:} & F_X(x) = p \\
@@ -1650,27 +1956,15 @@ $$
 \end{array}
 $$
 
-
 As seen in Figure&nbsp;\@ref(fig:cdfvquantile), if you see a graph of a continuous distribution function, just flip the $X$ and $Y$ axes and you have a graph of a quantile function!
 
-
-
-
-<div class="figure fullwidth">
-<img src="toolkit_files/figure-html/cdfvquantile-1.svg" alt="The quantile function is the inverse of the cumulative distribution function: Just flip the X and Y axes!"  />
-<p class="caption marginnote shownote">(\#fig:cdfvquantile)The quantile function is the inverse of the cumulative distribution function: Just flip the X and Y axes!</p>
-</div>
-
-
-<div class="wrap-collapsible">
-<input id="collapsible35" class="toggle" type="checkbox">
-<label for="collapsible35" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-cdfvquantileCode" class="toggle" type="checkbox">
+<label for="collapsible-cdfvquantileCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
-
-
 ```r
+# The quantile function is the inverse of the cumulative distribution function
 d <- tibble(x = seq(-4, 4, 0.01)) %>%
   mutate(p = pnorm(x))
 
@@ -1683,25 +1977,26 @@ p1 <- ggplot(d, aes(x, p)) +
     color = myfills[1],
     lwd = 1
   ) +
-  scale_x_continuous(expression(Sample ~ Space ~ (italic(x)))) +
-  scale_y_continuous(expression(Proportion ~ (italic(p))), labels = prob_label) +
+  scale_x_continuous("Sample Space (*x*)") +
+  scale_y_continuous("Proportion (*p*)", labels = prob_label) +
   theme_minimal(base_size = 26, base_family = bfont) +
   coord_fixed(8) +
   annotate(
-    "label",
+    "richtext",
     x = -2,
     y = .5 + .25 / 4,
-    label = 'italic(X)%~%italic(N)*group("(",list(0,1^2),")")',
-    parse = T,
+    label = "*X* ~ <span style=\"font-family:'Lucida Calligraphy'\">N</span>(0, 1<sup>2</sup>)",
     family = bfont,
     label.size = 0,
     label.padding = unit(0, "mm"),
-    size = 6
+    size = ggtext_size(26)
   ) +
-  ggtitle(expression(Cumulative~Distribution~Function~italic(F[X](x)) == italic(p))) +
+  ggtitle("Cumulative Distribution Function *F<sub>X</sub>*(*x*) = *p*") +
   theme(
-    title = element_text(size = 14, hjust = 0.5),
-    plot.title = element_text(hjust = 0.5),
+    plot.title = ggtext::element_markdown(size = 26 * 0.8), 
+    plot.title.position = "plot",
+    axis.title.x = ggtext::element_markdown(),
+    axis.title.y = ggtext::element_markdown(),
     axis.text.x = element_text(hjust = c(0.7, 0.7, 0.5, 0.5, 0.5))
   )
 
@@ -1714,37 +2009,36 @@ p2 <- ggplot(d, aes(p, x)) +
     color = myfills[1],
     lwd = 1
   ) +
-  scale_y_continuous(expression(Sample ~ Space ~ (italic(x)))) +
-  scale_x_continuous(expression(Proportion ~ (italic(p))), labels = prob_label) +
+  scale_y_continuous("Sample Space (*x*)") +
+  scale_x_continuous("Proportion (*p*)", labels = prob_label) +
   theme_minimal(base_size = 26, base_family = bfont) +
   coord_fixed(1 / 8) +
   annotate(
-    "label",
+    "richtext",
     y = 0.5,
     x = .25,
-    label = 'italic(X)%~%italic(N)*group("(",list(0,1^2),")")',
-    parse = T,
+    label = "*X* ~ <span style=\"font-family:'Lucida Calligraphy'\">N</span>(0, 1<sup>2</sup>)",
     family = bfont,
     label.size = 0,
     label.padding = unit(0, "mm"),
-    size = 6
+    size = ggtext_size(26)
   ) +
-  ggtitle(expression(Quantile~Function~italic(Q[X](p)) == italic(x))) +
-  theme(title = element_text(size = 14, hjust = 0.5),
-        plot.title = element_text(hjust = 0.5))
+  ggtitle("Quantile Function *Q*<sub>*X*</sub>(*p*) = *x*") +
+  theme(plot.title = ggtext::element_markdown(size = 26 * 0.8), 
+        plot.title.position = "plot",
+        axis.title.x = ggtext::element_markdown(),
+        axis.title.y = ggtext::element_markdown())
 
-
-
-p1 + p2
+p1 / p2
 ```
 
 </div></div></div>
 
+
+
 ### Generating a Random Sample in R
 
 In R, the `sample` function generates numbers from the discrete uniform distribution. 
-
-
 
 
 
@@ -1775,13 +2069,16 @@ X <- sample(sample_space,
             replace = TRUE)
 ```
 
+The frequencies of the random sample can be seen in Figure&nbsp;\@ref(fig:discreteplot). Because of [sampling error]{class=defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">Samples imperfectly represent the population from which they are drawn. **Sampling error** refers to differences between sample statistics and population parameters.</span>, the frequencies are approximately the same, but not exactly the same.
+
 <div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible36" class="toggle" type="checkbox">
-<label for="collapsible36" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<input id="collapsible-discreteplotCode" class="toggle" type="checkbox">
+<label for="collapsible-discreteplotCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
 ```r
+# Frequency distribution of a discrete uniform random variable from 1 to 6 
+
 tibble(X = factor(X)) %>% 
   group_by(X) %>% 
   summarise(Frequency = n()) %>% 
@@ -1807,6 +2104,7 @@ tibble(X = factor(X)) %>%
 
 </div></div></div>
 
+
 ## Bernoulli Distributions {#sec:BernoulliDist}
 
 <p><span class="marginnote shownote">
@@ -1821,38 +2119,54 @@ tibble(X = factor(X)) %>%
 <label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Notation note:</strong> Whereas <span class="math inline">\(\{a,b\}\)</span> is the set of just two numbers, <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, <span class="math inline">\([a,b]\)</span> is the set of all real numbers between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</span></span>
 
 
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-<!-- \begin{array}{rccc} -->
-<!-- % \text{\textbf{Bernoulli Distribution}}&&\\ -->
-<!-- \text{Sample Space:} & x&\in&\{0,1\}\\  -->
-<!-- \text{Probability of success in each trial:}  &p&\in&{[0,1]} \\ -->
-<!-- \text{Mean:} & \mu&=&p \\ -->
-<!-- \text{Variance:} & \sigma^2&=&p(1-p) \\ -->
-<!-- \text{Skewness:} & \gamma_1&=&\frac{1-2p}{\sqrt{p(1-p)}} \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&\frac{1}{p(1-p)}-6 \\ -->
-<!-- \text{Probability Mass Function:} & f_X(x;p)&=&p^x(1-p)^{1-x} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;p)&=&x+p(1-x) \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
-
-<!-- \\text{(.*?)} -->
-
-
-Table: (\#tab:bernoullifeatures)Features of Bernoulli Distributions
-
-|Feature                          |Symbol                                |
-|:--------------------------------|:-------------------------------------|
-|Sample Space:                    |$x \in \{0,1\}$                       |
-|Probability that $x=1$           |$p \in {[0,1]}$                       |
-|Probability that $x=0$           |$q = 1 - p$                           |
-|Mean                             |$\mu = p$                             |
-|Variance                         |$\sigma^2 = pq$                       |
-|Skewness                         |$\gamma_1 = \frac{1 - 2p}{\sqrt{pq}}$ |
-|Kurtosis                         |$\gamma_2 = \frac{1}{pq} - 6$         |
-|Probability Mass Function        |$f_X(x;p) = p^xq^{1 - x}$             |
-|Cumulative Distribution Function |$F_X(x;p) = x+p(1 - x)$               |
+<table>
+<caption>(\#tab:bernoullifeatures)Features of Bernoulli Distributions</caption>
+<col width="400">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Symbol </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Sample Space: </td>
+   <td style="text-align:left;"> $x \in \{0,1\}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability that $x=1$ </td>
+   <td style="text-align:left;"> $p \in {[0,1]}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability that $x=0$ </td>
+   <td style="text-align:left;"> $q = 1 - p$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mean </td>
+   <td style="text-align:left;"> $\mu = p$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Variance </td>
+   <td style="text-align:left;"> $\sigma^2 = pq$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skewness </td>
+   <td style="text-align:left;"> $\gamma_1 = \frac{1 - 2p}{\sqrt{pq}}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:left;"> $\gamma_2 = \frac{1}{pq} - 6$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Mass Function </td>
+   <td style="text-align:left;"> $f_X(x;p) = p^xq^{1 - x}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> $F_X(x;p) = x+p(1 - x)$ </td>
+  </tr>
+</tbody>
+</table>
 
 <p><span class="marginnote shownote">
 <!--
@@ -1864,15 +2178,12 @@ Table: (\#tab:bernoullifeatures)Features of Bernoulli Distributions
 
 The toss of a single coin has the simplest probability distribution that I can think of---there are only two outcomes and each outcome is equally probable (Figure&nbsp;\@ref(fig:coin)). This is a special case of the [Bernoulli distribution]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">In the **Bernoulli distribution**, there are only two outcomes: a &ldquo;success&rdquo; (1) and a &ldquo;failure&rdquo; (0). If a success has a probability $p$ then a failure has a probability of $q = 1 - p$.</span> The Bernoulli distribution can describe any random variable that has two outcomes, one of which has a probability $p$ and the other has a probability $q=1-p$. In the case of a coin flip, $p=0.5$. For other variables with a Bernoulli distribution, $p$ can range from 0 to 1.
 
-<div class="wrap-collapsible" style="margin-top: 0em;">
-<input id="collapsible37" class="toggle" type="checkbox">
-<label for="collapsible37" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-coinbernoulli" class="toggle" type="checkbox">
+<label for="collapsible-coinbernoulli" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
 <div class="content-inner">
 
-
 ```tikz
-
 % Coin toss Bernoulli
 \documentclass[tikz = true, border = 2pt]{standalone}
 \usepackage{fontspec}
@@ -1917,6 +2228,7 @@ The toss of a single coin has the simplest probability distribution that I can t
 
 \end{document}
 ```
+
 </div></div></div>
 
 In psychological assessment, many of the variables we encounter have a Bernoulli distribution. In ability test items in which there is no partial credit, examinees either succeed or fail. The probability of success on an item (in the whole population) is $p$. In other words, $p$ is the proportion of the entire population that correctly answers the question. Some ability test items are very easy and the probability of success is high. In such cases, $p$ is close to 1. When $p$ is close to 0, few people succeed and items are deemed hard. Thus, in the context of ability testing, $p$ is called the [difficulty parameter]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">The **difficulty parameter** is the proportion of people who succeed on an item (or say 'Yes' or 'True' or otherwise score a 1 on a random variable with a Bernoulli distribution.).</span> This is confusing because when $p$ is high, the item is easy, not difficult. Many people have suggested that it would make more sense to call it the "easiness parameter" but the idea has never caught on.
@@ -1930,10 +2242,11 @@ In R, there is no specialized function for the Bernoulli distribution because it
 <p><span class="marginnote shownote">
 <!--
 <div class="figure">-->
-<img src="toolkit_files/figure-html/BernoulliSample-1.svg" alt="Counts of a Random Variable with a Bernoulli Distribution $(p = 0.8, n = 1000)$" width="400"  />
+<img src="toolkit_files/figure-html/BernoulliSample-1.svg" alt="Counts of a Random Variable with a Bernoulli Distribution $(p = 0.8, n = 1000)$" width="100%"  />
 <!--
 <p class="caption marginnote">-->(\#fig:BernoulliSample)Counts of a Random Variable with a Bernoulli Distribution $(p = 0.8, n = 1000)$<!--</p>-->
 <!--</div>--></span></p>
+
 
 
 
@@ -1948,28 +2261,98 @@ X <- rbinom(n, size = 1, prob = p)
 barplot(table(X))
 ```
 
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-BernoulliSampleCodeFigure" class="toggle" type="checkbox">
+<label for="collapsible-BernoulliSampleCodeFigure" class="lbl-toggle">R Code</label><div class="collapsible-content">
+<div class="content-inner">
+
+```r
+# Counts of a Random Variable with a Bernoulli Distribution
+set.seed(4)
+# n = sample size
+n <- 1000
+# p = probability
+p <- 0.8
+# X = sample
+X <- rbinom(n, size = 1, prob = p)
+# Make a basic plot
+ggplot(tibble(X = factor(X)), aes(X)) +
+  geom_bar(fill = myfills[1]) +
+  scale_x_discrete(NULL) + 
+  scale_y_continuous(NULL, expand = expansion(c(0.01,0.1))) +
+  geom_text(aes(label = ..count..), 
+            stat = "count", 
+            vjust = -0.4, 
+            size = ggtext_size(18),
+            family = bfont,
+            color = "gray10") + 
+    theme_minimal(18, bfont) + 
+  theme(panel.grid.major.x = element_blank())
+```
+
+</div></div></div>
+
+
+
 ## Binomial Distributions {#sec:binomial}
 
-
-Table: (\#tab:binomialfeatures)Features of Binomial Distributions
-
-|Feature                              |Symbol                                                       |
-|:------------------------------------|:------------------------------------------------------------|
-|Number of Trials                     |$n \in \{1,2,3,\ldots\}$                                     |
-|Sample Space                         |$x \in \{0,...,n\}$                                          |
-|Probability of success in each trial |$p \in [0,1]$                                                |
-|Probability of failure in each trial |$q = 1 - p$                                                  |
-|Mean                                 |$\mu = np$                                                   |
-|Variance                             |$\sigma = npq$                                               |
-|Skewness                             |$\gamma_1 = \frac{1-2p}{\sqrt{npq}}$                         |
-|Kurtosis                             |$\gamma_2 = \frac{1}{npq} - \frac{6}{n}$                     |
-|Probability Mass Function            |$f_X(x;n,p)=\frac{n!}{x!\left(n-x\right)!}p^x q^{n-x}$       |
-|Cumulative Distribution Function     |$F_X(x;n,p)=\sum_{i=0}^{x}{\frac{n!}{i!(n-i)!} p^i q^{n-i}}$ |
+<table>
+<caption>(\#tab:binomialfeatures)Features of Binomial Distributions</caption>
+<col width="400">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Symbol </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Number of Trials </td>
+   <td style="text-align:left;"> $n \in \{1,2,3,\ldots\}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample Space </td>
+   <td style="text-align:left;"> $x \in \{0,...,n\}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability of success in each trial </td>
+   <td style="text-align:left;"> $p \in [0,1]$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability of failure in each trial </td>
+   <td style="text-align:left;"> $q = 1 - p$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mean </td>
+   <td style="text-align:left;"> $\mu = np$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Variance </td>
+   <td style="text-align:left;"> $\sigma = npq$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skewness </td>
+   <td style="text-align:left;"> $\gamma_1 = \frac{1-2p}{\sqrt{npq}}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:left;"> $\gamma_2 = \frac{1}{npq} - \frac{6}{n}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Mass Function </td>
+   <td style="text-align:left;"> $f_X(x;n,p)=\frac{n!}{x!\left(n-x\right)!}p^x q^{n-x}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> $F_X(x;n,p)=\sum_{i=0}^{x}{\frac{n!}{i!(n-i)!} p^i q^{n-i}}$ </td>
+  </tr>
+</tbody>
+</table>
 
 <p><span class="marginnote shownote">
 <!--
 <div class="figure">-->
-<img src="twocoin.svg" alt="Probability distribution of the number of heads observed when two coins are tossed" width="400"  />
+<img src="twocoin.svg" alt="Probability distribution of the number of heads observed when two coins are tossed" width="100%"  />
 <!--
 <p class="caption marginnote">-->(\#fig:twocoin)Probability distribution of the number of heads observed when two coins are tossed<!--</p>-->
 <!--</div>--></span></p>
@@ -1979,15 +2362,13 @@ Let's extend the idea of coin tosses and see where it leads. Imagine that two co
 
 
 
-
-<div class="wrap-collapsible" style="margin-top: 0em;">
-<input id="collapsible39" class="toggle" type="checkbox">
-<label for="collapsible39" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-twocoinCode" class="toggle" type="checkbox">
+<label for="collapsible-twocoinCode" class="lbl-toggle">$\rm\LaTeX~Code$</label><div class="collapsible-content">
 <div class="content-inner">
 
-
 ```tikz
+% Probability distribution of the number of heads observed when two coins are tossed
 \documentclass[tikz = true,border = 2pt]{standalone}
 \usepackage{tikz}
 \usepackage{fontspec}
@@ -2051,7 +2432,9 @@ Let's extend the idea of coin tosses and see where it leads. Imagine that two co
 \end{tikzpicture}
 \end{document}
 ```
+
 </div></div></div>
+
 
 The probability distribution of the number of heads observed when two coins are tossed at the same time is a member of the *binomial distribution* family. The binomial distribution occurs when *independent*<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">Two random variable are said to be *independent* if the outcome of one variable does not alter the probability of any outcome in the other variable.</span> random variables with the same [Bernoulli distribution](#sec:BernoulliDist) are added together. In fact, Bernoulli discovered the binomial distribution as well as the Bernoulli distribution.
 
@@ -2092,9 +2475,8 @@ f_X(x)=\frac{n!}{x!\left(n-x\right)!}\left(\frac{1}{6}\right)^x\left(\frac{5}{6}
 If we take each element $x$ of the sample space from 0 to 10 and plug it into the equation above, the probability distribution will look like Figure&nbsp;\@ref(fig:pmf6).
 
 <div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible38" class="toggle" type="checkbox">
-<label for="collapsible38" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<input id="collapsible-pmf6Code" class="toggle" type="checkbox">
+<label for="collapsible-pmf6Code" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
 ```r
@@ -2125,9 +2507,8 @@ tibble(sample_space = 0:10) %>%
   scale_x_discrete("Sample Space") + 
   theme(panel.grid.major.x = element_blank()) 
 ```
+
 </div></div></div>
-
-
 
 ### Clinical Applications of the Binomial Distribution 
 
@@ -2176,15 +2557,12 @@ plot(cdfBinomial ~ SampleSpace, type = "b")
 
 However, making the graph look professional involves quite a bit of code that can look daunting at first. However, the results are often worth the effort. Try running the code below to see the difference. For presentation-worthy graphics, export the graph to the .pdf or .svg format. An .svg file can be imported directly into MS Word or MS PowerPoint. 
 
-
-
 <div class="figure" style="text-align: center">
 <p class="caption">(\#fig:BinomialDistribution)Probability Mass Function and Cumulative Distribution Function of the Binomial Distribution $(n = 10,~p = 0.8)$</p><img src="toolkit_files/figure-html/BinomialDistribution-1.svg" alt="Probability Mass Function and Cumulative Distribution Function of the Binomial Distribution $(n = 10,~p = 0.8)$"  /></div>
 
-<div class="wrap-collapsible">
-<input id="collapsible311" class="toggle" type="checkbox">
-<label for="collapsible311" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-BinomialDistributionCode" class="toggle" type="checkbox">
+<label for="collapsible-BinomialDistributionCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
 ```r
@@ -2205,7 +2583,7 @@ tibble(SampleSpace = 0:10,
   scale_x_continuous("Sample Space",
                      breaks = seq(0, 10, 2),
                      expand = expansion(0.02)) +
-  scale_y_continuous(expand = expansion(0.02)) +
+  scale_y_continuous(expand = expansion(0.02), labels = prob_label, breaks = seq(0,1,0.2)) +
   scale_size_manual(values = c(3, 4.5)) +
   theme(legend.position = "none") +
   annotate(
@@ -2232,49 +2610,60 @@ tibble(SampleSpace = 0:10,
     family = "serif",
     label.padding = unit(0, "mm")
   )
-ggsave("BinomialDistribution.pdf", width = 7, height = 7)
-pander::openFileInOS("BinomialDistribution.pdf")
-ggsave("BinomialDistribution.svg", width = 7, height = 7)
-pander::openFileInOS("BinomialDistribution.svg")
 ```
+
 </div></div></div>
+
 
 ## Poisson Distributions
 
-<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Notation note</strong>: The notation <span class="math inline">\((0,\infty]\)</span> means all real numbers greater than 0.</span></span>
+<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Notation note</strong>: The notation <span class="math inline">\((0,\infty)\)</span> means all real numbers greater than 0.</span></span>
 
 
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-
-<!-- \begin{array}{rccc} -->
-<!-- % \text{\textbf{Poisson Distribution}}&&\\ -->
-<!-- \text{Parameter:} & \lambda & \in & \mathbb{R}\\ -->
-<!-- & & & \lambda>0\\ -->
-<!-- \text{Sample Space:} & x&\in& \mathbb{N}_0\\ -->
-<!-- \text{Mean:} & \mu&=& \lambda\\ -->
-<!-- \text{Variance:} & \sigma^2&=&\lambda\\ -->
-<!-- \text{Skewness:} & \gamma_1&=&\frac{1}{\sqrt{\lambda}} \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&\frac{1}{\lambda}\\ -->
-<!-- \text{Probability Mass Function:} & f_X(x;\lambda)&=&\frac{\lambda^x}{e^{\lambda} x!} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;\lambda)&=& \sum_{i=0}^{x}{\frac{\lambda^i}{e^{\lambda} i!}} \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
-
-
-Table: (\#tab:PoissonFeatures)Features of Poisson Distributions
-
-|Feature                          |Symbol                                                               |
-|:--------------------------------|:--------------------------------------------------------------------|
-|Parameter                        |$\lambda \in (0,\infty]$                                             |
-|Sample Space                     |$x\in \{0,1,2,\ldots\}$                                              |
-|Mean                             |$\mu = \lambda$                                                      |
-|Variance                         |$\sigma^2 = \lambda$                                                 |
-|Skewness                         |$\gamma_1 = \frac{1}{\sqrt{\lambda}}$                                |
-|Kurtosis                         |$\gamma_2 = \frac{1}{\lambda}$                                       |
-|Probability Mass Function        |$f_X(x;\lambda) = \frac{\lambda^x}{e^{\lambda} x!}$                  |
-|Cumulative Distribution Function |$F_X(x;\lambda) =  \sum_{i=0}^{x}{\frac{\lambda^i}{e^{\lambda} i!}}$ |
+<table>
+<caption>(\#tab:PoissonFeatures)Features of Poisson Distributions</caption>
+<col width="400">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Symbol </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Parameter </td>
+   <td style="text-align:left;"> $\lambda \in (0,\infty)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample Space </td>
+   <td style="text-align:left;"> $x\in \{0,1,2,\ldots\}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mean </td>
+   <td style="text-align:left;"> $\mu = \lambda$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Variance </td>
+   <td style="text-align:left;"> $\sigma^2 = \lambda$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skewness </td>
+   <td style="text-align:left;"> $\gamma_1 = \frac{1}{\sqrt{\lambda}}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:left;"> $\gamma_2 = \frac{1}{\lambda}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Mass Function </td>
+   <td style="text-align:left;"> $f_X(x;\lambda) = \frac{\lambda^x}{e^{\lambda} x!}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> $F_X(x;\lambda) =  \sum_{i=0}^{x}{\frac{\lambda^i}{e^{\lambda} i!}}$ </td>
+  </tr>
+</tbody>
+</table>
 
 Imagine that an event happens sporadically at random and we measure how often it occurs in regular time intervals (e.g., events per hour). Sometimes the event does not occur in the interval, sometimes just once, and sometimes more than once. However, we notice that over many intervals, the average number of events is constant. The distribution of the number of events in each interval will follow a [Poisson distribution]{class=defword}.<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">The **Poisson distribution** is a discrete distribution used to model how often an event will occur during a partiuclar interval of time.</span> Although "Poisson" means "fish" in French, fish have nothing to do with it. This distribution was named after the scholar who discovered it, Siméon Denis Poisson. 
 
@@ -2293,13 +2682,13 @@ The Poisson distribution has a single parameter *&lambda;*, the average number o
 <p class="caption">(\#fig:samelambda)The shape of the Poisson Distribution depends on the interval used for counting events. Here, the event occurs once per minute, on average.</p><img src="toolkit_files/figure-html/samelambda-1.svg" alt="The shape of the Poisson Distribution depends on the interval used for counting events. Here, the event occurs once per minute, on average."  /></div>
 
 
-<div class="wrap-collapsible">
-<input id="collapsible312" class="toggle" type="checkbox">
-<label for="collapsible312" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-samelambdaCode" class="toggle" type="checkbox">
+<label for="collapsible-samelambdaCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
 ```r
+# The shape of the Poisson Distribution
 crossing(lambda = c(0.5, 5, 30), x = 0:60) %>%
   mutate(p = dpois(x, lambda)) %>%
   mutate(lambda = factor(lambda, labels = paste0(
@@ -2319,7 +2708,9 @@ crossing(lambda = c(0.5, 5, 30), x = 0:60) %>%
   theme(legend.position = "none") +
   scale_y_continuous("Probability", labels = prob_label)
 ```
+
 </div></div></div>
+
 
 ### A clinical application of the the Poisson distribution
 
@@ -2333,13 +2724,14 @@ You plot the frequency of how often he had 0 panic attacks in a week, 1 panic at
 <p class="caption">(\#fig:PanicFrequency)The variability of a hypothetical client's panic attack frequency before and after treatment</p><img src="toolkit_files/figure-html/PanicFrequency-1.svg" alt="The variability of a hypothetical client's panic attack frequency before and after treatment"  /></div>
 
 
-<div class="wrap-collapsible">
-<input id="collapsible313" class="toggle" type="checkbox">
-<label for="collapsible313" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-PanicFrequencyCode" class="toggle" type="checkbox">
+<label for="collapsible-PanicFrequencyCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
 ```r
+# The variability of a hypothetical client's panic attack frequency
 d_label <- tibble(
   x = c(0, 2),
   Time = c("After", "Before"),
@@ -2375,11 +2767,13 @@ tibble(
   theme_minimal(base_size = 20, base_family = bfont) +
   theme(legend.position = "none")
 ```
+
 </div></div></div>
 
-In R, you can use the `dpois` function to plot the Poisson probability mass function. For example, if the average number of events per time period is *&lambda;* = 2, then the probability that there will be 0 events is `dpois(x = 0, lambda = 2)`, which evaluates to 0.1353.
 
-To calculate the cumulative distribution function of Poisson distribution in R, use the `ppois` function. For example, if we want to estimate the probability of having 4 panic attacks or more in a week if *&lambda;* = 2, we must subtract the probability of having 3 panic attacks or less from 1, like so:
+In R, you can use the `dpois` function to plot the Poisson probability mass function. For example, if the average number of events per time period is &lambda; = 2, then the probability that there will be 0 events is `dpois(x = 0, lambda = 2)`, which evaluates to 0.1353.
+
+To calculate the cumulative distribution function of Poisson distribution in R, use the `ppois` function. For example, if we want to estimate the probability of having 4 panic attacks or more in a week if &lambda; = 2, we must subtract the probability of having 3 panic attacks or less from 1, like so:
 
 
 ```r
@@ -2403,7 +2797,7 @@ plot(Probability ~ PanicAttacks, type = "b")
 ```
 
 <div class="figure" style="text-align: center">
-<p class="caption">(\#fig:Panicpmf)Poisson Probability Mass Function (&lambda; = 2)</p><img src="toolkit_files/figure-html/Panicpmf-1.svg" alt="Poisson Probability Mass Function (&amp;lambda; = 2)"  /></div>
+<p class="caption">(\#fig:Panicpmf)Poisson Probability Mass Function $(\lambda=2)$</p><img src="toolkit_files/figure-html/Panicpmf-1.svg" alt="Poisson Probability Mass Function $(\lambda=2)$"  /></div>
 
 
 ```r
@@ -2415,26 +2809,28 @@ plot(CumulativeProbability ~ PanicAttacks, type = "b")
 ```
 
 <div class="figure" style="text-align: center">
-<p class="caption">(\#fig:PanicCDF)Poisson Cumulative Distribution Function (&lambda; = 2)</p><img src="toolkit_files/figure-html/PanicCDF-1.svg" alt="Poisson Cumulative Distribution Function (&amp;lambda; = 2)"  /></div>
+<p class="caption">(\#fig:PanicCDF)Poisson Cumulative Distribution Function $(\lambda=2)$</p><img src="toolkit_files/figure-html/PanicCDF-1.svg" alt="Poisson Cumulative Distribution Function $(\lambda=2)$"  /></div>
 
-With an additional series with *&lambda;* = 0.5, the plot can look like Figure&nbsp;\@ref(fig:PanicCumulativeFrequency).
+With an additional series with $\lambda = 0.5$, the plot can look like Figure&nbsp;\@ref(fig:PanicCumulativeFrequency).
 
 <div class="figure" style="text-align: center">
 <p class="caption">(\#fig:PanicCumulativeFrequency)The cumulative distribution function of a hypothetical client's panic attack frequency before and after treatment</p><img src="toolkit_files/figure-html/PanicCumulativeFrequency-1.svg" alt="The cumulative distribution function of a hypothetical client's panic attack frequency before and after treatment"  /></div>
 
-<div class="wrap-collapsible">
-<input id="collapsible314" class="toggle" type="checkbox">
-<label for="collapsible314" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-unnamed-chunk-6" class="toggle" type="checkbox">
+<label for="collapsible-unnamed-chunk-6" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
 ```r
+# The cumulative distribution function of a hypothetical client's
+# panic attack frequency before and after treatment
 d_label <- tibble(
   x = c(0, 0),
   Time = c("After", "Before"),
   Proportion = ppois(x, lambda = c(0.5, 2)),
-  Label = c("After Treatment: \u03BB = 0.5",
-            "Before Treatment: \u03BB = 2")
+  Label = c("After Treatment: *&lambda;* = 0.5",
+            "Before Treatment: *&lambda;* = 2")
 )
 
 tibble(
@@ -2446,7 +2842,7 @@ tibble(
   ggplot(aes(x, Proportion, color = Time)) +
   geom_line(linetype = "dotted") +
   geom_point(size = 3) +
-  geom_label(
+  geom_richtext(
     data = d_label,
     aes(label = Label),
     hjust = 0,
@@ -2454,7 +2850,7 @@ tibble(
     family = bfont,
     label.padding = unit(0, "lines"),
     label.size = 0,
-    size = 6
+    size = ggtext_size(20)
   ) +
   scale_color_manual(values = myfills) +
   scale_y_continuous(breaks = seq(0, 1, 0.2), 
@@ -2466,51 +2862,110 @@ tibble(
   theme_minimal(base_size = 20, base_family = bfont) +
   theme(legend.position = "none")
 ```
+
 </div></div></div>
 
-## Geometric Distributions}
+## Geometric Distributions
 
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-
-<!-- \begin{array}{rccc} -->
-<!-- % \text{\textbf{Geometric Distribution}}&&\\ -->
-<!-- \text{Probability of success in each trial:}  &p&\in&[0,1] \\ -->
-<!-- \text{Sample Space:} & x&\in& \{1,2,3,\ldots\}\\ -->
-<!-- \text{Mean:} & \mu&=& \frac{1}{p}\\ -->
-<!-- \text{Variance:} & \sigma^2&=&\frac{1-p}{p^2}\\ -->
-<!-- \text{Skewness:} & \gamma_1&=&\frac{2-p}{\sqrt{1-p}} \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&6+\frac{p^2}{1-p}\\ -->
-<!-- \text{Probability Mass Function:} & f_X(x;p)&=&(1-p)^{x-1}p^x \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;p)&=& 1-(1-p)^x \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
-
-
-Table: (\#tab:GeometricFeatures)Features of Geometric Distributions
-
-|Feature                              |Symbol                              |
-|:------------------------------------|:-----------------------------------|
-|Probability of success in each trial |$p\in[0,1]$                         |
-|Sample Space                         |$x \in \{1,2,3,\ldots\}$            |
-|Mean                                 |$\mu = \frac{1}{p}$                 |
-|Variance                             |$\sigma^2 = \frac{1-p}{p^2}$        |
-|Skewness                             |$\gamma_1 = \frac{2-p}{\sqrt{1-p}}$ |
-|Kurtosis                             |$\gamma_2 = 6 + \frac{p^2}{1-p}$    |
-|Probability Mass Function            |$f_X(x;p) = (1-p)^{x-1}p^x$         |
-|Cumulative Distribution Function     |$F_X(x;p) = 1-(1-p)^x$              |
-
+<table>
+<caption>(\#tab:GeometricFeatures)Features of Geometric Distributions</caption>
+<col width="400">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Symbol </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Probability of success in each trial </td>
+   <td style="text-align:left;"> $p\in[0,1]$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample Space </td>
+   <td style="text-align:left;"> $x \in \{1,2,3,\ldots\}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mean </td>
+   <td style="text-align:left;"> $\mu = \frac{1}{p}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Variance </td>
+   <td style="text-align:left;"> $\sigma^2 = \frac{1-p}{p^2}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skewness </td>
+   <td style="text-align:left;"> $\gamma_1 = \frac{2-p}{\sqrt{1-p}}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:left;"> $\gamma_2 = 6 + \frac{p^2}{1-p}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Mass Function </td>
+   <td style="text-align:left;"> $f_X(x;p) = (1-p)^{x-1}p^x$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> $F_X(x;p) = 1-(1-p)^x$ </td>
+  </tr>
+</tbody>
+</table>
 
 Atul Gawande [-@gawande2007better, pp. 219--223] tells a marvelous anecdote about how a doctor used some statistics to help a young patient with cystic fibrosis to return to taking her medication more regularly. Because the story is full of pathos and masterfully told, I will not repeat a clumsy version of it here. However, unlike Gawande, I *will* show how the doctor's statistics were calculated. 
 
 According to the story, if a patient fails to take medication, the probability that a person with cystic fibrosis will develop a bad lung illness on any particular day is .005. If medication is taken, the risk is .0005. Although these probabilities are both close to zero, over the the course of a year, they result in very different levels of risk. Off medication, the patient has about an 84% chance of getting sick within a year's time. On medication, the patient's risk falls to 17%. As seen in Figure&nbsp;\@ref(fig:WithMedicationCDF), the cumulative risk over the course of 10 years is quite different. Without medication, the probability of becoming seriously ill within 10 years at least once is almost certain. With medication, however, a small but substantial percentage (~16%) of patients will go at least 10 years without becoming ill. 
 
 
-
-
 <div class="figure" style="text-align: center">
 <p class="caption">(\#fig:WithMedicationCDF)The cumulative risk of serious lung disease with and without medication</p><img src="toolkit_files/figure-html/WithMedicationCDF-1.svg" alt="The cumulative risk of serious lung disease with and without medication"  /></div>
+
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-WithMedicationCDFCode" class="toggle" type="checkbox">
+<label for="collapsible-WithMedicationCDFCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
+<div class="content-inner">
+
+```r
+# The cumulative risk of serious lung 
+# disease with and without medication
+total_years <- 10
+
+tibble(Days = seq(0, total_years * 365, 10),
+       WithoutMeds = pgeom(Days, 0.005),
+       WithMeds = pgeom(Days, 0.0005)) %>% 
+  gather(Meds, p, -Days) %>% 
+  mutate(Years = Days / 365) %>% 
+  ggplot(aes(Years, p, color = Meds)) + 
+  geom_line() + 
+  theme_minimal(base_size = 18, base_family = bfont) + 
+  theme(legend.position = "none") +
+  scale_x_continuous(breaks = seq(0,total_years,2)) + 
+  scale_y_continuous("Cumulative Risk", breaks = seq(0,1,0.2),
+                     labels = . %>% prob_label(., 0.1)) +
+  scale_color_manual(values = myfills) +
+  coord_fixed(ratio = 10) +
+  annotate(x = 4, y = 0.93, 
+           label = "Without Medication\nDaily Risk = .005",
+           geom = "label", 
+           color = myfills[2],
+           label.padding = unit(0,"lines"),
+           label.size = 0,
+           family = bfont,
+           size = 5.2
+           ) +
+  annotate(x = 6.25, y = 0.535, 
+           label = "With Medication\nDaily Risk = .0005",
+           geom = "label", 
+           color = myfills[1],
+           label.padding = unit(0,"lines"),
+           label.size = 0,
+           family = bfont,
+           size = 5.2
+           )
+```
+
+</div></div></div>
 
 
 Such calculations make use of the *geometric distribution*. Consider a series of [Bernoulli trials](#sec:BernoulliDist) in which an event has a probability $p$ of occurring on any particular trial. The probability mass function of the geometric distribution will tell us the probability that the x^th^ trial will be the first time the event occurs. 
@@ -2575,39 +3030,53 @@ Note that some probability density functions can produce values greater than 1. 
 
 ## Continuous Uniform Distributions {#sec:Uniform}
 
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-
-<!-- \begin{array}{rccc} -->
-<!-- %\text{\textbf{Uniform Distributions}}&&\\ -->
-<!-- \text{Lower Bound:} & a  & \in & [-\infty,\infty]\\ -->
-<!-- \text{Upper Bound:} & b & \in & [-\infty,\infty]\\ -->
-<!-- &&&b>a\\ -->
-<!-- \text{Sample Space:} & x &\in& \lbrack a,b\rbrack\\ -->
-<!-- \text{Mean:} & \mu&=&\frac{a+b}{2} \\ -->
-<!-- \text{Variance:} & \sigma^2&=&\frac{(b-a)^2-1}{12} \\ -->
-<!-- \text{Skewness:} & \gamma_1&=&0 \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&-\frac{6}{5} \\ -->
-<!-- \text{Probability Density Function:} & f_X(x;a,b)&=&\frac{1}{b-a} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;a,b)&=&\frac{x-a}{b-a} \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
-
-
-Table: (\#tab:discretefeatures)Features of Continuous Discrete Distributions
-
-|Feature                          |Symbol                            |
-|:--------------------------------|:---------------------------------|
-|Lower Bound                      |$a  \in [-\infty,\infty]$         |
-|Upper Bound                      |$b \in (a,\infty]$                |
-|Sample Space                     |$x \in \lbrack a,b\rbrack$        |
-|Mean                             |$\mu = \frac{a+b}{2}$             |
-|Variance                         |$\sigma^2 = \frac{(b-a)^2-1}{12}$ |
-|Skewness                         |$\gamma_1 = 0$                    |
-|Kurtosis                         |$\gamma_2 = -\frac{6}{5}$         |
-|Probability Density Function     |$f_X(x;a,b) = \frac{1}{b-a}$      |
-|Cumulative Distribution Function |$F_X(x;a,b) = \frac{x-a}{b-a}$    |
+<table>
+<caption>(\#tab:discretefeatures)Features of Continuous Discrete Distributions</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Symbol </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Lower Bound </td>
+   <td style="text-align:left;"> $a  \in (-\infty,\infty)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper Bound </td>
+   <td style="text-align:left;"> $b \in (a,\infty)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample Space </td>
+   <td style="text-align:left;"> $x \in \lbrack a,b\rbrack$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mean </td>
+   <td style="text-align:left;"> $\mu = \frac{a+b}{2}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Variance </td>
+   <td style="text-align:left;"> $\sigma^2 = \frac{(b-a)^2-1}{12}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skewness </td>
+   <td style="text-align:left;"> $\gamma_1 = 0$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:left;"> $\gamma_2 = -\frac{6}{5}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Density Function </td>
+   <td style="text-align:left;"> $f_X(x;a,b) = \frac{1}{b-a}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> $F_X(x;a,b) = \frac{x-a}{b-a}$ </td>
+  </tr>
+</tbody>
+</table>
 
 
 Unlike the [discrete uniform distribution](#sec:DiscreteUniform), the uniform distribution is [continuous](#sec:DiscreteVsContinuous).^[For the sake of clarity, the uniform distribution is often referred to as the *continuous uniform distribution*.] In both distributions, there is an upper and lower bound and all members of the sample space are equally probable.
@@ -2668,33 +3137,46 @@ Excel has quantile functions for many distributions (e.g., `BETA.INV, BINOM.INV,
 <!--</div>--></span></p>
 
 
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-
-<!-- \begin{array}{rccc} -->
-<!-- \text{Sample Space:} & x &\in&[-\infty,\infty]\\ -->
-<!-- \text{Mean:} & \mu&=&\frac{a+b}{2} \\ -->
-<!-- \text{Variance:} & \sigma^2&=&\frac{(b-a)^2-1}{12} \\ -->
-<!-- \text{Skewness:} & \gamma_1&=&0 \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&-\frac{6}{5} \\ -->
-<!-- \text{Probability Density Function:} & f_X(x;a,b)&=&\frac{1}{b-a} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;a,b)&=&\frac{x-a}{b-a} \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
-
-
-Table: (\#tab:normalfeatures)Features of Normal Distributions
-
-|Feature                          |Symbol                                                                                                                                           |
-|:--------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
-|Sample Space                     |$x \in [-\infty,\infty]$                                                                                                                         |
-|Mean                             |$\mu = \text{E}\left(X\right)$                                                                                                                   |
-|Variance                         |$\sigma^2 = \text{E}\left(\left(X - \mu\right)^2\right)$                                                                                         |
-|Skewness                         |$\gamma_1 = 0$                                                                                                                                   |
-|Kurtosis                         |$\gamma_2 = 0$                                                                                                                                   |
-|Probability Density Function     |$f_X(x;\mu,\sigma^2) = \frac{1}{\sqrt{2 \pi \sigma ^ 2}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$                                    |
-|Cumulative Distribution Function |$F_X(x;\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} {\displaystyle \int_{-\infty}^{x} e ^ {-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx}$ |
+<table>
+<caption>(\#tab:normalfeatures)Features of Normal Distributions</caption>
+<col width="400">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Symbol </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Sample Space </td>
+   <td style="text-align:left;"> $x \in (-\infty,\infty)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mean </td>
+   <td style="text-align:left;"> $\mu = \text{E}\left(X\right)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Variance </td>
+   <td style="text-align:left;"> $\sigma^2 = \text{E}\left(\left(X - \mu\right)^2\right)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skewness </td>
+   <td style="text-align:left;"> $\gamma_1 = 0$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:left;"> $\gamma_2 = 0$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Density Function </td>
+   <td style="text-align:left;"> $f_X(x;\mu,\sigma^2) = \frac{1}{\sqrt{2 \pi \sigma ^ 2}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> $F_X(x;\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} {\displaystyle \int_{-\infty}^{x} e ^ {-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx}$ </td>
+  </tr>
+</tbody>
+</table>
 
 The normal distribution is probably the most important distribution in statistics and in psychological assessment. In the absence of other information, assuming that an individual difference variable is normally distributed is a good bet. Not a sure bet, of course, but a good bet. Why? What is so special about the normal distribution? To get a sense of the answer to this question, consider what happens to the binomial distribution as the number of events ($n$) increases. To make the example more concrete, let's assume that we are tossing coins and counting the number of heads ($p=0.5$). In Figure&nbsp;\@ref(fig:ManyCoins), the first plot shows the probability mass function for the number of heads when there is a single coin ($n=1$). In the second plot, $n=2$ coins. That is, if we flip 2 coins, there will be 0, 1, or 2 heads. In each subsequent plot, we double the number of coins that we flip simultaneously. Even with as few as 4 coins, the distribution begins to resemble the normal distribution, although the resemblance is very rough. With 128 coins, however, the resemblance is very close.
 
@@ -2735,37 +3217,31 @@ Many authors list the standard deviation $\sigma$ instead of the variance $\sigm
 </div>
 
 
+
+
+<img src="toolkit_files/figure-html/unnamed-chunk-7-1.png" width="100%"  style="display: block; margin: auto;" /><img src="toolkit_files/figure-html/unnamed-chunk-7-2.png" width="100%"  style="display: block; margin: auto;" />
+
+
 ## Half-Normal Distribution
+
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="toolkit_files/figure-html/halfnormal-1.svg" alt="The half-normal distribution is the normal distribution with the left half of the distribution stacked on top of the right half of the distribution."  />
+<!--
+<p class="caption marginnote">-->(\#fig:halfnormal)The half-normal distribution is the normal distribution with the left half of the distribution stacked on top of the right half of the distribution.<!--</p>-->
+<!--</div>--></span></p>
 
 Suppose that $X$ is a normally distributed variable such that $X \sim \mathcal{N}(\mu, \sigma^2)$. Variable $Y$ then has a half-normal distribution such that $Y = |X-\mu|+\mu$. In other words, imagine that a normal distribution is folded at the mean with the left half of the distribution now stacked on top of the right half of the distribution (See Figure&nbsp;\@ref(fig:halfnormal)).
 
 
-<div class="figure" style="text-align: center">
-<p class="caption">(\#fig:halfnormal)The half-normal distribution is the normal distribution with the left half of the distribution stacked on top of the right half of the distribution.</p><img src="halfnormal.svg" alt="The half-normal distribution is the normal distribution with the left half of the distribution stacked on top of the right half of the distribution."  /></div>
-
-<div class="wrap-collapsible">
-<input id="halfnormalCode" class="toggle" type="checkbox">
-<label for="halfnormalCode" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-halfnormalCode" class="toggle" type="checkbox">
+<label for="collapsible-halfnormalCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
-
- 
-
 ```r
-tikzpackages <- paste(
-  "\\usepackage{tikz}",
-  "\\usepackage{amsmath}",
-  "\\usepackage[active,tightpage,psfixbb]{preview}",
-  "\\PreviewEnvironment{pgfpicture}",
-  collapse = "\n"
-)
-
-tikzDevice::tikz('halfnormal.tex',
-                 standAlone=TRUE, 
-                 packages = tikzpackages, 
-                 width = 11, 
-                 height = 11)
+# Half normal distribution
 xlim <- 4
 n <- length(seq(-xlim, 0, 0.01))
 t1 <- tibble(
@@ -2799,34 +3275,97 @@ bind_rows(t1, t2) %>%
   geom_text(
     data = tibble(
       x = 0,
-      y = dnorm(0) * c(1, 2) + 0.09,
+      y = dnorm(0) * c(1, 2) + 0.14,
       Type = c(1,2),
       label = c(
         "Normal",
-        "Half-Normal"
-      ),
-      side = T
-    ),
+        "Half-Normal"),
+      side = T),
     aes(label = label),
-    family = bfont,
-    size = 7, 
+    family = bfont, fontface = "bold",
+    size = ggtext_size(30), 
     vjust = 1
   ) +
-  theme_void(base_size = 20,
+  geom_richtext(
+    data = tibble(
+      x = 0,
+      y = dnorm(0) * c(1, 2) + 0,
+      Type = c(1,2),
+      label = c(
+        "*X* ~ <span style=\"font-family:'Lucida Calligraphy'\">N</span>(*<span style=\"font-family:'Times New Roman'\">&mu;</span>*, *<span style=\"font-family:'Times New Roman'\">&sigma;</span>*<sup>2</sup>)",
+        "*X* ~ |<span style=\"font-family:'Lucida Calligraphy'\">N</span>(0, *<span style=\"font-family:'Times New Roman'\">&sigma;</span>*<sup>2</sup>)| + *<span style=\"font-family:'Times New Roman'\">&mu;</span>*"),
+      side = T),
+    aes(label = label),
+    family = c("Equity Text A"),
+    size = ggtext_size(30), 
+    vjust = 0, 
+    label.padding = unit(0,"lines"), 
+    label.color = NA,
+    fill = NA) +
+  theme_void(base_size = 30,
                 base_family = bfont) +
   theme(
     legend.position = "none",
     strip.text = element_blank()
   ) +
   scale_fill_manual(values = myfills) +
-  facet_grid(Type ~ ., space = "free_y", scales = "free_y")
-
-
-dev.off()
+  facet_grid(Type ~ ., space = "free_y", scales = "free_y") 
 ```
 
-
 </div></div></div>
+
+
+<table>
+<caption>(\#tab:halfnormalfeatures)Features of Half-Normal Distributions</caption>
+<col width="400">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Symbol </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Sample Space </td>
+   <td style="text-align:left;"> $x \in [\mu,\infty)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mu </td>
+   <td style="text-align:left;"> $\mu \in (-\infty,\infty)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sigma </td>
+   <td style="text-align:left;"> $\sigma \in [0,\infty)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mean </td>
+   <td style="text-align:left;"> $\mu + \sigma\sqrt{\frac{2}{\pi}}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Variance </td>
+   <td style="text-align:left;"> $\sigma^2\left(1-\frac{2}{\pi}\right)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skewness </td>
+   <td style="text-align:left;"> $\sqrt{2}(4-\pi)(\pi-2)^{-\frac{3}{2}}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:left;"> $8(\pi-3)(\pi-2)^{-2}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Density Function </td>
+   <td style="text-align:left;"> $f_X(x;\mu,\sigma) = \sqrt{\frac{2}{\pi \sigma ^ 2}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> $F_X(x;\mu,\sigma) = \sqrt{\frac{2}{\pi\sigma}} {\displaystyle \int_{\mu}^{x} e ^ {-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx}$ </td>
+  </tr>
+</tbody>
+</table>
+
+
+
 
 ## The Student's *t* Distribution
 
@@ -2842,20 +3381,85 @@ Guinness Beer gets free advertisement every time the origin story of the Student
 
 William Sealy Gosset (1876--1937), self-trained statistician and head brewer at Guinness Brewery in Dublin, continually experimented on small batches to improve and standardize the brewing process. With some help from statistician Karl Pearson, Gosset used then-current statistical methods to analyze his experimental results. Gosset found that Pearson's methods required small adjustments when applied to small samples. With Pearson's help and encouragement (and later from Ronald Fisher), Gosset published a series of innovative papers about a wide range of statistical methods, including the *t* distribution, which can be used to describe the distribution of sample means.
 
-Worried about having its trade secrets divulged, Guinness did not allow its employees to publish scientific papers. Thus, Gosset published his papers under the pseudonym, "A Student." The straightforward names of most statistical concepts need no historical treatment. Few of us who regularly use the Bernoulli, Pareto, Cauchy, and Gumbell distributions could tell you anything about the people who discovered them. , But the oddly named "Student's *t* distribution" cries out for explanation. Thus, in the long run, it was Gosset's anonymity that made him famous. 
+Worried about having its trade secrets divulged, Guinness did not allow its employees to publish scientific papers. Thus, Gosset published his papers under the pseudonym, "A Student." The straightforward names of most statistical concepts need no historical treatment. Few of us who regularly use the Bernoulli, Pareto, Cauchy, and Gumbell distributions could tell you anything about the people who discovered them. But the oddly named "Student's *t* distribution" cries out for explanation. Thus, in the long run, it was Gosset's anonymity that made him famous. 
 
-Thus, instead of calling them, the Gosset *t* distribution, red *t* distribution  
+<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Notation note</strong>: <span class="math inline">\(\Gamma\)</span> is the gamma function. <span class="math inline">\(_2F_1\)</span> is the hypergeometric function.</span></span>
+
+<table>
+<caption>(\#tab:tfeatures)Features of *t* Distributions</caption>
+<col width="400">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Symbol </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Sample Space </td>
+   <td style="text-align:left;"> $x \in (-\infty,\infty)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Degrees of Freedom </td>
+   <td style="text-align:left;"> $\nu \in (0,\infty)$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mean </td>
+   <td style="text-align:left;"> $\left\{
+\begin{array}{ll}
+      0 & \nu > 1 \\
+      \text{Undefined} & \nu \le 1 \\
+\end{array} 
+\right.$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Variance </td>
+   <td style="text-align:left;"> $\left\{
+\begin{array}{ll}
+      \frac{\nu}{\nu-2} & \nu>2 \\
+      \infty & 1<\nu \le 2\\
+      \text{Undefined} & \nu \le 1 \\
+\end{array} 
+\right.$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skewness </td>
+   <td style="text-align:left;"> $\left\{
+\begin{array}{ll}
+      0 & \nu > 3 \\
+      \text{Undefined} & \nu \le 3 \\
+\end{array} 
+\right.$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:left;"> $\left\{
+\begin{array}{ll}
+      \frac{6}{\nu-4} & \nu>4 \\
+      \infty & 2<\nu \le 4\\
+      \text{Undefined} & \nu \le 2 \\
+\end{array} 
+\right.$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Density Function </td>
+   <td style="text-align:left;"> $f_X(x; \nu) = \frac{\Gamma(\frac{\nu+1}{2})} {\sqrt{\nu\pi}\,\Gamma(\frac{\nu}{2})} \left(1+\frac{x^2}{\nu} \right)^{-\frac{\nu+1}{2}}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> $F_X(x; \nu)=\frac{1}{2} + x \Gamma \left( \frac{\nu+1}{2} \right)  \frac{\,_2F_1 \left(\frac{1}{2},\frac{\nu+1}{2};\frac{3}{2};-\frac{x^2}{\nu} \right)} {\sqrt{\pi\nu}\,\Gamma \left(\frac{\nu}{2}\right)}$ </td>
+  </tr>
+</tbody>
+</table>
+
 
 <div class="figure" style="text-align: center">
 <p class="caption">(\#fig:tnorm)The *t* distribution approaches the standard normal distribution as the degrees of freedom (*df*) parameter increases.</p><img src="tdist_norm.gif" alt="The *t* distribution approaches the standard normal distribution as the degrees of freedom (*df*) parameter increases."  /></div>
 
-
-<div class="wrap-collapsible">
-<input id="tnormCode" class="toggle" type="checkbox">
-<label for="tnormCode" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-tnormCode" class="toggle" type="checkbox">
+<label for="collapsible-tnormCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
-
 
 ```r
 # The t distribution approaches the normal distribution
@@ -2866,7 +3470,6 @@ d <- crossing(x = seq(-6,6,0.02),
                 seq(200,700,100))) %>%
   mutate(y = dt(x,df),
          Normal = dnorm(x)) 
-
 
 d_label <- d %>% 
   select(df) %>% 
@@ -2931,11 +3534,14 @@ gganimate::anim_save("tdist_norm.gif")
 
 
 
+
+
 <!--chapter:end:03-Distributions.Rmd-->
 
 
 
-# Descriptive Statistics
+
+# Descriptives
 
 When we encounter large lists of unsorted numbers, we have no natural capacity to perceive the list's fundamental characteristics such its average or its variability. Therefore, we need [descriptive statistics]{.defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">**Descriptive statistics** summarize noteworthy characteristics of samples.</span> to quantify salient characteristics of distributions, or we need to display the numbers in a plot, making them easier to understand and communicate.
 
@@ -2943,21 +3549,54 @@ When we encounter large lists of unsorted numbers, we have no natural capacity t
 
 A simple way to describe a distribution is to list how many times each value in the distribution occurs. For example, in this distribution: $\{10, 3, 4, 10, 6, 4, 6, 4\}$, there is 1 three, 3 fours, 2 sixes, and 2 tens. The value that occurs most often is four. A [frequency distribution table]{.defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **frequency distribution table** summarises a sample by showing the frequency counts of each member of the sample space.</span> displays the number of times each value occurs, as in Table&nbsp;\@ref(tab:frequencydistributiontable).
 
-
-Table: (\#tab:frequencydistributiontable)Frequency Distribution Table<br>The median is 5, halfway between the two middle scores of 4 and 6.
-
-| $X$| Frequency| Cumulative<br>Frequency| Proportion| Cumulative<br>Proportion|
-|---:|---------:|-----------------------:|----------:|------------------------:|
-|   3|         1|                       1|       .125|                     .125|
-|   4|         3|                       4|       .375|                     .500|
-|   6|         2|                       6|       .250|                     .750|
-|  10|         2|                       8|       .250|                        1|
+<table>
+<caption>(\#tab:frequencydistributiontable)Frequency Distribution Table<br>The median is 5, halfway between the two middle scores of 4 and 6.</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> $X$ </th>
+   <th style="text-align:right;"> Frequency </th>
+   <th style="text-align:right;"> Cumulative<br>Frequency </th>
+   <th style="text-align:right;"> Proportion </th>
+   <th style="text-align:right;"> Cumulative<br>Proportion </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> .125 </td>
+   <td style="text-align:right;"> .125 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> .375 </td>
+   <td style="text-align:right;"> .500 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> .250 </td>
+   <td style="text-align:right;"> .750 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> .250 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+</tbody>
+</table>
 
 It is common to include alongside the frequencies of each value the proportion (or percentage) of times a value occurs. If the frequency of sample space element $i$ is $f_i$, and the total sample size is $n$, then the proportion of sample space element $i$ is
 
 $$p_i = \frac{f_i}{n}$$
 
-In Table \@ref(tab:frequencydistributiontable), the frequency of sixes is $f=2$ and there are $n = 8$ numbers in the distribution, thus the proportion of sixes is $p = \frac{2}{8} = .25$.
+In Table&nbsp;\@ref(tab:frequencydistributiontable), the frequency of sixes is $f=2$ and there are $n = 8$ numbers in the distribution, thus the proportion of sixes is $p = \frac{2}{8} = .25$.
 
 It is also common to supplement frequency distribution tables with additional information such as the [cumulative frequency]{.defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">The **cumulative frequency** tells us the number of scores in a distribution that are equal to or lower than a particular sample space element.</span>. For each sample space element, the cumulative frequency $(cf)$ is the sum of the frequencies $(f)$ of the current and all previous sample space elements.
 
@@ -2971,7 +3610,7 @@ $$cp_i = \frac{cf_i}{n}$$
 
 ### Frequency Distribution Tables in R
 
-Let's start with a data set from @garcia2010women, which can accessed using the psych package [@R-psych].
+Let's start with a data set from @garcia2010women, which can accessed via the psych package. 
 
 
 ```r
@@ -2981,6 +3620,10 @@ d <- psych::Garcia
 
 The sjmisc package [@R-sjmisc] provides a quick and easy way to create a frequency distribution table with the `frq` function.
 
+
+```r
+sjmisc::frq(d$anger)
+```
 
 ```
 ## 
@@ -3001,46 +3644,263 @@ The sjmisc package [@R-sjmisc] provides a quick and easy way to create a frequen
 
 Typically we use frequency distribution tables to check whether the values of a variable are correct and that the distribution makes sense to us. Thus the `frq` function is all we need most of the time. However, if you need a publication-ready frequency distribution table, you will probably have to make it from scratch (See Table&nbsp;\@ref(tab:freqtablepub)).
 
+<table>
+<caption>(\#tab:freqtablepub)Frequency Distribution Table for Anger<br>
+        *f*&nbsp;=&nbsp;Frequency, *cf*&nbsp;=&nbsp;Cumulative Frequency
+        , *p*&nbsp;=&nbsp;Proportion, and *cp*&nbsp;=&nbsp;Cumulative Proportion</caption>
+<col width="30">
+<col width="100">
+<col width="100">
+<col width="100">
+<col width="100">
+<col width="20">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> X </th>
+   <th style="text-align:right;"> *f* </th>
+   <th style="text-align:right;"> *cf* </th>
+   <th style="text-align:right;"> *p* </th>
+   <th style="text-align:right;"> *cp* </th>
+   <th style="text-align:right;">   </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> .57 </td>
+   <td style="text-align:right;"> .57 </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 97 </td>
+   <td style="text-align:right;"> .19 </td>
+   <td style="text-align:right;"> .75 </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> .03 </td>
+   <td style="text-align:right;"> .78 </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 109 </td>
+   <td style="text-align:right;"> .06 </td>
+   <td style="text-align:right;"> .84 </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 121 </td>
+   <td style="text-align:right;"> .09 </td>
+   <td style="text-align:right;"> .94 </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 128 </td>
+   <td style="text-align:right;"> .05 </td>
+   <td style="text-align:right;"> .99 </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 129 </td>
+   <td style="text-align:right;"> .01 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+</tbody>
+</table>
 
-Table: (\#tab:freqtablepub)Frequency Distribution Table for Anger<br>
-        *f* = Frequency, *cf* = Cumulative Frequency
-        , *p* = Proportion, and *cp* = Cumulative Proportion
-
-| Anger| *f*| *cf*| *p*| *cp*|
-|-----:|---:|----:|---:|----:|
-|     1|  73|   73| .57|  .57|
-|     2|  24|   97| .19|  .75|
-|     3|   4|  101| .03|  .78|
-|     4|   8|  109| .06|  .84|
-|     5|  12|  121| .09|  .94|
-|     6|   7|  128| .05|  .99|
-|     7|   1|  129| .01| 1.00|
 
 
 <div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible-freqtablepub" class="toggle" type="checkbox">
-<label for="collapsible-freqtablepub" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<input id="collapsible-freqtablepubCode" class="toggle" type="checkbox">
+<label for="collapsible-freqtablepubCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
-
 
 ```r
 # Publication-quality frequency table
 d %>% 
-  rename(Anger = anger) %>% 
-  count(Anger, name = "f") %>% 
+  rename(X = anger) %>% 
+  count(X, name = "f") %>% 
   mutate(cf = cumsum(f),
          p = f / sum(f),
          cp = cumsum(p)) %>% 
   mutate(across(.cols = p:cp, 
                 .fns = function(x) scales::number(x, .01) %>% 
                   str_remove("^0"))) %>% 
-  rename_with(.fn = function(x) paste0("*",x,"*"), .cols = -Anger) %>% 
-
+  rename_with(.fn = function(x) paste0("*",x,"*"), .cols = -X) %>% 
+  mutate(` ` = "") %>% 
   kable(caption = "Frequency Distribution Table for Anger<br>
-        *f* = Frequency, *cf* = Cumulative Frequency
-        , *p* = Proportion, and *cp* = Cumulative Proportion", 
-        digits = 2, align = "r")
+        *f*&nbsp;=&nbsp;Frequency, *cf*&nbsp;=&nbsp;Cumulative Frequency
+        , *p*&nbsp;=&nbsp;Proportion, and *cp*&nbsp;=&nbsp;Cumulative Proportion", 
+        digits = 2, align = "r", 
+        format = "html") %>% 
+  html_table_width(c(30, rep(100, 4), 20))
+```
+
+</div></div></div>
+
+### Frequency Distribution Bar Plots
+
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="toolkit_files/figure-html/freqbarplot-1.svg" alt="Frequency Distribution Bar Plot"  />
+<!--
+<p class="caption marginnote">-->(\#fig:freqbarplot)Frequency Distribution Bar Plot<!--</p>-->
+<!--</div>--></span></p>
+
+
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="toolkit_files/figure-html/freqstackedbarplot-1.svg" alt="Cumulative Frequency Stacked Bar Plot"  />
+<!--
+<p class="caption marginnote">-->(\#fig:freqstackedbarplot)Cumulative Frequency Stacked Bar Plot<!--</p>-->
+<!--</div>--></span></p>
+
+
+
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="toolkit_files/figure-html/freqstepplot-1.svg" alt="Cumulative Frequency Step Plot"  />
+<!--
+<p class="caption marginnote">-->(\#fig:freqstepplot)Cumulative Frequency Step Plot<!--</p>-->
+<!--</div>--></span></p>
+
+In Figure&nbsp;\@ref(fig:freqbarplot), the frequency distribution from Table&nbsp;\@ref(tab:freqtablepub) is translated into a standard bar plot. A column bar plot allows for easy comparison of the frequency of each category. For example, in Figure&nbsp;\@ref(fig:freqbarplot), it is clear that by far the most frequent level of Anger is 1.
+
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-freqbarplotCode" class="toggle" type="checkbox">
+<label for="collapsible-freqbarplotCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
+<div class="content-inner">
+
+```r
+# Make frequency data
+d_freq <- d %>% 
+  rename(Anger = anger) %>% 
+  count(Anger, name = "f") %>% 
+  mutate(cf = cumsum(f),
+         p = f / sum(f),
+         cp = cumsum(p))
+
+# Frequency Bar Plot
+d_freq %>% 
+  ggplot(aes(Anger, f)) + 
+  geom_col(fill = myfills[1]) + 
+  geom_text_fill(aes(label = f), vjust = -0.5, size = ggtext_size(30)) +
+  scale_x_continuous(breaks = 1:7, minor_breaks = NULL) + 
+  scale_y_continuous("Frequency", expand = expansion(c(0, 0.09))) +
+  theme_minimal(base_size = 30, base_family = bfont) + 
+  theme(panel.grid.major.x = element_blank())       
+```
+
+</div></div></div>
+
+
+A stacked bar chart emphasizes the proportions of each category compared to the whole. It also allows for the visual display of the cumulative frequencies and proportions. For example, in Figure&nbsp;\@ref(fig:freqstackedbarplot), it is easy to see that more than half of participants have an anger level of 1, and three quarters have an anger level of 2 or less.
+
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-freqstackedbarplotCode" class="toggle" type="checkbox">
+<label for="collapsible-freqstackedbarplotCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
+<div class="content-inner">
+
+```r
+# Stacked Frequency Bar Plot
+d_freq %>% 
+  ggplot(aes(factor("Anger"), cf - f / 2)) + 
+  geom_tile(aes(height = f, fill = factor(Anger)), 
+            width = 1.2) +
+  geom_text(aes(label = paste0(Anger, 
+                               " (", 
+                               f, ", ", 
+                               scales::percent(p, accuracy = 1),
+                               ")"))) + 
+  scale_y_continuous("Cumulative Frequency", 
+                     breaks = c(0, d_freq$cf), 
+                     minor_breaks = NULL, 
+                     expand = expansion(c(0,.04)),
+                     sec.axis = sec_axis(
+                       trans = ~ .x, 
+                       labels = scales::percent(c(0,d_freq$cp), accuracy = 1), 
+                       breaks = c(0, d_freq$cf),
+                       name = NULL))  +
+  scale_fill_manual(values = tinter::tinter(myfills[1], 9)) +
+  scale_x_discrete(NULL) +
+  theme(legend.position = "none", 
+        panel.grid = element_blank(), 
+        axis.text.y = element_text(vjust = c(rep(0.5, 7), -0.3))) 
+```
+
+</div></div></div>
+
+A step line plot can show the cumulative frequency's relationship with the variable. For example, in  Figure&nbsp;\@ref(fig:freqstepplot), it appears that the cumulative frequency rises quickly at first but then rises slowly and steadily thereafter.
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-freqstepplotCode" class="toggle" type="checkbox">
+<label for="collapsible-freqstepplotCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
+<div class="content-inner">
+
+```r
+# Frequency Step Plot
+d_freq %>% 
+  ggplot(aes(Anger, cf)) + 
+  geom_step(direction = "mid", color = myfills[1], size = 0.5) +
+  geom_text_fill(aes(label = cf), 
+                 vjust = -0.5, 
+                 color = myfills[1],
+                 size = ggtext_size(30)) + 
+  geom_text_fill(aes(label = signs::signs(f, accuracy = 1, add_plusses = T)), 
+                 vjust = 1.5,
+                 color = "gray40",
+                 size = ggtext_size(30)) + 
+  scale_x_continuous(breaks = 1:7, 
+                     expand = expansion()) + 
+  scale_y_continuous("Cumulative Frequency", 
+                     limits = c(0, NA), 
+                     breaks = 0, 
+                     minor_breaks = NULL,
+                     expand = expansion(mult = c(0.001, 0.07))) +
+  theme_minimal(base_size = 30, base_family = bfont) + 
+  theme(panel.grid.major.x = element_blank()) +
+  annotate(geom = "segment", 
+           x = 0.5,
+           y = 0, 
+           xend = 0.5, 
+           yend = 73, 
+           color = myfills[1], 
+           size = 1) +
+  annotate(geom = "segment", 
+           x = 0.5, 
+           y = 73, 
+           xend = 1, 
+           yend = 73, 
+           color = myfills[1], 
+           size = 0.5) +
+  annotate(geom = "segment", 
+           x = 7, 
+           y = 129, 
+           xend = 7.5, 
+           yend = 129, 
+           color = myfills[1], 
+           size = 0.5) 
 ```
 
 </div></div></div>
@@ -3059,7 +3919,9 @@ Because 2 occurs more frequently than the other values in the distribution, the 
 
 In a frequency distribution table, the mode is the value with the highest value in the $f$ (frequency) column. In Table&nbsp;\@ref(tab:freqtablepub), the mode is 1 because it has the highest frequency (&#8239;*f*&nbsp;=&nbsp;73). 
 
-In a histogram or probability density plot, the mode is the value that corresponds to the highest point in the plot. If two values tie, both values are the mode and the distribution is [bimodal]{.defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **bimodal** distribution has two modes.</span>. Sometimes a distribution has two distinct clusters, each with its own local mode. The greater of these two modes is the *major mode*, and the lesser is the *minor mode* (See Figure&nbsp;\@ref(fig:bimodal)).
+In a bar plot, histogram, or probability density plot, the mode is the value that corresponds to the highest point in the plot. For example, in Figure&nbsp;\@ref(fig:freqbarplot), the modal value is 1 because its frequency of 73 is the highest point in the bar plot. In Figure&nbsp;\@ref(fig:bimodal), the mode is &minus;1 because that is the highest point in the density plot. 
+
+If two values tie, both values are the mode and the distribution is [bimodal]{.defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">A **bimodal** distribution has two modes.</span>. Sometimes a distribution has two distinct clusters, each with its own local mode. The greater of these two modes is the *major mode*, and the lesser is the *minor mode* (See Figure&nbsp;\@ref(fig:bimodal)).
 
 <p><span class="marginnote shownote">
 <!--
@@ -3069,13 +3931,10 @@ In a histogram or probability density plot, the mode is the value that correspon
 <p class="caption marginnote">-->(\#fig:bimodal)A bimodal distribution<!--</p>-->
 <!--</div>--></span></p>
 
-
 <div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible-bimodal" class="toggle" type="checkbox">
-<label for="collapsible-bimodal" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<input id="collapsible-bimodalCode" class="toggle" type="checkbox">
+<label for="collapsible-bimodalCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
-
 
 ```r
 # A bimodal distribution
@@ -3120,15 +3979,48 @@ The [median]{.defword}<label for="tufte-mn-" class="margin-toggle">&#8853;</labe
 
 To find the median using a frequency distribution table, find the first sample space element with a cumulative proportion greater than 0.5. For example, in the distribution shown in Table&nbsp;\@ref(tab:mediantable), the first cumulative proportion greater than 0.5 occurs at 5, which is therefore the median.
 
-
-Table: (\#tab:mediantable)Finding the Median in a Frequency Distribution Table.<br>In this case, the median if 5 because it has the first cumulative proportion that is greater than 0.5.
-
-| *X*| Frequency| Cumulative Frequency| Proportion| Cumulative Proportion|
-|---:|---------:|--------------------:|----------:|---------------------:|
-|   1|         1|                    1|        .14|                   .14|
-|   5|         3|                    4|        .43|                   .57|
-|   7|         1|                    5|        .14|                   .71|
-|   9|         2|                    7|        .29|                  1.00|
+<table>
+<caption>(\#tab:mediantable)Finding the Median in a Frequency Distribution Table.<br>In this case, the median is 5 because it has the first cumulative proportion that is greater than 0.5.</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> *X* </th>
+   <th style="text-align:right;"> Frequency </th>
+   <th style="text-align:right;"> Cumulative Frequency </th>
+   <th style="text-align:right;"> Proportion </th>
+   <th style="text-align:right;"> Cumulative Proportion </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> .14 </td>
+   <td style="text-align:right;"> .14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> .43 </td>
+   <td style="text-align:right;"> .57 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> .14 </td>
+   <td style="text-align:right;"> .71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> .29 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+</tbody>
+</table>
 
 If a sample space element's cumulative proportion is exactly 0.5, average that sample space element with the next highest value. For example, in the distribution in Table&nbsp;\@ref(tab:frequencydistributiontable), the cumulative proportion for 4 is exactly 0.5 and the next value is 6. Thus the median is $\frac{4+6}{2}=5$.
 
@@ -3163,19 +4055,67 @@ The arithmetic mean is usually the preferred measure of central tendency for int
 
 
 
-
-Table: (\#tab:proconCT)Comparing Central Tendency Measures
-
-|Feature                           |Mode   |Median  |Mean     |
-|:---------------------------------|:------|:-------|:--------|
-|Standard Error                    |Larger |Smaller |Smallest |
-|Algebraic Formula                 |No     |No      |Yes      |
-|Unique Value                      |No     |Yes     |Yes      |
-|Sensitive to Outliers/Skewness    |No     |No      |Yes      |
-|Computable for Nominal Variables  |Yes    |No      |No       |
-|Computable for Ordinal Variables  |Yes    |Yes     |No       |
-|Computable for Interval Variables |Yes    |Yes     |Yes      |
-|Computable for Ratio Variables    |Yes    |Yes     |Yes      |
+<table>
+<caption>(\#tab:proconCT)Comparing Central Tendency Measures</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Feature </th>
+   <th style="text-align:left;"> Mode </th>
+   <th style="text-align:left;"> Median </th>
+   <th style="text-align:left;"> Mean </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Standard Error </td>
+   <td style="text-align:left;"> Larger </td>
+   <td style="text-align:left;"> Smaller </td>
+   <td style="text-align:left;"> Smallest </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Algebraic Formula </td>
+   <td style="text-align:left;"> No </td>
+   <td style="text-align:left;"> No </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Unique Value </td>
+   <td style="text-align:left;"> No </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sensitive to Outliers/Skewness </td>
+   <td style="text-align:left;"> No </td>
+   <td style="text-align:left;"> No </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Computable for Nominal Variables </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> No </td>
+   <td style="text-align:left;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Computable for Ordinal Variables </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Computable for Interval Variables </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Computable for Ratio Variables </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+</tbody>
+</table>
 
 ## Expected Values
 
@@ -3199,7 +4139,38 @@ The expected value of a random variable is a weighted mean. A mean of what? Ever
 <p class="caption marginnote">-->(\#fig:pmfX)Probability distribution of a hypothetical random variable<!--</p>-->
 <!--</div>--></span></p>
 
-Suppose that the sample space of a random variable $X$ is $\{2, 4, 8\}$ with respective probabilities of $\{0.3, 0.2, 0.5\}$, as shown in Figure \@ref(fig:pmfX). The notation for taking the expected value of a random variable $X$ is $\mathcal{E}(X)$. Can we find the mean of this variable $X$ even if we do not have any samples it generates? Yes. To calculate the expected value of $X$, multiply each sample space element by its associated probability and then take the sum of all resulting products. Thus,
+
+Suppose that the sample space of a random variable *X* is {2, 4, 8} with respective probabilities of {0.3, 0.2, 0.5}, as shown in Figure&nbsp;\@ref(fig:pmfX). 
+
+<div class="wrap-collapsible" style="margin-top: 1em">
+<input id="collapsible-pmfXCode" class="toggle" type="checkbox">
+<label for="collapsible-pmfXCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
+<div class="content-inner">
+
+```r
+tibble(x = factor(c(2,4,8), levels = 1:8),
+       p = c(0.3, 0.2, 0.5)) %>% 
+  ggplot(aes(x,p)) + 
+  geom_col(fill = myfills[1]) + 
+  geom_text(aes(label = prob_label(p)), 
+            vjust = -0.4, 
+            family = bfont, 
+            size = ggtext_size(18)) + 
+  theme_minimal(base_family = bfont, 
+                base_size = 18) + 
+  scale_y_continuous("Probability", 
+                     expand = expansion(mult = c(.01, .10)),
+                     breaks = seq(0,1,.1),
+                     labels = prob_label
+                     ) + 
+  scale_x_discrete("Sample Space", drop = F ) + 
+  theme(panel.grid.major.x = element_blank())
+```
+
+</div></div></div>
+
+
+The notation for taking the expected value of a random variable $X$ is $\mathcal{E}(X)$. Can we find the mean of this variable $X$ even if we do not have any samples it generates? Yes. To calculate the expected value of $X$, multiply each sample space element by its associated probability and then take the sum of all resulting products. Thus,
 
 $$
 \begin{align*}
@@ -3237,14 +4208,10 @@ If we multiply each value of $X$ by the height of its bin ($p$), we get the mean
 <p class="caption marginnote shownote">(\#fig:thinbins)Slicing the standard normal distribution into ever thinner bins</p>
 </div>
 
-
-
 <div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible-thinbins" class="toggle" type="checkbox">
-<label for="collapsible-thinbins" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<input id="collapsible-thinbinsCode" class="toggle" type="checkbox">
+<label for="collapsible-thinbinsCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
-
 
 ```r
 # Slicing the standard normal distribution into ever thinner bins
@@ -3252,15 +4219,15 @@ make_bins <- function(binPower, binWidth, LowerBound, UpperBound) {
   tibble(x = seq(LowerBound, UpperBound, binWidth), binPower, binWidth)
 }
 
-pmap_df(tibble(binPower = -1:4, 
+pmap_df(tibble(binPower = 0:4, 
                binWidth = 2 ^ (-1 * binPower), 
                LowerBound = -4, 
                UpperBound = 4), 
         make_bins) %>% 
   mutate(p = pnorm(x + binWidth / 2) - pnorm(x - binWidth / 2),
          width_label = factor(2 ^ binPower, 
-                              levels = 2 ^ (-1:4),
-                              labels = c("Width = 2", "Width = 1",
+                              levels = 2 ^ (0:4),
+                              labels = c("Width = 1",
                                          paste0("Width = 1/",
                                                 2 ^ (1:4))))) %>%
   ggplot(aes(x, p)) + 
@@ -3289,11 +4256,15 @@ pmap_df(tibble(binPower = -1:4,
 
 </div></div></div>
 
+
+
+
+
 ## Measures of Variability
 
 ### Variability of Nominal Variables
 
-I have never needed a statistic that measures the variability of a nominal variable, but if you need one, there are [many from which to choose](https://en.wikipedia.org/wiki/Qualitative_variation). For example, @Wilcox1973 presented this analog to variance for nominal variables:
+For most purposes, the visual inspection of a frequency distribution table or bar plot is all that is needed to understand a nominal variable's variability. I have never needed a statistic that measures the variability of a nominal variable, but if you need one, there are [many from which to choose](https://en.wikipedia.org/wiki/Qualitative_variation). For example, @Wilcox1973 presented this analog to variance for nominal variables:
 
 $$
 \text{VA} = 1-\frac{1}{n^2}\frac{k}{k-1}\sum_{i=1}^k\left(f_i-\frac{n}{k}\right)^2
@@ -3328,12 +4299,11 @@ VA(frequencies)
 
 <div class="wrap-collapsible" style="margin-top: 1em">
 <input id="collapsible-nominalvarCode" class="toggle" type="checkbox">
-<label for="collapsible-nominalvarCode" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
+<label for="collapsible-nominalvarCode" class="lbl-toggle">R Code</label><div class="collapsible-content">
 <div class="content-inner">
 
-
 ```r
+# The Variance Analog (VA) index of qualitative variation
 low_var <- c(A = 100, B = 0, C = 0, D = 0)
 mid_var =  c(A = 60, B = 10, C = 25, D = 5)
 high_var = c(A = 25, B = 25, C = 25, D = 25)
@@ -3368,14 +4338,22 @@ tibble(Variability = c("Low", "Middle", "High"),
 
 </div></div></div>
 
+
+
 In all of these indices of qualitative variation, the lowest value is 0 when every data point belongs to the same category (See Figure&nbsp;\@ref(fig:nominalvar), left panel). Also, the maximum value is 1 when the data points are equally distributed across categories (See Figure&nbsp;\@ref(fig:nominalvar), right panel).
 
 ### Variability of Ordinal Variables
+
+As with nominal variables, a bar plot or frequency distribution table can tell you most of what you want to know about the variability of an ordinal variable. If you need a quantitative measure of how much an ordinal variable varies, you have many options.
+
+
+
 
 
 
 
 <!--chapter:end:04-Descriptive-Statistics.Rmd-->
+
 
 # Notation {-}
 
@@ -3445,38 +4423,8 @@ $\boldsymbol{I}$ | An identity matrix. Its dimensions can be inferred by context
 <!--chapter:end:20-notation.Rmd-->
 
 
+
 # References {-}
-
-
-
-
-## R packages used in this book {-}
-
-* `bookdown` [@R-bookdown]
-* `dplyr` [@R-dplyr]
-* `extrafont` [@R-extrafont]
-* `fBasics` [@R-fBasics]
-* `forcats` [@R-forcats]
-* `fMultivar` [@R-fMultivar]
-* `gganimate` [@R-gganimate]
-* `ggforce` [@R-ggforce]
-* `ggplot2` [@R-ggplot2]
-* `IDPmisc` [@R-IDPmisc]
-* `knitr` [@R-knitr]
-* `lattice` [@R-knitr]
-* `purrr` [@R-purrr]
-* `rmarkdown` [@R-rmarkdown]
-* `sjmisc` [@R-sjmisc]
-* `sn` [@R-sn]
-* `stringr` [@R-stringr]
-* `stats` [@R-base]
-* `tibble` [@R-tibble]
-* `tidyr` [@R-tidyr]
-* `tidyverse` [@R-tidyverse]
-* `tikzDevice` [@R-tikzDevice]
-* `tufte` [@R-tufte]
-
-
 
 
 

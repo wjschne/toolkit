@@ -1,4 +1,20 @@
 % Encoding: UTF-8
+
+
+@article{pearson1913theories,
+ ISSN = {00063444},
+ URL = {http://www.jstor.org/stable/2331805},
+ author = {Karl Pearson and David Heron},
+ journal = {Biometrika},
+ number = {1/2},
+ pages = {159--315},
+ publisher = {[Oxford University Press, Biometrika Trust]},
+ title = {On theories of association},
+ volume = {9},
+ year = {1913},
+ doi = {10.2307/2331805}
+}
+
 @article{borsboom2004psychometrics,
   title={Why psychometrics is not pathological: A comment on {M}ichell},
   author={Borsboom, Denny and Mellenbergh, Gideon J},
@@ -7,7 +23,8 @@
   number={1},
   pages={105--120},
   year={2004},
-  publisher={Sage Publications}
+  publisher={Sage Publications},
+  doi={10.1177/0959354304040200}
 }
 
 @article{cicchetti2006rating,
@@ -18,7 +35,8 @@
   number={8},
   pages={557--564},
   year={2006},
-  publisher={LWW}
+  publisher={LWW},
+  doi={10.1097/01.nmd.0000230392.83607.c5}
 }
 
 @book{clark2004natural,
@@ -62,46 +80,52 @@
   address={London}
 }
 
-@article{michell1997quantitative,
-  title={Quantitative science and the definition of measurement in psychology},
-  author={Michell, Joel},
-  journal={British Journal of Psychology},
-  volume={88},
-  number={3},
-  pages={355--383},
-  year={1997},
-  publisher={Wiley Online Library}
+@Article{michell1997quantitative,
+  author    = {Michell, Joel},
+  journal   = {British Journal of Psychology},
+  title     = {Quantitative science and the definition of measurement in psychology},
+  year      = {1997},
+  number    = {3},
+  pages     = {355--383},
+  volume    = {88},
+  doi       = {10.1111/j.2044-8295.1997.tb02641.x},
+  publisher = {Wiley Online Library},
 }
 
-@article{michell2004item,
-  title={Item response models, Pathological science and the shape of error: Reply to {B}orsboom and {M}ellenbergh},
-  author={Michell, Joel},
-  journal={Theory \& Psychology},
-  volume={14},
-  number={1},
-  pages={121--129},
-  year={2004},
-  publisher={Sage Publications}
+@Article{michell2004item,
+  author    = {Michell, Joel},
+  journal   = {Theory \& Psychology},
+  title     = {Item response models, Pathological science and the shape of error: Reply to {B}orsboom and {M}ellenbergh},
+  year      = {2004},
+  number    = {1},
+  pages     = {121--129},
+  volume    = {14},
+  doi       = {10.1177/0959354304040201},
+  publisher = {Sage Publications},
 }
-@article{michell2008psychometrics,
-  title={Is psychometrics pathological science?},
-  author={Michell, Joel},
-  journal={Measurement},
-  volume={6},
-  number={1-2},
-  pages={7--24},
-  year={2008},
-  publisher={Taylor \& Francis}
+
+@Article{michell2008psychometrics,
+  author    = {Michell, Joel},
+  journal   = {Measurement},
+  title     = {Is psychometrics pathological science?},
+  year      = {2008},
+  number    = {1-2},
+  pages     = {7--24},
+  volume    = {6},
+  doi       = {10.1080/15366360802035489},
+  publisher = {Taylor \& Francis},
 }
-@article{stevens1946theory,
-  title={On the Theory of Scales of Measurement},
-  author={Stanley Smith Stevens},
-  journal={Science},
-  volume={103},
-  number={2684},
-  pages={677--680},
-  year={1946},
-  publisher={American Association for the Advancement of Science}
+
+@Article{stevens1946theory,
+  author    = {Stanley Smith Stevens},
+  journal   = {Science},
+  title     = {On the Theory of Scales of Measurement},
+  year      = {1946},
+  number    = {2684},
+  pages     = {677--680},
+  volume    = {103},
+  doi       = {10.1126/science.103.2684.677},
+  publisher = {American Association for the Advancement of Science},
 }
 
 @book{houts1975myth,
@@ -133,6 +157,19 @@
   number    = {5},
   pages     = {733--745},
   publisher = {Wiley Online Library},
+}
+
+@Article{Wilcox1973,
+  author    = {Allen R. Wilcox},
+  journal   = {The Western Political Quarterly},
+  title     = {Indices of Qualitative Variation and Political Measurement},
+  year      = {1973},
+  month     = {jun},
+  number    = {2},
+  pages     = {325},
+  volume    = {26},
+  doi       = {10.2307/446831},
+  publisher = {{JSTOR}},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

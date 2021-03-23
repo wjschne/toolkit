@@ -1,3 +1,13 @@
+#TOC {
+    top: 10px;
+    left: 10px;
+    width: 250px;
+    font-size: .8em;
+    position: sticky;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
 #TOC ul,
 #TOC li,
 #TOC span,
@@ -6,54 +16,42 @@
   padding: 0;
   position: relative;
 }
-
-/*Table of Contents*/
 #TOC {
   line-height: 1;
   border-radius: 5px 5px 0 0;
-  background: #eeeeee;
-  // background: linear-gradient(to bottom, #333333 0%, #141414 100%);
-  border-bottom: 2px solid #27408B;
-  width: auto;
+  background: #141414;
+  background: linear-gradient(to bottom, #333333 0%, #141414 100%);
+  border-bottom: 2px solid #0fa1e0;
+}
+@media (max-width: 1170px) {
+    #TOC {
+    display:none;
+    }
 }
 
-/* This makes the whole menu look rectangular*/
+
 #TOC:after,
 #TOC ul:after {
   content: '';
   display: block;
   clear: both;
 }
-
-/* Link in TOC*/
 #TOC a {
-  background: #eeeeee;
-  // background: linear-gradient(to bottom, #333333 0%, #141414 100%);
-  color: #222222;
+  background: #141414;
+  background: linear-gradient(to bottom, #333333 0%, #141414 100%);
+  color: #ffffff;
   display: block;
   padding: 19px 20px;
   text-decoration: none;
   text-shadow: none;
 }
-
-/* List in TOC */
 #TOC ul {
   list-style: none;
 }
 
-/* list item in ul in TOC*/
-#TOC > ul > li {
-  display: inline-block;
-  float: left;
-  margin: 0;
-}
-
-/* link in list item in ul in TOC*/
 #TOC > ul > li > a {
-  color: #222222;
+  color: #ffffff;
 }
-
-/* after hover in list item in ul in TOC*/
 #TOC > ul > li:hover:after {
   content: '';
   display: block;
@@ -64,92 +62,51 @@
   bottom: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid #27408B;
+  border-bottom: 10px solid #0fa1e0;
   margin-left: -10px;
 }
-
-/* link in first list item in list in TOC*/
-/* Makes top of menu have rounded borders */
 #TOC > ul > li:first-child > a {
   border-radius: 5px 0 0 0;
 }
-
-//
 #TOC.align-right > ul > li:first-child > a,
 #TOC.align-center > ul > li:first-child > a {
   border-radius: 0;
 }
-
-//
 #TOC.align-right > ul > li:last-child > a {
   border-radius: 0 5px 0 0;
 }
-
-/* Hover effects for  first-level links */
 #TOC > ul > li.active > a,
 #TOC > ul > li:hover > a {
-  color: #4169e1;
-  background: #dddddd;
+  color: #ffffff;
+  box-shadow: inset 0 0 3px #000000;
+  background: #070707;
+  background: linear-gradient(to bottom, #262626 0%, #070707 100%);
 }
-
-//
 #TOC .has-sub {
   z-index: 1;
 }
-
-//
 #TOC .has-sub:hover > ul {
   display: block;
 }
 
-/* Hide second-level lists  */
-#TOC ul li ul {
-  display: none;
-  position: absolute;
-  width: 400px;
-  top: 100%;
-  left: 0;
-}
-
-/* Makes second-level lists display when hover */
-#TOC ul li:hover ul {
-  display: block;
-}
-
-/* Format second-level links */
-#TOC ul li ul li a {
+#TOC .has-sub ul li a {
+  background: #0fa1e0;
+  border-bottom: 1px dotted #31b7f1;
   filter: none;
   display: block;
   line-height: 120%;
   padding: 10px;
-  background: #eeeeee;
-  color: #222222;
-  text-decoration: none;
-  text-shadow: none;
-  font-size: 90%;
+  color: #ffffff;
 }
-
-#TOC ul li:hover ul li a:hover {
-  color: #4169e1;
-  background: #dddddd;
-}
-
-//
 #TOC .has-sub ul li:hover a {
-  \\background: #0c7fb0;
+  background: #0c7fb0;
 }
-
-//
 #TOC ul ul li:hover > a {
-  color: #4169e1;
+  color: #ffffff;
 }
-
-//
 #TOC .has-sub .has-sub:hover > ul {
   display: block;
 }
-
-//
 #TOC .has-sub .has-sub ul {
   display: none;
   position: absolute;
@@ -160,8 +117,6 @@
   background: #0c7fb0;
   border-bottom: 1px dotted #31b7f1;
 }
-
-//
 #TOC .has-sub .has-sub ul li a:hover {
   background: #0a6d98;
 }
@@ -173,12 +128,11 @@
 #TOC .has-sub ul li.last > a {
   border-bottom: 0;
 }
-//
 #TOC ul {
   font-size: 1.2rem;
 }
 
-//
+
 #TOC .part {
   color: #ffffff;
 }

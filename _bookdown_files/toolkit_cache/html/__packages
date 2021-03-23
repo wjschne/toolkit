@@ -27,3 +27,8 @@ tikzDevice
 patchwork
 qualvar
 modeest
+ggfx
+tinter
+ggtext
+systemfonts
+kableExtra

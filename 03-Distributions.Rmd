@@ -1,28 +1,23 @@
 # Distributions
 
 ```{r loadpacksdist, include = F}
-source("loader.R")
+# source("loader.R")
 ```
 
 ## Random Variables
 
 Because we first learn about variables in an algebra class, we tend to think of variables as having values that can be solved for---if we have enough information about them. If I say that $x$ is a variable and that $x+6=8$, we can use algebra to find that $x$ must equal 2.
 
-[Random variables]{class=defword}`r tufte::margin_note("**Random variables** have values that are determined by a random process.")` are not like algebraic variables. Random variables simply take on values because of some random process. If we say that the outcome of a throw of a six-sided die is a random variable, there is nothing to "solve for." There is no equation that determines the value of the die. Instead, it is determined by chance and the physical constraints of the die. That is, the outcome must be one of the numbers printed on the die and the six numbers are equally likely to occur. This illustrates an important point. The word *random* here does not mean "anything can happen." On a six-sided die, you will never roll a 7, 3.5, $\sqrt{\pi}$, &minus;36,000, or any other number that does not appear on the six sides of the die. Random variables have outcomes that are subject to random processes, but those random processes *do*  have constraints on them such that some outcomes are more likely than others---and some outcomes never occur at all. 
+[Random variables]{class=defword}`r tufte::margin_note("**Random variables** have values that are determined by a random process.")` are not like algebraic variables. Random variables simply take on values because of some random process. If we say that the outcome of a throw of a six-sided die is a random variable, there is nothing to "solve for." There is no equation that determines the value of the die. Instead, it is determined by chance and the physical constraints of the die. That is, the outcome must be one of the numbers printed on the die, and the six numbers are equally likely to occur. This illustrates an important point. The word *random* here does not mean "anything can happen." On a six-sided die, you will never roll a 7, 3.5, $\sqrt{\pi}$, &minus;36,000, or any other number that does not appear on the six sides of the die. Random variables have outcomes that are subject to random processes, but those random processes *do*  have constraints on them such that some outcomes are more likely than others---and some outcomes never occur at all. 
 
-```{r randomvariable, fig.cap="Rolling a six-sided die is a process that creates a randomly ordered series of integers from 1 to 6.", echo=FALSE, fig.margin = T, fig.align='default', cache=T, warning=F, message=F, eval=T}
+```{r randomvariable, fig.cap="Rolling a six-sided die is a process that creates a randomly ordered series of integers from 1 to 6.", echo=FALSE, fig.margin = T, fig.align='default', cache=T, warning=F, message=F, eval=T, out.width="25%"}
+
 knitr::include_graphics("randomvariable.gif")
 ```
 
 When we say that the throw of a six-sided die is a random variable, we are not talking about any particular throw of a particular die but, in a sense, *every* throw (that has ever happened or ever could happen) of *every* die (that has ever existed or could exist). Imagine an immense, roaring, neverending, cascading flow of dice falling from the sky. As each die lands and disappears, a giant scoreboard nearby records the relative frequencies of ones, twos, threes, fours, fives, and sixes. That's a random variable.
 
-<div class="wrap-collapsible" style="margin-top: 0em;">
-<input id="collapsiblerandomvariable" class="toggle" type="checkbox">
-<label for="collapsiblerandomvariable" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-
-```{r randomvariableCode, echo = T, eval=F}
+```{r randomvariableCode, button_r=TRUE, eval=FALSE}
 
 # Function to make dice
 makedice <- function(i, id) {
@@ -104,7 +99,7 @@ animate(p,
         height = 8)
 ```
 
-</div></div></div>
+
 
 ## Sets
 
@@ -116,11 +111,10 @@ To show that a list of discrete elements is a set, we can use curly braces. For 
 
 ### Interval Sets
 
-With continuous variables, we can define sets in terms of intervals. Whereas the discrete set $\{0,1\}$ refers just to the numbers 0 and 1, the interval set $(0,1)$ refers to all the numbers between 0 and 1. As shown in (Figure&nbsp;\@ref(fig:intervalnotation)), some intervals include their endpoints and others do not.
 
 
 ```{r intervalnotation, fig.cap = "Interval Notation", dev="svg", echo=FALSE, fig.width=6.72, fig.height = 3.25, out.width="100%", fig.margin = T, fig.align='default'}
-
+# Interval notation
 tibble(lb = 1L,
        ub = 5L,
        y = 1:4,
@@ -162,17 +156,14 @@ tibble(lb = 1L,
 ```
 
 
-<div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible-intervalnotation" class="toggle" type="checkbox">
-<label for="collapsible-intervalnotation" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
 
-```{r intervalnotationCode, ref.label="intervalnotation", echo=T, eval = F}
+
+With continuous variables, we can define sets in terms of intervals. Whereas the discrete set $\{0,1\}$ refers just to the numbers 0 and 1, the interval set $(0,1)$ refers to all the numbers between 0 and 1. As shown in (Figure&nbsp;\@ref(fig:intervalnotation)), some intervals include their endpoints and others do not.
+
+```{r intervalnotationCode, ref.label="intervalnotation", button_r=TRUE}
 
 ```
 
-</div></div></div>
 
 ## Sample Spaces {#sec:SampleSpace}
 
@@ -190,13 +181,7 @@ knitr::include_graphics("dice.svg")
 
 Each element of a random variable's sample space occurs with a particular probability. When we list the probabilities of each possible outcome, we have specified the variable's [probability distribution]{class=defword}`r tufte::margin_note("In a **probability distribution**, there is an assignment of a probability to each possible element in a variable's sample space.")`. In other words, if we know the probability distribution of a variable, we know how probable each outcome is. In the case of a throw of a single die, each outcome is equally likely (Figure&nbsp;\@ref(fig:dice)). 
 
-<div class="wrap-collapsible" style="margin-top: 0em;">
-<input id="collapsible31" class="toggle" type="checkbox">
-<label for="collapsible31" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
-<div class="content-inner">
-
-```{tikz DicePMF, eval = F, echo = T}
+```{tikz DicePMF, button_latex=TRUE}
 % Dice PMF
 
 \documentclass[tikz = true, border = 2pt]{standalone}
@@ -264,9 +249,6 @@ Each element of a random variable's sample space occurs with a particular probab
 	\end{tikzpicture}	
 \end{document}
 ```
-</div>
-</div>
-</div>
 
 There is an infinite variety of probability distributions, but a small subset of them have been given names. Now, one can manage one's affairs quite well without ever knowing what a Bernoulli distribution is, or what a $\chi{^2}$ distribution is, or even what a normal distribution is. However, sometimes life is a little easier if we have names for useful things that occur often. Most of the distributions with names are not really single distributions, but families of distributions. The various members of a family are unique but they are united by the fact that their probability distributions are generated by a particular mathematical function (more on that later). In such cases, the probability distribution is often represented by a graph in which the sample space is on the $X$-axis and the associated probabilities are on the $Y$-axis. In Figure&nbsp;\@ref(fig:pdfIllustration), 16 probability distributions that might be interesting and useful to clinicians are illustrated. Keep in mind that what are pictured are only particular members of the families listed; some family members look quite different from what is shown in Figure&nbsp;\@ref(fig:pdfIllustration).
 
@@ -275,13 +257,9 @@ There is an infinite variety of probability distributions, but a small subset of
 knitr::include_graphics("pdfIllustration.svg")
 ```
 
-<div class="wrap-collapsible">
-<input id="collapsible32" class="toggle" type="checkbox">
-<label for="collapsible32" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
 
-```{r pdfIllustrationCode, eval=F, echo=T}
+```{r pdfIllustrationCode, button_r=TRUE, eval=FALSE}
+# A gallery of useful distributions
 # Run output file pdfIllustration.tex in LaTeX
 # pdflatex --enable-write18 --extra-mem-bot=10000000 --synctex=1 pdfIllustration.tex
 tikzpackages <- paste(
@@ -293,7 +271,7 @@ tikzpackages <- paste(
 )
 
 tikzDevice::tikz('pdfIllustration.tex',
-                 standAlone=TRUE, 
+                 standAlone = TRUE, 
                  packages = tikzpackages, 
                  width = 11, 
                  height = 11)
@@ -362,7 +340,7 @@ plot(
   lty = 3,
   pch = 19
 )
-text(x = 7, y = .15, "$\\lambda=3$")
+text(x = 7, y = .15, r"($\lambda=3$)")
 
 # Geometric
 plot(
@@ -472,7 +450,7 @@ for (i in 1:length(at)) axis(side, at = at[i], labels = labels[i],tick = F)
 }
 axis_ticks <- seq(-4,4,2)
 axis_labs <- center_neg(axis_ticks)
-all_tick_labels(1, at = axis_ticks, labels =axis_labs)
+all_tick_labels(1, at = axis_ticks, labels = axis_labs)
 
 
 # Student t
@@ -501,7 +479,7 @@ text(x = 3, y = .3, "$\\nu=2$")
 axis(2)
 axis_ticks <- seq(-6,6,2)
 axis_labs <- center_neg(axis_ticks)
-all_tick_labels(1, at = axis_ticks, labels =axis_labs)
+all_tick_labels(1, at = axis_ticks, labels = axis_labs)
 
 # Chi-Square
 x <- seq(0, 40, 0.05)
@@ -757,11 +735,6 @@ text(0, 0.25, "$\\rho_{XY}=0.6$")
 dev.off()
 ```
 
-
-</div>
-</div>
-</div>
-
 ## Discrete Uniform Distributions {#sec:DiscreteUniform}
 
 The throw of a single die is a member of a family of distributions called the [discrete uniform distribution]{class=defword}.`r tufte::margin_note("A **discrete uniform distribution** is a family of random variable distributions in which the sample space is an evenly spaced sequence of numbers, each of which is equally likely to occur.")` It is "discrete" because the elements in the sample space are countable, with evenly spaced gaps between them. For example, there might be a sequence of 8, 9, 10, and 11 in the sample space but there are no numbers in between. It is "uniform" because all outcomes are equally likely. With dice, the numbers range from a lower bound of 1 to an upper bound of 6. In the family of discrete uniform distributions, the lower and upper bounds are typically integers, mostly likely starting with 1. However, any real number $a$ can be the lower bound and the spacing $k$ between numbers can be any positive real number. For the sake of simplicity and convenience, I will assume that the discrete uniform distribution refers to consecutive integers ranging from a lower bound of $a$ and an upper bound of $b$. 
@@ -769,40 +742,21 @@ The throw of a single die is a member of a family of distributions called the [d
 This kind of discrete uniform distribution has a number of characteristics listed in Table&nbsp;\@ref(tab:uniformfeatures). I will explain each of them in the sections that follow. As we go, I will also explain the mathematical notation. For example, $a \in \{\ldots,-1,0,1,\ldots\}$ means that $a$ is an integer because $\in$ means *is a member of* and $\{\ldots,-1,0,1,\ldots\}$ is the set of all integers.^[Sometimes the set of all integers is referred to with the symbol $\mathbb{Z}$] $x \in \{a,a+1,\ldots,b\}$ means that the each member of the sample space $x$ is a member of the set of integers that include $a$, $b$, and all the integers between $a$ and $b$. The notation for the [probability mass function](#sec:pmf) and the [cumuluative distribution function](#sec:CumDist) function will be explained later in this chapter.
 
 
-<!-- $$\begin{equation*} -->
-<!-- \boxed{ -->
-<!-- \begin{array}{rccc} -->
-<!-- %\text{\textbf{Discrete Uniform Distribution}}&&\\ -->
-<!-- \text{Lower Bound:} & a  & {\in} & {\mathbb{Z}}\\ -->
-<!-- \text{Upper Bound:} & b & \in & \mathbb{Z}\\ -->
-<!-- &&&b>a\\ -->
-<!-- \text{Sample Space:} & x &\in&\{a,a+1,\ldots,b\}\\ -->
-<!-- \text{Number of points:} & n&=&b-a+1 \\ -->
-<!-- \text{Mean:} & \mu&=&\frac{a+b}{2} \\ -->
-<!-- \text{Variance:} & \sigma^2&=&\frac{n^2-1}{12} \\ -->
-<!-- \text{Skewness:} & \gamma_1&=&0 \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&-\frac{6(n^2+1)}{5(n^2-1)} \\ -->
-<!-- \text{Probability Mass Function:} & f_X(x;a,b)&=&\frac{1}{n} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;a,b)&=&\frac{x-a+1}{n} \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*}$$ -->
-
-
 ```{r uniformfeatures, echo = F, cache = T}
 tibble::tribble(
   ~Feature, ~Symbol,
-  "Lower Bound", "$a \\in \\{\\ldots,-1,0,1,\\ldots\\}$",
-  "Upper Bound", "$b \\in \\{a + 1, a + 2,  \\ldots\\}$",
-  "Sample Space", "$x \\in\\{a, a + 1,\\ldots,b\\}$",
-  "Number of points", "$n=b-a+1$",
-  "Mean", "$\\mu=\\frac{a+b}{2}$",
-  "Variance", "$\\sigma^2=\\frac{n^2-1}{12}$",
-  "Skewness", "$\\gamma_1=0$",
-  "Kurtosis", "$\\gamma_2=-\\frac{6(n^2+1)}{5(n^2-1)}$",
-  "Probability Mass Function", "$f_X(x;a,b)=\\frac{1}{n}$",
-  "Cumulative Distribution Function", "$F_X(x;a,b)=\\frac{x-a+1}{n}$") %>% 
-  knitr::kable(caption = "Features of Discrete Uniform Distributions")
+  "Lower Bound", r"($a \in \{\ldots,-1,0,1,\ldots\}$)",
+  "Upper Bound", r"($b \in \{a + 1, a + 2,  \ldots\}$)",
+  "Sample Space", r"($x \in\{a, a + 1,\ldots,b\}$)",
+  "Number of points", r"($n=b-a+1$)",
+  "Mean", r"($\mu=\frac{a+b}{2}$)",
+  "Variance", r"($\sigma^2=\frac{n^2-1}{12}$)",
+  "Skewness", r"($\gamma_1=0$)",
+  "Kurtosis", r"($\gamma_2=-\frac{6(n^2+1)}{5(n^2-1)}$)",
+  "Probability Mass Function", r"($f_X(x;a,b)=\frac{1}{n}$)",
+  "Cumulative Distribution Function", r"($F_X(x;a,b)=\frac{x-a+1}{n}$)") %>% 
+  knitr::kable(caption = "Features of Discrete Uniform Distributions") %>% 
+  html_table_width(400)
 ```
 
 ### Parameters of Random Variables 
@@ -826,19 +780,14 @@ Many distribution families are united by the fact that their probability distrib
 
 A probability mass function transforms a random variable's sample space elements into probabilities. In Figure&nbsp;\@ref(fig:dice), the probability mass function can be thought of as the arrows between the sample space and the probabilities. That is, the probability mass function is the thing that was done to the sample space elements to calculate the probabilities. In Figure&nbsp;\@ref(fig:dice), each outcome of a throw of the the die was mapped onto a probability of &frac16;. Why &frac16;, and not some other number? The probability mass function of the discrete uniform distribution tells us the answer. 
 
-```{r pmf, dev="svg", fig.width=6.72, out.width=672, fig.cap="Though one may be scarier than the other, both boxes mean the same thing: Probability mass functions tell us how probable each sample space element is.", fig.align='center'}
-
+```{r pmf, dev="svg", fig.width=6.72, out.width=672, fig.cap="Probability mass functions tell us how probable each sample space element is. That is, they are functions that convert samples spaces $(\\boldsymbol{x})$ into probabilities $(\\boldsymbol{p})$ according to specific parameters $(\\boldsymbol{\\theta}).$", fig.align='center'}
 knitr::include_graphics("pmf.svg")
 ```
 
-<div class="wrap-collapsible">
-<input id="collapsible33" class="toggle" type="checkbox">
-<label for="collapsible33" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
-<div class="content-inner">
 
-```{tikz scarymath, eval = F, echo = T}
-% Probability Mass Function Scary Math
+
+```{tikz scarymath, button_latex=TRUE}
+% Probability mass functions tell us how probable each sample space element is
 
 \documentclass[tikz = true, border = 2pt]{standalone}
 
@@ -847,12 +796,11 @@ knitr::include_graphics("pmf.svg")
 \usetikzlibrary{decorations.text, arrows}
 \usetikzlibrary{shapes}
 \usepackage{fontspec}
-\setmainfont{Equity Text A Tab}
+\setmainfont{Equity Text A}
 
 \begin{document}
 \begin{tikzpicture}[>=stealth,scale=0.9]
-\definecolor{firebrick2}{RGB}{205,38,38};
-\definecolor{royalblue2}{RGB}{67,110,238};
+\definecolor{royalblue2}{RGB}{39,64,139};
 \node [rectangle,
        draw, 
        rounded corners= 2pt,
@@ -868,7 +816,7 @@ knitr::include_graphics("pmf.svg")
        single arrow head extend=1.1ex,
        transform shape,
        minimum height=0.9cm,
-       text depth=0.25ex] (fx) at (3.5,0) {$\quad\;\; f_X\quad\;\;$};
+       text depth=0.25ex, text=white] (fx) at (3.5,0) {$\quad\;\; f_X\quad\;\;$};
 \node [text depth=2.25ex,
        text height= 5ex,
        anchor=south,
@@ -894,22 +842,17 @@ knitr::include_graphics("pmf.svg")
        rounded corners = 2pt,
        text depth=0.25ex, 
        minimum height = 7mm] (pts) at (3.5,-2.25) {$\boldsymbol{\theta}=\theta_1,\theta_2,\theta_3,\ldots,\theta_k$};
-\node [align=center,
-       shape=rectangle,
-       rounded corners = 3pt,
-       draw](formula) at (3.5,4) {\textbf{\Large{Scary~Math!}}\\
-	$f_X\!\left(\boldsymbol{x};\boldsymbol{\theta}\right)=\boldsymbol{p}$};
-\draw [rounded corners=5pt] (-2.5,-3) rectangle (9.5,2.65);
-\node at (3.5,2) {\textbf{\large{Slightly Less Scary Math:}}};
+%\node [align=center,
+%       shape=rectangle,
+%       rounded corners = 3pt,
+%       draw](formula) at (3.5,4) {\textbf{\Large{Scary~Math!}}\\
+%	$f_X\!\left(\boldsymbol{x};\boldsymbol{\theta}\right)=\boldsymbol{p}$};
+%\draw [rounded corners=5pt] (-2.5,-3) rectangle (9.5,2.65);
+\node at (3.5,2) {$f_X\!\left(\boldsymbol{x};\boldsymbol{\theta}\right)=\boldsymbol{p}$};
 \draw[->,>=latex', very thick] (3.5,-1.15) to (3.5,-0.5);
 \end{tikzpicture}
 \end{document}
 ```
-
-</div>
-</div>
-</div>
-
 
 The probability mass function of the discrete uniform distribution is fairly simple but the notation can be intimidating at first (Figure&nbsp;\@ref(fig:pmf)). By convention, a single random variable is denoted by a capital letter $X$. Any particular value of $X$ in its sample space is represented by a lowercase $x$. In other words, $X$ represents the variable in its totality whereas $x$ is merely one value that $X$ can take on. Confusing? Yes, statisticians work very hard to confuse us---and most of the time they succeed! 
 
@@ -936,26 +879,22 @@ You might notice that $x$ is not needed to calculate the probability. Why? Becau
 
 ### Cumulative Distribution Functions {#sec:CumDist}
 
-The [cumulative distribution function]{class=defword}`r tufte::margin_note("A **cumulative distribution function** is a mathematical expression that gives the probability that a random variable will equal a particular element of the variable's sample space or less.")` tells us where a sample space element ranks in a distribution. Whereas the probability mass function tells us the probability that a random variable will generate a particular number, the cumulative distribution function tells us the probability that a random variable will generate a particular number or less. The cumulative distribution function of the roll of a die (Figure&nbsp;\@ref(fig:cdfDie)) tells us that the probability of rolling at least a 4 is 4&frasl;6 (i.e., &frac23;).
+The [cumulative distribution function]{class=defword}`r tufte::margin_note("A **cumulative distribution function** is a mathematical expression that gives the probability that a random variable will equal a particular element of the variable's sample space or less.")` tells us where a sample space element ranks in a distribution. Whereas the probability mass function tells us the probability that a random variable will generate a particular number, the cumulative distribution function tells us the probability that a random variable will generate a particular number or less. 
 
 $$F_X(x) = P(X \le x)=p$$
 
 
-```{r cdfDie, dev="svg", fig.width=6.72, out.width=672, fig.cap="The cumulative distribution function of the roll of a die is $F_X(x)=\\frac{x}{6}$"}
+```{r cdfDie, dev="svg", fig.width=6.72, out.width="100%", fig.cap="The cumulative distribution function of the roll of a die is $F_X(x)=\\frac{x}{6}$", fig.margin=TRUE, fig.align='default'}
 knitr::include_graphics("cdfDie.svg")
-
 ```
 
+The cumulative distribution function of the roll of a die (Figure&nbsp;\@ref(fig:cdfDie)) tells us that the probability of rolling at least a 4 is 4&frasl;6 (i.e., &frac23;).
 
 
-<div class="wrap-collapsible">
-<input id="collapsible34" class="toggle" type="checkbox">
-<label for="collapsible34" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
-<div class="content-inner">
 
 
-```{tikz cdfDice, eval = F, echo = T}
+
+```{tikz cdfDice, button_latex=TRUE}
 % CDF Dice
 
 \documentclass[tikz = true, border = 2pt]{standalone}
@@ -1040,9 +979,6 @@ knitr::include_graphics("cdfDie.svg")
 \end{document}
 ```
 
-</div></div></div>
-
-
 The cumulative distribution function is often distinguished from the probability mass function with a capital $F$ instead of a lowercase $f$. In the case of a discrete uniform distribution consisting of $n$ consecutive integers from $a$ to $b$, the cumulative distribution function is:
 
 \begin{equation*}
@@ -1072,14 +1008,9 @@ knitr::include_graphics("pmf2cdf.gif")
 
 
 
-<div class="wrap-collapsible">
-<input id="collapsiblepmf2cdf" class="toggle" type="checkbox">
-<label for="collapsiblepmf2cdf" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-
-
-```{r pmf2cdfCode, echo = T, eval = F}
+```{r pmf2cdfCode, button_r=TRUE}
+# The cumulative distribution function is the sum of the current 
+# and all previous elements of the probability mass function
 p <- crossing(id = 1:6,
          x = 1:6) %>% 
   mutate(pmf = 1 / 6) %>% 
@@ -1151,122 +1082,12 @@ animate(p,
         height = 8)
 ```
 
-</div></div></div>
-
 ### Quantile functions {#sec:Quantile}
 
 The inverse of the cumulative distribution function is the [quantile function]{class=defword}.`r tufte::margin_note("A **quantile function** tells us which value in the sample space of a random variable is greater than a particular proportion of the values the random variable generates.")` The cumulative distribution starts with a value $x$ in the sample space and tells us $p$, the proportion of values in that distribution that are less than or equal to $x$. A quantile function starts with a proportion $p$ and tells us the value $x$ that splits the distribution such that the proportion $p$ of the distribution is less than or equal to $x$. 
 
-$$
-\begin{array}{rc}
-\text{Cumulative Distribution Function:} & F_X(x) = p \\
-\text{Quantile Function:} & Q_X(p) = x
-\end{array}
-$$
-
-
-As seen in Figure&nbsp;\@ref(fig:cdfvquantile), if you see a graph of a continuous distribution function, just flip the $X$ and $Y$ axes and you have a graph of a quantile function!
-
-```{r, eval = F}
-# CDF vs. Quantile function
-X <- seq(-4, 4, 0.05)
-CDF <- pnorm(X)
-par(
-  mar = c(3.2, 3.5, 2.2, 0),
-  mfrow = c(1,2),
-  las = 1,
-  xpd = TRUE,
-  family = bfont,
-  pty = "s",
-  bty = "n",
-  cex = 1.2
-)
-plot(
-  CDF ~ X,
-  main = "Cumulative Distribution Function",
-  xlab = "Sample Space",
-  ylab = "Proportion",
-  type = "l",
-  lwd = 2,
-  col = myfills[1],
-  cex.main = 0.8,
-  ann = F,
-  axes = F
-)
-# text(-2, 0.5, labels = "$~N(0,1)$")
-text(-2, 0.5, labels = expression(italic(X) %~% N(0,1)))
-axis(
-  1,
-  at = seq(-4, 4, 2),
-  labels = paste0(c("\u2212","\u2212","","",""), abs(seq(-4, 4, 2))),
-  mgp = c(0, .75, 0)
-)
-axis(2, las = 1)
-title(xlab = "Sample Space", line = 2)
-title(ylab = "Proportion", line = 2.5)
-title("Cumulative Distribution Function", line = 1.5)
-IDPmisc::Arrows(
-  -3.99,
-  pnorm(-3.99),-4,
-  pnorm(-4),
-  size = 0.7,
-  open = FALSE,
-  sh.col = myfills[1]
-)
-IDPmisc::Arrows(
-  3.99,
-  pnorm(3.99),
-  4,
-  pnorm(4),
-  size = 0.7,
-  open = FALSE,
-  sh.col = myfills[1]
-)
-plot(
-  X ~ CDF,
-  main = "Quantile Function",
-  ylab = "Sample Space",
-  xlab = "Proportion",
-  type = "l",
-  lwd = 2,
-  col = myfills[1],
-  cex.main = 0.8,
-  axes = F,
-  ann = F,
-  las = 1
-)
-title(xlab = "Proportion", line = 2)
-title(ylab = "Sample Space", line = 2.25)
-title("Quantile Function", line = 1.5)
-axis(2, 
-     at = seq(-4, 4, 2), 
-     labels = paste0(c("\u2212","\u2212","","",""), abs(seq(-4, 4, 2))),
-     las = 1)
-axis(1, mgp = c(0, .75, 0))
-
-text(0.5,-2, labels = expression(italic(X) %~% N(0,1)))
-IDPmisc::Arrows(
-  pnorm(-3.99),-3.99,
-  pnorm(-4),-4,
-  size = 0.7,
-  open = FALSE,
-  sh.col = myfills[1]
-)
-IDPmisc::Arrows(
-  pnorm(3.99),
-  3.99,
-  pnorm(4),
-  4,
-  size = 0.7,
-  open = FALSE,
-  sh.col = myfills[1]
-)
-
-```
-
-
-```{r cdfvquantile, echo=F, dev="svg", fig.height=6, fig.width=10, cache=T, fig.fullwidth = T, fig.align='default',fig.cap="The quantile function is the inverse of the cumulative distribution function: Just flip the X and Y axes!", warning=FALSE}
-
+```{r cdfvquantile, echo=F, dev="svg", fig.height=12, fig.width=6, cache=T, fig.margin = T, fig.align='default',fig.cap="The quantile function is the inverse of the cumulative distribution function: Just flip the X and Y axes!", warning=FALSE}
+# The quantile function is the inverse of the cumulative distribution function
 d <- tibble(x = seq(-4, 4, 0.01)) %>%
   mutate(p = pnorm(x))
 
@@ -1279,25 +1100,26 @@ p1 <- ggplot(d, aes(x, p)) +
     color = myfills[1],
     lwd = 1
   ) +
-  scale_x_continuous(expression(Sample ~ Space ~ (italic(x)))) +
-  scale_y_continuous(expression(Proportion ~ (italic(p))), labels = prob_label) +
+  scale_x_continuous("Sample Space (*x*)") +
+  scale_y_continuous("Proportion (*p*)", labels = prob_label) +
   theme_minimal(base_size = 26, base_family = bfont) +
   coord_fixed(8) +
   annotate(
-    "label",
+    "richtext",
     x = -2,
     y = .5 + .25 / 4,
-    label = 'italic(X)%~%italic(N)*group("(",list(0,1^2),")")',
-    parse = T,
+    label = "*X* ~ <span style=\"font-family:'Lucida Calligraphy'\">N</span>(0, 1<sup>2</sup>)",
     family = bfont,
     label.size = 0,
     label.padding = unit(0, "mm"),
-    size = 6
+    size = ggtext_size(26)
   ) +
-  ggtitle(expression(Cumulative~Distribution~Function~italic(F[X](x)) == italic(p))) +
+  ggtitle("Cumulative Distribution Function *F<sub>X</sub>*(*x*) = *p*") +
   theme(
-    title = element_text(size = 14, hjust = 0.5),
-    plot.title = element_text(hjust = 0.5),
+    plot.title = ggtext::element_markdown(size = 26 * 0.8), 
+    plot.title.position = "plot",
+    axis.title.x = ggtext::element_markdown(),
+    axis.title.y = ggtext::element_markdown(),
     axis.text.x = element_text(hjust = c(0.7, 0.7, 0.5, 0.5, 0.5))
   )
 
@@ -1310,44 +1132,42 @@ p2 <- ggplot(d, aes(p, x)) +
     color = myfills[1],
     lwd = 1
   ) +
-  scale_y_continuous(expression(Sample ~ Space ~ (italic(x)))) +
-  scale_x_continuous(expression(Proportion ~ (italic(p))), labels = prob_label) +
+  scale_y_continuous("Sample Space (*x*)") +
+  scale_x_continuous("Proportion (*p*)", labels = prob_label) +
   theme_minimal(base_size = 26, base_family = bfont) +
   coord_fixed(1 / 8) +
   annotate(
-    "label",
+    "richtext",
     y = 0.5,
     x = .25,
-    label = 'italic(X)%~%italic(N)*group("(",list(0,1^2),")")',
-    parse = T,
+    label = "*X* ~ <span style=\"font-family:'Lucida Calligraphy'\">N</span>(0, 1<sup>2</sup>)",
     family = bfont,
     label.size = 0,
     label.padding = unit(0, "mm"),
-    size = 6
+    size = ggtext_size(26)
   ) +
-  ggtitle(expression(Quantile~Function~italic(Q[X](p)) == italic(x))) +
-  theme(title = element_text(size = 14, hjust = 0.5),
-        plot.title = element_text(hjust = 0.5))
+  ggtitle("Quantile Function *Q*<sub>*X*</sub>(*p*) = *x*") +
+  theme(plot.title = ggtext::element_markdown(size = 26 * 0.8), 
+        plot.title.position = "plot",
+        axis.title.x = ggtext::element_markdown(),
+        axis.title.y = ggtext::element_markdown())
 
+p1 / p2
+```
 
+$$
+\begin{array}{rc}
+\text{Cumulative Distribution Function:} & F_X(x) = p \\
+\text{Quantile Function:} & Q_X(p) = x
+\end{array}
+$$
 
-p1 + p2
+As seen in Figure&nbsp;\@ref(fig:cdfvquantile), if you see a graph of a continuous distribution function, just flip the $X$ and $Y$ axes and you have a graph of a quantile function!
 
+```{r cdfvquantileCode, ref.label="cdfvquantile", button_r=TRUE}
 ```
 
 
-<div class="wrap-collapsible">
-<input id="collapsible35" class="toggle" type="checkbox">
-<label for="collapsible35" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-
-
-```{r cdfvquantileCode, ref.label="cdfvquantile", echo = T, eval = F}
-
-```
-
-</div></div></div>
 
 ### Generating a Random Sample in R
 
@@ -1374,9 +1194,9 @@ X <- sample(sample_space,
 ```
 
 
-
-
 ```{r discreteplot, fig.cap="Frequency distribution of a discrete uniform random variable from 1 to 6 ($n$ = 6,000)", dev = "svg", fig.margin = T, fig.align='default', fig.asp=1, fig.align="default", cache=T}
+# Frequency distribution of a discrete uniform random variable from 1 to 6 
+
 tibble(X = factor(X)) %>% 
   group_by(X) %>% 
   summarise(Frequency = n()) %>% 
@@ -1404,16 +1224,12 @@ tibble(X = factor(X)) %>%
 
 ```
 
-<div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible36" class="toggle" type="checkbox">
-<label for="collapsible36" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-```{r discreteplotCode, ref.label="discreteplot", echo=T, eval = F}
+The frequencies of the random sample can be seen in Figure&nbsp;\@ref(fig:discreteplot). Because of [sampling error]{class=defword}`r tufte::margin_note("Samples imperfectly represent the population from which they are drawn. **Sampling error** refers to differences between sample statistics and population parameters.")`, the frequencies are approximately the same, but not exactly the same.
+
+```{r discreteplotCode, ref.label="discreteplot", button_r=TRUE}
 
 ```
 
-</div></div></div>
 
 ## Bernoulli Distributions {#sec:BernoulliDist}
 
@@ -1424,42 +1240,25 @@ knitr::include_graphics("Jakob_Bernoulli2.jpg")
 ```
 
 
-```{marginfigure, echo = T}
+```{marginfigure notation_note, echo = T}
 **Notation note:** Whereas $\{a,b\}$ is the set of just two numbers, $a$ and $b$, $[a,b]$ is the set of all real numbers between $a$ and $b$.
 ```
 
 
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-<!-- \begin{array}{rccc} -->
-<!-- % \text{\textbf{Bernoulli Distribution}}&&\\ -->
-<!-- \text{Sample Space:} & x&\in&\{0,1\}\\  -->
-<!-- \text{Probability of success in each trial:}  &p&\in&{[0,1]} \\ -->
-<!-- \text{Mean:} & \mu&=&p \\ -->
-<!-- \text{Variance:} & \sigma^2&=&p(1-p) \\ -->
-<!-- \text{Skewness:} & \gamma_1&=&\frac{1-2p}{\sqrt{p(1-p)}} \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&\frac{1}{p(1-p)}-6 \\ -->
-<!-- \text{Probability Mass Function:} & f_X(x;p)&=&p^x(1-p)^{1-x} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;p)&=&x+p(1-x) \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
-
-<!-- \\text{(.*?)} -->
-
 ```{r bernoullifeatures, cache=T}
 tibble::tribble(
   ~Feature, ~Symbol,
-  "Sample Space:", "$x \\in \\{0,1\\}$",
-  'Probability that $x=1$', "$p \\in {[0,1]}$",
-  'Probability that $x=0$', "$q = 1 - p$",
-  "Mean" , "$\\mu = p$",
-"Variance" , "$\\sigma^2 = pq$",
-"Skewness" , "$\\gamma_1 = \\frac{1 - 2p}{\\sqrt{pq}}$",
-"Kurtosis" , "$\\gamma_2 = \\frac{1}{pq} - 6$",
-"Probability Mass Function" , "$f_X(x;p) = p^xq^{1 - x}$",
-"Cumulative Distribution Function", "$F_X(x;p) = x+p(1 - x)$" ) %>%
-  knitr::kable(caption = "Features of Bernoulli Distributions")
+  "Sample Space:", r"($x \in \{0,1\}$)",
+  'Probability that $x=1$', r"($p \in {[0,1]}$)",
+  'Probability that $x=0$', r"($q = 1 - p$)",
+  "Mean" , r"($\mu = p$)",
+"Variance" , r"($\sigma^2 = pq$)",
+"Skewness" , r"($\gamma_1 = \frac{1 - 2p}{\sqrt{pq}}$)",
+"Kurtosis" , r"($\gamma_2 = \frac{1}{pq} - 6$)",
+"Probability Mass Function" , r"($f_X(x;p) = p^xq^{1 - x}$)",
+"Cumulative Distribution Function", r"($F_X(x;p) = x+p(1 - x)$)" ) %>%
+  knitr::kable(caption = "Features of Bernoulli Distributions") %>% 
+  html_table_width(400)
 ```
 
 ```{r coin, fig.cap = "The probability distribution of a coin toss", dev="svg", fig.width=3, out.width=300, fig.margin = T, fig.align='default', cache=T}
@@ -1470,14 +1269,7 @@ knitr::include_graphics("coin.svg")
 
 The toss of a single coin has the simplest probability distribution that I can think of---there are only two outcomes and each outcome is equally probable (Figure&nbsp;\@ref(fig:coin)). This is a special case of the [Bernoulli distribution]{class=defword}.`r tufte::margin_note("In the **Bernoulli distribution**, there are only two outcomes: a &ldquo;success&rdquo; (1) and a &ldquo;failure&rdquo; (0). If a success has a probability $p$ then a failure has a probability of $q = 1 - p$.")` The Bernoulli distribution can describe any random variable that has two outcomes, one of which has a probability $p$ and the other has a probability $q=1-p$. In the case of a coin flip, $p=0.5$. For other variables with a Bernoulli distribution, $p$ can range from 0 to 1.
 
-<div class="wrap-collapsible" style="margin-top: 0em;">
-<input id="collapsible37" class="toggle" type="checkbox">
-<label for="collapsible37" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
-<div class="content-inner">
-
-```{tikz coinbernoulli, eval = F, echo = T}
-
+```{tikz coinbernoulli, button_latex=TRUE}
 % Coin toss Bernoulli
 \documentclass[tikz = true, border = 2pt]{standalone}
 \usepackage{fontspec}
@@ -1522,7 +1314,6 @@ The toss of a single coin has the simplest probability distribution that I can t
 
 \end{document}
 ```
-</div></div></div>
 
 In psychological assessment, many of the variables we encounter have a Bernoulli distribution. In ability test items in which there is no partial credit, examinees either succeed or fail. The probability of success on an item (in the whole population) is $p$. In other words, $p$ is the proportion of the entire population that correctly answers the question. Some ability test items are very easy and the probability of success is high. In such cases, $p$ is close to 1. When $p$ is close to 0, few people succeed and items are deemed hard. Thus, in the context of ability testing, $p$ is called the [difficulty parameter]{class=defword}.`r tufte::margin_note("The **difficulty parameter** is the proportion of people who succeed on an item (or say 'Yes' or 'True' or otherwise score a 1 on a random variable with a Bernoulli distribution.).")` This is confusing because when $p$ is high, the item is easy, not difficult. Many people have suggested that it would make more sense to call it the "easiness parameter" but the idea has never caught on.
 
@@ -1532,7 +1323,8 @@ True/False and Yes/No items on questionnaires also have Bernoulli distributions.
 
 In R, there is no specialized function for the Bernoulli distribution because it turns out that the Bernoulli distribution is a special case of the [binomial distribution](#sec:binomial), which will be described in the next section. With the function `rbinom`, we can generate data with a Bernoulli distribution by setting the `size` parameter equal to 1.
 
-```{r BernoulliSample, eval=T, echo = F, fig.cap="Counts of a Random Variable with a Bernoulli Distribution $(p = 0.8, n = 1000)$", fig.margin = T, fig.align='default', fig.height=4, fig.width=4, dev="svg", out.width=400, cache=T}
+```{r BernoulliSample, eval=T, echo = F, fig.cap="Counts of a Random Variable with a Bernoulli Distribution $(p = 0.8, n = 1000)$", fig.margin = T, fig.align='default', fig.height=4, fig.width=4, dev="svg", out.width="100%", cache=T}
+# Counts of a Random Variable with a Bernoulli Distribution
 set.seed(4)
 # n = sample size
 n <- 1000
@@ -1548,15 +1340,16 @@ ggplot(tibble(X = factor(X)), aes(X)) +
   geom_text(aes(label = ..count..), 
             stat = "count", 
             vjust = -0.4, 
-            size = 6,
+            size = ggtext_size(18),
             family = bfont,
             color = "gray10") + 
-  theme_minimal(18, bfont) + 
+    theme_minimal(18, bfont) + 
   theme(panel.grid.major.x = element_blank())
 ```
 
 
-```{r BernoulliSampleCode, eval=FALSE, echo=T}
+
+```{r BernoulliSampleCode, eval = FALSE, echo=TRUE}
 # n = sample size
 n <- 1000
 # p = probability
@@ -1567,27 +1360,33 @@ X <- rbinom(n, size = 1, prob = p)
 barplot(table(X))
 ```
 
+```{r BernoulliSampleCodeFigure, button_r=TRUE, ref.label="BernoulliSample"}
+
+```
+
+
+
 ## Binomial Distributions {#sec:binomial}
 
 ```{r binomialfeatures, cache=T}
 tibble::tribble(
   ~Feature, ~Symbol,
-  "Number of Trials", "$n \\in \\{1,2,3,\\ldots\\}$",
-  'Sample Space', "$x \\in \\{0,...,n\\}$",
-  "Probability of success in each trial", "$p \\in [0,1]$",
-  "Probability of failure in each trial", "$q = 1 - p$",
-  "Mean", "$\\mu = np$",
-  "Variance", "$\\sigma = npq$",
-  "Skewness", "$\\gamma_1 = \\frac{1-2p}{\\sqrt{npq}}$",
-  "Kurtosis", "$\\gamma_2 = \\frac{1}{npq} - \\frac{6}{n}$",
-  "Probability Mass Function", "$f_X(x;n,p)=\\frac{n!}{x!\\left(n-x\\right)!}p^x q^{n-x}$",
-  "Cumulative Distribution Function","$F_X(x;n,p)=\\sum_{i=0}^{x}{\\frac{n!}{i!(n-i)!} p^i q^{n-i}}$"
+  "Number of Trials", r"($n \in \{1,2,3,\ldots\}$)",
+  'Sample Space', r"($x \in \{0,...,n\}$)",
+  "Probability of success in each trial", r"($p \in [0,1]$)",
+  "Probability of failure in each trial", r"($q = 1 - p$)",
+  "Mean", r"($\mu = np$)",
+  "Variance", r"($\sigma = npq$)",
+  "Skewness", r"($\gamma_1 = \frac{1-2p}{\sqrt{npq}}$)",
+  "Kurtosis", r"($\gamma_2 = \frac{1}{npq} - \frac{6}{n}$)",
+  "Probability Mass Function", r"($f_X(x;n,p)=\frac{n!}{x!\left(n-x\right)!}p^x q^{n-x}$)",
+  "Cumulative Distribution Function",r"($F_X(x;n,p)=\sum_{i=0}^{x}{\frac{n!}{i!(n-i)!} p^i q^{n-i}}$)"
    ) %>%
-  knitr::kable(caption = "Features of Binomial Distributions")
+  knitr::kable(caption = "Features of Binomial Distributions") %>% 
+  html_table_width(400)
 ```
 
-```{r twocoin, fig.margin = T, fig.align='default', dev='svg', fig.width=4, out.width=400, fig.cap="Probability distribution of the number of heads observed when two coins are tossed"}
-
+```{r twocoin, fig.margin = T, fig.align='default', dev='svg', fig.width=4, out.width="100%", fig.cap="Probability distribution of the number of heads observed when two coins are tossed"}
 knitr::include_graphics("twocoin.svg")
 ```
 
@@ -1596,14 +1395,8 @@ Let's extend the idea of coin tosses and see where it leads. Imagine that two co
 
 
 
-
-<div class="wrap-collapsible" style="margin-top: 0em;">
-<input id="collapsible39" class="toggle" type="checkbox">
-<label for="collapsible39" class="lbl-toggle">$\rm\LaTeX~Code$</label>
-<div class="collapsible-content">
-<div class="content-inner">
-
-```{tikz, eval = F, echo = T}
+```{tikz twocoinCode, button_latex=TRUE}
+% Probability distribution of the number of heads observed when two coins are tossed
 \documentclass[tikz = true,border = 2pt]{standalone}
 \usepackage{tikz}
 \usepackage{fontspec}
@@ -1667,7 +1460,7 @@ Let's extend the idea of coin tosses and see where it leads. Imagine that two co
 \end{tikzpicture}
 \end{document}
 ```
-</div></div></div>
+
 
 The probability distribution of the number of heads observed when two coins are tossed at the same time is a member of the *binomial distribution* family. The binomial distribution occurs when *independent*`r tufte::margin_note("Two random variable are said to be *independent* if the outcome of one variable does not alter the probability of any outcome in the other variable.")` random variables with the same [Bernoulli distribution](#sec:BernoulliDist) are added together. In fact, Bernoulli discovered the binomial distribution as well as the Bernoulli distribution.
 
@@ -1778,17 +1571,9 @@ f_X(x)=\frac{n!}{x!\left(n-x\right)!}\left(\frac{1}{6}\right)^x\left(\frac{5}{6}
 
 If we take each element $x$ of the sample space from 0 to 10 and plug it into the equation above, the probability distribution will look like Figure&nbsp;\@ref(fig:pmf6).
 
-<div class="wrap-collapsible" style="margin-top: 1em">
-<input id="collapsible38" class="toggle" type="checkbox">
-<label for="collapsible38" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-```{r pmf6Code, ref.label="pmf6", echo = T, eval = F}
+```{r pmf6Code, ref.label="pmf6", button_r=TRUE}
 
 ```
-</div></div></div>
-
-
 
 ### Clinical Applications of the Binomial Distribution 
 
@@ -1829,82 +1614,9 @@ plot(cdfBinomial ~ SampleSpace, type = "b")
 
 However, making the graph look professional involves quite a bit of code that can look daunting at first. However, the results are often worth the effort. Try running the code below to see the difference. For presentation-worthy graphics, export the graph to the .pdf or .svg format. An .svg file can be imported directly into MS Word or MS PowerPoint. 
 
-```{r binomGraphPresentation,echo=F,eval=F,cache=TRUE}
-# Generate a graph for presentation or publication;
-# The pdf function makes a .pdf file that will look better 
-# than most other formats.
-pdf(file="BinomialDistribution.pdf")
-# The par function sets many different kinds of graphic parameters;
-# Set the 4 margin sizes with the mar parameter
-par(mar=c(5, 4, 0, 0) + 0.1, family = "serif")
-# Make the plot;
-# NA in the first position means that nothing will be plotted at first;
-# xlim=c(0,10) means the x-axis limits are 0 and 10;
-# ylim=c(0,1) means the y-axis limits are 0 and 1;
-# main is the plot title;
-# xlab is the x-axis title;
-# ylab is the y-axis title;
-# axes=FALSE means to not display the default axes;
-# font.lab=2 means that the axis titles are bold
-# The expression function allows for equations and text formatting
-plot(NA,
-     xlim=c(0,10),
-     ylim=c(0,1),
-     pch=19,
-     main=expression("Binomial Distribution"~group("(",list(italic(n)==10,italic(p)==0.8),")")),
-     xlab="Sample Space", 
-     ylab="Probability",
-     axes=FALSE,
-     font.lab=2)
-# Make gridlines;
-# v=seq(0,10) means make vertical lines at 0 through 10;
-# h=seq(0,1,0.1) means make horizontal lines at 0 through 1 at 0.1 intervals;
-# col="lightgray" means that the gridlines are light gray;
-# lty=3 means that the gridlines have a dotted line type;
-abline(v=seq(0,10),col="lightgray",lty=3)
-abline(h=seq(0,1,0.1),col="lightgray",lty=3)
-# Add the probability mass function;
-# type = "b" means to plot both lines and points;
-# lty=2 means line type is dashed;
-# lwd=2 means line width is 2 points;
-# col="blue" means make the lines and points blue;
-# pch=19 means that the points should be filled circles;
-lines(x=SampleSpace,y=pmfBinomial,type="b",lty=3,lwd=2,col=myfills[1],pch=19)
-# Add the cumulative distribution function;
-# cex=0.7 means make the dots at 70% the default size so that they do not completely cover the pmf series
-lines(x=SampleSpace,y=cdfBinomial,type="b",lty=3,lwd=2,col=myfills[2],pch=19,cex=0.7)
-# Add custom x-axis;
-# at=SampleSpace means to label each point in the SampleSpace variable (0 to 10);
-# cex.axis=0.8 means to size the axis labels at 80% of the default size;
-axis(1,at=SampleSpace,cex.axis=0.8)
-# Add custom y-axis;
-# at=seq(0,1,0.1) means to label each point from 0 to 1, at 0.1 intervals;
-# las=1 means to make the labels horizontal
-axis(2,at=seq(0,1,0.1),las=1,cex.axis=0.8)
-# xpd=NA allows for text to appear outside the plot region. Otherwise it is clipped.
-par(xpd=NA)
-# Add text at point (x,y);
-# cex=0.8 means size the text at 80% of the default text size;
-# adj=0 means left justify the text (0.5 means center and 1 means right justify);
-text(x=7,
-     y=dbinom(7,10,0.8),
-     col=myfills[1],
-     labels="Probability Mass Function",
-     adj=c(0.575,2),
-     cex=0.8,
-     srt=45)
-text(x=8,
-     y=pbinom(8,10,0.8),
-     col=myfills[2],
-     labels="Cumulative Distribution Function",
-     adj=c(0.5,2),
-     cex=0.8,
-     srt=69)
-dev.off() #Ends pdf function
-pander::openFileInOS("BinomialDistribution.pdf")
-```
-
 ```{r BinomialDistribution, dev='svg', fig.width=7, fig.height=7, fig.cap="Probability Mass Function and Cumulative Distribution Function of the Binomial Distribution $(n = 10,~p = 0.8)$", cache=T}
+# Probability Mass Function and Cumulative Distribution 
+# Function of the Binomial Distribution
 tibble(SampleSpace = 0:10,
        pmf = dbinom(SampleSpace, 10, 0.8),
        cdf = pbinom(SampleSpace, 10, 0.8)) %>%
@@ -1954,12 +1666,7 @@ tibble(SampleSpace = 0:10,
 
 ```
 
-<div class="wrap-collapsible">
-<input id="collapsible311" class="toggle" type="checkbox">
-<label for="collapsible311" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-```{r BinomialDistributionCode, echo=T, eval=F}
+```{r BinomialDistributionCode, button_r=TRUE}
 tibble(SampleSpace = 0:10,
        pmf = dbinom(SampleSpace, 10, 0.8),
        cdf = pbinom(SampleSpace, 10, 0.8)) %>%
@@ -1977,7 +1684,7 @@ tibble(SampleSpace = 0:10,
   scale_x_continuous("Sample Space",
                      breaks = seq(0, 10, 2),
                      expand = expansion(0.02)) +
-  scale_y_continuous(expand = expansion(0.02)) +
+  scale_y_continuous(expand = expansion(0.02), labels = prob_label, breaks = seq(0,1,0.2)) +
   scale_size_manual(values = c(3, 4.5)) +
   theme(legend.position = "none") +
   annotate(
@@ -2004,51 +1711,30 @@ tibble(SampleSpace = 0:10,
     family = "serif",
     label.padding = unit(0, "mm")
   )
-ggsave("BinomialDistribution.pdf", width = 7, height = 7)
-pander::openFileInOS("BinomialDistribution.pdf")
-ggsave("BinomialDistribution.svg", width = 7, height = 7)
-pander::openFileInOS("BinomialDistribution.svg")
 ```
-</div></div></div>
+
 
 ## Poisson Distributions
 
-```{marginfigure, echo = T}
-**Notation note**: The notation $(0,\infty]$ means all real numbers greater than 0.
+```{marginfigure positive-reals, echo = T}
+**Notation note**: The notation $(0,\infty)$ means all real numbers greater than 0.
 ```
 
-
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-
-<!-- \begin{array}{rccc} -->
-<!-- % \text{\textbf{Poisson Distribution}}&&\\ -->
-<!-- \text{Parameter:} & \lambda & \in & \mathbb{R}\\ -->
-<!-- & & & \lambda>0\\ -->
-<!-- \text{Sample Space:} & x&\in& \mathbb{N}_0\\ -->
-<!-- \text{Mean:} & \mu&=& \lambda\\ -->
-<!-- \text{Variance:} & \sigma^2&=&\lambda\\ -->
-<!-- \text{Skewness:} & \gamma_1&=&\frac{1}{\sqrt{\lambda}} \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&\frac{1}{\lambda}\\ -->
-<!-- \text{Probability Mass Function:} & f_X(x;\lambda)&=&\frac{\lambda^x}{e^{\lambda} x!} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;\lambda)&=& \sum_{i=0}^{x}{\frac{\lambda^i}{e^{\lambda} i!}} \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
 
 ```{r PoissonFeatures, cache=T}
 tibble::tribble(
   ~Feature, ~Symbol,
-  "Parameter", "$\\lambda \\in (0,\\infty]$",
-  "Sample Space", "$x\\in \\{0,1,2,\\ldots\\}$",
-  "Mean", "$\\mu = \\lambda$",
-  "Variance", "$\\sigma^2 = \\lambda$",
-  "Skewness", "$\\gamma_1 = \\frac{1}{\\sqrt{\\lambda}}$",
-  "Kurtosis", "$\\gamma_2 = \\frac{1}{\\lambda}$",
-  "Probability Mass Function", "$f_X(x;\\lambda) = \\frac{\\lambda^x}{e^{\\lambda} x!}$",
-  "Cumulative Distribution Function", "$F_X(x;\\lambda) =  \\sum_{i=0}^{x}{\\frac{\\lambda^i}{e^{\\lambda} i!}}$"
+  "Parameter", r"($\lambda \in (0,\infty)$)",
+  "Sample Space", r"($x\in \{0,1,2,\ldots\}$)",
+  "Mean", r"($\mu = \lambda$)",
+  "Variance", r"($\sigma^2 = \lambda$)",
+  "Skewness", r"($\gamma_1 = \frac{1}{\sqrt{\lambda}}$)",
+  "Kurtosis", r"($\gamma_2 = \frac{1}{\lambda}$)",
+  "Probability Mass Function", r"($f_X(x;\lambda) = \frac{\lambda^x}{e^{\lambda} x!}$)",
+  "Cumulative Distribution Function", r"($F_X(x;\lambda) =  \sum_{i=0}^{x}{\frac{\lambda^i}{e^{\lambda} i!}}$)"
    ) %>%
-  knitr::kable(caption = "Features of Poisson Distributions")
+  knitr::kable(caption = "Features of Poisson Distributions") %>% 
+  html_table_width(400)
 ```
 
 Imagine that an event happens sporadically at random and we measure how often it occurs in regular time intervals (e.g., events per hour). Sometimes the event does not occur in the interval, sometimes just once, and sometimes more than once. However, we notice that over many intervals, the average number of events is constant. The distribution of the number of events in each interval will follow a [Poisson distribution]{class=defword}.`r tufte::margin_note("The **Poisson distribution** is a discrete distribution used to model how often an event will occur during a partiuclar interval of time.")` Although "Poisson" means "fish" in French, fish have nothing to do with it. This distribution was named after the scholar who discovered it, Siméon Denis Poisson. 
@@ -2061,8 +1747,7 @@ knitr::include_graphics("Simeon_Poisson.jpg")
 The Poisson distribution has a single parameter *&lambda;*, the average number of events per time interval. Interestingly, *&lambda;* is both the mean and the variance of this distribution. The distribution shape will differ depending on how long our interval is. If an event occurs on average 30 times per hour, *&lambda;* = 30. If we count how often the event occurs in 10-minute intervals, the same even will occur about 5 times per interval, on average (i.e., *&lambda;* = 1). If we choose to count how often the same event occurs every minute, then *&lambda;* = 0.5.
 
 ```{r samelambda, fig.cap="The shape of the Poisson Distribution depends on the interval used for counting events. Here, the event occurs once per minute, on average.",  dev = 'svg', fig.width=8, fig.height=9, warning=FALSE, cache=T}
-
-
+# The shape of the Poisson Distribution
 crossing(lambda = c(0.5, 5, 30), x = 0:60) %>%
   mutate(p = dpois(x, lambda)) %>%
   mutate(lambda = factor(lambda, labels = paste0(
@@ -2081,20 +1766,13 @@ crossing(lambda = c(0.5, 5, 30), x = 0:60) %>%
   theme_light(base_size = 20, base_family = bfont) +
   theme(legend.position = "none") +
   scale_y_continuous("Probability", labels = prob_label)
-
-
 ```
 
 
-<div class="wrap-collapsible">
-<input id="collapsible312" class="toggle" type="checkbox">
-<label for="collapsible312" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-```{r samelambdaCode, ref.label="samelambda", eval=FALSE, echo=TRUE}
+```{r samelambdaCode, ref.label="samelambda", button_r=TRUE}
 
 ```
-</div></div></div>
+
 
 ### A clinical application of the the Poisson distribution
 
@@ -2105,6 +1783,7 @@ Because your client is well educated and quantitatively inclined, you decide to 
 You plot the frequency of how often he had 0 panic attacks in a week, 1 panic attack in a week, 2 panic attacks in a week, and so forth, as shown in red in Figure&nbsp;\@ref(fig:PanicFrequency). Because you have read this book, you immediately recognize that this is a Poisson distribution with *&lambda;* = 2. When you graph an actual Poison distribution and compare it with your client's data, you see that it is almost a perfect match.^[Note that I am **not** claiming that all clients' panic attack frequencies have this kind of distribution. It just so happens to apply in this instance.] Then you explain that although the goal is permanent cessation of the panic attacks, sometimes an intervention can be considered successful if the frequency of panic attacks is merely reduced. For example, suppose that in the early stages of treatment the frequency of panic attacks were reduced from twice per week to once every other week (*&lambda;* = 0.5), on average. If such a reduction were achieved, there would still be weeks in which two or more panic attacks occur. According to Figure&nbsp;\@ref(fig:PanicCumulativeFrequency), this will occur about `r round(100-100*ppois(1,0.5))`\% of the time.
 
 ```{r PanicFrequency,echo=FALSE, fig.cap="The variability of a hypothetical client's panic attack frequency before and after treatment", fig.height=6, warning=FALSE, cache=T}
+# The variability of a hypothetical client's panic attack frequency
 d_label <- tibble(
   x = c(0, 2),
   Time = c("After", "Before"),
@@ -2142,19 +1821,15 @@ tibble(
 ```
 
 
-<div class="wrap-collapsible">
-<input id="collapsible313" class="toggle" type="checkbox">
-<label for="collapsible313" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-```{r PanicFrequencyCode, ref.label="PanicFrequency", eval=FALSE, echo=TRUE}
+
+```{r PanicFrequencyCode, ref.label="PanicFrequency", button_r=TRUE}
 
 ```
-</div></div></div>
 
-In R, you can use the `dpois` function to plot the Poisson probability mass function. For example, if the average number of events per time period is *&lambda;* = 2, then the probability that there will be 0 events is `dpois(x = 0, lambda = 2)`, which evaluates to `r round(dpois(x = 0, lambda = 2),4)`.
 
-To calculate the cumulative distribution function of Poisson distribution in R, use the `ppois` function. For example, if we want to estimate the probability of having 4 panic attacks or more in a week if *&lambda;* = 2, we must subtract the probability of having 3 panic attacks or less from 1, like so:
+In R, you can use the `dpois` function to plot the Poisson probability mass function. For example, if the average number of events per time period is &lambda; = 2, then the probability that there will be 0 events is `dpois(x = 0, lambda = 2)`, which evaluates to `r round(dpois(x = 0, lambda = 2),4)`.
+
+To calculate the cumulative distribution function of Poisson distribution in R, use the `ppois` function. For example, if we want to estimate the probability of having 4 panic attacks or more in a week if &lambda; = 2, we must subtract the probability of having 3 panic attacks or less from 1, like so:
 
 ```{r ppoisCode, eval = F, echo = T}
 1 - ppois(q = 3, lambda = 2)
@@ -2164,7 +1839,7 @@ $p = `r round(1 - ppois(q = 3, lambda = 2),3)`$
 
 Here is a simple way to plot the probability mass function and the cumulative distribution function using the `dpois` and `ppois` functions:
 
-```{r Panicpmf, echo=-1,  eval=T, fig.cap="Poisson Probability Mass Function (&lambda; = 2)", cache=T}
+```{r Panicpmf, echo=-1,  eval=T, fig.cap="Poisson Probability Mass Function $(\\lambda=2)$", cache=T}
 par(mar = c(4,4,0.5,0.5), las = 1, family = bfont, lty = 3, pch = 16, bty = "L")
 # Make a sequence of integers from 0 to 7
 PanicAttacks <- seq(0, 7)
@@ -2176,7 +1851,7 @@ Probability <- dpois(PanicAttacks, 2)
 plot(Probability ~ PanicAttacks, type = "b") 
 ```
 
-```{r PanicCDF, echo=-1,  eval=T, fig.cap="Poisson Cumulative Distribution Function (&lambda; = 2)", cache=T}
+```{r PanicCDF, echo=-1,  eval=T, fig.cap="Poisson Cumulative Distribution Function $(\\lambda=2)$", cache=T}
 par(mar = c(4,4,0.5,0.5), las = 1, family = bfont, lty = 3, pch = 16, bty = "L")
 # Generate the cumulative distribution function with lambda = 2
 CumulativeProbability <- ppois(PanicAttacks, 2)
@@ -2185,15 +1860,17 @@ CumulativeProbability <- ppois(PanicAttacks, 2)
 plot(CumulativeProbability ~ PanicAttacks, type = "b") 
 ```
 
-With an additional series with *&lambda;* = 0.5, the plot can look like Figure&nbsp;\@ref(fig:PanicCumulativeFrequency).
+With an additional series with $\lambda = 0.5$, the plot can look like Figure&nbsp;\@ref(fig:PanicCumulativeFrequency).
 
 ```{r PanicCumulativeFrequency, echo=FALSE, fig.cap = "The cumulative distribution function of a hypothetical client's panic attack frequency before and after treatment", warning=FALSE, fig.height=7, cache=T}
+# The cumulative distribution function of a hypothetical client's
+# panic attack frequency before and after treatment
 d_label <- tibble(
   x = c(0, 0),
   Time = c("After", "Before"),
   Proportion = ppois(x, lambda = c(0.5, 2)),
-  Label = c("After Treatment: \u03BB = 0.5",
-            "Before Treatment: \u03BB = 2")
+  Label = c("After Treatment: *&lambda;* = 0.5",
+            "Before Treatment: *&lambda;* = 2")
 )
 
 tibble(
@@ -2205,7 +1882,7 @@ tibble(
   ggplot(aes(x, Proportion, color = Time)) +
   geom_line(linetype = "dotted") +
   geom_point(size = 3) +
-  geom_label(
+  geom_richtext(
     data = d_label,
     aes(label = Label),
     hjust = 0,
@@ -2213,7 +1890,7 @@ tibble(
     family = bfont,
     label.padding = unit(0, "lines"),
     label.size = 0,
-    size = 6
+    size = ggtext_size(20)
   ) +
   scale_color_manual(values = myfills) +
   scale_y_continuous(breaks = seq(0, 1, 0.2), 
@@ -2226,97 +1903,37 @@ tibble(
   theme(legend.position = "none")
 ```
 
-<div class="wrap-collapsible">
-<input id="collapsible314" class="toggle" type="checkbox">
-<label for="collapsible314" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
-```{r, ref.label="PanicCumulativeFrequency", eval=FALSE, echo=TRUE}
+
+```{r, ref.label="PanicCumulativeFrequency", button_r=TRUE}
 
 ```
-</div></div></div>
 
-## Geometric Distributions}
-
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-
-<!-- \begin{array}{rccc} -->
-<!-- % \text{\textbf{Geometric Distribution}}&&\\ -->
-<!-- \text{Probability of success in each trial:}  &p&\in&[0,1] \\ -->
-<!-- \text{Sample Space:} & x&\in& \{1,2,3,\ldots\}\\ -->
-<!-- \text{Mean:} & \mu&=& \frac{1}{p}\\ -->
-<!-- \text{Variance:} & \sigma^2&=&\frac{1-p}{p^2}\\ -->
-<!-- \text{Skewness:} & \gamma_1&=&\frac{2-p}{\sqrt{1-p}} \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&6+\frac{p^2}{1-p}\\ -->
-<!-- \text{Probability Mass Function:} & f_X(x;p)&=&(1-p)^{x-1}p^x \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;p)&=& 1-(1-p)^x \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
+## Geometric Distributions
 
 ```{r GeometricFeatures, cache=T}
 tibble::tribble(
   ~Feature, ~Symbol,
-  "Probability of success in each trial", " $p\\in[0,1]$",
-  "Sample Space", "$x \\in \\{1,2,3,\\ldots\\}$",
-  "Mean", " $\\mu = \\frac{1}{p}$",
-  "Variance", "$\\sigma^2 = \\frac{1-p}{p^2}$",
-  "Skewness", "$\\gamma_1 = \\frac{2-p}{\\sqrt{1-p}}$",
-  "Kurtosis", "$\\gamma_2 = 6 + \\frac{p^2}{1-p}$",
-  "Probability Mass Function", "$f_X(x;p) = (1-p)^{x-1}p^x$",
-  "Cumulative Distribution Function", "$F_X(x;p) = 1-(1-p)^x$") %>% 
-  knitr::kable(caption = "Features of Geometric Distributions")
+  "Probability of success in each trial", r"($p\in[0,1]$)",
+  "Sample Space", r"($x \in \{1,2,3,\ldots\}$)",
+  "Mean", r"($\mu = \frac{1}{p}$)",
+  "Variance", r"($\sigma^2 = \frac{1-p}{p^2}$)",
+  "Skewness", r"($\gamma_1 = \frac{2-p}{\sqrt{1-p}}$)",
+  "Kurtosis", r"($\gamma_2 = 6 + \frac{p^2}{1-p}$)",
+  "Probability Mass Function", r"($f_X(x;p) = (1-p)^{x-1}p^x$)",
+  "Cumulative Distribution Function", r"($F_X(x;p) = 1-(1-p)^x$)") %>% 
+  knitr::kable(caption = "Features of Geometric Distributions") %>% 
+  html_table_width(400)
 
 ```
-
 
 Atul Gawande [-@gawande2007better, pp. 219--223] tells a marvelous anecdote about how a doctor used some statistics to help a young patient with cystic fibrosis to return to taking her medication more regularly. Because the story is full of pathos and masterfully told, I will not repeat a clumsy version of it here. However, unlike Gawande, I *will* show how the doctor's statistics were calculated. 
 
 According to the story, if a patient fails to take medication, the probability that a person with cystic fibrosis will develop a bad lung illness on any particular day is .005. If medication is taken, the risk is .0005. Although these probabilities are both close to zero, over the the course of a year, they result in very different levels of risk. Off medication, the patient has about an `r round(100 * pgeom(365,0.005),0)`% chance of getting sick within a year's time. On medication, the patient's risk falls to `r round(100 * pgeom(365,0.0005),0)`%. As seen in Figure&nbsp;\@ref(fig:WithMedicationCDF), the cumulative risk over the course of 10 years is quite different. Without medication, the probability of becoming seriously ill within 10 years at least once is almost certain. With medication, however, a small but substantial percentage (~`r 100-round(100*pgeom(10*365,0.0005))`%) of patients will go at least 10 years without becoming ill. 
 
 
-```{r RiskCumulative, echo=FALSE, eval=FALSE, cache=T}
-par(mar = c(5, 5, 2, 2),
-    cex = 1.2,
-    family = 'serif')
-Years <- 10
-Days <- seq(1, Years * 365, 10)
-plot(
-  pgeom(Days, 0.005) ~ Days,
-  type = "l",
-  ylab = "Cumulative Risk",
-  ylim = c(0, 1),
-  las = 1,
-  col = myfills[1],
-  lwd = 2,
-  axes = FALSE,
-  xlab = "Years"
-)
-lines(
-  x = Days,
-  y = pgeom(Days, 0.0005),
-  type = "l",
-  col = myfills[2],
-  lwd = 2
-)
-axis(2, ylim = c(0, 1), las = 1)
-#axis(1,at=seq(0,Years,0.5)*365,labels=FALSE)
-axis(1, at = seq(0, Years) * 365, labels = seq(0, Years))
-text(
-  x = c(4.6, 3) * 365,
-  y = c(0.5, 0.9),
-  labels = c(
-    "With Medication \nDaily Risk = 0.0005",
-    "Without Medication \nDaily Risk = 0.005"
-  ),
-  col = c(myfills[2], myfills[1]),
-  adj = 0
-)
-
-```
-
 ```{r WithMedicationCDF,echo=FALSE, fig.cap="The cumulative risk of serious lung disease with and without medication", dev="svg", fig.height=7, fig.width=7, fig.align="center", cache=T}
+# The cumulative risk of serious lung 
+# disease with and without medication
 total_years <- 10
 
 tibble(Days = seq(0, total_years * 365, 10),
@@ -2352,6 +1969,11 @@ tibble(Days = seq(0, total_years * 365, 10),
            size = 5.2
            )
  
+```
+
+
+```{r WithMedicationCDFCode, button_r=TRUE, ref.label="WithMedicationCDF"}
+
 ```
 
 
@@ -2411,37 +2033,18 @@ Note that some probability density functions can produce values greater than 1. 
 
 ## Continuous Uniform Distributions {#sec:Uniform}
 
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-
-<!-- \begin{array}{rccc} -->
-<!-- %\text{\textbf{Uniform Distributions}}&&\\ -->
-<!-- \text{Lower Bound:} & a  & \in & [-\infty,\infty]\\ -->
-<!-- \text{Upper Bound:} & b & \in & [-\infty,\infty]\\ -->
-<!-- &&&b>a\\ -->
-<!-- \text{Sample Space:} & x &\in& \lbrack a,b\rbrack\\ -->
-<!-- \text{Mean:} & \mu&=&\frac{a+b}{2} \\ -->
-<!-- \text{Variance:} & \sigma^2&=&\frac{(b-a)^2-1}{12} \\ -->
-<!-- \text{Skewness:} & \gamma_1&=&0 \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&-\frac{6}{5} \\ -->
-<!-- \text{Probability Density Function:} & f_X(x;a,b)&=&\frac{1}{b-a} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;a,b)&=&\frac{x-a}{b-a} \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
-
 ```{r discretefeatures, cache=T}
 tribble(
     ~Feature, ~Symbol,
-    "Lower Bound", "$a  \\in [-\\infty,\\infty]$",
-    "Upper Bound", "$b \\in (a,\\infty]$",
-    "Sample Space", " $x \\in \\lbrack a,b\\rbrack$",
-    "Mean", " $\\mu = \\frac{a+b}{2}$ ",
-    "Variance", "$\\sigma^2 = \\frac{(b-a)^2-1}{12}$" ,
-    "Skewness", "$\\gamma_1 = 0$",
-    "Kurtosis", " $\\gamma_2 = -\\frac{6}{5}$ ",
-    "Probability Density Function", "$f_X(x;a,b) = \\frac{1}{b-a}$ ",
-    "Cumulative Distribution Function", "$F_X(x;a,b) = \\frac{x-a}{b-a}$") %>% 
+    "Lower Bound", r"($a  \in (-\infty,\infty)$)",
+    "Upper Bound", r"($b \in (a,\infty)$)",
+    "Sample Space", r"($x \in \lbrack a,b\rbrack$)",
+    "Mean", r"($\mu = \frac{a+b}{2}$)",
+    "Variance", r"($\sigma^2 = \frac{(b-a)^2-1}{12}$)" ,
+    "Skewness", r"($\gamma_1 = 0$)",
+    "Kurtosis", r"($\gamma_2 = -\frac{6}{5}$)",
+    "Probability Density Function", r"($f_X(x;a,b) = \frac{1}{b-a}$)",
+    "Cumulative Distribution Function", r"($F_X(x;a,b) = \frac{x-a}{b-a}$)") %>% 
   knitr::kable(caption = "Features of Continuous Discrete Distributions")
 ```
 
@@ -2493,32 +2096,18 @@ knitr::include_graphics("Carl_Friedrich_Gauss2.jpg")
 ```
 
 
-<!-- \begin{equation*} -->
-<!-- \boxed{ -->
-
-<!-- \begin{array}{rccc} -->
-<!-- \text{Sample Space:} & x &\in&[-\infty,\infty]\\ -->
-<!-- \text{Mean:} & \mu&=&\frac{a+b}{2} \\ -->
-<!-- \text{Variance:} & \sigma^2&=&\frac{(b-a)^2-1}{12} \\ -->
-<!-- \text{Skewness:} & \gamma_1&=&0 \\ -->
-<!-- \text{Kurtosis:} & \gamma_2&=&-\frac{6}{5} \\ -->
-<!-- \text{Probability Density Function:} & f_X(x;a,b)&=&\frac{1}{b-a} \\ -->
-<!-- \text{Cumulative Distribution Function:} & F_X(x;a,b)&=&\frac{x-a}{b-a} \\ -->
-<!-- \end{array} -->
-<!-- } -->
-<!-- \end{equation*} -->
-
 ```{r normalfeatures}
 tribble(
   ~Feature, ~Symbol,
-  "Sample Space", "$x \\in [-\\infty,\\infty]$",
-  "Mean", "$\\mu = \\text{E}\\left(X\\right)$",
-  "Variance", "$\\sigma^2 = \\text{E}\\left(\\left(X - \\mu\\right)^2\\right)$",
-  "Skewness", "$\\gamma_1 = 0$",
-  "Kurtosis", "$\\gamma_2 = 0$",
-  "Probability Density Function", "$f_X(x;\\mu,\\sigma^2) = \\frac{1}{\\sqrt{2 \\pi \\sigma ^ 2}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}$",
-  "Cumulative Distribution Function", "$F_X(x;\\mu,\\sigma^2) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} {\\displaystyle \\int_{-\\infty}^{x} e ^ {-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}dx}$") %>% 
-  knitr::kable(caption = "Features of Normal Distributions")
+  "Sample Space", r"($x \in (-\infty,\infty)$)",
+  "Mean", r"($\mu = \text{E}\left(X\right)$)",
+  "Variance", r"($\sigma^2 = \text{E}\left(\left(X - \mu\right)^2\right)$)",
+  "Skewness", r"($\gamma_1 = 0$)",
+  "Kurtosis", r"($\gamma_2 = 0$)",
+  "Probability Density Function", r"($f_X(x;\mu,\sigma^2) = \frac{1}{\sqrt{2 \pi \sigma ^ 2}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$)",
+  "Cumulative Distribution Function", r"($F_X(x;\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} {\displaystyle \int_{-\infty}^{x} e ^ {-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx}$)") %>% 
+  knitr::kable(caption = "Features of Normal Distributions") %>% 
+  html_table_width(400)
 ```
 
 The normal distribution is probably the most important distribution in statistics and in psychological assessment. In the absence of other information, assuming that an individual difference variable is normally distributed is a good bet. Not a sure bet, of course, but a good bet. Why? What is so special about the normal distribution? To get a sense of the answer to this question, consider what happens to the binomial distribution as the number of events ($n$) increases. To make the example more concrete, let's assume that we are tossing coins and counting the number of heads ($p=0.5$). In Figure&nbsp;\@ref(fig:ManyCoins), the first plot shows the probability mass function for the number of heads when there is a single coin ($n=1$). In the second plot, $n=2$ coins. That is, if we flip 2 coins, there will be 0, 1, or 2 heads. In each subsequent plot, we double the number of coins that we flip simultaneously. Even with as few as 4 coins, the distribution begins to resemble the normal distribution, although the resemblance is very rough. With 128 coins, however, the resemblance is very close.
@@ -2807,38 +2396,112 @@ mtext("z-scores", side = 1, line = 1.8,
 ```
 
 
-## Half-Normal Distribution
-
-Suppose that $X$ is a normally distributed variable such that $X \sim \mathcal{N}(\mu, \sigma^2)$. Variable $Y$ then has a half-normal distribution such that $Y = |X-\mu|+\mu$. In other words, imagine that a normal distribution is folded at the mean with the left half of the distribution now stacked on top of the right half of the distribution (See Figure&nbsp;\@ref(fig:halfnormal)).
 
 
-```{r halfnormal, fig.height=8, fig.cap = "The half-normal distribution is the normal distribution with the left half of the distribution stacked on top of the right half of the distribution.", cache=TRUE}
-knitr::include_graphics("halfnormal.svg")
+```{r, fig.height=8, fig.width=8, out.width="100%", dev='ragg_png'}
+
+
+tibble(y = seq(0.01,.99, 0.01),
+       x = qnorm(y, 100, 15)) %>% 
+ggplot(aes(x, y)) + 
+  geom_segment(aes(xend = 60, yend = y), color = myfills[1], size = 0.2) +
+  geom_segment(aes(xend = x, yend = 0), color = myfills[2], size = 0.2) + 
+  stat_function(xlim = c(60,140), fun = function(x) pnorm(x, 100, 15)) + 
+  scale_x_continuous("Standard Score", breaks = seq(60, 140, 10), 
+                     expand = expansion(c(0.01,NA))) + 
+  scale_y_continuous("Percentile Rank", 
+                     breaks = seq(0,1, 0.1), 
+                     expand = expansion(c(0.01,NA)),
+                     limits = c(0,1),
+                     labels = function(x) scales::percent(x, suffix = "", 
+                                                          accuracy = 1)) + 
+  coord_flip(ylim = c(0,1.01)) +
+  theme(panel.grid = element_blank(), axis.ticks = element_line(size = 0.25)) +
+  ggfx::with_outer_glow(
+    colour = "white",
+    expand = 3,
+    annotate(x = 100, 
+             y = .02, 
+             color = myfills[2],
+             hjust = 0,
+             lineheight = 0.9, 
+             size = ggtext_size(20),
+             label = "Standard scores tightly\nbunched near the mean", 
+             geom = "text")) +
+  annotate(x = mean(c(qnorm(.99, 100, 15), qnorm(0.98, 100, 15))), 
+           y = .01, 
+           color = myfills[2],
+           hjust = 0,
+           lineheight = 0.9, 
+           size = ggtext_size(20),
+           label = "Standard scores spread out at the extremes", geom = "text") +
+  ggfx::with_outer_glow(
+    colour = "white",
+    expand = 4,
+    annotate(x = 80, 
+             y = .5,
+             color = myfills[1],
+             lineheight = 0.9, 
+             size = ggtext_size(20), 
+             label = "Evenly spaced percentile ranks", 
+             geom = "text"))
+
+tibble(x = seq(60,140, 1),
+       y = pnorm(x, 100, 15)) %>% 
+ggplot(aes(x, y)) + 
+  geom_segment(aes(xend = 60, yend = y), color = myfills[1], size = 0.2) +
+  geom_segment(aes(xend = x, yend = 0), color = myfills[2], size = 0.2) +
+  stat_function(xlim = c(60,140), fun = function(x) pnorm(x, 100, 15)) + 
+  scale_x_continuous("Standard Score", 
+                     breaks = seq(60, 140, 10),
+                     expand = expansion(c(0.01,0.02))) +
+  scale_y_continuous("Percentile Rank", 
+                     breaks = seq(0,1, 0.1), 
+                     expand = expansion(c(0.01,NA)),
+                     limits = c(0,1),
+                     labels = function(x) scales::percent(x, suffix = "", 
+                                                          accuracy = 1)) +
+  theme(panel.grid = element_blank(), axis.ticks = element_line(size = 0.25)) +
+  ggfx::with_outer_glow(
+    colour = "white",
+    expand = 4,
+    annotate(x = 61, 
+             y = .5, 
+             color = myfills[1],
+             hjust = 0,
+             lineheight = 0.9, 
+             size = ggtext_size(20),
+             label = "Percentile ranks spread\nthin near the mean", 
+             geom = "text")) +
+  ggfx::with_outer_glow(
+    colour = "white",
+    expand = 2,
+    annotate(x = 61, 
+             y = .95,
+             hjust = 0,
+             color = myfills[1],
+             size = ggtext_size(20),
+             lineheight = 0.9, 
+             label = "Percentile ranks densely packed at the extremes", 
+             geom = "text")) +
+  ggfx::with_outer_glow(
+    colour = "white",
+    expand = 4,
+    annotate(x = 120, 
+             y = .5, 
+             color = myfills[2],
+             size = ggtext_size(20),
+             lineheight = 0.9, 
+             label = "Evenly spaced\nstandard scores", 
+             geom = "text"))
+
 ```
 
-<div class="wrap-collapsible">
-<input id="halfnormalCode" class="toggle" type="checkbox">
-<label for="halfnormalCode" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
 
+## Half-Normal Distribution
 
- 
-```{r halfnormalCode, dev = "tikz", eval = F, echo = T}
-
-tikzpackages <- paste(
-  "\\usepackage{tikz}",
-  "\\usepackage{amsmath}",
-  "\\usepackage[active,tightpage,psfixbb]{preview}",
-  "\\PreviewEnvironment{pgfpicture}",
-  collapse = "\n"
-)
-
-tikzDevice::tikz('halfnormal.tex',
-                 standAlone=TRUE, 
-                 packages = tikzpackages, 
-                 width = 11, 
-                 height = 11)
+```{r halfnormal, fig.height=8, fig.margin=TRUE, fig.align='default', fig.cap = "The half-normal distribution is the normal distribution with the left half of the distribution stacked on top of the right half of the distribution.", cache=TRUE, dev='svg'}
+# Half normal distribution
 xlim <- 4
 n <- length(seq(-xlim, 0, 0.01))
 t1 <- tibble(
@@ -2872,35 +2535,75 @@ bind_rows(t1, t2) %>%
   geom_text(
     data = tibble(
       x = 0,
-      y = dnorm(0) * c(1, 2) + 0.09,
+      y = dnorm(0) * c(1, 2) + 0.14,
       Type = c(1,2),
       label = c(
         "Normal",
-        "Half-Normal"
-      ),
-      side = T
-    ),
+        "Half-Normal"),
+      side = T),
     aes(label = label),
-    family = bfont,
-    size = 7, 
+    family = bfont, fontface = "bold",
+    size = ggtext_size(30), 
     vjust = 1
   ) +
-  theme_void(base_size = 20,
+  geom_richtext(
+    data = tibble(
+      x = 0,
+      y = dnorm(0) * c(1, 2) + 0,
+      Type = c(1,2),
+      label = c(
+        "*X* ~ <span style=\"font-family:'Lucida Calligraphy'\">N</span>(*<span style=\"font-family:'Times New Roman'\">&mu;</span>*, *<span style=\"font-family:'Times New Roman'\">&sigma;</span>*<sup>2</sup>)",
+        "*X* ~ |<span style=\"font-family:'Lucida Calligraphy'\">N</span>(0, *<span style=\"font-family:'Times New Roman'\">&sigma;</span>*<sup>2</sup>)| + *<span style=\"font-family:'Times New Roman'\">&mu;</span>*"),
+      side = T),
+    aes(label = label),
+    family = c("Equity Text A"),
+    size = ggtext_size(30), 
+    vjust = 0, 
+    label.padding = unit(0,"lines"), 
+    label.color = NA,
+    fill = NA) +
+  theme_void(base_size = 30,
                 base_family = bfont) +
   theme(
     legend.position = "none",
     strip.text = element_blank()
   ) +
   scale_fill_manual(values = myfills) +
-  facet_grid(Type ~ ., space = "free_y", scales = "free_y")
+  facet_grid(Type ~ ., space = "free_y", scales = "free_y") 
+  
 
 
-dev.off()
+
+
+```
+
+Suppose that $X$ is a normally distributed variable such that $X \sim \mathcal{N}(\mu, \sigma^2)$. Variable $Y$ then has a half-normal distribution such that $Y = |X-\mu|+\mu$. In other words, imagine that a normal distribution is folded at the mean with the left half of the distribution now stacked on top of the right half of the distribution (See Figure&nbsp;\@ref(fig:halfnormal)).
+
+
+```{r halfnormalCode, ref.label="halfnormal", button_r=TRUE}
 
 ```
 
 
-</div></div></div>
+```{r halfnormalfeatures}
+tribble(
+  ~Feature, ~Symbol,
+  "Sample Space", r"($x \in [\mu,\infty)$)",
+  "Mu", r"($\mu \in (-\infty,\infty)$)",
+  "Sigma", r"($\sigma \in [0,\infty)$)",
+  "Mean", r"($\mu + \sigma\sqrt{\frac{2}{\pi}}$)",
+  "Variance", r"($\sigma^2\left(1-\frac{2}{\pi}\right)$)",
+  "Skewness", r"($\sqrt{2}(4-\pi)(\pi-2)^{-\frac{3}{2}}$)",
+  "Kurtosis", r"($8(\pi-3)(\pi-2)^{-2}$)",
+  "Probability Density Function", r"($f_X(x;\mu,\sigma) = \sqrt{\frac{2}{\pi \sigma ^ 2}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$)",
+  "Cumulative Distribution Function", r"($F_X(x;\mu,\sigma) = \sqrt{\frac{2}{\pi\sigma}} {\displaystyle \int_{\mu}^{x} e ^ {-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx}$)") %>% 
+  knitr::kable(caption = "Features of Half-Normal Distributions") %>% 
+  html_table_width(400)
+
+```
+
+
+
 
 ## The Student's *t* Distribution
 
@@ -2912,23 +2615,56 @@ Guinness Beer gets free advertisement every time the origin story of the Student
 
 William Sealy Gosset (1876--1937), self-trained statistician and head brewer at Guinness Brewery in Dublin, continually experimented on small batches to improve and standardize the brewing process. With some help from statistician Karl Pearson, Gosset used then-current statistical methods to analyze his experimental results. Gosset found that Pearson's methods required small adjustments when applied to small samples. With Pearson's help and encouragement (and later from Ronald Fisher), Gosset published a series of innovative papers about a wide range of statistical methods, including the *t* distribution, which can be used to describe the distribution of sample means.
 
-Worried about having its trade secrets divulged, Guinness did not allow its employees to publish scientific papers. Thus, Gosset published his papers under the pseudonym, "A Student." The straightforward names of most statistical concepts need no historical treatment. Few of us who regularly use the Bernoulli, Pareto, Cauchy, and Gumbell distributions could tell you anything about the people who discovered them. , But the oddly named "Student's *t* distribution" cries out for explanation. Thus, in the long run, it was Gosset's anonymity that made him famous. 
+Worried about having its trade secrets divulged, Guinness did not allow its employees to publish scientific papers. Thus, Gosset published his papers under the pseudonym, "A Student." The straightforward names of most statistical concepts need no historical treatment. Few of us who regularly use the Bernoulli, Pareto, Cauchy, and Gumbell distributions could tell you anything about the people who discovered them. But the oddly named "Student's *t* distribution" cries out for explanation. Thus, in the long run, it was Gosset's anonymity that made him famous. 
 
-Thus, instead of calling them, the Gosset *t* distribution, red *t* distribution  
+```{marginfigure tnotation, echo = T}
+**Notation note**: $\Gamma$ is the gamma function. $_2F_1$ is the hypergeometric function.
+```
 
-```{r tnorm, fig.cap="The *t* distribution approaches the standard normal distribution as the degrees of freedom (*df*) parameter increases.", cache=T, warning=F, message=F, eval=T}
+```{r tfeatures}
 
-knitr::include_graphics("tdist_norm.gif")
+tribble(
+  ~Feature, ~Symbol,
+  "Sample Space", r"($x \in (-\infty,\infty)$)",
+  "Degrees of Freedom", r"($\nu \in (0,\infty)$)",
+  "Mean", r"($\left\{
+\begin{array}{ll}
+      0 & \nu > 1 \\
+      \text{Undefined} & \nu \le 1 \\
+\end{array} 
+\right.$)",
+  "Variance", r"($\left\{
+\begin{array}{ll}
+      \frac{\nu}{\nu-2} & \nu>2 \\
+      \infty & 1<\nu \le 2\\
+      \text{Undefined} & \nu \le 1 \\
+\end{array} 
+\right.$)",
+  "Skewness", r"($\left\{
+\begin{array}{ll}
+      0 & \nu > 3 \\
+      \text{Undefined} & \nu \le 3 \\
+\end{array} 
+\right.$)",
+  "Kurtosis", r"($\left\{
+\begin{array}{ll}
+      \frac{6}{\nu-4} & \nu>4 \\
+      \infty & 2<\nu \le 4\\
+      \text{Undefined} & \nu \le 2 \\
+\end{array} 
+\right.$)",
+  "Probability Density Function", r"($f_X(x; \nu) = \frac{\Gamma(\frac{\nu+1}{2})} {\sqrt{\nu\pi}\,\Gamma(\frac{\nu}{2})} \left(1+\frac{x^2}{\nu} \right)^{-\frac{\nu+1}{2}}$)",
+  "Cumulative Distribution Function", r"($F_X(x; \nu)=\frac{1}{2} + x \Gamma \left( \frac{\nu+1}{2} \right)  \frac{\,_2F_1 \left(\frac{1}{2},\frac{\nu+1}{2};\frac{3}{2};-\frac{x^2}{\nu} \right)} {\sqrt{\pi\nu}\,\Gamma \left(\frac{\nu}{2}\right)}$)") %>% 
+  knitr::kable(caption = "Features of *t* Distributions", escape = F) %>% 
+  html_table_width(400)
 ```
 
 
-<div class="wrap-collapsible">
-<input id="tnormCode" class="toggle" type="checkbox">
-<label for="tnormCode" class="lbl-toggle">R Code</label>
-<div class="collapsible-content">
-<div class="content-inner">
+```{r tnorm, fig.cap="The *t* distribution approaches the standard normal distribution as the degrees of freedom (*df*) parameter increases.", cache=T, warning=F, message=F, eval=T}
+knitr::include_graphics("tdist_norm.gif")
+```
 
-```{r tnormCode, eval = F, echo=TRUE}
+```{r tnormCode, button_r=TRUE, eval=FALSE}
 # The t distribution approaches the normal distribution
 d <- crossing(x = seq(-6,6,0.02), 
          df = c(seq(1,15,1),
@@ -2937,7 +2673,6 @@ d <- crossing(x = seq(-6,6,0.02),
                 seq(200,700,100))) %>%
   mutate(y = dt(x,df),
          Normal = dnorm(x)) 
-
 
 d_label <- d %>% 
   select(df) %>% 
@@ -2994,7 +2729,7 @@ animate(p,
 gganimate::anim_save("tdist_norm.gif")
 ```
 
-</div></div></div>
+
 
 
 
