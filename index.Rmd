@@ -1,5 +1,5 @@
 --- 
-title: "The Psychometrics of Individual Assessment"
+title: "Individual Psychometrics"
 subtitle: "A Practical Toolkit With Applications in R"
 author: "W. Joel Schneider"
 date: "`r Sys.Date()`"
