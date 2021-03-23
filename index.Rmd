@@ -1,6 +1,6 @@
 --- 
-title: "Practical Psychometrics"
-subtitle: "A Psychological Assessment Toolkit"
+title: "The Psychometrics of Individual Assessment"
+subtitle: "A Practical Toolkit With Applications in R"
 author: "W. Joel Schneider"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site

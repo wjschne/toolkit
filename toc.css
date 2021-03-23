@@ -114,7 +114,9 @@
 /* Makes second-level lists display when hover */
 #TOC ul li:hover ul {
   display: block;
+  z-index: 9999;
 }
+
 
 /* Format second-level links */
 #TOC ul li ul li a {
