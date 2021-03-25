@@ -41,7 +41,7 @@ $$cf_i= \sum_{j=1}^{i}{f_j}$$
 
 Ordinal, interval, and ratio variables can have cumulative frequencies, but not nominal variables. To calculate cumulative frequencies, the sample space needs to be sorted in a meaningful way, which is not possible with true nominal variables. That is, there are no scores "below" any other scores in nominal variables.
 
-The cumulative proportion ($cp$) is the proportion of scores less than or equal to a particular sample space element.
+The cumulative proportion $(cp)$ is the proportion of scores less than or equal to a particular sample space element.
 
 $$cp_i = \frac{cf_i}{n}$$
 
@@ -426,7 +426,7 @@ $$
 \mathcal{E}(X)=\lim_{n \to \infty} \frac{1}{n}\sum_{i=1}^{n} {x_i}
 $$
 
-If a random variable $X$ is discrete, its expected value $\mathcal{E}(X)$ is the sum of each member of the sample space $x_i$ multiplied by its probability of occurring $p_i$. The probability of occurring is the output of $X$'s probability density function at that location ($p_i=f_X(x_i)$. Thus,
+If a random variable $X$ is discrete, its expected value $\mathcal{E}(X)$ is the sum of each member of the sample space $x_i$ multiplied by its probability of occurring $p_i$. The probability of occurring is the output of $X$'s probability density function at that location: $p_i=f_X(x_i)$. Thus,
 
 $$
 \mathcal{E}(X)=\sum_{i=-\infty}^{\infty}{x_i f_X(x_i)}
@@ -439,7 +439,7 @@ $$
 $$
 
 
-If we multiply each value of $X$ by the height of its bin ($p$), we get the mean of the binned distribution. If the bins become ever thinner, as in Figure \@ref(fig:thinbins), the product of $X$ and $p$ approximates the expected value of the smooth continuous distribution.
+If we multiply each value of $X$ by the height of its bin ($p$), we get the mean of the binned distribution. If the bins become ever thinner, as in Figure&nbsp;\@ref(fig:thinbins), the product of $X$ and $p$ approximates the expected value of the smooth continuous distribution.
 
 ```{r thinbins,fig.width=10.5,fig.height=10,echo=FALSE, fig.cap="Slicing the standard normal distribution into ever thinner bins", warning = F, fig.fullwidth = T, eval=TRUE, echo=FALSE, cache=TRUE, out.width="100%"}
 # Slicing the standard normal distribution into ever thinner bins

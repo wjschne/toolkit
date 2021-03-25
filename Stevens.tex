@@ -13,7 +13,16 @@
 \usepackage{fontspec}
 \setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
 \begin{document}
-	\begin{tikzpicture}[scale=0.9,text height=1.5ex,text depth=.25ex,post/.style={->,draw,shorten >=4pt,shorten <=4pt,>=latex', very thick, font=\large}]
+	\begin{tikzpicture}[scale=0.9,
+	                    text height=1.5ex,
+	                    text depth=.25ex,
+	                    post/.style={->,
+	                                 draw,
+	                                 shorten >=4pt,
+	                                 shorten <=4pt,
+	                                 >=latex',
+	                                 very thick,
+	                                 font=\large}]
 	\node (h) at (2.3, 0) {};
 	\node (v) at (0,0.8) {};
 	\node (Nominal) at (1, 2) {\textsc{Nominal}};
@@ -29,8 +38,8 @@
 	\node [text width=2cm,text centered] (Distance) at ($(Interval)-1.5*(v)$) {Meaningful Distances};
 	\node [text width=2cm,text centered] (Magnitude) at ($(Ratio)-1.5*(v)$) {Absolute Zero};
 	\node [color=red] (Level) at ($(Nominal)-1.2*(h)$) {\textbf{Level}};
-	\node [text width=2cm,text centered, color=red] (Feature) at ($(Level)-1.5*(v)$) {\textbf{Defining Feature}}; 
-	\node [color=red] (Operation) at ($(Level)-3*(v)$) {\textbf{Operations}}; 
+	\node [text width=2cm,text centered, color=red] (Feature) at ($(Level)-1.5*(v)$) {\textbf{Defining Feature}};
+	\node [color=red] (Operation) at ($(Level)-3*(v)$) {\textbf{Operations}};
 	\draw[decoration={brace,amplitude=3mm}, decorate] (Nominal.north) -- (Ordinal.north) node[midway,above=3mm] (Categorical) {Categorical};
 	\draw[decoration={brace,amplitude=3mm}, decorate] (Interval.north) -- (Ratio.north) node[midway,above=3mm] (Quantitative) {Quantitative};
 	\draw[decoration={brace,amplitude=3mm}, decorate] (Categorical.north) -- (Quantitative.north) node[midway,above=3mm] (Variable) {Variable};

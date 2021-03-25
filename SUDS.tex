@@ -17,7 +17,7 @@
 \setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
 
 \begin{document}
-	
+
 \begin{tikzpicture}[scale=1]
 \definecolor{firebrick2}{RGB}{205,38,38};
 \definecolor{royalblue2}{RGB}{67,110,238};
@@ -28,16 +28,19 @@
                         minimum size=5.5mm,
                         white];
 \foreach \n in {0,...,\T} \node (\n) at (0,\n) {\footnotesize{\n}};
-\foreach \n [remember=\n as \lastn (initially 0)] in {0,...,\T} 
+\foreach \n [remember=\n as \lastn (initially 0)] in {0,...,\T}
 \draw (\lastn) -- (\n);
-\tikzstyle{every node}=[draw=none,shape=circle,ball color=firebrick2,minimum size=5.5mm, white];
+\tikzstyle{every node}=[draw=none,
+                        shape=circle,
+                        ball color=firebrick2,
+                        minimum size=5.5mm, white];
 \def\myarray{{0,0.63,1.45,2.36,3.33,4.35,5.42,6.52,7.65,8.81,11}};
-\foreach \x [count=\xi] in {0,...,10} 
+\foreach \x [count=\xi] in {0,...,10}
 \node (\x) at (1,\myarray[\x]) {\footnotesize{\x}};
-\foreach \x [remember=\x as \lastx (initially 0)] in {0,...,\T} 
+\foreach \x [remember=\x as \lastx (initially 0)] in {0,...,\T}
 \draw (\lastx) -- (\x);
 \tikzstyle{every node}=[align=left, font=\small];
 \node at (-1.8,5) {Scale you intend\\ your client to use\\ (equal intervals)};
 \node at (2.8,5) {Scale your client\\ is actually using\\ (for now, at least)};
-\end{tikzpicture} 
+\end{tikzpicture}
 \end{document}
