@@ -624,7 +624,7 @@ In all of these indices of qualitative variation, the lowest value is 0 when eve
 
 ### Variability of Ordinal Variables
 
-As with nominal variables, a bar plot or frequency distribution table can tell you most of what you want to know about the variability of an ordinal variable. If you need a quantitative measure of how much an ordinal variable varies, you have many options.
+As with nominal variables, a bar plot or frequency distribution table can tell you most of what you want to know about the variability of an ordinal variable. If you need a quantitative measure of how much an ordinal variable varies, you have many options. The most important of these is the interquartile range.
 
 ```{r}
 

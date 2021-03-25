@@ -15,48 +15,10 @@ knitr::include_graphics("Stevens.svg")
 
 ```
 
+```{tikz StevensCode, button_latex = TRUE, eval=F, code=readLines("Stevens.tex")}
 
-
-```{tikz StevensCode, button_latex = TRUE}
-% Stevens NOIR
-\documentclass[tikz = true, border = 1pt]{standalone}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{tikz}
-\usetikzlibrary{positioning, calc}
-\usetikzlibrary{intersections}
-\usetikzlibrary{decorations.pathreplacing}
-\usetikzlibrary{decorations.text}
-\usetikzlibrary{arrows,shapes,backgrounds, shadows,fadings}
-\usepackage{fontspec}
-\setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
-\begin{document}
-	\begin{tikzpicture}[scale=0.9,text height=1.5ex,text depth=.25ex,post/.style={->,draw,shorten >=4pt,shorten <=4pt,>=latex', very thick, font=\large}]
-	\node (h) at (2.3, 0) {};
-	\node (v) at (0,0.8) {};
-	\node (Nominal) at (1, 2) {\textsc{Nominal}};
-	\node (Ordinal) at ($(Nominal)+(h)$) {\textsc{Ordinal}};
-	\node (Interval) at ($(Nominal)+2*(h)$) {\textsc{Interval}};
-	\node (Ratio) at ($(Nominal)+3*(h)$) {\textsc{Ratio}};
-	\node (Equality) at ($(Nominal)-3*(v)$) {$=\ne$};
-	\node (LessMore) at ($(Ordinal)-3*(v)$) {$<>$};
-	\node (PlusMinus) at ($(Interval)-3*(v)$) {$+-$};
-	\node (MultiplyDivide) at ($(Ratio)-3*(v)$) {$\times\div$};
-	\node [text width=2cm,text centered] (Mutual) at ($(Nominal)-1.5*(v)$) {Distinct Categories};
-	\node [text width=2cm,text centered] (Order) at ($(Ordinal)-1.5*(v)$) {Ordered Categories};
-	\node [text width=2cm,text centered] (Distance) at ($(Interval)-1.5*(v)$) {Meaningful Distances};
-	\node [text width=2cm,text centered] (Magnitude) at ($(Ratio)-1.5*(v)$) {Absolute\\ Zero};
-	\node [color=red] (Level) at ($(Nominal)-1.2*(h)$) {\textbf{Level}};
-	\node [text width=2cm,text centered, color=red] (Feature) at ($(Level)-1.5*(v)$) {\textbf{Defining Feature}}; 
-	\node [color=red] (Operation) at ($(Level)-3*(v)$) {\textbf{Operations}}; 
-	\draw[decoration={brace,amplitude=3mm}, decorate] (Nominal.north) -- (Ordinal.north) node[midway,above=3mm] (Categorical) {Categorical};
-	\draw[decoration={brace,amplitude=3mm}, decorate] (Interval.north) -- (Ratio.north) node[midway,above=3mm] (Quantitative) {Quantitative};
-	\draw[decoration={brace,amplitude=3mm}, decorate] (Categorical.north) -- (Quantitative.north) node[midway,above=3mm] (Variable) {Variable};
-	\end{tikzpicture}
-\end{document}
 ```
+
 
 ## Nominal Scales {#nominal}
 
@@ -68,57 +30,9 @@ In the messy world of observable reality, few true nominal variables exist as de
 knitr::include_graphics("dichotomy.svg") 
 ```
 
+```{tikz dichotomyCode, button_latex = TRUE, eval=F, code=readLines("dichotomy.tex")}
 
-
-```{tikz dichotomyCode, button_latex = TRUE}
-\documentclass[tikz = true, border=0mm]{standalone}
-\usepackage{tikz}
-\usetikzlibrary{positioning}
-\usetikzlibrary{arrows,shapes}
-\usepackage{fontspec}
-\setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
-\definecolor{firebrick4}{HTML}{8B1A1A}
-\definecolor{royalblue4}{RGB}{39,64,139}
-\definecolor{myviolet}{HTML}{51315E}
-
-\begin{document}
-	\begin{tikzpicture}
-    [node distance=1.1cm and 1.1cm,
-    post/.style={->,
-    	         black!70,
-    	         shorten >=2pt,
-    	         shorten <=2pt,
-    	         >=latex', 
-    	         very thick, 
-    	         font=\large}, 
-    ob/.style={rectangle,
-    	       inner sep=1mm,
-    	       minimum width=2.5cm, 
-    	       minimum height=2.5cm, 
-    	       rounded corners=0.75mm,
-    	       font=\large, 
-    	       text = white}]
-    \node[shape=diamond, 
-          fill=myviolet,
-          rounded corners=0.5mm,
-          shape aspect=1.25, 
-          text = white, 
-          font = \large] (Trisomy) at (0,0) {Trisomy 21?};
-    \node [ob,
-           fill=firebrick4,
-           left=of Trisomy,
-           align=center] (Down) {Down\\Syndrome};
-    \node [ob,
-          fill=royalblue4, 
-          right=of Trisomy, 
-          align=center] (NoDown) {No Down\\Syndrome}; 
-    \draw[post] (Trisomy) -- (Down) node [pos=.46,above] {Yes};
-    \draw[post] (Trisomy) -- (NoDown) node [pos=.46,above] {No};
-\end{tikzpicture}
-\end{document}
 ```
-
-
 
 ```{r dichotomized, fig.cap="A dichomized continuum", dev="svg", echo = F, fig.align='center', fig.width=6, fig.height=4.5, out.width="100%"}
 # A dichotomized continuum
@@ -200,134 +114,76 @@ When we list the categories of a nominal variable, the order in which we do so i
 
 In an [ordinal scale]{class=defword},`r tufte::margin_note("An **ordinal scale** groups observations into ordered categories.")` things are still classified by category but the categories have a particular order. Suppose that we are conducting behavioral observations of a child in school and we record when the behavior occurred. The precise time at which the behavior occurred (e.g., 10:38&nbsp;AM) may be uninformative. If the class keeps a fairly regular schedule, it might be more helpful to divide the day into categories such as early morning, recess, late morning, lunch, and afternoon. This way it is easy to see if behavior problems are more likely to occur in some settings (or activities) than in others. It does not matter that these divisions are of unequal lengths or that they do not occur at precisely the same time each day. In a true ordinal variable, the distance between categories is either undefined, unspecified, or irrelevant. 
 
-```{r Likert, fig.cap="In a Likert scale, the distances between categories are undefined.", fig.margin = TRUE, fig.width=3, dev="svg", out.width=300, fig.align='default', echo=FALSE}
+```{r Likert, fig.cap="In a Likert scale, the distances between categories are undefined.", fig.margin = TRUE, fig.width=4, dev="svg", out.width="100%", fig.align='default', echo=FALSE}
 knitr::include_graphics("Likert.svg")
 ```
 
 Most measurement in psychological assessment involves ordinal scales, though in many cases ordinal scales might appear to be other types of scales. Questionnaires that use Likert scales are clearly ordinal (e.g., Figure&nbsp;\@ref(fig:Likert)). Even though true/false items on questionnaires might seem like nominal scales, they are usually ordinal because the answer indicates whether a person has either more or less of an attribute. That is, *more* and *less* are inherently ordinal concepts. Likewise, ability test items are ordinal, even though *correct* vs. *incorrect* might seem like nominal categories. Ability tests are designed such that a correct response indicates more ability than an incorrect response. The ordinal nature of ability test items is especially clear in cases that allow for partial credit. 
 
+```{tikz LikertCode, button_latex = TRUE, eval = F, code=readLines("Likert.tex")}
 
-
-```{tikz LikertCode, button_latex = TRUE}
-% Likert Scale
-
-\documentclass[tikz = true, border = 2pt]{standalone}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{tikz}
-\usetikzlibrary{positioning, calc}
-\usetikzlibrary{intersections}
-\usetikzlibrary{decorations.pathreplacing}
-\usetikzlibrary{decorations.text}
-\usetikzlibrary{arrows,shapes,backgrounds, shadows,fadings}
-\usepackage{fontspec}
-\setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
-\begin{document}
-	
-	\begin{tikzpicture} [font=\normalsize]
-	\node [align=center,text width=3cm] (sd)  {\textbf{Strongly Disagree}};
-	\node [align=center,text width=3cm,above=of sd]  (d) {\textbf{Disagree}};
-	\node [align=center,text width=3cm,above=of d]  (n) {\textbf{Neutral}}; 
-	\node [align=center,text width=3cm,above=of n] (a)  {\textbf{Agree}};
-	\node [align=center,text width=3cm,above=of a] (sa) {\textbf{Strongly Agree}};
-	\draw [decoration={brace,amplitude=3mm}, decorate] (d.east) -- (sd.east) node[midway, rotate=-90,align=center,yshift=2em]{Distance?};
-	\draw [decoration={brace,amplitude=3mm}, decorate] (d.west) -- (n.west) node[midway, rotate=90,align=center,yshift=2em]{Distance?};
-	\draw [decoration={brace,amplitude=3mm}, decorate] (a.east) -- (n.east) node[midway, rotate=-90,align=center,yshift=2em]{Distance?};
-	\draw [decoration={brace,amplitude=3mm}, decorate] (a.west) -- (sa.west) node[midway, rotate=90,align=center,yshift=2em]{Distance?};
-	\draw (sd.north) -- (d.south);
-	\draw (d.north) -- (n.south);
-	\draw (n.north) -- (a.south);
-	\draw (a.north) -- (sa.south);
-	\end{tikzpicture}
-\end{document}
 ```
 
 Some scales are only partially ordinal. For example, *educational attainment* is ordinal up to a certain point in most societies, but branches out as people acquire specialized training. For a career in psychology, the educational sequence is high school diploma, associate's degree, bachelor's degree, master's degree, and doctoral degree.^[Obviously, some of these degrees can be skipped and the endpoint is different for different careers in psychology. Furthermore, not all degrees fit neatly in this sequence (e.g., the school psychology specialist degree).] However, this is not the sequence for real estate agents, hair stylists, and pilots. If we wanted to compare educational degrees across professions, how would we rank them? For example, how would we compare a law degree with a doctorate in geology? Are they the same? Does one degree indicate higher educational attainment than the other? The answers depend on the criteria that we care about---and different people care about different things. Thus, it is difficult to say that we have an ordinal scale when we compare educational attainment across professions. 
 
 
-```{r differentiation, fig.cap = "Anxiety is more differentiated at higher levels of distress", dev="svg", echo=FALSE, fig.width=6.72, out.width=672, fig.align='center'}
+```{r differentiation, fig.cap = "Anxiety is more differentiated at higher levels of distress", dev="svg", echo=FALSE, fig.width=6.72, out.width="100%",fig.align='default', fig.margin=T}
 # Anxiety is more differentiated at higher levels of distress
-
-bezierCurve <- function(x, y, n=10) {
-  {
-    outx <- NULL
-    outy <- NULL
-    
-    i <- 1
-    for (t in seq(0, 1, length.out = n))
-    {
-      b <- bez(x, y, t)
-      outx[i] <- b$x
-      outy[i] <- b$y
-      
-      i <- i + 1
-    }
-    
-    return(list(x = outx, y = outy))
-  }}
-  
-  bez <- function(x, y, t) {
-    outx <- 0
-    outy <- 0
-    n <- length(x)  -  1
-    for (i in 0:n)
-    {
-      outx <- outx + choose(n, i)  *  ((1  -  t)  ^  (n  -  i))  *  t  ^  i  *
-        x[i  +  1]
-      outy <-
-        outy + choose(n, i)  *  ((1  -  t)  ^  (n  -  i))  *  t  ^  i  *  y[i  +
-                                                                              1]
-    }
-    
-    return(list(x  =  outx, y  =  outy))
-  }
-par(family = "Equity Text A Tab", 
-    mar = c(4,0,0,0))  
-  x <- c(0, 9, 8, 10)
-  y <- c(4.85, 4.85, 3.5, 3.5)
-  plot(
-    x,
-    y,
-    "n",
-    pch  =  20,
-    ylim  =  c(3, 6.5),
-    axes  =  F,
-    xlim  =  c(0, 11.7),
-    xlab  =  "",
-    ylab  =  ""
-  )
-  lines(bezierCurve(x, y, 100), type  =  "l", col  =  "firebrick4", lwd = 2)
-  text(
-    x  =  rep(10.2, 4),
-    y  =  seq(6.5, 3.5, -1),
-    labels  =  c("Panic", "Worry", "Obsession", "Paranoia"),
-    adj  =  0,
-    col  =  c("royalblue4", "royalblue1", "firebrick1", "firebrick4"),
-    cex = 1.2
-  )
-  y <- c(4.95, 4.95, 4.5, 4.5)
-  lines(bezierCurve(x, y, 100), type  =  "l", col  =  "firebrick1", lwd = 2)
-  y <- c(5.05, 5.05, 5.5, 5.5)
-  lines(bezierCurve(x, y, 100), type  =  "l", col  =  "royalblue1", lwd = 2)
-  y <- c(5.15, 5.15, 6.5, 6.5)
-  lines(bezierCurve(x, y, 100), type  =  "l", col  =  "royalblue4", lwd = 2)
-  axis(
-    1,
-    at = c(0, 2.5, 5, 7.5, 10),
-    label  =  c("Low", "Mild", "Moderate", "High", "Extreme")
-  )
-  mtext("Distress", side = 1, line = 2.8, cex = 1.7, adj = .422)
-```
-
-
-
-```{r, ref.label="differentiation", button_r = TRUE}
+bind_rows(
+  tibble(label = "Paranoia",
+         color = myfills[2],
+         x = c(0, 7, 8, 10),
+         y = c(4.8, 4.8, 3.5, 3.5)),
+  tibble(label = "Obsession",
+         color = colorspace::lighten(myfills[2], amount = 0.02),
+         x = c(0, 7, 8, 10),
+         y = c(4.9, 4.9, 4.5, 4.5)),
+  tibble(label = "Worry",
+         color = colorspace::lighten(myfills[1], amount = 0.02),
+         x = c(0, 7, 8, 10),
+         y = c(5.1, 5.1, 5.5, 5.5)),
+  tibble(label = "Panic",
+         color = myfills[1],
+         x = c(0, 7, 8, 10),
+         y = c(5.2, 5.2, 6.5, 6.5))) %>% 
+  mutate(color = scales::col2hcl(color, c = 100 * ((x / 10) ^ 3))) %>%
+  ggplot(aes(x,y)) + 
+  ggforce::geom_bezier2(aes(group = label, color = color)) + 
+  geom_text(aes(label = label, color = color), 
+            hjust = 0,
+            data = . %>% filter(x == 10), 
+            nudge_x = 0.1,
+            size = ggtext_size(30)) + 
+  annotate("segment", 
+           size = 1,
+           x = 0, 
+           y = 5, 
+           xend = 10.5, 
+           yend = 5, 
+           arrow = arrow(12, type = "closed",), 
+           linejoin = "mitre",
+           color = "gray20") + 
+  annotate(geom = "label", 
+           x = 6, 
+           y = 5, 
+           label = "Distress Level", 
+           size = ggtext_size(30, 1), 
+           label.size = 0, 
+           color = "gray20") +
+  theme_void() + 
+  theme(legend.position = "none") + 
+  scale_color_identity() + 
+  scale_x_continuous(expand = expansion(c(0, 0.21))) +
+  scale_y_continuous(expand = expansion(c(0.07, 0.03)))
+          
 
 ```
 
 Like educational attainment, many psychological traits are more differentiated at some points in the continuum than at others. For example, as seen in Figure&nbsp;\@ref(fig:differentiation), it sometimes convenient to lump the various flavors of trait anxiety together at the low and middle range of distress and then to distinguish among them at the high end. It is difficult to say who is more anxious, a person who is extremely paranoid^[Although *paranoia* is not traditionally considered a type of anxiety, it is clear that anxiety (about the possibly malevolent intentions of others) is a core feature of the trait.] or a person with a severe case of panic disorder. We can say that each is more anxious than the average person (an ordinal comparison) but each has a qualitatively different kind of anxiety. This problem is easily solved by simply talking about two different scales (paranoia and panic). However, there are different kinds of paranoia (e.g., different mixtures of hostility, fear, and psychosis) and different kinds of panic (e.g., panic vs. fear of panic). One can always divide psychological variables into ever narrower categories, making comparisons among and across related constructs problematic. At some point, we gloss over certain qualitative differences and treat them as if they were comparable, even though, strictly speaking, they are not.
+
+```{r differentionCode, ref.label="differentiation", button_r = TRUE}
+
+```
 
 ## Interval Scales
 
@@ -338,54 +194,16 @@ With [interval scales]{class=defword}, `r tufte::margin_note("In an **interval s
 
 
 
-```{r suds, fig.cap="Subjective units of distress may not be of equal length", fig.margin = TRUE, fig.align='default', fig.width=2, dev="svg", out.width=200, fig.align='default', echo=FALSE}
+```{r suds, fig.cap="Subjective units of distress may not be of equal length", fig.margin = TRUE, fig.align='default', dev="svg", out.width="100%", fig.align='default', echo=FALSE}
 knitr::include_graphics("SUDS.svg")
+
 ```
 
 It is not always easy to distinguish between an interval scale and an ordinal scale. Therapists sometimes ask clients to rate their distress "on a scale from 0 to 10." Probably, in the mind of the therapist, the distance between each point of the scale is equal. In the mind of the client, however, it may not work that way. In Figure&nbsp;\@ref(fig:suds), a hypothetical client thinks of the distance between 9 and 10 as much greater than the distance between 0 and 1. 
 
 
-```{tikz sudsCode, button_latex = TRUE}
-% Subjective Units of Distress
+```{tikz sudsCode, button_latex = TRUE, code=readLines("SUDS.tex")}
 
-\documentclass[tikz = true, border = 2pt]{standalone}
-
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{tikz}
-\usetikzlibrary{positioning, calc}
-\usetikzlibrary{intersections}
-\usetikzlibrary{decorations.pathreplacing}
-\usetikzlibrary{decorations.text}
-\usetikzlibrary{arrows,shapes,backgrounds, shadows,fadings}
-
-\usepackage{fontspec}
-\setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
-
-\begin{document}
-	
-\begin{tikzpicture}[scale=1]
-\definecolor{firebrick2}{RGB}{205,38,38};
-\definecolor{royalblue2}{RGB}{67,110,238};
-\pgfmathtruncatemacro{\T}{10}
-\tikzstyle{every node}=[draw=none,shape=circle,ball color=royalblue2,minimum size=5.5mm, white];
-\foreach \n in {0,...,\T} 
-\node (\n) at (0,\n) {\footnotesize{\n}};
-\foreach \n [remember=\n as \lastn (initially 0)] in {0,...,\T} 
-\draw (\lastn) -- (\n);
-\tikzstyle{every node}=[draw=none,shape=circle,ball color=firebrick2,minimum size=5.5mm, white];
-\def\myarray{{0,0.63,1.45,2.36,3.33,4.35,5.42,6.52,7.65,8.81,11}};
-\foreach \x [count=\xi] in {0,...,10} 
-\node (\x) at (1,\myarray[\x]) {\footnotesize{\x}};
-\foreach \x [remember=\x as \lastx (initially 0)] in {0,...,\T} 
-\draw (\lastx) -- (\x);
-\tikzstyle{every node}=[rotate=-90];
-\node at (-0.8,5) {\small{Scale you think your client is using (equal intervals)}};
-\node at (1.8,5) {\small{Scale your client is actually using (for now, at least)}};
-\end{tikzpicture} 
-\end{document}
 ```
 
 

@@ -22,9 +22,12 @@
 \definecolor{firebrick2}{RGB}{205,38,38};
 \definecolor{royalblue2}{RGB}{67,110,238};
 \pgfmathtruncatemacro{\T}{10}
-\tikzstyle{every node}=[draw=none,shape=circle,ball color=royalblue2,minimum size=5.5mm, white];
-\foreach \n in {0,...,\T} 
-\node (\n) at (0,\n) {\footnotesize{\n}};
+\tikzstyle{every node}=[draw=none,
+                        shape=circle,
+                        ball color=royalblue2,
+                        minimum size=5.5mm,
+                        white];
+\foreach \n in {0,...,\T} \node (\n) at (0,\n) {\footnotesize{\n}};
 \foreach \n [remember=\n as \lastn (initially 0)] in {0,...,\T} 
 \draw (\lastn) -- (\n);
 \tikzstyle{every node}=[draw=none,shape=circle,ball color=firebrick2,minimum size=5.5mm, white];
@@ -33,8 +36,8 @@
 \node (\x) at (1,\myarray[\x]) {\footnotesize{\x}};
 \foreach \x [remember=\x as \lastx (initially 0)] in {0,...,\T} 
 \draw (\lastx) -- (\x);
-\tikzstyle{every node}=[rotate=-90];
-\node at (-0.8,5) {\small{Scale you think your client is using (equal intervals)}};
-\node at (1.8,5) {\small{Scale your client is actually using (for now, at least)}};
+\tikzstyle{every node}=[align=left, font=\small];
+\node at (-1.8,5) {Scale you intend\\ your client to use\\ (equal intervals)};
+\node at (2.8,5) {Scale your client\\ is actually using\\ (for now, at least)};
 \end{tikzpicture} 
 \end{document}

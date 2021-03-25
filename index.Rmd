@@ -1,7 +1,8 @@
 --- 
 title: "Individual Psychometrics"
-subtitle: "A Practical Toolkit With Applications in R"
+subtitle: "An Assessment Toolkit With Applications in R"
 author: "W. Joel Schneider"
+lang: "en"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output:

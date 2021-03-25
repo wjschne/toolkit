@@ -1,6 +1,6 @@
 # Notation {-}
 
-## Random variables, vectors, and matrices
+## Random variables, vectors, and matrices {-}
 
 * Random variables are capital letters such as $X$ and $Y$.
 * A particular value of $X$ is $x$.
@@ -9,7 +9,7 @@
 
 Unfortunately, if vectors are lowercase and random variables are uppercase, my notation comes in conflict when discussing a vector of random variables (i.e., the variables as theoretical entities, not their particular scores). Such a vector will be a bold uppercase letter, (e.g., $\boldsymbol{X}$). A vector of particular scores from the variables in $\boldsymbol{X}$ will be shown as $\boldsymbol{x}$.
 
-## Sets and intervals
+## Sets and intervals {-}
 
 A *set* is a collection of distinct objects. 
 
@@ -25,7 +25,7 @@ $\mathbb{N}_0$ | The set of all non-negative integers: $\{ 0,1,2,...\}$
 $\mathbb{N}_1$ | The set of all positive integers: $\{ 1,2,3,...\}$
 $\in$ | Is a member of (i.e., $X \in (a,b)$ means that $X$ is a member of the set of numbers between $a$ and $b$)
 
-## Summation 
+## Summation {-}
 
 There are several ways to show that a variable is to be summed. The summation sign looks like a really big &Sigma;, the capital Greek letter sigma. 
 
@@ -33,7 +33,7 @@ $$\sum_{i = 1}^k X_i$$
 
 
 
-## Other 
+## Other {-}
 
 Expression | Meaning
 :----------|:--------------------------------------

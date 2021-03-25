@@ -1904,7 +1904,7 @@ tibble(
 ```
 
 
-```{r, ref.label="PanicCumulativeFrequency", button_r=TRUE}
+```{r PanicCumulativeFrequencyCode, ref.label="PanicCumulativeFrequency", button_r=TRUE}
 
 ```
 
@@ -2398,7 +2398,7 @@ mtext("z-scores", side = 1, line = 1.8,
 
 
 
-```{r, fig.height=8, fig.width=8, out.width="100%", dev='ragg_png'}
+```{r percentileuneven, fig.height=8, fig.width=8, out.width="100%", dev='ragg_png'}
 
 
 tibble(y = seq(0.01,.99, 0.01),

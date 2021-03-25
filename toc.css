@@ -31,7 +31,7 @@
   // background: linear-gradient(to bottom, #333333 0%, #141414 100%);
   color: #222222;
   display: block;
-  padding: 19px 20px;
+  padding: 14px 15px;
   text-decoration: none;
   text-shadow: none;
 }
@@ -123,7 +123,7 @@
   filter: none;
   display: block;
   line-height: 120%;
-  padding: 10px;
+  padding: 7px 15px;
   background: #eeeeee;
   color: #222222;
   text-decoration: none;
