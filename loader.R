@@ -84,9 +84,59 @@ prob_label <- function(p,
 
 # Set table column width
 # https://github.com/rstudio/bookdown/issues/122#issuecomment-221101375
-html_table_width <- function(kable_output, width){
-  width_html <- paste0(paste0('<col width="', width, '">'), collapse = "\n")
-  sub("</caption>", paste0("</caption>\n", width_html), kable_output)
+html_table_width <- function(kable_output, width, tag = "</caption>"){
+  width_html <- paste0(
+    paste0('<col width="',
+           width,
+           '">'),
+    collapse = "\n")
+  sub(tag,
+      paste0(tag,
+             "\n",
+             width_html),
+      kable_output)
+}
+
+# Make a matrix with braces
+bmatrix <- function(M, brace = "bmatrix", includenames=TRUE) {
+  if (includenames) {
+    M <- cbind(rownames(M),M)
+    M <- rbind(colnames(M), M)
+  }
+  M <-  paste(apply(M,
+                    MARGIN = 1,
+                    FUN = paste0,
+                    collapse = " & "),
+              collapse = "\\\\\n")
+
+
+  if (!is.null(brace)) {
+    M <- paste0("\\begin{",brace,"}\n", M, "\n\\end{", brace , "}")
+    }
+  M
+}
+
+defword <- function(word,
+                    note,
+                    wordclass="defword",
+                    noteclass = "marginnote defword",
+                    icon = "&#8853;") {
+  # Adapted from tufte:::marginnote_html
+
+  sprintf(
+    paste0(
+      "<span class=\"%s\">%s</span>",
+      "<span class=\"%s\">",
+      "<label for=\"tufte-mn-\" class=\"margin-toggle\">%s</label>",
+      "<input type=\"checkbox\" id=\"tufte-mn-\" class=\"margin-toggle\">%s",
+      "</span>"
+    ),
+    wordclass,
+    word,
+    noteclass,
+    icon,
+    note
+  )
 }
 
 # Hooks -------

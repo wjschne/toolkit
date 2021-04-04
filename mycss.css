@@ -1,10 +1,15 @@
 body {
-  font-family: 'equity_text_a', 'Palatino Linotype', Palatino, serif;
-  background-color:white;
+  font-family: 'equity_text_a', 'Times', 'Times New Roman', Palatino, 'Palatino Linotype', serif;
+  background-color: white;
   font-feature-settings: 'ss02', 'ss01';
-  font-variant-numeric:tabular-nums;
+  font-variant-numeric: tabular-nums;
   line-height: 150%;
 }
+
+sub { font-variant-position: sub; }
+sup { font-variant-position: super;
+  font-variant-alternates: normal;}
+
 
 p {
   text-align: justify;
@@ -42,7 +47,7 @@ h1, h2 {
 
 h3, h4 {
   line-height:normal;
-  font-family: 'equity_text_a', Constantia,'Palatino Linotype',Palatino,serif;
+  font-family: 'equity_text_a_tab', Constantia,'Palatino Linotype',Palatino,serif;
   }
 
 
@@ -53,14 +58,14 @@ h3 {font-size:16pt}
 table {
   font-size: 1.2em;
   border-collapse: collapse;
-  font-family: 'equity_text_a', 'Palatino Linotype',Palatino,serif;
+  font-family: 'equity_text_a_tab', 'Palatino Linotype',Palatino,serif;
 }
 
 td, th {padding: 3pt; font-size:1.2em; height:1.5em}
 
 /*figcaption{font-size:1.2em;font-weight:bold;text-align:left;}*/
 
-/*h1.title {font-variant:small-caps;   font-style: normal;   font-size:3em;  letter-spacing:0.01em;  font-weight:normal;}*/
+h1.title {font-size:3.72em;}
 
 h3.subtitle em {
   font-style: normal;
@@ -193,7 +198,7 @@ input[type='checkbox'] {
   border-bottom-left-radius: 5px;
 }
 div.sourceCode{width: 55%;
-               background-color:none;
+               background-color:transparent;
 			   overflow: visible;}
 pre.sourceCode.r {background-color: #eeeeee;
                   border-radius: 5px;
@@ -231,7 +236,6 @@ div.sourceCode + pre.sourceCode {
 }
 .defword {color: #4169E1}
 .marginnote{
-  color: #4169E1;
   font-size:1.2rem;
   text-align: left;
   hyphens: manual;
@@ -257,4 +261,9 @@ div.row:nth-child(2) {
 
 .section.level1 {scroll-margin-top: 10em;}
 
-.section.level2 {scroll-margin-top: 5em;}
+.section.level2 {scroll-margin-top: 8em;}
+
+.margintext {
+    color:rgb(17,17,17);
+
+}
