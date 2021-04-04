@@ -1,0 +1,72 @@
+# Unfinished
+
+## Prediction
+
+Correlation
+
+Multiple regression
+
+Generalized linear model
+
+Path analysis
+
+## Structure
+
+Exploratory factor analysis
+
+Confirmatory factor analysis
+
+Structural equation modeling
+
+## Reliability
+
+Retest reliability
+
+Alternate-form reliability
+
+Split-half reliability
+
+Internal consistency
+
+* Cronbach's Alpha
+* McDonald's Omega
+
+Conditional reliability (IRT)
+
+## Validity
+
+Face validity
+
+Content validity
+
+Criterion-oriented validity
+
+* Concurrent validity
+* Predictive validity
+
+Discriminant validity
+
+Convergent validity
+
+Incremental validity
+
+Construct validity
+
+## Profiles
+
+Difference scores
+
+Outliers
+
+Highest-lowest scores
+
+Multivariate profile shape
+
+Conditional profiles
+
+## Relative Proficiency
+
+
+
+
+

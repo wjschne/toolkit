@@ -4,11 +4,11 @@
 
 # Descriptives
 
-When we encounter large lists of unsorted numbers, we have no natural capacity to perceive the list's fundamental characteristics such its average or its variability. Therefore, we need [descriptive statistics]{.defword}`r tufte::margin_note("**Descriptive statistics** summarize noteworthy characteristics of samples.")` to quantify salient characteristics of distributions, or we need to display the numbers in a plot, making them easier to understand and communicate.
+When we encounter large lists of unsorted numbers, we have no natural capacity to perceive the list's fundamental characteristics such its average or its variability. Therefore, we need `r defword("descriptive statistics", "**Descriptive statistics** summarize noteworthy characteristics of samples.")` to quantify salient characteristics of distributions, or we need to display the numbers in a plot, making them easier to understand and communicate.
 
 ## Frequency Distribution Tables
 
-A simple way to describe a distribution is to list how many times each value in the distribution occurs. For example, in this distribution: $\{10, 3, 4, 10, 6, 4, 6, 4\}$, there is 1 three, 3 fours, 2 sixes, and 2 tens. The value that occurs most often is four. A [frequency distribution table]{.defword}`r tufte::margin_note("A **frequency distribution table** summarises a sample by showing the frequency counts of each member of the sample space.")` displays the number of times each value occurs, as in Table&nbsp;\@ref(tab:frequencydistributiontable).
+A simple way to describe a distribution is to list how many times each value in the distribution occurs. For example, in this distribution: $\{10, 3, 4, 10, 6, 4, 6, 4\}$, there is 1 three, 3 fours, 2 sixes, and 2 tens. The value that occurs most often is four. A `r defword("frequency distribution table","A **frequency distribution table** summarises a sample by showing the frequency counts of each member of the sample space.")` displays the number of times each value occurs, as in Table\ \@ref(tab:frequencydistributiontable).
 
 ```{r frequencydistributiontable, fig.margin=T, fig.align='default', fullwidth=T}
 X <- c(3,4,6,10)
@@ -33,9 +33,9 @@ It is common to include alongside the frequencies of each value the proportion (
 
 $$p_i = \frac{f_i}{n}$$
 
-In Table&nbsp;\@ref(tab:frequencydistributiontable), the frequency of sixes is $f=`r sixes`$ and there are $n = `r sample_size`$ numbers in the distribution, thus the proportion of sixes is $p = \frac{`r sixes`}{`r sample_size`} = `r WJSmisc::remove_leading_zero(sixes / sample_size)`$.
+In Table\ \@ref(tab:frequencydistributiontable), the frequency of sixes is $f=`r sixes`$ and there are $n = `r sample_size`$ numbers in the distribution, thus the proportion of sixes is $p = \frac{`r sixes`}{`r sample_size`} = `r WJSmisc::remove_leading_zero(sixes / sample_size)`$.
 
-It is also common to supplement frequency distribution tables with additional information such as the [cumulative frequency]{.defword}`r tufte::margin_note("The **cumulative frequency** tells us the number of scores in a distribution that are equal to or lower than a particular sample space element.")`. For each sample space element, the cumulative frequency $(cf)$ is the sum of the frequencies $(f)$ of the current and all previous sample space elements.
+It is also common to supplement frequency distribution tables with additional information such as the `r defword("cumulative frequency","The **cumulative frequency** tells us the number of scores in a distribution that are equal to or lower than a particular sample space element.")`. For each sample space element, the cumulative frequency $(cf)$ is the sum of the frequencies $(f)$ of the current and all previous sample space elements.
 
 $$cf_i= \sum_{j=1}^{i}{f_j}$$
 
@@ -61,7 +61,7 @@ The sjmisc package [@R-sjmisc] provides a quick and easy way to create a frequen
 sjmisc::frq(d$anger)
 ```
 
-Typically we use frequency distribution tables to check whether the values of a variable are correct and that the distribution makes sense to us. Thus the `frq` function is all we need most of the time. However, if you need a publication-ready frequency distribution table, you will probably have to make it from scratch (See Table&nbsp;\@ref(tab:freqtablepub)).
+Typically we use frequency distribution tables to check whether the values of a variable are correct and that the distribution makes sense to us. Thus the `frq` function is all we need most of the time. However, if you need a publication-ready frequency distribution table, you will probably have to make it from scratch (See Table\ \@ref(tab:freqtablepub)).
 
 ```{r freqtablepub}
 # Publication-quality frequency table
@@ -71,16 +71,24 @@ d %>%
   mutate(cf = cumsum(f),
          p = f / sum(f),
          cp = cumsum(p)) %>% 
-  mutate(across(.cols = p:cp, 
-                .fns = function(x) scales::number(x, .01) %>% 
-                  str_remove("^0"))) %>% 
-  rename_with(.fn = function(x) paste0("*",x,"*"), .cols = -X) %>% 
+  mutate(across(
+    .cols = p:cp,
+    .fns = function(x) scales::number(x, .01) %>% 
+      str_remove("^0"))) %>% 
+  rename_with(
+    .fn = function(x) paste0("*",x,"*"), 
+    .cols = -X) %>% 
   mutate(` ` = "") %>% 
-  kable(caption = "Frequency Distribution Table for Anger<br>
-        *f*&nbsp;=&nbsp;Frequency, *cf*&nbsp;=&nbsp;Cumulative Frequency
-        , *p*&nbsp;=&nbsp;Proportion, and *cp*&nbsp;=&nbsp;Cumulative Proportion", 
-        digits = 2, align = "r", 
-        format = "html") %>% 
+  kable(
+    caption = "Frequency Distribution Table for Anger<br>
+    *f*&nbsp;=&nbsp;Frequency
+    , *cf*&nbsp;=&nbsp;Cumulative Frequency
+    , *p*&nbsp;=&nbsp;Proportion
+    , and *cp*&nbsp;=&nbsp;Cumulative Proportion",
+    digits = 2,
+    align = "r",
+    format = "html"
+  ) %>%
   html_table_width(c(30, rep(100, 4), 20))
 ```
 
@@ -105,10 +113,15 @@ d_freq <- d %>%
 d_freq %>% 
   ggplot(aes(Anger, f)) + 
   geom_col(fill = myfills[1]) + 
-  geom_text_fill(aes(label = f), vjust = -0.5, size = ggtext_size(30)) +
-  scale_x_continuous(breaks = 1:7, minor_breaks = NULL) + 
-  scale_y_continuous("Frequency", expand = expansion(c(0, 0.09))) +
-  theme_minimal(base_size = 30, base_family = bfont) + 
+  geom_text_fill(aes(label = f), 
+                 vjust = -0.5, 
+                 size = ggtext_size(30)) +
+  scale_x_continuous(breaks = 1:7, 
+                     minor_breaks = NULL) + 
+  scale_y_continuous("Frequency", 
+                     expand = expansion(c(0, 0.09))) +
+  theme_minimal(base_size = 30, 
+                base_family = bfont) + 
   theme(panel.grid.major.x = element_blank())       
 ```
 
@@ -119,76 +132,98 @@ d_freq %>%
   ggplot(aes(factor("Anger"), cf - f / 2)) + 
   geom_tile(aes(height = f, fill = factor(Anger)), 
             width = 1.2) +
-  geom_text(aes(label = paste0(Anger, 
-                               " (", 
-                               f, ", ", 
-                               scales::percent(p, accuracy = 1),
-                               ")"))) + 
-  scale_y_continuous("Cumulative Frequency", 
-                     breaks = c(0, d_freq$cf), 
-                     minor_breaks = NULL, 
-                     expand = expansion(c(0,.04)),
-                     sec.axis = sec_axis(
-                       trans = ~ .x, 
-                       labels = scales::percent(c(0,d_freq$cp), accuracy = 1), 
-                       breaks = c(0, d_freq$cf),
-                       name = NULL))  +
+  geom_text(aes(label = paste0(
+    Anger, 
+    " (", 
+    f, 
+    ", ",
+    scales::percent(p, accuracy = 1),
+    ")"))) + 
+  scale_y_continuous(
+    "Cumulative Frequency",
+    breaks = c(0, d_freq$cf),
+    minor_breaks = NULL,
+    expand = expansion(c(0, .04)),
+    sec.axis = sec_axis(
+      trans = ~ .x,
+      labels = scales::percent(c(0, d_freq$cp), 
+                               accuracy = 1),
+      breaks = c(0, d_freq$cf),
+      name = NULL))  +
   scale_fill_manual(values = tinter::tinter(myfills[1], 9)) +
   scale_x_discrete(NULL) +
-  theme(legend.position = "none", 
-        panel.grid = element_blank(), 
-        axis.text.y = element_text(vjust = c(rep(0.5, 7), -0.3))) 
+  theme(
+    legend.position = "none",
+    panel.grid = element_blank(),
+    axis.text.y = element_text(vjust = c(rep(0.5, 7),-0.3))
+  ) 
 ```
 
 
 
 ```{r freqstepplot, fig.cap="Cumulative Frequency Step Plot", fig.height=7, fig.margin=TRUE, fig.align='default'}
 # Frequency Step Plot
-d_freq %>% 
-  ggplot(aes(Anger, cf)) + 
-  geom_step(direction = "mid", color = myfills[1], size = 0.5) +
-  geom_text_fill(aes(label = cf), 
-                 vjust = -0.5, 
-                 color = myfills[1],
-                 size = ggtext_size(30)) + 
-  geom_text_fill(aes(label = signs::signs(f, accuracy = 1, add_plusses = T)), 
-                 vjust = 1.5,
-                 color = "gray40",
-                 size = ggtext_size(30)) + 
-  scale_x_continuous(breaks = 1:7, 
-                     expand = expansion()) + 
-  scale_y_continuous("Cumulative Frequency", 
-                     limits = c(0, NA), 
-                     breaks = 0, 
-                     minor_breaks = NULL,
-                     expand = expansion(mult = c(0.001, 0.07))) +
-  theme_minimal(base_size = 30, base_family = bfont) + 
+d_freq %>%
+  ggplot(aes(Anger, cf)) +
+  geom_step(direction = "mid",
+            color = myfills[1],
+            size = 0.5) +
+  geom_text_fill(
+    aes(label = cf),
+    vjust = -0.5,
+    color = myfills[1],
+    size = ggtext_size(30)
+  ) +
+  geom_text_fill(
+    aes(label = signs::signs(
+      f, accuracy = 1, add_plusses = T
+    )),
+    vjust = 1.5,
+    color = "gray40",
+    size = ggtext_size(30)
+  ) +
+  scale_x_continuous(breaks = 1:7,
+                     expand = expansion()) +
+  scale_y_continuous(
+    "Cumulative Frequency",
+    limits = c(0, NA),
+    breaks = 0,
+    minor_breaks = NULL,
+    expand = expansion(mult = c(0.001, 0.07))
+  ) +
+  theme_minimal(base_size = 30, base_family = bfont) +
   theme(panel.grid.major.x = element_blank()) +
-  annotate(geom = "segment", 
-           x = 0.5,
-           y = 0, 
-           xend = 0.5, 
-           yend = 73, 
-           color = myfills[1], 
-           size = 1) +
-  annotate(geom = "segment", 
-           x = 0.5, 
-           y = 73, 
-           xend = 1, 
-           yend = 73, 
-           color = myfills[1], 
-           size = 0.5) +
-  annotate(geom = "segment", 
-           x = 7, 
-           y = 129, 
-           xend = 7.5, 
-           yend = 129, 
-           color = myfills[1], 
-           size = 0.5) 
+  annotate(
+    geom = "segment",
+    x = 0.5,
+    y = 0,
+    xend = 0.5,
+    yend = 73,
+    color = myfills[1],
+    size = 1
+  ) +
+  annotate(
+    geom = "segment",
+    x = 0.5,
+    y = 73,
+    xend = 1,
+    yend = 73,
+    color = myfills[1],
+    size = 0.5
+  ) +
+  annotate(
+    geom = "segment",
+    x = 7,
+    y = 129,
+    xend = 7.5,
+    yend = 129,
+    color = myfills[1],
+    size = 0.5
+  ) 
   
 ```
 
-In Figure&nbsp;\@ref(fig:freqbarplot), the frequency distribution from Table&nbsp;\@ref(tab:freqtablepub) is translated into a standard bar plot. A column bar plot allows for easy comparison of the frequency of each category. For example, in Figure&nbsp;\@ref(fig:freqbarplot), it is clear that by far the most frequent level of Anger is 1.
+In Figure\ \@ref(fig:freqbarplot), the frequency distribution from Table\ \@ref(tab:freqtablepub) is translated into a standard bar plot. A column bar plot allows for easy comparison of the frequency of each category. For example, in Figure\ \@ref(fig:freqbarplot), it is clear that by far the most frequent level of Anger is 1.
 
 
 ```{r freqbarplotCode, ref.label='freqbarplot', button_r=TRUE}
@@ -196,14 +231,14 @@ In Figure&nbsp;\@ref(fig:freqbarplot), the frequency distribution from Table&nbs
 ```
 
 
-A stacked bar chart emphasizes the proportions of each category compared to the whole. It also allows for the visual display of the cumulative frequencies and proportions. For example, in Figure&nbsp;\@ref(fig:freqstackedbarplot), it is easy to see that more than half of participants have an anger level of 1, and three quarters have an anger level of 2 or less.
+A stacked bar chart emphasizes the proportions of each category compared to the whole. It also allows for the visual display of the cumulative frequencies and proportions. For example, in Figure\ \@ref(fig:freqstackedbarplot), it is easy to see that more than half of participants have an anger level of 1, and three quarters have an anger level of 2 or less.
 
 
 ```{r freqstackedbarplotCode, ref.label='freqstackedbarplot', button_r=TRUE}
 
 ```
 
-A step line plot can show the cumulative frequency's relationship with the variable. For example, in  Figure&nbsp;\@ref(fig:freqstepplot), it appears that the cumulative frequency rises quickly at first but then rises slowly and steadily thereafter.
+A step line plot can show the cumulative frequency's relationship with the variable. For example, in  Figure\ \@ref(fig:freqstepplot), it appears that the cumulative frequency rises quickly at first but then rises slowly and steadily thereafter.
 
 ```{r freqstepplotCode, ref.label='freqstepplot', button_r=TRUE}
 
@@ -213,7 +248,7 @@ A step line plot can show the cumulative frequency's relationship with the varia
 
 ### Mode
 
-The [mode]{.defword}`r tufte::margin_note("The **mode** is the value in a distribution that occurs most often.")` is the most frequent score in a distribution. Suppose we have a distribution that looks like this: 
+The `r defword("mode","The **mode** is the value in a distribution that occurs most often.")` is the most frequent score in a distribution. Suppose we have a distribution that looks like this: 
 
 $$\{1,2,2,2,2,3,3\}$$
 
@@ -228,31 +263,41 @@ d_mode <- d %>%
   dplyr::filter(n == max(n))
 ```
 
-In a frequency distribution table, the mode is the value with the highest value in the $f$ (frequency) column. In Table&nbsp;\@ref(tab:freqtablepub), the mode is `r d_mode$anger` because it has the highest frequency (&#8239;*f*&nbsp;=&nbsp;`r d_mode$n`). 
+In a frequency distribution table, the mode is the value with the highest value in the $f$ (frequency) column. In Table\ \@ref(tab:freqtablepub), the mode is `r d_mode$anger` because it has the highest frequency (&#8239;*f*\ =\ `r d_mode$n`). 
 
-In a bar plot, histogram, or probability density plot, the mode is the value that corresponds to the highest point in the plot. For example, in Figure&nbsp;\@ref(fig:freqbarplot), the modal value is 1 because its frequency of 73 is the highest point in the bar plot. In Figure&nbsp;\@ref(fig:bimodal), the mode is &minus;1 because that is the highest point in the density plot. 
+In a bar plot, histogram, or probability density plot, the mode is the value that corresponds to the highest point in the plot. For example, in Figure\ \@ref(fig:freqbarplot), the modal value is 1 because its frequency of 73 is the highest point in the bar plot. In Figure\ \@ref(fig:bimodal), the mode is &minus;1 because that is the highest point in the density plot. 
 
-If two values tie, both values are the mode and the distribution is [bimodal]{.defword}`r tufte::margin_note("A **bimodal** distribution has two modes.")`. Sometimes a distribution has two distinct clusters, each with its own local mode. The greater of these two modes is the *major mode*, and the lesser is the *minor mode* (See Figure&nbsp;\@ref(fig:bimodal)).
+If two values tie, both values are the mode and the distribution is `r defword("bimodal", "A **bimodal** distribution has two modes.")`. Sometimes a distribution has two distinct clusters, each with its own local mode. The greater of these two modes is the *major mode*, and the lesser is the *minor mode* (See Figure\ \@ref(fig:bimodal)).
 
 ```{r bimodal, fig.cap="A bimodal distribution", fig.margin = TRUE, fig.align='default'}
 # A bimodal distribution
 tibble(x = seq(-3, 3.5, .01),
-       y = dnorm(x, -1, 0.5) / 0.8 + dnorm(x, 1, 0.75)) %>% 
-  ggplot(aes(x, y)) + 
+       y = dnorm(x,-1, 0.5) / 0.8 + 
+         dnorm(x, 1, 0.75)) %>%
+  ggplot(aes(x, y)) +
   geom_area(fill = myfills[1]) +
-  geom_text(data = . %>% dplyr::filter(x == -1), 
-            vjust = -0.25, 
-            label = "Major\nMode", 
-            size = 8, 
-            lineheight = 0.9) +
-  geom_text(data = . %>% dplyr::filter(x == 1), 
-            vjust = -0.25, 
-            label = "Minor\nMode", 
-            size = 8, 
-            lineheight = 0.9) +
-  scale_x_continuous(NULL, minor_breaks = NULL, breaks = seq(-3, 3)) +
-  scale_y_continuous(NULL, breaks = NULL, expand = expansion(c(0,.25))) + 
-  theme_minimal(base_size = 30, base_family = bfont) + 
+  geom_text(
+    data = . %>% dplyr::filter(x == -1),
+    vjust = -0.25,
+    label = "Major\nMode",
+    size = 8,
+    lineheight = 0.9
+  ) +
+  geom_text(
+    data = . %>% dplyr::filter(x == 1),
+    vjust = -0.25,
+    label = "Minor\nMode",
+    size = 8,
+    lineheight = 0.9
+  ) +
+  scale_x_continuous(NULL,
+                     minor_breaks = NULL,
+                     breaks = seq(-3, 3)) +
+  scale_y_continuous(NULL,
+                     breaks = NULL,
+                     expand = expansion(c(0, .25))) +
+  theme_minimal(base_size = 30,
+                base_family = bfont) +
   theme(panel.grid.major.x = element_blank()) 
 ```
 
@@ -270,30 +315,41 @@ mfv(c(1,2,2,2,2,3,3))
 
 ### Median
 
-The [median]{.defword}`r tufte::margin_note("The **median** is the point that divides the lower 50 percent of a distribution from the upper 50 percent.")` is midpoint of a distribution, the point that divides the lower half of the distribution from the upper half. To calculate the median, you first need to sort the scores. If there is an odd number of scores, the median is the middle score. If there an even number of scores, it is the mean of the two middle scores. There are other definitions of the median that are a little more complex, but rarely is precision needed for calculating the median.
+The `r defword("median", "The **median** is the point that divides the lower 50 percent of a distribution from the upper 50 percent.")` is midpoint of a distribution, the point that divides the lower half of the distribution from the upper half. To calculate the median, you first need to sort the scores. If there is an odd number of scores, the median is the middle score. If there an even number of scores, it is the mean of the two middle scores. There are other definitions of the median that are a little more complex, but rarely is precision needed for calculating the median.
 
-To find the median using a frequency distribution table, find the first sample space element with a cumulative proportion greater than 0.5. For example, in the distribution shown in Table&nbsp;\@ref(tab:mediantable), the first cumulative proportion greater than 0.5 occurs at 5, which is therefore the median.
+To find the median using a frequency distribution table, find the first sample space element with a cumulative proportion greater than 0.5. For example, in the distribution shown in Table\ \@ref(tab:mediantable), the first cumulative proportion greater than 0.5 occurs at 5, which is therefore the median.
 
 ```{r mediantable}
-X <- c(1,5,7,9)
-reps <- c(1,3,1,2)
-map2(X, reps, rep) %>% unlist %>% 
-  tibble(X = .) %>% 
-  group_by(X) %>% 
-  summarise(f = n()) %>% 
+X <- c(1, 5, 7, 9)
+reps <- c(1, 3, 1, 2)
+map2(X, reps, rep) %>% unlist %>%
+  tibble(X = .) %>%
+  group_by(X) %>%
+  summarise(f = n()) %>%
   mutate(cf = cumsum(f),
          p = f / sum(f),
-         cp = cumsum(p)) %>% 
-    mutate(across(.cols = p:cp, 
-                .fns = function(x) scales::number(x, .01) %>% 
-                  str_remove("^0"))) %>%
-  knitr::kable(caption = "Finding the Median in a Frequency Distribution Table.<br>In this case, the median is 5 because it has the first cumulative proportion that is greater than 0.5.", 
-               digits = 2, 
-               align = "r",
-               col.names = c("*X*","Frequency", "Cumulative Frequency" ,"Proportion", "Cumulative Proportion"))
+         cp = cumsum(p)) %>%
+  mutate(across(
+    .cols = p:cp,
+    .fns = function(x)
+      scales::number(x, .01) %>%
+      str_remove("^0")
+  )) %>%
+  knitr::kable(
+    caption = "Finding the Median in a Frequency Distribution Table.<br>In this case, the median is 5 because it has the first cumulative proportion that is greater than 0.5.",
+    digits = 2,
+    align = "r",
+    col.names = c(
+      "*X*",
+      "Frequency",
+      "Cumulative Frequency" ,
+      "Proportion",
+      "Cumulative Proportion"
+    )
+  )
 ```
 
-If a sample space element's cumulative proportion is exactly 0.5, average that sample space element with the next highest value. For example, in the distribution in Table&nbsp;\@ref(tab:frequencydistributiontable), the cumulative proportion for 4 is exactly 0.5 and the next value is 6. Thus the median is $\frac{4+6}{2}=5$.
+If a sample space element's cumulative proportion is exactly 0.5, average that sample space element with the next highest value. For example, in the distribution in Table\ \@ref(tab:frequencydistributiontable), the cumulative proportion for 4 is exactly 0.5 and the next value is 6. Thus the median is $\frac{4+6}{2}=5$.
 
 The median can be computed for ordinal, interval, and ratio variables, but not for nominal variables. Because they have no order, nominal variables have no middle score.
 
@@ -306,7 +362,7 @@ median(c(1,2,3))
 
 ### Mean
 
-The [arithmetic mean]{.defword}`r tufte::margin_note("The **arithmetic mean** is the balance point of a disribution.")` is the sum of all values of a distribution divided by the size of the distribution.
+The `r defword("arithmetic mean", "The **arithmetic mean** is the balance point of a disribution.")` is the sum of all values of a distribution divided by the size of the distribution.
 
 $$\mu_X = \frac{\sum_{i = 1}^n {X_i}}{n}$$
 
@@ -319,36 +375,80 @@ The arithmetic mean can only be calculated with interval or ratio variables. Why
 
 The arithmetic mean is usually the preferred measure of central tendency for interval and ration variables because it is usually more stable from sample to sample than the median and the mode.
 
-```{r centraltendency, eval=FALSE}
-md <- function(i) {
-  round(rchisq(100,4),digits = 2)
+```{r centraltendency, fig.cap="Distributions of central tendency measures.<br>The standard normal distribution, $\\mathcal{N}(0,1),$ was used to generate 10,000 samples with a sample size of 100. The distribution of sample means is slightly narrower than the distribution of sample medians, meaning that the mean is slightly more stable than the median. The distribution of sample modes is very wide, meaning that the mode is much less stable than the mean and median."}
+
+# Central tendency function
+ct <- function(sample_size = 100) {
+  x <- rnorm(sample_size)
+  mo <- DescTools::Mode(round(x,2))
+  
+  c(Mean = mean(x), 
+       Median = median(x), 
+       Mode = sample(mo, 1))
 }
 
-mmode <- function(x) {
-  d <- tibble(x = x) %>%
-    group_by(x) %>% 
-    count() %>% 
-    ungroup %>%
-    filter(n == max(n)) 
-  mean(d$x)
-}
+# Replicate samples
+d_ct <- replicate(10000, ct(100)) %>% 
+  t() %>% 
+  as_tibble() %>% 
+  pivot_longer(cols = everything(), 
+               names_to = "CentralTendency",
+               values_to = "Value") %>% 
+  mutate(y = recode(CentralTendency, 
+                    `Mode` = 0.025, 
+                    `Median` = 0.055, 
+                    `Mean` = 0.105))
 
-tibble(i = 1:1000) %>% 
-  mutate(m = map(i, md)) %>% 
-  mutate(mean = map_dbl(m, mean),
-         median = map_dbl(m, median),
-         mode = map_dbl(m, mmode)) %>% 
-  select(mean, median, mode) %>% 
-  gather("CentralTendency","Value") %>% 
-  ggplot(aes(y = Value, x = CentralTendency)) +
-  # geom_density(color = NA, alpha = 0.5) + 
-  # stat_function(fun = function(x) 40 * dchisq(x, df = 40)) + 
-  # scale_x_continuous(limits = c(10,80))
-  ggbeeswarm::geom_quasirandom(alpha = 0.5, pch = 16, size = 0.1) +
-  stat_summary(color = "firebrick", fun.data = mean_sdl, fun.args = list(mult = 1)) +
-  scale_y_continuous(NULL, minor_breaks = seq(0,10000,5))
+# Summary data
+d_sum <- d_ct %>% 
+  filter(!is.na(Value)) %>% 
+  group_by(CentralTendency) %>% 
+  summarise(x = mean(Value),
+            y = mean(y),
+            ub = quantile(Value, 0.975),
+            lb = quantile(Value, 0.025)) %>% 
+  rename(Value = x)
+
+# Plot
+d_ct %>% 
+  filter(!is.na(Value)) %>% 
+  ggplot(aes(Value, y)) +
+  stat_function(geom = "area", 
+                fun = function(x) dnorm(x, 0, 1), 
+                n = 1000, 
+                color = NA, 
+                fill = "gray50", 
+                alpha = 0.2)  +
+  ggdist::stat_halfeye(aes(fill = CentralTendency), 
+                       scale = 1.2, 
+                       color = "gray20") +
+  geom_text(data = d_sum,
+            aes(label = CentralTendency),
+            vjust = 1.5,
+            size = ggtext_size(18),
+            color = "gray20") +
+  scale_x_continuous(name = NULL, 
+                     limits = c(-3.5,3.5), 
+                     breaks = seq(-4,4)) +
+  theme_minimal(base_size = 18, 
+                base_family = bfont) +
+  theme(legend.position = "none", 
+        panel.grid = element_blank()) +
+  scale_y_continuous(NULL, breaks = NULL, 
+                     expand = expansion()) + 
+  scale_fill_manual(values = scales::muted(
+    rep(myfills[1], 3),
+    l = c(65, 55, 40)))
+
+# ggsave("centraltendencystability.svg", height = 5, width = 7)
+# fs::file_show("centraltendencystability.svg")
 
 ```
+
+```{r centraltendencyCode, ref.label="centraltendency", button_r=TRUE}
+
+```
+
 
 ```{r proconCT}
 tibble::tribble(
@@ -367,7 +467,7 @@ tibble::tribble(
 
 ## Expected Values
 
-At one level, the concept of the [expected value]{.defword}`r tufte::margin_note("The **expected value** of a random variable is the population mean of the values that the random variable generates.")` of a random variable is really simple; it is just the population mean of the variable. So why don't we just talk about population means and be done with this "expected value" business? It just complicates things! True. In this case, however, there is value in letting some simple things appear to become complicated for a while so that later we can show that some apparently complicated things are actually simple.
+At one level, the concept of the `r defword("expected value", "The **expected value** of a random variable is the population mean of the values that the random variable generates.")` of a random variable is really simple; it is just the population mean of the variable. So why don't we just talk about population means and be done with this "expected value" business? It just complicates things! True. In this case, however, there is value in letting some simple things appear to become complicated for a while so that later we can show that some apparently complicated things are actually simple.
 
 Why can't we just say that the expected value of a random variable is the population mean? You are familiar, of course, with the formula for a mean. You just add up the numbers and divide by the number of numbers $n$:
 
@@ -401,7 +501,7 @@ tibble(x = factor(c(2,4,8), levels = 1:8),
 ```
 
 
-Suppose that the sample space of a random variable *X* is {2, 4, 8} with respective probabilities of {0.3, 0.2, 0.5}, as shown in Figure&nbsp;\@ref(fig:pmfX). 
+Suppose that the sample space of a random variable *X* is {2, 4, 8} with respective probabilities of {0.3, 0.2, 0.5}, as shown in Figure\ \@ref(fig:pmfX). 
 
 ```{r pmfXCode, button_r=TRUE, ref.label='pmfX'}
 
@@ -439,7 +539,7 @@ $$
 $$
 
 
-If we multiply each value of $X$ by the height of its bin ($p$), we get the mean of the binned distribution. If the bins become ever thinner, as in Figure&nbsp;\@ref(fig:thinbins), the product of $X$ and $p$ approximates the expected value of the smooth continuous distribution.
+If we multiply each value of $X$ by the height of its bin ($p$), we get the mean of the binned distribution. If the bins become ever thinner, as in Figure\ \@ref(fig:thinbins), the product of $X$ and $p$ approximates the expected value of the smooth continuous distribution.
 
 ```{r thinbins,fig.width=10.5,fig.height=10,echo=FALSE, fig.cap="Slicing the standard normal distribution into ever thinner bins", warning = F, fig.fullwidth = T, eval=TRUE, echo=FALSE, cache=TRUE, out.width="100%"}
 # Slicing the standard normal distribution into ever thinner bins
@@ -620,7 +720,7 @@ tibble(Variability = c("Low", "Middle", "High"),
 
 
 
-In all of these indices of qualitative variation, the lowest value is 0 when every data point belongs to the same category (See Figure&nbsp;\@ref(fig:nominalvar), left panel). Also, the maximum value is 1 when the data points are equally distributed across categories (See Figure&nbsp;\@ref(fig:nominalvar), right panel).
+In all of these indices of qualitative variation, the lowest value is 0 when every data point belongs to the same category (See Figure\ \@ref(fig:nominalvar), left panel). Also, the maximum value is 1 when the data points are equally distributed across categories (See Figure\ \@ref(fig:nominalvar), right panel).
 
 ### Variability of Ordinal Variables
 

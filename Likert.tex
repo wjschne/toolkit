@@ -4,28 +4,28 @@
 \usepackage{fontspec}
 \setmainfont{Equity Text A}[SmallCapsFont={Equity Caps A}]
 \definecolor[named]{mycolor}{RGB}{39,64,139}
-\begin{document}	
+\begin{document}
 	\begin{tikzpicture} [
 		font=\normalsize,
 		xtext/.style={
-			align=center, 
-			font=\Large, 
+			align=center,
+			font=\Large,
 			mycolor}
 		]
-	\foreach \i [count = \n] in {Strongly Disagree, 
+	\foreach \i [count = \n] in {Strongly Disagree,
 		                         Disagree,
 		                         Neutral,
 		                         Agree,
 		                         Strongly Agree} {
 		\node [xtext]  (n\n) at (0, \n * 2) {\i};
-	} 
+	}
 
-	
+
 	\foreach \i [count=\n] in {2,3,4,5}  {
-		\coordinate (mid) at ($(n\n)!.5!(n\i)$);		
-		\draw[mycolor, very thick] (n\n.north) -- (n\i.south);		
+		\coordinate (mid) at ($(n\n)!.5!(n\i)$);
+		\draw[mycolor, very thick] (n\n.north) -- (n\i.south);
         \node[xshift = 6pt] at (mid) {?};
-}	
+}
 
 	\end{tikzpicture}
 \end{document}
