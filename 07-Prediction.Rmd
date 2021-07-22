@@ -1,0 +1,195 @@
+# Prediction
+
+```{r loadpacksdist6, include = F}
+source("loader.R")
+```
+
+## Correlation
+
+The correlation coefficient does the heavy lifting in most multivariate analyses. It measures the strength of bivariate relationships. 
+
+
+
+
+## Simple Regression
+
+$$\hat{Y}=b_0+b_1X$$
+$$b_0=\mu_Y-b_1\mu_X$$
+
+$$b_1=\frac{\sigma_Y}{\sigma_X}r_{XY}$$
+
+## Regression to the Mean
+
+Even statistically sophisticated people can misunderstand regression to the mean. Regression to the mean does not mean that scores become less variable over time. Regression to the mean refers to predicted scores, not to individual scores. If two variables, say $X$ and $Y$, are imperfectly correlated, scores on $X$ are, on average, associated with less extreme scores on $Y$. Regression to the mean refers that scores regress to the mean of $Y$ not to the mean of $X$. 
+
+If we rearrange the simple regression formula, it is easier to see what regression to the mean implies: 
+
+$$\hat{Y}=b_0+b_1X$$
+Substitute in $b_1=\frac{\sigma_Y}{\sigma_X}r_{XY}$ and  $b_0=\mu_Y-b_1\mu_X$:
+
+$$\hat{Y}=\underbrace{\mu_Y-\frac{\sigma_Y}{\sigma_X}r_{XY}\mu_X}_{b_0}+\underbrace{\frac{\sigma_Y}{\sigma_X}r_{XY}}_{b_1}X$$
+
+Rearrange so that $\mu_Y$ and $\sigma_Y$ are on the left side of the equation:
+
+
+$$\frac{\hat{Y}-\mu_Y}{\sigma_Y}=r_{XY}\frac{X-\mu_X}{\sigma_X}$$
+Remember that the z-score formula is
+
+$$z_X=\frac{X-\mu_X}{\sigma_X}$$
+Thus our simple regression formula can be expressed in terms of z-scores, which are expressed in standard deviation units:
+
+$$\hat{z}_Y=r_{XY}z_X$$
+
+What does this mean? Imagine all people who score 1 standard deviation above the mean on $X$ (i.e., $z_X=1$). On average these people will score $r_{XY}$ standard deviations above the mean on $Y$. Because $r_{XY}$ is between &minus;1 and 1, the predicted value of $Y$ will be less extreme (in terms of $Y$'s standard)
+
+```{r, fig.height=7}
+r <- 0.3
+tibble(X = seq(-4, 4),
+       `Predicted Y` = X * r) %>% 
+  mutate(across(.fns = ~.x * 15 + 100)) %>% 
+  mutate(`Predicted Y` = `Predicted Y`) %>% 
+  tibble::rownames_to_column() %>% 
+  pivot_longer(cols = -rowname) %>% 
+  mutate(name = fct_inorder(name)) %>% 
+  ggplot(aes(name, value)) +
+  ggnormalviolin::geom_normalviolin(
+    data = tibble(name = factor(c("X", "Predicted Y")) %>% fct_inorder(),
+                  mu = c(100, 100),
+                  sigma = c(15,15),
+                  value = c(100, 100)), 
+    fill = "royalblue4",
+    alpha = 0.3,
+    aes(mu = mu, sigma = sigma, x = name),face_left = F) + 
+  geom_line(aes(group = rowname, color = abs(as.numeric(rowname) - 5))) + 
+  geom_text(aes(label = round(value), 
+                hjust = ifelse(name == "X", 1.15, -0.15)),
+            size = WJSmisc::ggtext_size(15),
+            family = bfont,
+            color = "gray30") +
+  scale_x_discrete(NULL, expand = expansion(), labels = c("X\nMean=100\nSD=15", "Y\nMean=100\nSD=15")) + 
+  scale_y_continuous("Standard Score", breaks = seq(40,160,15), minor_breaks = seq(40,160,5), expand = expansion()) +   
+  theme_minimal(base_size = 15, base_family = bfont) + 
+  ggeasy::easy_remove_legend() + 
+  ggtitle("Regression to the Mean",
+          subtitle = "Correlation = .3") + 
+  theme(plot.title.position = "plot") 
+
+```
+
+
+
+### [RTTM]{.abbr} and Practice Effects
+
+```{r, fig.height=7}
+r <- 0.3
+tibble(X = seq(-4, 4),
+       `Predicted Y` = X * r) %>% 
+  mutate(across(.fns = ~.x * 15 + 100)) %>% 
+  mutate(`Predicted Y` = `Predicted Y` + 15) %>% 
+  tibble::rownames_to_column() %>% 
+  pivot_longer(cols = -rowname) %>% 
+  mutate(name = fct_inorder(name)) %>% 
+  ggplot(aes(name, value)) +
+  ggnormalviolin::geom_normalviolin(
+    upper_limit = 162.5,
+    data = tibble(name = factor(c("X", "Predicted Y")) %>% fct_inorder(),
+                  mu = c(100, 115),
+                  sigma = c(15,15),
+                  value = c(100, 100)), 
+    fill = "royalblue4",
+    alpha = 0.3,
+    aes(mu = mu, sigma = sigma, x = name),face_left = F) + 
+  geom_line(aes(group = rowname, color = abs(as.numeric(rowname) - 5))) + 
+  geom_text(aes(label = round(value), 
+                hjust = ifelse(name == "X", 1.15, -0.15)),
+            size = WJSmisc::ggtext_size(15),
+            family = bfont,
+            color = "gray30") +
+  scale_x_discrete(NULL, expand = expansion(), labels = c("X\nMean=100\nSD=15", "Y\nMean=115\nSD=15")) + 
+  scale_y_continuous("Standard Score", breaks = seq(40,160,15), minor_breaks = seq(40,160,5), expand = expansion()) +   
+  theme_minimal(base_size = 15, base_family = bfont) + 
+  ggeasy::easy_remove_legend() + 
+  ggtitle("Practice Effects & Regression to the Mean",
+          subtitle = "Practice Effect = +15, Correlation = .3") + 
+  theme(plot.title.position = "plot") 
+
+```
+
+
+### [RTTM]{.abbr} and Reliability
+
+```{r, fig.height=8, out.width="100%"}
+SS <- 70
+
+crossing(x = seq(40, 140, 0.1),
+         r = seq(0,1,0.05)) %>% 
+  mutate(score = SS, 
+       y = (score - 100) * r + 100,
+       see = 15 * sqrt(r * (1 - r)),
+       dheight = .9 * dnorm(x, y, see) / dnorm(y, y, see),
+       r_factor = factor(r)) %>%
+  ggplot(aes(x = x, y = r_factor)) + 
+  ggridges::geom_ridgeline(aes(height = dheight),
+                           color = NA,
+                           alpha = 0.5, 
+                           fill = myfills[1], 
+                           size = 0.5,
+                           min_height = .01) + 
+  geom_segment(x = SS, xend = SS, y = 1, yend = 21, color = myfills[1]) +
+  geom_point(aes(x = y), 
+             data = . %>% select(y, r_factor) %>% unique(),
+             color = "gray30",
+             size = 1) +
+  geom_text(
+    aes(x = y, label = formatC(y, digits = 4, format = "f")),
+    data = . %>% select(y, r_factor) %>% unique(),
+    parse = T,
+    color = "gray30",
+    vjust = -0.35,
+    size = WJSmisc::ggtext_size(bsize)
+  ) +
+  scale_y_discrete(
+    "Reliability",
+    label = function(x)
+      ifelse(
+        round(as.numeric(x), 2) %in% round(seq(0, 1, 0.1), 2),
+        as.numeric(x) %>% WJSmisc::prob_label(),
+        ""
+      ),
+    expand = expansion(mult = c(0.01,0.025))
+  ) +
+  scale_x_continuous(
+    "True Score Distributions",
+    breaks = seq(40, 160, 15),
+    minor_breaks = seq(40, 160, 5),
+    limits = c(40, 160),
+    expand = expansion(mult = .01)
+  ) +
+  annotate(
+    x = SS,
+    y = 1.5,
+    label = paste0("Observed Score = ", SS),
+    geom = "richtext",
+    angle = 90,
+    family = bfont,
+    hjust = 0,
+    label.padding = unit(0.2, "lines"),
+    label.colour = NA,
+    size = WJSmisc::ggtext_size(bsize)
+  )
+
+```
+
+## Multiple Regression
+
+Regression with multiple predictors
+
+## Generalized linear model
+
+Multiple regression with with non-normal residuals
+
+## Path Analysis
+
+Multiple multiple regressions
+
+

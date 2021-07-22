@@ -1,15 +1,5 @@
 # Unfinished
 
-## Prediction
-
-Correlation
-
-Multiple regression
-
-Generalized linear model
-
-Path analysis
-
 ## Structure
 
 Exploratory factor analysis

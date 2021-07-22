@@ -80,7 +80,7 @@ ggplot() +
            yend = dnorm(100, 100, 15) * 1.14,
            linetype = "dashed",
            color = "gray30") +
-  scale_x_continuous("IQ and a Adaptive Functioning", 
+  scale_x_continuous("IQ and Adaptive Functioning", 
                      breaks = seq(40, 160, 15),
                      expand = expansion(0)) + 
   scale_y_continuous(NULL, breaks = NULL, 

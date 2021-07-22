@@ -373,8 +373,7 @@ for (i in seq(1, k)) {
 CM
 ```
 
-To calculate the covariance matrix in matrix notation, we can make use of the $\mathtt{diag}$ function. The $\mathtt{diag}$ function has two jobs: to turn a matrix into a vector and a vector into a matrix. Specifically, it takes the diagonal of a matrix and turns it into a vector. That is, if
-
+[The $\mathtt{diag}$ function has three purposes. First, it can extract the diagonal vector from a matrix:
 $$
 A_{k,k} =
  \begin{bmatrix}
@@ -384,11 +383,9 @@ A_{k,k} =
   a_{k,1} & a_{k,2} & \cdots & a_{k,k}
  \end{bmatrix}
 $$
-
-Then $\mathtt{diag}(\boldsymbol{A}) = \{a_{1,1},a_{2,2},...,a_{k,k}\}.$
-
-The `diag` function also inserts a vector into the the diagonal of a $k \times k$ matrix of zeros:
-
+Then 
+$$\mathtt{diag}(\boldsymbol{A}) = \{a_{1,1},a_{2,2},...,a_{k,k}\}$$
+Second, the `diag` function inserts a vector into the the diagonal of a $k \times k$ matrix of zeros:
 $$
 \mathtt{diag}(\boldsymbol{a}) = 
 \begin{bmatrix}
@@ -398,8 +395,18 @@ $$
   0 & 0 & \cdots & a_{k}
  \end{bmatrix}
 $$
+Third, the `diag` function converts integer $k$ into a $k \times k$ identity matrix:
+$$
+\mathtt{diag}(k) = 
+\begin{bmatrix}
+  1 & 0 & \cdots & 0 \\
+  0 & 1 & \cdots & 0 \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  0 & 0 & \cdots & 1
+ \end{bmatrix}
+$$
+]{class="marginnote"} To calculate the covariance matrix in matrix notation, we can make use of the $\mathtt{diag}$ function. 
 
-The `diag` function is useful for calculating the covariance matrix (among many other statistics):
 
 $$
 \begin{align*}

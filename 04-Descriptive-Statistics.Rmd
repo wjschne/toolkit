@@ -722,13 +722,33 @@ tibble(Variability = c("Low", "Middle", "High"),
 
 In all of these indices of qualitative variation, the lowest value is 0 when every data point belongs to the same category (See Figure\ \@ref(fig:nominalvar), left panel). Also, the maximum value is 1 when the data points are equally distributed across categories (See Figure\ \@ref(fig:nominalvar), right panel).
 
-### Variability of Ordinal Variables
+### Interquartile Range
 
 As with nominal variables, a bar plot or frequency distribution table can tell you most of what you want to know about the variability of an ordinal variable. If you need a quantitative measure of how much an ordinal variable varies, you have many options. The most important of these is the interquartile range.
 
 ```{r}
 
 ```
+
+
+### Variance and the Standard Deviation
+
+
+Variance $\left(\sigma^2\right)$ is the expected value of squared deviations from the mean $\left(\mu\right)$:
+
+$$
+\sigma_X^2=\mathcal{E}\left(\left(X-\mu_X\right)^2\right)
+$$
+
+
+Notice that the population variance's calculation requires knowing the precise value of the population mean. Most of the time, we need to estimate the population mean $\mu$ using a sample mean $m$. A sample variance $\left(s^2\right)$ can be calculated like so:
+
+$$
+s_X^2=\frac{1}{n-1}\sum_i^n{\left(x_i-m_X\right)^2}
+$$
+
+### Absolute Deviation
+
 
 
 

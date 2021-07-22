@@ -20,6 +20,7 @@ library(modeest)
 library(tinter)
 library(ggfx)
 library(ggtext)
+library(lemon)
 
 
 # Set options

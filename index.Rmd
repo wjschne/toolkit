@@ -27,7 +27,7 @@ nocite: |
 
 # Preface {-}
 
-I have ambitious goals for this book, but it is not nearly complete. I have been working on it off and on since 2012. Eventually it will have one or more R packages to accompany it. 
+I have ambitious goals for this book, but it is not nearly complete. I have been working on it off and on since 2012. Eventually it will have one or more R packages to accompany it.
 
 ```{r setup, include=FALSE}
 

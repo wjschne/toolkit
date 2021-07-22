@@ -267,3 +267,9 @@ div.row:nth-child(2) {
     color:rgb(17,17,17);
 
 }
+
+/* From http://webtypography.net/ */
+
+.abbr {
+  font-family: 'equity_caps_a_tab', Constantia,'Palatino Linotype',Palatino,serif;
+}

@@ -1298,7 +1298,7 @@ tibble(SampleSpace = 0:10,
   ggplot(aes(x = SampleSpace,
              y = Proportion,
              color = Function)) +
-  geom_line(lty = "dotted") +
+  geom_pointline(lty = "dotted", distance = unit(3, "mm")) +
   geom_point(aes(size = Function)) +
   theme_minimal(base_family = "serif",
                 base_size = 18) +
@@ -1387,8 +1387,9 @@ crossing(lambda = c(0.5, 5, 30), x = 0:60) %>%
     ")"
   ))) %>%
   ggplot(aes(x, p, color = lambda)) +
-  geom_point(size = 1) +
   geom_line(lty = 3, lwd = 0.1) +
+  geom_point(size = 2.5, color = "white") +
+  geom_point(size = 1) +
   facet_grid(lambda ~ ., scales = "free") +
   scale_x_continuous("Number of Events", breaks = seq(0, 120, 20)) +
   scale_color_manual(values = c(myfills[1], "darkorchid", myfills[2])) +
@@ -1429,8 +1430,8 @@ tibble(
 ) %>%
   gather(key = Time, value = Proportion,-x) %>%
   ggplot(aes(x, Proportion, color = Time)) +
-  geom_line(linetype = "dotted") +
-  geom_point(size = 3) +
+  geom_pointline(linetype = "dotted", linesize = .5, size = 3, distance = unit(2, "mm")) +
+  # geom_point(size = 3) +
   geom_label(
     data = d_label,
     aes(label = Label),
@@ -1515,8 +1516,7 @@ tibble(
 ) %>%
   gather(key = Time, value = Proportion,-x) %>%
   ggplot(aes(x, Proportion, color = Time)) +
-  geom_line(linetype = "dotted") +
-  geom_point(size = 3) +
+  geom_pointline(linetype = "dotted", linesize = .5, size = 3, distance = unit(2, "mm")) +
   geom_richtext(
     data = d_label,
     aes(label = Label),
@@ -1576,7 +1576,7 @@ tibble(Days = seq(0, total_years * 365, 10),
   gather(Meds, p, -Days) %>% 
   mutate(Years = Days / 365) %>% 
   ggplot(aes(Years, p, color = Meds)) + 
-  geom_line() + 
+  geom_line(size = 1) + 
   theme_minimal(base_size = 18, base_family = bfont) + 
   theme(legend.position = "none") +
   scale_x_continuous(breaks = seq(0,total_years,2)) + 
@@ -2255,7 +2255,7 @@ tribble(
 knitr::include_graphics("william_sealy_gosset.jpg")
 ```
 
-Guinness Beer gets free advertisement every time the origin story of the Student *t* distribution is retold, and statisticians retell the story often. The fact that original purpose of the *t* distribution was to brew better beer seems too good to be true. 
+Guinness Beer gets free advertisement every time the origin story of the Student *t* distribution is retold, and statisticians retell the story often. The fact that the original purpose of the *t* distribution was to brew better beer seems too good to be true. 
 
 William Sealy Gosset (1876--1937), self-trained statistician and head brewer at Guinness Brewery in Dublin, continually experimented on small batches to improve and standardize the brewing process. With some help from statistician Karl Pearson, Gosset used then-current statistical methods to analyze his experimental results. Gosset found that Pearson's methods required small adjustments when applied to small samples. With Pearson's help and encouragement (and later from Ronald Fisher), Gosset published a series of innovative papers about a wide range of statistical methods, including the *t* distribution, which can be used to describe the distribution of sample means.
 
