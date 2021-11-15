@@ -4,7 +4,7 @@
 
 # Descriptives
 
-When we encounter large lists of unsorted numbers, we have no natural capacity to perceive the list's fundamental characteristics such its average or its variability. Therefore, we need `r defword("descriptive statistics", "**Descriptive statistics** summarize noteworthy characteristics of samples.")` to quantify salient characteristics of distributions, or we need to display the numbers in a plot, making them easier to understand and communicate.
+When we encounter large lists of unsorted numbers, we have no natural capacity to perceive the list's fundamental characteristics such as its average or its variability. Therefore, we need `r defword("descriptive statistics", "**Descriptive statistics** summarize noteworthy characteristics of samples.")` to quantify salient characteristics of distributions, or we need to display the numbers in a plot, making them easier to understand and communicate.
 
 ## Frequency Distribution Tables
 
@@ -467,6 +467,8 @@ tibble::tribble(
 
 ## Expected Values
 
+(Section Still Unfinished)
+
 At one level, the concept of the `r defword("expected value", "The **expected value** of a random variable is the population mean of the values that the random variable generates.")` of a random variable is really simple; it is just the population mean of the variable. So why don't we just talk about population means and be done with this "expected value" business? It just complicates things! True. In this case, however, there is value in letting some simple things appear to become complicated for a while so that later we can show that some apparently complicated things are actually simple.
 
 Why can't we just say that the expected value of a random variable is the population mean? You are familiar, of course, with the formula for a mean. You just add up the numbers and divide by the number of numbers $n$:
@@ -733,6 +735,7 @@ As with nominal variables, a bar plot or frequency distribution table can tell y
 
 ### Variance and the Standard Deviation
 
+(Section Still Unfinished)
 
 Variance $\left(\sigma^2\right)$ is the expected value of squared deviations from the mean $\left(\mu\right)$:
 
@@ -749,7 +752,12 @@ $$
 
 ### Absolute Deviation
 
+(Section Still Unfinished)
 
+## Skewness
 
+(Section Still Unfinished)
 
+## Kurtosis
 
+(Section Still Unfinished)

@@ -113,15 +113,15 @@ To show that a list of discrete elements is a set, we can use curly braces. For 
 
 
 
-```{r intervalnotation, fig.cap = "Interval Notation", dev="svg", echo=FALSE, fig.width=6.72, fig.height = 3.25, out.width="100%", fig.margin = T, fig.align='default'}
+```{r intervalnotation, fig.cap = "Interval Notation", dev="svg", echo=FALSE, fig.width=6.72, fig.height = 4, out.width="100%", fig.margin = T, fig.align='default'}
 # Interval notation
 tibble(lb = 1L,
        ub = 5L,
        y = 1:4,
-       meaning = c("Includes 1 and 5",
-                   "Excludes 1 and 5",
-                   "Includes 1 but not 5",
-                   "Includes 5 but not 1"),
+       meaning = c("includes 1 and 5",
+                   "excludes 1 and 5",
+                   "includes 1 but not 5",
+                   "includes 5 but not 1"),
        l_bracket = c("[", "(", "[", "("),
        u_bracket = c("]", ")", ")", "]")) %>% 
   mutate(Interval = paste0(l_bracket, lb, ",", ub, u_bracket) %>% 
@@ -142,17 +142,21 @@ tibble(lb = 1L,
              pch = 21, 
              stroke = 2, 
              color = myfills[1]) +
-  geom_label(aes(label = meaning, x = 3), 
-             vjust = -.65, 
+  geom_label(aes(label = paste(Interval, meaning), x = 3), 
+             vjust = -.75, 
              label.padding = unit(0,"lines"), 
              label.size = 0, 
              family = bfont, 
              size = ggtext_size(27)) +
   scale_fill_identity() +
-  scale_y_discrete(expand = expansion(c(0.08, 0.25))) +
+  scale_y_discrete(NULL, expand = expansion(c(0.08, 0.25))) +
   scale_x_continuous(NULL, minor_breaks = NULL) +
   theme_minimal(base_size = 27, 
-                base_family = bfont)
+                base_family = bfont) + 
+  theme(axis.text.y = element_blank(), 
+        panel.grid.major = element_blank(),
+        axis.line.x = element_line(size = .5),
+        axis.ticks.x = element_line(size = .25))
 ```
 
 
@@ -747,11 +751,11 @@ $$
 tibble::tribble(
   ~Symbol,  ~Meaning,
  "$X$", "A random variable with a discrete uniform distribution",
- "f_X", "The probability mass function of $X$",
- "x", "Any particular member of the sample space of $X$",
- "a", "The lower bound of the sample space",
- "b", "The upper bound of the sample space",
- "n", "$b-a+1$ (The number of points in the sample space)"
+ "$f_X$", "The probability mass function of $X$",
+ "$x$", "Any particular member of the sample space of $X$",
+ "$a$", "The lower bound of the sample space",
+ "$b$", "The upper bound of the sample space",
+ "$n$", "$b-a+1$ (The number of points in the sample space)"
   ) %>% 
   knitr::kable(format = "html") %>% 
   html_table_width(100, tag = "<table>")
@@ -1408,9 +1412,10 @@ crossing(lambda = c(0.5, 5, 30), x = 0:60) %>%
 
 Suppose that you begin treating an adult male client who has panic attacks that come at unpredictable times.  Some weeks there are no panic attacks and some weeks there are many, but on average he has 2 panic attacks each week. The client knows this because he has kept detailed records in a spreadsheet for the last 5 years. The client had sought treatment once before, but terminated early and abruptly because, according to him, "It wasn't working." After sensitive querying, you discover that he expected that treatment should have quickly reduced the frequency of panic attacks to zero. When that did not happen, he became discouraged and stopped the treatment.
 
-Because your client is well educated and quantitatively inclined, you decide to to use the data he has collected as part of the intervention and to set a more realistic set of expectations.
+Because your client is well educated and quantitatively inclined, you decide to to use the data he has collected as part of the intervention and also to help set a more realistic set of expectations. Obviously, you and your client both would prefer 0 panic attacks per week, but sometimes it takes more time to get to the final goal. We do not want to terminate treatment that is working just because the final goal has not yet been achieved.
 
 You plot the frequency of how often he had 0 panic attacks in a week, 1 panic attack in a week, 2 panic attacks in a week, and so forth, as shown in red in Figure\ \@ref(fig:PanicFrequency). Because you have read this book, you immediately recognize that this is a Poisson distribution with *&lambda;* = 2. When you graph an actual Poison distribution and compare it with your client's data, you see that it is almost a perfect match.^[Note that I am **not** claiming that all clients' panic attack frequencies have this kind of distribution. It just so happens to apply in this instance.] Then you explain that although the goal is permanent cessation of the panic attacks, sometimes an intervention can be considered successful if the frequency of panic attacks is merely reduced. For example, suppose that in the early stages of treatment the frequency of panic attacks were reduced from twice per week to once every other week (*&lambda;* = 0.5), on average. If such a reduction were achieved, there would still be weeks in which two or more panic attacks occur. According to Figure\ \@ref(fig:PanicCumulativeFrequency), this will occur about `r round(100-100*ppois(1,0.5))`\% of the time.
+
 
 ```{r PanicFrequency,echo=FALSE, fig.cap="The variability of a hypothetical client's panic attack frequency before and after treatment", fig.height=6, warning=FALSE, cache=T}
 # The variability of a hypothetical 
@@ -1734,6 +1739,8 @@ For example, the `RAND` function in Excel generates random numbers between 0 and
 Excel has quantile functions for many distributions (e.g., `BETA.INV, BINOM.INV, CHISQ.INV, F.INV, GAMMA.INV, LOGNORM.INV, NORM.INV, T.INV`). This method of combining `RAND` and a quantile function works reasonably well in Excel for quick-and-dirty projects, but when high levels of accuracy are needed, random samples should be generated in a dedicated statistical package .
 
 ## Normal Distributions {#sec:normal}
+
+(Section Still Unfinished)
 
 ```{r GaussImage, cache = T, fig.margin = TRUE, fig.align='default', fig.cap="Carl Friedrich Gauss (1777--1855)<br>[Image Credits](https://en.wikipedia.org/wiki/File:Carl_Friedrich_Gauss_1840_by_Jensen.jpg)"}
 knitr::include_graphics("Carl_Friedrich_Gauss2.jpg")
@@ -2144,6 +2151,8 @@ ggplot(aes(x, y)) +
 
 ## Half-Normal Distribution
 
+(Section Still Unfinished)
+
 ```{r halfnormal, fig.height=8, fig.margin=TRUE, fig.align='default', fig.cap = "The half-normal distribution is the normal distribution with the left half of the distribution stacked on top of the right half of the distribution.", cache=TRUE, dev='svg'}
 # Half normal distribution
 xlim <- 4
@@ -2250,6 +2259,8 @@ tribble(
 
 
 ## The Student's *t* Distribution
+
+(Section Still Unfinished)
 
 ```{r gosset, fig.cap='"Student" statistician, William Sealy Gosset (1876--1937)<br>[Image Credit](https://en.wikipedia.org/wiki/File:William_Sealy_Gosset.jpg)', echo = F, fig.margin = T, fig.width=3, fig.align='default', cache=TRUE}
 knitr::include_graphics("william_sealy_gosset.jpg")
@@ -2378,5 +2389,58 @@ gganimate::anim_save("tdist_norm.gif")
 
 
 
+### The *t* distribution's relationship Relationship to the normal distribution.
 
+Suppose we have two independent standard normal variates $Z_0 \sim \mathcal{N}(0, 1^2)$ and $Z_1 \sim \mathcal{N}(0, 1^2)$. 
+
+A *t* distribution with one degree of freedom is created like so:
+
+$$
+T_1 = z_0\sqrt{\frac{1}{z_1^2}}
+$$
+
+A *t* distribution with two degrees of freedom is created like so:
+
+$$
+T_2 = z_0\sqrt{\frac{2}{z_1^2 + z_2^2}}
+$$
+
+Where $z_0$, $z_1$ and $z_2$ are independent standard normal variates.
+
+A *t* distribution with $\nu$ degrees of freedom is created like so:
+
+$$
+T_v = z_0\sqrt{\frac{\nu}{\sum_{i=1}^\nu z_i^2}}
+$$
+
+The sum of $\nu$ squared standard normal variates $\left(\sum_{i=1}^\nu z_i^2\right)$ has a $\chi^2$ distribution with $\nu$ degrees of freedom, which has a mean of $\nu$. Therefore, $\sqrt{\frac{\nu}{\sum_{i=1}^\nu z_i^2}}$, on average, equals one.
+
+
+## Chi Square Distribution
+
+(Section Still Unfinished)
+
+## The F Distribution
+
+(Section Still Unfinished)
+
+## The Weibull Distribution
+
+(Section Still Unfinished)
+
+## The Gumbel Distribution
+
+(Section Still Unfinished)
+
+## The beta Distribution
+
+(Section Still Unfinished)
+
+## The Truncated Normal Distribution
+
+(Section Still Unfinished)
+
+## The Multivarite Normal Distribution
+
+(Section Still Unfinished)
 

@@ -375,16 +375,16 @@ CM
 
 [The $\mathtt{diag}$ function has three purposes. First, it can extract the diagonal vector from a matrix:
 $$
-A_{k,k} =
+A_{kk} =
  \begin{bmatrix}
-  a_{1,1} & a_{1,2} & \cdots & a_{1,k} \\
-  a_{2,1} & a_{2,2} & \cdots & a_{2,k} \\
+  a_{11} & a_{12} & \cdots & a_{1k} \\
+  a_{21} & a_{22} & \cdots & a_{2k} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  a_{k,1} & a_{k,2} & \cdots & a_{k,k}
+  a_{k1} & a_{k2} & \cdots & a_{kk}
  \end{bmatrix}
 $$
 Then 
-$$\mathtt{diag}(\boldsymbol{A}) = \{a_{1,1},a_{2,2},...,a_{k,k}\}$$
+$$\mathtt{diag}(\boldsymbol{A}) = \{a_{11},a_{22},...,a_{kk}\}$$
 Second, the `diag` function inserts a vector into the the diagonal of a $k \times k$ matrix of zeros:
 $$
 \mathtt{diag}(\boldsymbol{a}) = 
@@ -418,10 +418,10 @@ $$
   0 & 0 & \cdots & \sigma_{k}
  \end{bmatrix}
   \begin{bmatrix}
-  1 & \rho_{1,2} & \cdots & \rho_{1,k} \\
-  \rho_{2,1} & 1 & \cdots & \rho_{2,k} \\
+  1 & \rho_{12} & \cdots & \rho_{1k} \\
+  \rho_{21} & 1 & \cdots & \rho_{2k} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  \rho_{k,1} & \rho_{k,2} & \cdots & 1
+  \rho_{k1} & \rho_{k2} & \cdots & 1
  \end{bmatrix}
 \begin{bmatrix}
   \sigma_{1} & 0 & \cdots & 0 \\
@@ -430,16 +430,16 @@ $$
   0 & 0 & \cdots & \sigma_{k}
  \end{bmatrix}\\
   &=  \begin{bmatrix}
-  \sigma_{1}^2 & \sigma_{1}\sigma_{2}\rho_{1,2} & \cdots & \sigma_{1}\sigma_{k}\rho_{1,k} \\
-  \sigma_{2}\sigma_{1}\rho_{2,1} & \sigma_{2}^2 & \cdots & \sigma_{2}\sigma_{k}\rho_{2 k} \\
+  \sigma_{1}^2 & \sigma_{1}\sigma_{2}\rho_{12} & \cdots & \sigma_{1}\sigma_{k}\rho_{1k} \\
+  \sigma_{2}\sigma_{1}\rho_{21} & \sigma_{2}^2 & \cdots & \sigma_{2}\sigma_{k}\rho_{2k} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  \sigma_{k}\sigma_{1}\rho_{k,1} & \sigma_{k}\sigma_{2}\rho_{k,2} & \cdots & \sigma_{k}^2
+  \sigma_{k}\sigma_{1}\rho_{k1} & \sigma_{k}\sigma_{2}\rho_{k2} & \cdots & \sigma_{k}^2
  \end{bmatrix}\\
    &=  \begin{bmatrix}
-  \sigma_{1}^2 & \sigma_{1,2} & \cdots & \sigma_{1,k} \\
-  \sigma_{2,1} & \sigma_{2}^2 & \cdots & \sigma_{2,k} \\
+  \sigma_{1}^2 & \sigma_{12} & \cdots & \sigma_{1k} \\
+  \sigma_{21} & \sigma_{2}^2 & \cdots & \sigma_{2k} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  \sigma_{k,1} & \sigma_{k,2} & \cdots & \sigma_{k}^2
+  \sigma_{k1} & \sigma_{k2} & \cdots & \sigma_{k}^2
  \end{bmatrix}
 \end{align*}
 $$
@@ -613,10 +613,10 @@ The variance of a composite score is the sum of the covariance matrix of the com
 
 $$
 \sigma_X^2=\boldsymbol{1}'\begin{bmatrix}
-  \sigma_{1}^2 & \sigma_{1,2} & \cdots & \sigma_{1,k} \\
-  \sigma_{2,1} & \sigma_{2}^2 & \cdots & \sigma_{2 k} \\
+  \sigma_{1}^2 & \sigma_{12} & \cdots & \sigma_{1k} \\
+  \sigma_{21} & \sigma_{2}^2 & \cdots & \sigma_{2 k} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  \sigma_{k,1} & \sigma_{k,2} & \cdots & \sigma_{k}^2
+  \sigma_{k1} & \sigma_{k2} & \cdots & \sigma_{k}^2
  \end{bmatrix}\boldsymbol{1}
 $$
 
@@ -625,10 +625,10 @@ The covariance matrix of the component true scores is exactly the same as the co
 
 $$
 \sigma_T^2=\boldsymbol{1}'\begin{bmatrix}
-  {\color{firebrick}r_{11}}\sigma_{1}^2 & \sigma_{1,2} & \cdots & \sigma_{1,k} \\
-  \sigma_{2,1} & {\color{firebrick}r_{22}}\sigma_{2}^2 & \cdots & \sigma_{2 k} \\
+  {\color{firebrick}r_{11}}\sigma_{1}^2 & \sigma_{12} & \cdots & \sigma_{1k} \\
+  \sigma_{21} & {\color{firebrick}r_{22}}\sigma_{2}^2 & \cdots & \sigma_{2 k} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  \sigma_{k,1} & \sigma_{k,2} & \cdots & {\color{firebrick}r_{kk}}\sigma_{k}^2
+  \sigma_{k1} & \sigma_{k2} & \cdots & {\color{firebrick}r_{kk}}\sigma_{k}^2
  \end{bmatrix}\boldsymbol{1}
 $$
 
@@ -655,18 +655,18 @@ $$
                {\sigma_X^2}
          =\frac{\boldsymbol{w}^{\prime}
                \begin{bmatrix}
-  {\color{firebrick}r_{11}}\sigma_{1}^2 & \sigma_{1,2} & \cdots & \sigma_{1,k} \\
-  \sigma_{2,1} & {\color{firebrick}r_{22}}\sigma_{2}^2 & \cdots & \sigma_{2 k} \\
+  {\color{firebrick}r_{11}}\sigma_{1}^2 & \sigma_{12} & \cdots & \sigma_{1k} \\
+  \sigma_{21} & {\color{firebrick}r_{22}}\sigma_{2}^2 & \cdots & \sigma_{2 k} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  \sigma_{k,1} & \sigma_{k,2} & \cdots & {\color{firebrick}r_{kk}}\sigma_{k}^2
+  \sigma_{k1} & \sigma_{k2} & \cdots & {\color{firebrick}r_{kk}}\sigma_{k}^2
                 \end{bmatrix}
                 \boldsymbol{w}}
           {\boldsymbol{w}^{\prime}
                \begin{bmatrix}
-  \sigma_{1}^2 & \sigma_{1,2} & \cdots & \sigma_{1,k} \\
-  \sigma_{2,1} & \sigma_{2}^2 & \cdots & \sigma_{2 k} \\
+  \sigma_{1}^2 & \sigma_{12} & \cdots & \sigma_{1k} \\
+  \sigma_{21} & \sigma_{2}^2 & \cdots & \sigma_{2 k} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  \sigma_{k,1} & \sigma_{k,2} & \cdots & \sigma_{k}^2
+  \sigma_{k1} & \sigma_{k2} & \cdots & \sigma_{k}^2
  \end{bmatrix}\boldsymbol{w}}
 $$
 
