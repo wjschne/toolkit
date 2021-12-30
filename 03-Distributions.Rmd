@@ -111,7 +111,7 @@ To show that a list of discrete elements is a set, we can use curly braces. For 
 
 ### Interval Sets
 
-
+With continuous variables, we can define sets in terms of `r defword("intervals", "**Intervals** are a continous range of numbers.")`. Whereas the discrete set $\{0,1\}$ refers just to the numbers 0 and 1, the interval set $(0,1)$ refers to all the numbers between 0 and 1. 
 
 ```{r intervalnotation, fig.cap = "Interval Notation", dev="svg", echo=FALSE, fig.width=6.72, fig.height = 4, out.width="100%", fig.margin = T, fig.align='default'}
 # Interval notation
@@ -156,13 +156,12 @@ tibble(lb = 1L,
   theme(axis.text.y = element_blank(), 
         panel.grid.major = element_blank(),
         axis.line.x = element_line(size = .5),
-        axis.ticks.x = element_line(size = .25))
+        axis.ticks.x = element_line(size = .25), 
+        plot.margin = margin())
 ```
 
 
-
-
-With continuous variables, we can define sets in terms of intervals. Whereas the discrete set $\{0,1\}$ refers just to the numbers 0 and 1, the interval set $(0,1)$ refers to all the numbers between 0 and 1. As shown in (Figure\ \@ref(fig:intervalnotation)), some intervals include their endpoints and others do not.
+As shown in Figure\ \@ref(fig:intervalnotation), some intervals include their endpoints and others do not. intervals noted with square brackets include their endpoints and intervals written with parentheses exclude them. Some intervals extend to positive or negative infinity: $(-\infty,5]$ and $(-8,+\infty)$. Use a parenthesis with infinity instead of a square bracket because infinity is not a specific number that can be included in an interval.
 
 ```{r intervalnotationCode, ref.label="intervalnotation", button_r=TRUE}
 
@@ -716,7 +715,7 @@ y=mx+b
 
 Both $x$ and $y$ are variables, but what are $m$ and $b$? Well, you probably remember that $m$ is the slope of the line and that $b$ is the $y$-intercept. If we know the slope and the intercept of a line, we know exactly which line we are talking about. No additional information is needed to graph the line. Therefore, $m$ and $b$ are the line's *parameters*, because they uniquely identify the line.^[What about other mathematical functions? Do they have parameters? Yes! Most do! For example, in the equation for a parabola $(y=ax^2+bx+c)$, $a$, $b$, and $c$ determine its precise shape.] All lines have a lot in common but there is an infinite variety of lines because the parameters, the slope and the intercept, can take on the value of any real number. Each unique combination of parameter values (slope and intercept) will produce a unique line. So it is with probability distribution families. All family members are alike in many ways but they also differ because of different parameter values.
 
-The discrete uniform distribution (i.e., the typical variety consisting of consecutive integers) is defined by the lower and upper bound. Once we know the lower bound and the upper bound, we know exactly which distribution we are talking about.^[If we allow the lower bound to be any real number and the spacing to be any positive real number, the discrete uniform distribution can be specified by three parameters: the lower bound $a$, the spacing between numbers $k$ $(k>0)$, and the number of points $n$ $(n>1)$. The upper bound $b$ of such a distribution would be $b=a+k(n-1)$] Not all distributions are defined by their lower and upper bounds. Indeed, many distribution families are unbounded on one or both sides. Therefore, other features are used to characterize the distributions, such as the population mean (&mu;).
+The discrete uniform distribution (i.e., the typical variety consisting of consecutive integers) is defined by the lower and upper bound. Once we know the lower bound and the upper bound, we know exactly which distribution we are talking about.^[If we allow the lower bound to be any real number and the spacing to be any positive real number, the discrete uniform distribution can be specified by three parameters: the lower bound $a$, the spacing between numbers $k$ $(k>0)$, and the number of points $n$ $(n>1)$. The upper bound $b$ of such a distribution would be $b=a+k(n-1)$] Not all distributions are defined by their lower and upper bounds. Indeed, many distribution families are unbounded on one or both sides. Therefore, other features are used to characterize the distributions, such as the population mean $(\mu)$.
 
 ### Probability Mass Functions {#sec:pmf}
 
@@ -919,7 +918,7 @@ p1 <- ggplot(d, aes(x, p)) +
     color = myfills[1],
     lwd = 1
   ) +
-  scale_x_continuous("Sample Space (*x*)") +
+  scale_x_continuous("Sample Space (*x*)", labels = \(x) signs::signs(x, accuracy = 1)) +
   scale_y_continuous("Proportion (*p*)", labels = prob_label) +
   theme_minimal(base_size = 26, base_family = bfont) +
   coord_fixed(8) +
@@ -927,7 +926,9 @@ p1 <- ggplot(d, aes(x, p)) +
     "richtext",
     x = -2,
     y = .5 + .25 / 4,
-    label = "*X* ~ <span style=\"font-family:'Lucida Calligraphy'\">N</span>(0, 1<sup>2</sup>)",
+    label = paste0("*X* ~ ",
+                   span_style("N", style = "font-family:'Lucida Calligraphy'"),
+                   "(0, 1<sup>2</sup>)"),
     family = bfont,
     label.size = 0,
     label.padding = unit(0, "mm"),
@@ -951,7 +952,7 @@ p2 <- ggplot(d, aes(p, x)) +
     color = myfills[1],
     lwd = 1
   ) +
-  scale_y_continuous("Sample Space (*x*)") +
+  scale_y_continuous("Sample Space (*x*)", labels = \(x) signs::signs(x, accuracy = 1)) +
   scale_x_continuous("Proportion (*p*)", labels = prob_label) +
   theme_minimal(base_size = 26, base_family = bfont) +
   coord_fixed(1 / 8) +
@@ -959,7 +960,9 @@ p2 <- ggplot(d, aes(p, x)) +
     "richtext",
     y = 0.5,
     x = .25,
-    label = "*X* ~ <span style=\"font-family:'Lucida Calligraphy'\">N</span>(0, 1<sup>2</sup>)",
+    label = paste0("*X* ~ ",
+                   span_style("N", style = "font-family:'Lucida Calligraphy'"),
+                   "(0, 1<sup>2</sup>)"),
     family = bfont,
     label.size = 0,
     label.padding = unit(0, "mm"),
@@ -1045,15 +1048,13 @@ The frequencies of the random sample can be seen in Figure\ \@ref(fig:discretepl
 
 ```
 
-
-## Bernoulli Distributions {#sec:BernoulliDist}
-
 ```{r bernoullipic, fig.margin = TRUE, fig.align='default', fig.cap="Jakob Bernoulli (1654--1705)<br>[Image Credits](https://en.wikipedia.org/wiki/File:Jakob_Bernoulli.jpg)"}
 
 knitr::include_graphics("Jakob_Bernoulli2.jpg")
 
 ```
 
+## Bernoulli Distributions {#sec:BernoulliDist}
 
 ```{marginfigure notation_note, echo = T}
 **Notation note:** Whereas $\{a,b\}$ is the set of just two numbers, $a$ and $b$, $[a,b]$ is the set of all real numbers between $a$ and $b$.
@@ -1346,6 +1347,9 @@ tibble(SampleSpace = 0:10,
 
 ```
 
+```{r PoissonPortrait, cache=T, fig.margin = TRUE, fig.align='default', fig.cap="Siméon Denis Poisson (1781--1840)<br>[Image Credits](https://en.wikipedia.org/wiki/File:Simeon_Poisson.jpg)"}
+knitr::include_graphics("Simeon_Poisson.jpg")
+```
 
 ## Poisson Distributions
 
@@ -1370,11 +1374,13 @@ tibble::tribble(
   html_table_width(400)
 ```
 
-Imagine that an event happens sporadically at random and we measure how often it occurs in regular time intervals (e.g., events per hour). Sometimes the event does not occur in the interval, sometimes just once, and sometimes more than once. However, we notice that over many intervals, the average number of events is constant. The distribution of the number of events in each interval will follow a `r defword("Poisson distribution", "The **Poisson distribution** is a discrete distribution used to model how often an event will occur during a partiuclar interval of time.")`. Although "Poisson" means "fish" in French, fish have nothing to do with it. This distribution was named after the scholar who discovered it, Siméon Denis Poisson.
 
-```{r PoissonPortrait, cache=T, fig.margin = TRUE, fig.align='default', fig.cap="Siméon Denis Poisson (1781--1840)<br>[Image Credits](https://en.wikipedia.org/wiki/File:Simeon_Poisson.jpg)"}
-knitr::include_graphics("Simeon_Poisson.jpg")
-```
+
+
+
+Imagine that an event happens sporadically at random and we measure how often it occurs in regular time intervals (e.g., events per hour). Sometimes the event does not occur in the interval, sometimes just once, and sometimes more than once. However, we notice that over many intervals, the average number of events is constant. The distribution of the number of events in each interval will follow a `r defword("Poisson distribution", "The **Poisson distribution** is a discrete distribution used to model how often an event will occur during a partiuclar interval of time.")`. Although "Poisson" means "fish" in French, fish have nothing to do with it. This distribution was named after Siméon Denis Poisson, whose work on the distribution made it famous.
+
+
 
 
 The Poisson distribution has a single parameter *&lambda;*, the average number of events per time interval. Interestingly, *&lambda;* is both the mean and the variance of this distribution. The distribution shape will differ depending on how long our interval is. If an event occurs on average 30 times per hour, *&lambda;* = 30. If we count how often the event occurs in 10-minute intervals, the same even will occur about 5 times per interval, on average (i.e., *&lambda;* = 1). If we choose to count how often the same event occurs every minute, then *&lambda;* = 0.5.
@@ -1738,21 +1744,28 @@ For example, the `RAND` function in Excel generates random numbers between 0 and
 
 Excel has quantile functions for many distributions (e.g., `BETA.INV, BINOM.INV, CHISQ.INV, F.INV, GAMMA.INV, LOGNORM.INV, NORM.INV, T.INV`). This method of combining `RAND` and a quantile function works reasonably well in Excel for quick-and-dirty projects, but when high levels of accuracy are needed, random samples should be generated in a dedicated statistical package .
 
-## Normal Distributions {#sec:normal}
-
-(Section Still Unfinished)
-
 ```{r GaussImage, cache = T, fig.margin = TRUE, fig.align='default', fig.cap="Carl Friedrich Gauss (1777--1855)<br>[Image Credits](https://en.wikipedia.org/wiki/File:Carl_Friedrich_Gauss_1840_by_Jensen.jpg)"}
 knitr::include_graphics("Carl_Friedrich_Gauss2.jpg")
 ```
+
+## Normal Distributions {#sec:normal}
+
+
+
+
+
+(Section Still Unfinished)
+
+The normal distribution is sometimes called the *Gaussian* distribution after its discoverer, Carl Friedrich Gauss. If you are feeling bad for Gauss that most people do not use his name to refer to the normal distribution, don't. Gauss is not languishing in obscurity. He made so many discoveries that his name is all over mathematics and statistics. 
+
 
 
 ```{r normalfeatures}
 tribble(
   ~Feature, ~Symbol,
   "Sample Space", r"($x \in (-\infty,\infty)$)",
-  "Mean", r"($\mu = \text{E}\left(X\right)$)",
-  "Variance", r"($\sigma^2 = \text{E}\left(\left(X - \mu\right)^2\right)$)",
+  "Mean", r"($\mu = \mathcal{E}\left(X\right)$)",
+  "Variance", r"($\sigma^2 = \mathcal{E}\left(\left(X - \mu\right)^2\right)$)",
   "Skewness", r"($\gamma_1 = 0$)",
   "Kurtosis", r"($\gamma_2 = 0$)",
   "Probability Density Function", r"($f_X(x;\mu,\sigma^2) = \frac{1}{\sqrt{2 \pi \sigma ^ 2}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$)",
@@ -1761,12 +1774,9 @@ tribble(
   html_table_width(400)
 ```
 
-The normal distribution is probably the most important distribution in statistics and in psychological assessment. In the absence of other information, assuming that an individual difference variable is normally distributed is a good bet. Not a sure bet, of course, but a good bet. Why? What is so special about the normal distribution? To get a sense of the answer to this question, consider what happens to the binomial distribution as the number of events ($n$) increases. To make the example more concrete, let's assume that we are tossing coins and counting the number of heads $(p=0.5)$. In Figure\ \@ref(fig:ManyCoins), the first plot shows the probability mass function for the number of heads when there is a single coin $(n=1)$). In the second plot, $n=2$ coins. That is, if we flip 2 coins, there will be 0, 1, or 2 heads. In each subsequent plot, we double the number of coins that we flip simultaneously. Even with as few as 4 coins, the distribution begins to resemble the normal distribution, although the resemblance is very rough. With 128 coins, however, the resemblance is very close.
+The normal distribution is probably the most important distribution in statistics and in psychological assessment. In the absence of other information, assuming that an individual difference variable is normally distributed is a good bet. Not a sure bet, of course, but a good bet. Why? What is so special about the normal distribution? 
 
-This resemblance to the normal distribution in the example is not coincidental to the fact that $p=0.5$, making the binomial distribution symmetric. If $p$ is extreme (close to 0 or 1), the binomial distribution is asymmetric. However, if $n$ is large enough, the binomial distribution eventually becomes very close to normal.
-
-Many other distributions (e.g., Poisson, Student's T, F, and $\chi^2$) have distinctive shapes under some conditions but approximate the normal distribution in others. Why? In the conditions in which non-normal distributions approximate the normal distribution, it is because, like in Figure\ \@ref(fig:ManyCoins), many independent events are summed.
-
+To get a sense of the answer to this question, consider what happens to the binomial distribution as the number of events ($n$) increases. To make the example more concrete, let's assume that we are tossing coins and counting the number of heads $(p=0.5)$. In Figure\ \@ref(fig:ManyCoins), the first plot shows the probability mass function for the number of heads when there is a single coin $(n=1)$). In the second plot, $n=2$ coins. That is, if we flip 2 coins, there will be 0, 1, or 2 heads. In each subsequent plot, we double the number of coins that we flip simultaneously. Even with as few as 4 coins, the distribution begins to resemble the normal distribution, although the resemblance is very rough. With 128 coins, however, the resemblance is very close.
 
 ```{r ManyCoins,warning=FALSE,fig.height=5,fig.width=7,echo=FALSE, fig.cap="The binomial distribution begins to resemble the normal distribution when the number of events is large.", cache=T, out.width="100%", fig.fullwidth=T}
 
@@ -1823,6 +1833,10 @@ tibble(coins = as.integer(2 ^ seq(0, 7))) %>%
 ```
 
 
+
+This resemblance to the normal distribution in the example is not coincidental to the fact that $p=0.5$, making the binomial distribution symmetric. If $p$ is extreme (close to 0 or 1), the binomial distribution is asymmetric. However, if $n$ is large enough, the binomial distribution eventually becomes very close to normal.
+
+Many other distributions (e.g., Poisson, Student's T, F, and $\chi^2$) have distinctive shapes under some conditions but approximate the normal distribution in others. Why? In the conditions in which non-normal distributions approximate the normal distribution, it is because, like in Figure\ \@ref(fig:ManyCoins), many independent events are summed.
 
 In the distribution in Figure\ \@ref(fig:twocoin), because there is a 50\% chance of heads, $p = 0.5$. Because there are two coins, $n = 2$. We can use the [binomial distribution's probability mass function](#sec:binomial) to see how the shape of the distribution changes as we increase the number of coins tossed (Figure\ \@ref(fig:ManyCoins)).
 
@@ -1960,15 +1974,22 @@ t30 <- tibble(x = seq(-5,5,0.01),
 
 ### Notation for Normal Variates
 
-Statisticians write about variables with normal distributions so often that a compact notation for specifying a normal variable's parameters was useful to develop. There are several common variations to this notation, but I will use this one: 
+Statisticians write about variables with normal distributions so often that a compact notation for specifying a normal variable's parameters was useful to develop. If I want to specify that $X$ is a normally  variable with a mean of $\mu$ and a variance of $\sigma^2$, I will use this notation: 
 
 $$X \sim \mathcal{N}(\mu, \sigma^2)$$ 
 
-* $X$ is a random variable.
-* $\sim$ means "is distributed as." It can be applied to any kind of distribution, not just the normal distribution.
-* $\mathcal{N}$ means that the variable has a normal distribution. Instead of $\mathcal{N}$, the notation for a normal variable is often simply $N$.
-* $\mu$ is the mean.
-* $\sigma^2$ is the variance. 
+```{r normal_notation}
+tibble::tribble(
+  ~Symbol,                                                                           ~Meaning,
+  "$X$",                             "A random variable.",
+  "$\\sim$",         "Is distributed as",
+  "$\\mathcal{N}$", "Has a normal distribution",
+  "$\\mu$", "The population mean",
+  "$\\sigma^2$", "The population variance") %>% 
+  knitr::kable() %>% 
+  html_table_width(150, tag = "<table>")
+```
+
 
 Many authors list the standard deviation $\sigma$ instead of the variance $\sigma^2$. When I specify normal distributions with specific means and variances, I will avoid ambiguity by always showing the variance as the standard deviation squared. For example, a normal variate with a mean of 10 and a standard deviation of 3 will be written as $X \sim \mathcal{N}(10,3^2)$.
 
@@ -2019,6 +2040,7 @@ axis(
   1, 
   at = seq(-4, 4), 
   line = -0.5, 
+  labels = signs::signs(seq(-4,4), accuracy = 1),
   cex.axis = 1.8)
 axis(
   3,
@@ -2205,8 +2227,20 @@ bind_rows(t1, t2) %>%
       y = dnorm(0) * c(1, 2) + 0,
       Type = c(1,2),
       label = c(
-        "*X* ~ <span style=\"font-family:'Lucida Calligraphy'\">N</span>(*<span style=\"font-family:'Times New Roman'\">&mu;</span>*, *<span style=\"font-family:'Times New Roman'\">&sigma;</span>*<sup>2</sup>)",
-        "*X* ~ |<span style=\"font-family:'Lucida Calligraphy'\">N</span>(0, *<span style=\"font-family:'Times New Roman'\">&sigma;</span>*<sup>2</sup>)| + *<span style=\"font-family:'Times New Roman'\">&mu;</span>*"),
+        paste0("*X* ~ ",
+               span_style("N", style = "font-family:'Lucida Calligraphy'"),
+               "(*",
+               span_style("&mu;"),
+               "*, *",
+               span_style("&sigma;"),
+               "*<sup>2</sup>)"),
+        paste0("*X* ~ |",
+               span_style("N", style = "font-family:'Lucida Calligraphy'"),
+               "(0, *",
+               span_style("&sigma;"),
+               "*<sup>2</sup>)| + *",
+               span_style("&mu;"),
+               "*")),
       side = T),
     aes(label = label),
     family = c("Equity Text A"),
@@ -2256,21 +2290,22 @@ tribble(
 ```
 
 
+```{r gosset, fig.cap='"Student" statistician, William Sealy Gosset (1876--1937)<br>[Image Credit](https://en.wikipedia.org/wiki/File:William_Sealy_Gosset.jpg)', echo = F, fig.margin = T, fig.width=3.5, fig.align='default', cache=TRUE}
 
+knitr::include_graphics("william_sealy_gosset.jpg")
+```
 
 ## The Student's *t* Distribution
 
 (Section Still Unfinished)
 
-```{r gosset, fig.cap='"Student" statistician, William Sealy Gosset (1876--1937)<br>[Image Credit](https://en.wikipedia.org/wiki/File:William_Sealy_Gosset.jpg)', echo = F, fig.margin = T, fig.width=3, fig.align='default', cache=TRUE}
-knitr::include_graphics("william_sealy_gosset.jpg")
-```
+
 
 Guinness Beer gets free advertisement every time the origin story of the Student *t* distribution is retold, and statisticians retell the story often. The fact that the original purpose of the *t* distribution was to brew better beer seems too good to be true. 
 
 William Sealy Gosset (1876--1937), self-trained statistician and head brewer at Guinness Brewery in Dublin, continually experimented on small batches to improve and standardize the brewing process. With some help from statistician Karl Pearson, Gosset used then-current statistical methods to analyze his experimental results. Gosset found that Pearson's methods required small adjustments when applied to small samples. With Pearson's help and encouragement (and later from Ronald Fisher), Gosset published a series of innovative papers about a wide range of statistical methods, including the *t* distribution, which can be used to describe the distribution of sample means.
 
-Worried about having its trade secrets divulged, Guinness did not allow its employees to publish scientific papers. Thus, Gosset published his papers under the pseudonym, "A Student." The straightforward names of most statistical concepts need no historical treatment. Few of us who regularly use the Bernoulli, Pareto, Cauchy, and Gumbell distributions could tell you anything about the people who discovered them. But the oddly named "Student's *t* distribution" cries out for explanation. Thus, in the long run, it was Gosset's anonymity that made him famous. 
+Worried about having its trade secrets divulged, Guinness did not allow its employees to publish scientific papers related to their work at Guinness. Thus, Gosset published his papers under the pseudonym, "A Student." The straightforward names of most statistical concepts need no historical treatment. Few of us who regularly use the Bernoulli, Pareto, Cauchy, and Gumbell distributions could tell you anything about the people who discovered them. But the oddly named "Student's *t* distribution" cries out for explanation. Thus, in the long run, it was Gosset's anonymity that made him famous. 
 
 ```{marginfigure tnotation, echo = T}
 **Notation note**: $\Gamma$ is the gamma function. $_2F_1$ is the hypergeometric function.
@@ -2335,7 +2370,7 @@ d_label <- d %>%
   mutate(lb = qt(.025, df),
          ub = qt(0.975, df)) %>% 
   pivot_longer(c(lb, ub), values_to = "x", names_to = "bounds") %>% 
-  mutate(label_x = scales::number(x, .01),
+  mutate(label_x = signs::signs(x, accuracy = .01),
          y = 0,
          yend = dt(x, df))
 
@@ -2368,13 +2403,14 @@ p <- ggplot(d, aes(x, y)) +
   # labs(title = "df = {closest_state}") +
   annotate(x = qnorm(c(0.025, 0.975)), 
            y = 0, 
-           label = round(qnorm(c(0.025, 0.975)), 2), 
+           label = signs::signs(qnorm(c(0.025, 0.975)), accuracy = .01), 
            geom = "text", 
            size = ggtext_size(24),
            color = myfills[1],
            vjust = 2.5, 
            family = bfont) + 
   coord_cartesian(xlim = c(-6,6), ylim = c(-.03, NA)) 
+
 animate(p, 
         renderer = magick_renderer(), 
         device = "svglite", 
@@ -2436,11 +2472,19 @@ The sum of $\nu$ squared standard normal variates $\left(\sum_{i=1}^\nu z_i^2\ri
 
 (Section Still Unfinished)
 
+## The Exponential Distribution
+
+(Section Still Unfinished)
+
+## The Pareto Distribution
+
+(Section Still Unfinished)
+
 ## The Truncated Normal Distribution
 
 (Section Still Unfinished)
 
-## The Multivarite Normal Distribution
+## The Multivariate Normal Distribution
 
 (Section Still Unfinished)
 

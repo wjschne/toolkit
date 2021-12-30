@@ -222,7 +222,7 @@ In psychological assessment, there are a few true ratio scales that are commonly
 
 ## Discrete vs. Continuous Variables {#sec:DiscreteVsContinuous}
 
-Interval and ratio variables can be either discrete or continuous. `r defword("Discrete variables", "A **discrete variable** can only take on exact values from a specified list.")` can assume some values but not others. Once the list of acceptable values has been specified, there are no cases that fall between those values. For example, the number of bicycles a person owns is a discrete variable because the variable can assume only the non-negative integers. Fractions of bicycles are not considered. Discrete variables usually take on integer values but this is not necessarily the case. 
+Interval and ratio variables can be either discrete or continuous. `r defword("Discrete variables", "A **discrete variable** can only take on exact values from a specified list.")` can assume some values but not others. Once the list of acceptable values has been specified, there are no cases that fall between those values. For example, the number of bicycles a person owns is a discrete variable because the variable can assume only the non-negative integers. Fractions of bicycles are not considered. Discrete variables usually take on integer values but this is not necessarily the case. For example, one could specific a discrete variable that is divided at every half point: 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, &hellip;.
 
 
 
@@ -237,5 +237,5 @@ knitr::include_graphics("DiscreteContinuous.svg")
 
 
 
-When a variable can assume any value within a specified interval, the variable is said to be `r defword("continuous", "A **continuous variable** can take on any value within a specified range.")`. In theory, this means that fractions and decimals can be used to achieve any level of precision that we desire. In practice, we must round the numbers at some point, technically making the variable discrete. 
+When a variable can assume any value within a specified interval, the variable is said to be `r defword("continuous", "A **continuous variable** can take on any value within a specified range.")`. With a continuous variable, we can use fractions and decimals to achieve any level of precision that we desire. 
 

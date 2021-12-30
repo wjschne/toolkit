@@ -1,17 +1,37 @@
 # Prediction
 
 ```{r loadpacksdist6, include = F}
-source("loader.R")
+# source("loader.R")
 ```
+
+
 
 ## Correlation
 
-The correlation coefficient does the heavy lifting in most multivariate analyses. It measures the strength of bivariate relationships. 
+(Section Still Unfinished)
 
+As the primary measure of relationship strength, the correlation coefficient does the heavy lifting in most multivariate analyses. Although it measures the strength of linear relationships only, the correlation coefficient is flexible enough that---with the right tweaks to the analysis---almost any kind of relationship can be measured.
+
+
+```{r bravaispic, fig.margin = TRUE, fig.align='default', fig.cap="Auguste Bravais (1811--1850)<br>[Image Credits](https://en.wikipedia.org/wiki/File:Bravais2.gif)"}
+
+knitr::include_graphics("Bravais2.jpg")
+
+```
+
+```{r peasrsonpic, fig.margin = TRUE, fig.align='default', fig.cap="Karl Pearson (1857--1936)<br>[Image Credits](https://en.wikipedia.org/wiki/File:Karl_Pearson,_1910.jpg)"}
+
+knitr::include_graphics("Karl_Pearson,_1910.jpg")
+
+```
+
+There are, in fact, many specialized kinds of correlation coefficients, each with their own formulas and special applications. However, one correlation coefficient is so overwhelmingly common that in informal conversation it is referred to as *the* correlation coefficient. When we say "correlation coefficient" without specifying which kind of correlation coefficient, we mean the Pearson Product-Moment Coefficient of Correlation.
 
 
 
 ## Simple Regression
+
+(Section Still Unfinished)
 
 $$\hat{Y}=b_0+b_1X$$
 $$b_0=\mu_Y-b_1\mu_X$$
@@ -19,6 +39,8 @@ $$b_0=\mu_Y-b_1\mu_X$$
 $$b_1=\frac{\sigma_Y}{\sigma_X}r_{XY}$$
 
 ## Regression to the Mean
+
+(Section Still Unfinished)
 
 Even statistically sophisticated people can misunderstand regression to the mean. Regression to the mean does not mean that scores become less variable over time. Regression to the mean refers to predicted scores, not to individual scores. If two variables, say $X$ and $Y$, are imperfectly correlated, scores on $X$ are, on average, associated with less extreme scores on $Y$. Regression to the mean refers that scores regress to the mean of $Y$ not to the mean of $X$. 
 
@@ -29,7 +51,7 @@ Substitute in $b_1=\frac{\sigma_Y}{\sigma_X}r_{XY}$ and  $b_0=\mu_Y-b_1\mu_X$:
 
 $$\hat{Y}=\underbrace{\mu_Y-\frac{\sigma_Y}{\sigma_X}r_{XY}\mu_X}_{b_0}+\underbrace{\frac{\sigma_Y}{\sigma_X}r_{XY}}_{b_1}X$$
 
-Rearrange so that $\mu_Y$ and $\sigma_Y$ are on the left side of the equation:
+Rearrange so that $\hat{Y}$, $\mu_Y$, and $\sigma_Y$ are on the left side of the equation and $X$, $\mu_X$, and $\sigma_X$ are on the right side of the equation:
 
 
 $$\frac{\hat{Y}-\mu_Y}{\sigma_Y}=r_{XY}\frac{X-\mu_X}{\sigma_X}$$
@@ -42,7 +64,7 @@ $$\hat{z}_Y=r_{XY}z_X$$
 
 What does this mean? Imagine all people who score 1 standard deviation above the mean on $X$ (i.e., $z_X=1$). On average these people will score $r_{XY}$ standard deviations above the mean on $Y$. Because $r_{XY}$ is between &minus;1 and 1, the predicted value of $Y$ will be less extreme (in terms of $Y$'s standard)
 
-```{r, fig.height=7}
+```{r regression2mean, fig.height=7}
 r <- 0.3
 tibble(X = seq(-4, 4),
        `Predicted Y` = X * r) %>% 
@@ -80,7 +102,7 @@ tibble(X = seq(-4, 4),
 
 ### [RTTM]{.abbr} and Practice Effects
 
-```{r, fig.height=7}
+```{r regression2meanpracticeeffect, fig.height=7}
 r <- 0.3
 tibble(X = seq(-4, 4),
        `Predicted Y` = X * r) %>% 
@@ -118,7 +140,7 @@ tibble(X = seq(-4, 4),
 
 ### [RTTM]{.abbr} and Reliability
 
-```{r, fig.height=8, out.width="100%"}
+```{r regression2meanreliability, fig.height=8, out.width="100%"}
 SS <- 70
 
 crossing(x = seq(40, 140, 0.1),
@@ -182,13 +204,24 @@ crossing(x = seq(40, 140, 0.1),
 
 ## Multiple Regression
 
+(Section Still Unfinished)
+
 Regression with multiple predictors
 
-## Generalized linear model
+
+### Conditional Distributions
+
+
+
+## Generalized Linear Model
+
+(Section Still Unfinished)
 
 Multiple regression with with non-normal residuals
 
 ## Path Analysis
+
+(Section Still Unfinished)
 
 Multiple multiple regressions
 

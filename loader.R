@@ -21,7 +21,8 @@ library(tinter)
 library(ggfx)
 library(ggtext)
 library(lemon)
-
+library(signs)
+library(scales)
 
 # Set options
 options(knitr.kable.digits = 2, knitr.kable.na = '')
@@ -55,6 +56,10 @@ ggplot2::update_geom_defaults("label",
                                 label.padding = unit(0, "lines"),
                                 label.size = 0
                               ))
+
+ggplot2::update_geom_defaults("richtext",
+                              list(family = bfont, size = btxt_size))
+
 ggplot2::update_geom_defaults("density", list(fill = myfills[1]))
 geom_text_fill <- function(...) {
   geom_label(...,
@@ -63,6 +68,15 @@ geom_text_fill <- function(...) {
 }
 theme_set(theme_minimal(base_size = bsize, base_family = bfont))
 
+
+# font family
+span_style <- function(x, style = "font-family:serif") {
+  paste0('<span style=\"',
+         style,
+         '\">',
+         x,
+         "</span>")
+}
 
 # Probability labels
 prob_label <- function(p,

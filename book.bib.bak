@@ -175,13 +175,4 @@
   publisher = {{JSTOR}},
 }
 
-@Book{Eaton2007,
-  author    = {Eaton, Morris},
-  publisher = {Institute of Mathematical Statistics},
-  title     = {Multivariate statistics : A vector space approach},
-  year      = {2007},
-  address   = {Beachwood, Ohio},
-  isbn      = {9780940600690},
-}
-
 @Comment{jabref-meta: databaseType:bibtex;}

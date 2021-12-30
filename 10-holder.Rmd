@@ -57,6 +57,275 @@ Conditional profiles
 ## Relative Proficiency
 
 
+## Thresholds
+
+The traditional threshold for diagnosing intellectual disability is 70. If a person's observed IQ $\left(r_{XX}=.97\right)$ is 68, what is the probability that the person's true score is 70 or less? 
+
+More generally, given an observed score $X$ with reliability coefficient $r_{XX}$, what is the probability that the associated true score $T$ is less than or equal to threshold $\tau$?
+
+When we predict the true score $T$ with a specific value of $X$, the estimated true score $\hat{T}$ is:
+
+
+$$\hat{T}=r_{XX}\left(X-\mu_X\right)+\mu_X$$
+
+The standard error of the estimate $\sigma_{T-\hat{T}}$ in this prediction is:
+
+$$\sigma_{T-\hat{T}}=\sigma_X\sqrt{r_{XX}-r_{XX}^2}$$
+
+If we have reason to assume that the prediction errors are normally distributed, the probability that the true score $T$ is less than or equal to threshold $\tau$ can be calculated using the standard normal cumulative distribution function $\Phi$ like so:
+
+$$P(T\le\tau)=\Phi\left(\frac{\tau-\hat{T}}{\sigma_{T-\hat{T}}}\right)$$
+
+Using this formula, we can see that our hypothetical person with IQ = 68, the probability that the true score is 70 or lower is about .66. Figure\ \@ref(fig:thresholdprobability) shows the probabilities for all values near the diagnostic threshold of 70.
+
+```{r thresholdprobability, dev='svg', fig.width=8, fig.height=8, fig.cap="The Probability a True Score Will Be Less Than or Equal to 70", cache=TRUE}
+# Reliability Coefficient
+rxx <- 0.97
+
+# Mean of X
+mu <- 100
+
+# SD of X
+sigma <- 15
+
+# Threshold tau
+threshold <- 70
+
+# Standard error of the estimate in the prediction of T
+see <- sigma * sqrt(rxx - rxx ^ 2)
+
+# Bounds for plot
+x_min <- 60
+x_max <- 80
+
+# Aspect ratio for plot
+plot_ratio <- x_max - x_min
+
+
+# Data
+d <- tibble(x = seq(x_min, x_max, .2),
+       T_hat = rxx * (x - mu) + mu,
+       p = pnorm((threshold - T_hat) / see),
+       slope = plot_ratio * (p - lag(p)) / (x - lag(x)),
+       text_angle = atan(slope) + ifelse(p > 0, pi / 2, pi / -2))
+
+# Data for integer points
+d_points <- d |> 
+  filter(p > .005 & p < .995 & x %in% seq(x_min, x_max))
+
+ggplot(d, aes(x, p)) +
+  geom_line(color = myfills[1], 
+            size = 1) +
+  geom_point(data = d_points, 
+             color = myfills[1], 
+             pch = 16, 
+             size = 2) +
+  geom_richtext(data = d_points, 
+                aes(label = WJSmisc::prob_label(p), 
+                    hjust = WJSmisc::angle2hjust(text_angle),
+                    vjust = WJSmisc::angle2vjust(text_angle)), 
+                label.padding = unit(0, "mm"), 
+                label.color = NA,
+                color = myfills[1],
+                size = ggtext_size(16),
+                label.margin = unit(0.5, "mm")) +
+    geom_richtext(data = d_points, 
+                aes(label = x, 
+                    hjust = WJSmisc::angle2hjust(text_angle + pi),
+                    vjust = WJSmisc::angle2vjust(text_angle + pi)), 
+                label.padding = unit(0, "mm"), 
+                label.color = NA,
+                color = myfills[1],
+                size = ggtext_size(16),
+                label.margin = unit(0.5, "mm")) +
+  annotate("rect", 
+           xmin = -Inf, 
+           ymin = -Inf, 
+           xmax = threshold, 
+           ymax = Inf, 
+           alpha = .2, 
+           fill = myfills[1]) +
+  scale_x_continuous("Observed Score",
+                     expand = expansion(add = 0),
+                     breaks = seq(40, 160, 5),
+                     minor_breaks = seq(40, 160, 1)) +
+  scale_y_continuous(paste0("Probability That the True Score &le; ",
+                            threshold),
+                     expand = expansion(add = 0.04),
+                     breaks = seq(0,1,.1),
+                     labels = WJSmisc::prob_label) + 
+  labs(caption = paste0("*Note:* *<span style='font-family: serif'>&mu;</span>* = 100, *<span style='font-family: serif'>&sigma;</span>* = 15, *r<sub>XX</sub>* = ", prob_label(rxx))) +
+  coord_fixed(ratio = plot_ratio, clip = "off") + 
+  theme(plot.caption = element_markdown(family = bfont),
+        axis.title.y = element_markdown(family = bfont))
+```
+
+```{r thresholdprobabilityCode, ref.label='thresholdprobability', button_r=TRUE}
+
+```
+
+
+### Multivariate Thresholds
+
+To diagnose intellectual disability, we need a standardized measure of intellectual functioning (usually an IQ test) and well-validated measure of adaptive functioning. Suppose our two measures correlate at $r = .40$. The reliability coefficient of the IQ is $r_{iq}=.97$, and the reliability coefficient of the adaptive behavior composite is $r_{ab}=.95$. Both measures have a mean of $\mu=100$ and a standard deviation of $\sigma=15$. 
+
+Suppose that a person with IQ = 68 has an adaptive behavior composite of 67. What is the probability that both true scores are 70 or lower?
+
+The vector of observed scores is:
+
+$$X=\{68, 67\}$$
+
+The vector of reliability coefficients:
+
+$$r_{XX}=\{.97,.95\}$$
+
+The correlation matrix is:
+
+$$
+R_X=\begin{bmatrix}
+1&.97\\
+.97&1
+\end{bmatrix}
+$$
+
+The vector of means is:
+
+$$\mu_X=\{100,100\}$$
+
+The vector of standard deviations is:
+
+$$\sigma_X=\{15,15\}$$
+
+The observed covariance matrix is:
+
+$$\Sigma_X=\sigma_X^\prime R_X\sigma_X$$
+
+The true score covariance matrix is the same as the observed score covariance matrix except that the diagonal of $\Sigma_X$ is multiplied by the vector of reliability coefficients $r_{XX}$:
+
+$$\Sigma_T=\Sigma_X \circ \begin{bmatrix}.97&1\\1&.95\end{bmatrix}$$
+
+The cross-covariances between $X$ and $T$ also equal $\Sigma_T$.
+
+We can use equations from Eaton [-@Eaton2007, p. 116] to specify the conditional means and covariance matrix of the true scores, controlling for the observed scores:
+
+$$
+\begin{align}
+\mu_{T\mkern 2mu\mid X}&=\mu_X+\Sigma_T\Sigma_X^{-1}\left(X-\mu_X\right)\\
+\Sigma_{T\mkern 2mu\mid X}&=\Sigma_T-\Sigma_T\Sigma_X^{-1}\Sigma_T^\prime
+\end{align}
+$$
+
+We can imagine that the true scores conditioned on the observed scores are multivariate normal variates:
+
+$$\left(T\mid X\right)\sim\mathcal{N}\left(\mu_{T\mkern 2mu\mid X}, \Sigma_{T\mkern 2mu\mid X}\right)$$
+
+We can estimate the probability that both true scores are 70 or lower using the cumulative distribution function of the multivariate normal distribution with upper bounds of 70 for both IQ true scores and adaptive behavior true scores. Under the conditions specified previously, Figure\ \@ref(fig:multiplethresholdprobability) shows that the probability that both scores are 70 or lower is about .53.
+
+```{r multiplethresholdprobability, dev='svg', fig.width=8, fig.height=8, fig.cap="If IQ = 68 and Adaptive Behavior = 67, what is the probability that both true scores are less than or equal to 70?", cache=TRUE}
+
+# Observed scores
+X <- c(IQ = 68, AB = 67)
+
+# Reliability coefficients
+rxx <- c(IQ = .97, AB = .95)
+
+# Correlation of IQ and AB
+rxy <- .40
+
+# Correlation matrix
+R <- matrix(c(1, rxy, 
+              rxy, 1), 
+            ncol = 2)
+
+# Means
+mu_X <- c(IQ = 100, AB = 100)
+
+# Standard deviations
+s_X <- diag(c(IQ = 15, AB = 15))
+
+# Covariance Matrix for X
+sigma_X <- s_X %*% R %*% s_X
+
+# Covariance Matrix for True Scores
+sigma_T <- sigma_X
+diag(sigma_T) <- diag(sigma_X) * rxx
+
+# Conditional T means, given X
+mu_T_X <- as.vector(mu_X + sigma_T %*% solve(sigma_X) %*% (X - mu_X))
+
+# Conditional T covariance matrix, given X
+sigma_T_X <- sigma_T - sigma_T %*% solve(sigma_X) %*% t(sigma_T)
+
+
+# Upper thresholds
+tau <- c(IQ = 70, AB = 70)
+
+# Conditional probability T < tau given X
+p <- mvtnorm::pmvnorm(upper = tau, mean = mu_T_X, sigma = sigma_T_X)
+
+
+mvtnorm::rmvnorm(1000, mean = mu_T_X, sigma = sigma_T_X) |> 
+  `colnames<-`(c("IQ", "AB")) |> 
+  as_tibble() |> 
+  mutate(truepositive = IQ < tau[1] & AB < tau[2]) |> 
+  ggplot(aes(IQ, AB)) + 
+  annotate("richtext", 
+           x = 100, 
+           y = 100, 
+           label = "*r<sub>xy</sub>* = .40", 
+           label.color = NA, 
+           size = ggtext_size(24)) + 
+  annotate("rect", 
+           xmin = -Inf, 
+           ymin = -Inf, 
+           xmax = tau[1], 
+           ymax = tau[2], 
+           fill = myfills[2], 
+           alpha = .2) +
+    geom_polygon(
+    data = WJSmisc::cor_ellipse(
+      rxy, 
+      mean = mu_X, 
+      sd = c(15,15)), 
+    aes(x,y), 
+    alpha = .1) +
+  geom_polygon(
+    data = WJSmisc::cor_ellipse(
+      cov2cor(sigma_T_X)[2,1], 
+      mean = mu_T_X, 
+      sd = sqrt(diag(sigma_T_X))), 
+    aes(x,y), 
+    alpha = .1) +
+  scale_x_continuous("IQ (*r<sub>xx</sub>* =.97)", breaks = seq(40, 160, 15), 
+                     minor_breaks = seq(40, 160, 5), 
+                     limits = c(40, 160))  +
+  scale_y_continuous("Adaptive Behavior Composite (*r<sub>yy</sub>* =.95)", 
+                     breaks = seq(40, 160, 15), 
+                     minor_breaks = seq(40, 160, 5), 
+                     limits = c(40, 160)) +
+  geom_point(aes(color = truepositive), 
+             size = 0.5, 
+             pch = 16, 
+             alpha = .4) + 
+  scale_color_manual(values = myfills) + 
+  coord_fixed() + 
+  theme(legend.position = "none", 
+        axis.title.x = element_markdown(), 
+        axis.title.y = element_markdown()) +
+  annotate("point", x = X[1], y = X[2], size = 2) +
+  annotate("text", x = 52.5, y = 52.5, 
+           label = paste0("Probability both\ntrue scores are\nbelow 70 = ", 
+                          WJSmisc::prob_label(p)),
+           size = WJSmisc::ggtext_size(18)) +
+  annotate("text", x = X[1], y = X[2], label = paste0("(", x = X[1], ",", y = X[2], ")"), hjust = 1.05, vjust = 1.1, size = WJSmisc::ggtext_size(24))
+
+```
+
+
+```{r multiplethresholdprobabilityCode, ref.label='multiplethresholdprobability', button_r=TRUE}
+
+```
+ 
 
 
 

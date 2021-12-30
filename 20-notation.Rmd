@@ -9,6 +9,15 @@
 
 Unfortunately, if vectors are lowercase and random variables are uppercase, my notation comes in conflict when discussing a vector of random variables (i.e., the variables as theoretical entities, not their particular scores). Such a vector will be a bold uppercase letter, (e.g., $\boldsymbol{X}$). A vector of particular scores from the variables in $\boldsymbol{X}$ will be shown as $\boldsymbol{x}$.
 
+Expression | Meaning
+:----------|:--------------------------------------
+$\boldsymbol{A'}$ | The transpose of matrix $\boldsymbol{A}$
+$\boldsymbol{A}^{-1}$ | The inverse of matrix $\boldsymbol{A}$
+$\mathtt{diag}(\boldsymbol{A})$ | The vector formed from the diagonal of matrix $\boldsymbol{A}$
+$\mathtt{diag}(\boldsymbol{a})$ | The diagonal matrix formed from vector $\boldsymbol{a}$
+$\boldsymbol{1}_k$ | A column vector of $k$ ones. If $k$ is absent, the length of $\boldsymbol{1}$ can be inferred by context.
+$\boldsymbol{I}_k$ | A $k \times k$ identity matrix. If $k$ is absent, the dimensions of $\boldsymbol{I}$ can be inferred by context.
+
 ## Sets and intervals {-}
 
 A *set* is a collection of distinct objects. 
@@ -27,38 +36,33 @@ $\in$ | Is a member of (i.e., $X \in (a,b)$ means that $X$ is a member of the se
 
 ## Summation {-}
 
-There are several ways to show that a variable is to be summed. The summation sign looks like a really big &Sigma;, the capital Greek letter sigma. 
+There are several ways to show that a variable is to be summed. The summation sign looks like a really big &Sigma;, the capital Greek letter sigma. If $\boldsymbol{x}$ is a vector with $k$ elements, the sum of all $k$ in $\boldsymbol{x}$ is:
 
-$$\sum_{i = 1}^k X_i$$
+$$\sum_{i = 1}^k x_i$$
+
+With matrix algebra,
 
 
+$$\sum_{i = 1}^k x_i=\boldsymbol{1}'\boldsymbol{x}$$
 
-## Other {-}
+
+## Statistics
 
 Expression | Meaning
 :----------|:--------------------------------------
-$\{a,b\}$ | A set consisting of two numbers, $a$ and $b$
-$\lbrack a,b\rbrack$ | The set of real numbers in the interval between $a$ and $b$, inclusive
-$(a,b)$ | The set of real numbers in the interval between $a$ and $b$, exclusive
-$(a,b\rbrack$ | The set of real numbers in the interval between $a$ and $b$, excluding $a$ but including $b$
-$\mathbb{R}$ | The set of all real numbers $[-\infty,\infty]$
-$\mathbb{Z}$ | The set of all integers $\{\ldots,-2,-1,0,1,2,\ldots\}$
-$\mathbb{N}_0$ | The set of all non-negative integers: $\{ 0,1,2,...\}$
-$\mathbb{N}_1$ | The set of all positive integers: $\{ 1,2,3,...\}$
-$\in$ | Is a member of
-$\binom{n}{k}$ | The \emph{binomial coefficient}. It is just a shortcut notation for $\binom{n}{k}=\frac{n!}{k!\left(n-k\right)!}$. Read aloud, $\binom{n}{k}$ is ``$n$ choose $k$'' or the number of combinations that $n$ things have when taken $k$ at a time.
-$f_X(x;\boldsymbol{\theta})$ | The probability density function or probability mass function of $X$ with parameters $\boldsymbol{\theta}$
-$F_X(x;\boldsymbol{\theta})$ | The cumulative distribution function of $X$ with parameters $\boldsymbol{\theta}$
-$E(X)$ | The expected value of $X$
 $\mu_X, m_X$ | The population and sample mean of $X$
 $\sigma_X, s_X$ | The population and sample standard deviation of $X$
 $\sigma_X^2, s_X^2$ | The population and sample variance of $X$
 $\gamma_1, g_1$ | The population and sample skewness
 $\gamma_2, g_2$ | The population and sample kurtosis
-$\boldsymbol{R_A}$ | The correlation matrix of the column variables in matrix $\boldsymbol{A}$
-$\boldsymbol{A'}$ | The transpose of matrix $\boldsymbol{A}$
-$\boldsymbol{A}^{-1}$ | The inverse of matrix $\boldsymbol{A}$
-$\mathtt{diag}(\boldsymbol{A})$ | The column vector formed from the diagonal of matrix $\boldsymbol{A}$
-$\mathtt{diag}(\boldsymbol{a})$ | The diagonal matrix formed from column vector $\boldsymbol{a}$
-$\boldsymbol{1}$ | A column vector of ones. Its length can be inferred by context.
-$\boldsymbol{I}$ | An identity matrix. Its dimensions can be inferred by context.
+
+## Other {-}
+
+Expression | Meaning
+:----------|:--------------------------------------
+$\binom{n}{k}$ | The \emph{binomial coefficient}. It is just a shortcut notation for $\binom{n}{k}=\frac{n!}{k!\left(n-k\right)!}$. Read aloud, $\binom{n}{k}$ is ``$n$ choose $k$'' or the number of combinations that $n$ things have when taken $k$ at a time.
+$f_X(x;\boldsymbol{\theta})$ | The probability density function or probability mass function of $X$ with parameters $\boldsymbol{\theta}$
+$F_X(x;\boldsymbol{\theta})$ | The cumulative distribution function of $X$ with parameters $\boldsymbol{\theta}$
+$E(X)$ | The expected value of $X$
+
+

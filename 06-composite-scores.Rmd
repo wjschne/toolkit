@@ -242,7 +242,7 @@ then
 \end{equation}
 
 ```{marginfigure weightedsumnote, echo=TRUE}
-Note that the calculation of $X_S$ and $\mu_S$ with matrix algebra is the same as it was with an equally weighted sum except that instead of post-multiplying by a vector of ones $(\boldsymbol{x^\prime 1})$, we post-multiply by a vector of weights $(\boldsymbol{x^\prime w}).$ In truth, an equally weighted sum is a special case of a weighted in which $\boldsymbol{w}$ consists entirely of ones.
+Note that the calculation of $X_S$ and $\mu_S$ with matrix algebra is the same as it was with an equally weighted sum except that instead of post-multiplying by a vector of ones $(\boldsymbol{x^\prime 1})$, we post-multiply by a vector of weights $(\boldsymbol{x^\prime w}).$ In truth, an equally weighted sum is a special case of a weighted sum in which $\boldsymbol{w}$ consists entirely of ones.
 ```
 
 
@@ -601,7 +601,7 @@ C <- round(C)
 Here we see, that the weighted composite score $C = `r C`.$ If we had wanted an equally weighted composite score, the `w` vector would be set to equal ones. If we had done so, $C$ would have been $`r round(100 + sum(x - m) / sqrt(sum(R)))`$
 instead of $`r C`.$
 
-## The reliability coefficient of a composite
+## The Reliability Coefficient of a Composite
 
 Calculating the reliability coefficient of a composite score is much easier than it might appear at first. Remember that reliability is the ratio of a score's true score variance to its total variance:
 
