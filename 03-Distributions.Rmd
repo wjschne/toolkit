@@ -107,7 +107,14 @@ A `r defword("set", "A **set** is a collection of distinct objects.")` refers to
 
 ### Discrete Sets
 
-To show that a list of discrete elements is a set, we can use curly braces. For example, the set of positive single-digit even numbers is $\{2, 4, 6, 8\}$. With large sets with repeating patterns, it is convenient to use an ellipsis ("..."), the punctuation mark signifying an omission or pause. For example, rather than listing every two-digit positive even number, we can show the pattern like so: $\{10, 12, 14,\ldots, 98\}$.
+To show that a list of discrete elements is a `r defword("discrete set", "A **discrete set** has numbers that are isolated, meaning that each number has a range in which it is the only number in the overall set.")`, we can use curly braces. For example, the set of positive single-digit even numbers is $\{2, 4, 6, 8\}$. With large sets with repeating patterns, it is convenient to use an ellipsis ("..."), the punctuation mark signifying an omission or pause. For example, rather than listing every two-digit positive even number, we can show the pattern like so: 
+
+$$\{10, 12, 14,\ldots, 98\}$$
+
+If we want the pattern to repeat forever, we can set an ellipsis on the left, right, or both sides. The set of odd integers extends to infinity in both directions:
+
+$$\{\ldots, -5, -3, -1, 1, 3, 5, \ldots\}$$
+
 
 ### Interval Sets
 
@@ -161,7 +168,7 @@ tibble(lb = 1L,
 ```
 
 
-As shown in Figure\ \@ref(fig:intervalnotation), some intervals include their endpoints and others do not. intervals noted with square brackets include their endpoints and intervals written with parentheses exclude them. Some intervals extend to positive or negative infinity: $(-\infty,5]$ and $(-8,+\infty)$. Use a parenthesis with infinity instead of a square bracket because infinity is not a specific number that can be included in an interval.
+As shown in Figure\ \@ref(fig:intervalnotation), some intervals include their endpoints and others do not. Intervals noted with square brackets include their endpoints and intervals written with parentheses exclude them. Some intervals extend to positive or negative infinity: $(-\infty,5]$ and $(-8,+\infty)$. Use a parenthesis with infinity instead of a square bracket because infinity is not a specific number that can be included in an interval.
 
 ```{r intervalnotationCode, ref.label="intervalnotation", button_r=TRUE}
 
@@ -1383,7 +1390,7 @@ Imagine that an event happens sporadically at random and we measure how often it
 
 
 
-The Poisson distribution has a single parameter *&lambda;*, the average number of events per time interval. Interestingly, *&lambda;* is both the mean and the variance of this distribution. The distribution shape will differ depending on how long our interval is. If an event occurs on average 30 times per hour, *&lambda;* = 30. If we count how often the event occurs in 10-minute intervals, the same even will occur about 5 times per interval, on average (i.e., *&lambda;* = 1). If we choose to count how often the same event occurs every minute, then *&lambda;* = 0.5.
+The Poisson distribution has a single parameter $\lambda$, the average number of events per time interval. Interestingly, $\lambda$ is both the mean and the variance of this distribution. The distribution shape will differ depending on how long our interval is. If an event occurs on average 30 times per hour, $\lambda$ = 30. If we count how often the event occurs in 10-minute intervals, the same event will occur about 5 times per interval, on average (i.e., $\lambda$ = 1). If we choose to count how often the same event occurs every minute, then $\lambda$ = 0.5.
 
 ```{r samelambda, fig.cap="The shape of the Poisson Distribution depends on the interval used for counting events. Here, the event occurs once per minute, on average.",  dev = 'svg', fig.width=8, fig.height=9, warning=FALSE, cache=T}
 # The shape of the Poisson Distribution
@@ -1420,7 +1427,7 @@ Suppose that you begin treating an adult male client who has panic attacks that 
 
 Because your client is well educated and quantitatively inclined, you decide to to use the data he has collected as part of the intervention and also to help set a more realistic set of expectations. Obviously, you and your client both would prefer 0 panic attacks per week, but sometimes it takes more time to get to the final goal. We do not want to terminate treatment that is working just because the final goal has not yet been achieved.
 
-You plot the frequency of how often he had 0 panic attacks in a week, 1 panic attack in a week, 2 panic attacks in a week, and so forth, as shown in red in Figure\ \@ref(fig:PanicFrequency). Because you have read this book, you immediately recognize that this is a Poisson distribution with *&lambda;* = 2. When you graph an actual Poison distribution and compare it with your client's data, you see that it is almost a perfect match.^[Note that I am **not** claiming that all clients' panic attack frequencies have this kind of distribution. It just so happens to apply in this instance.] Then you explain that although the goal is permanent cessation of the panic attacks, sometimes an intervention can be considered successful if the frequency of panic attacks is merely reduced. For example, suppose that in the early stages of treatment the frequency of panic attacks were reduced from twice per week to once every other week (*&lambda;* = 0.5), on average. If such a reduction were achieved, there would still be weeks in which two or more panic attacks occur. According to Figure\ \@ref(fig:PanicCumulativeFrequency), this will occur about `r round(100-100*ppois(1,0.5))`\% of the time.
+You plot the frequency of how often he had 0 panic attacks in a week, 1 panic attack in a week, 2 panic attacks in a week, and so forth, as shown in red in Figure\ \@ref(fig:PanicFrequency). Because you have read this book, you immediately recognize that this is a Poisson distribution with $\lambda$ = 2. When you graph an actual Poison distribution and compare it with your client's data, you see that it is almost a perfect match.^[Note that I am **not** claiming that all clients' panic attack frequencies have this kind of distribution. It just so happens to apply in this instance.] Then you explain that although the goal is permanent cessation of the panic attacks, sometimes an intervention can be considered successful if the frequency of panic attacks is merely reduced. For example, suppose that in the early stages of treatment the frequency of panic attacks were reduced from twice per week to once every other week ($\lambda$ = 0.5), on average. If such a reduction were achieved, there would still be weeks in which two or more panic attacks occur. According to Figure\ \@ref(fig:PanicCumulativeFrequency), this will occur about `r round(100-100*ppois(1,0.5))`\% of the time.
 
 
 ```{r PanicFrequency,echo=FALSE, fig.cap="The variability of a hypothetical client's panic attack frequency before and after treatment", fig.height=6, warning=FALSE, cache=T}
@@ -1742,7 +1749,7 @@ For example, the `RAND` function in Excel generates random numbers between 0 and
 
 `=BINOM.INV(5,0.6,RAND())`
 
-Excel has quantile functions for many distributions (e.g., `BETA.INV, BINOM.INV, CHISQ.INV, F.INV, GAMMA.INV, LOGNORM.INV, NORM.INV, T.INV`). This method of combining `RAND` and a quantile function works reasonably well in Excel for quick-and-dirty projects, but when high levels of accuracy are needed, random samples should be generated in a dedicated statistical package .
+Excel has quantile functions for many distributions (e.g., `BETA.INV, BINOM.INV, CHISQ.INV, F.INV, GAMMA.INV, LOGNORM.INV, NORM.INV, T.INV`). This method of combining `RAND` and a quantile function works reasonably well in Excel for quick-and-dirty projects, but when high levels of accuracy are needed, random samples should be generated in a dedicated statistical program like R, Python (via the numpy package), Julia, STATA, SAS, or SPSS.
 
 ```{r GaussImage, cache = T, fig.margin = TRUE, fig.align='default', fig.cap="Carl Friedrich Gauss (1777--1855)<br>[Image Credits](https://en.wikipedia.org/wiki/File:Carl_Friedrich_Gauss_1840_by_Jensen.jpg)"}
 knitr::include_graphics("Carl_Friedrich_Gauss2.jpg")
@@ -1750,13 +1757,9 @@ knitr::include_graphics("Carl_Friedrich_Gauss2.jpg")
 
 ## Normal Distributions {#sec:normal}
 
+(Unfinished)
 
-
-
-
-(Section Still Unfinished)
-
-The normal distribution is sometimes called the *Gaussian* distribution after its discoverer, Carl Friedrich Gauss. If you are feeling bad for Gauss that most people do not use his name to refer to the normal distribution, don't. Gauss is not languishing in obscurity. He made so many discoveries that his name is all over mathematics and statistics. 
+The normal distribution is sometimes called the *Gaussian* distribution after its discoverer, Carl Friedrich Gauss. It is a small injustice that most people do not use Gauss's name to refer to the normal distribution. Thankfully, Gauss is not exactly languishing in obscurity. He made so many discoveries that his name is all over mathematics and statistics.^[I had a colleague who would joke that if you are ever in a statistics presentation you do not understand but you need to ask a question that sounds smart, you will not go wrong if you ask, "Can you comment on how your presentation relates to several of the earlier theorems by Gauss?"]
 
 
 
@@ -1836,12 +1839,9 @@ tibble(coins = as.integer(2 ^ seq(0, 7))) %>%
 
 This resemblance to the normal distribution in the example is not coincidental to the fact that $p=0.5$, making the binomial distribution symmetric. If $p$ is extreme (close to 0 or 1), the binomial distribution is asymmetric. However, if $n$ is large enough, the binomial distribution eventually becomes very close to normal.
 
-Many other distributions (e.g., Poisson, Student's T, F, and $\chi^2$) have distinctive shapes under some conditions but approximate the normal distribution in others. Why? In the conditions in which non-normal distributions approximate the normal distribution, it is because, like in Figure\ \@ref(fig:ManyCoins), many independent events are summed.
+Many other distributions (e.g., Poisson, Student's T, F, and $\chi^2$) have distinctive shapes under some conditions but approximate the normal distribution in others (See Figure\ \@ref(fig:nearlynormal). Why? In the conditions in which non-normal distributions approximate the normal distribution, it is because, like in Figure\ \@ref(fig:ManyCoins), many independent events are summed.
 
-In the distribution in Figure\ \@ref(fig:twocoin), because there is a 50\% chance of heads, $p = 0.5$. Because there are two coins, $n = 2$. We can use the [binomial distribution's probability mass function](#sec:binomial) to see how the shape of the distribution changes as we increase the number of coins tossed (Figure\ \@ref(fig:ManyCoins)).
-
-
-```{r nearlynormal, fig.height=8, fig.width=7, warning=F, message=F, cache=TRUE}
+```{r nearlynormal, fig.height=8, fig.width=7, warning=F, message=F, cache=TRUE, fig.cap="Many distributions become nearly normal when their parameters are high."}
 textsize = 5
 
 chi8 <- tibble(x = seq(0,30,0.01), 
@@ -2173,7 +2173,7 @@ ggplot(aes(x, y)) +
 
 ## Half-Normal Distribution
 
-(Section Still Unfinished)
+(Unfinished)
 
 ```{r halfnormal, fig.height=8, fig.margin=TRUE, fig.align='default', fig.cap = "The half-normal distribution is the normal distribution with the left half of the distribution stacked on top of the right half of the distribution.", cache=TRUE, dev='svg'}
 # Half normal distribution
@@ -2290,16 +2290,113 @@ tribble(
 ```
 
 
+
+
+## Chi Square Distribution
+
+(Unfinished)
+
+```{r chisquarefeatures}
+tribble(
+  ~Feature, ~Symbol,
+  "Sample Space", r"($x \in [0,\infty)$)",
+  "Degrees of freedom", r"($\nu \in [0,\infty)$)",
+  "Mean", r"($\nu$)",
+  "Variance", r"($2\nu$)",
+  "Skewness", r"($\sqrt{8/\nu}$)",
+  "Kurtosis", r"($12/\nu$)",
+  "Probability Density Function", r"($f_X(x;\nu) = \frac{x^{\nu/2-1}}{2^{\nu/2}\;\Gamma(\nu/2)\,\sqrt{e^x}}$)",
+  "Cumulative Distribution Function", r"($F_X(x;\nu) = \frac{\gamma\left(\frac{\nu}{2},\frac{x}{2}\right)}{\Gamma(\nu/2 )}$)") %>% 
+  knitr::kable(caption = "Features of Chi-Square Distributions") %>% 
+  html_table_width(400)
+
+```
+
+I have always thought that the $\chi^2$ distribution has an unusual name. The *chi* part is fine, but why *square*? Why not call it the $\chi$ distribution?^[Actually, there *is* a $\chi$ distribution. It is simply the square root of the $\chi^2$ distribution. The half-normal distribution happens to be a $\chi$ distribution with 1 degree of freedom.] As it turns out, the $\chi^2$ distribution is formed from squared quantities.
+
+
+```{marginfigure chi2notation, echo = T}
+**Notation note**: A $\chi^2$ distribution with $\nu$ degrees of freedom can be written as $\chi^2_\nu$ or $\chi^2(\nu)$.
+```
+
+The $\chi^2$ distribution has a straightforward relationship with the normal distribution. It is the sum of multiple independent squared normal variates. That is, if $z$ is a standard normal variate--- $z\sim\mathcal{N}(0,1^2)$---then $z^2$ has a $\chi^2$ distribution with 1 degree of freedom $(\nu)$:
+
+
+$$z^2\sim \chi^2_1$$
+
+
+If $z_1$ and $z_2$ are independent standard normal variates, the sum of their squares has a $\chi^2$ distribution with 2 degrees of freedom:
+
+$$z_1^2+z_2^2 \sim \chi^2_2$$
+If $\{z_1,z_2,\ldots,z_{\nu} \}$ is a series of $\nu$ independent standard normal variates, the sum of their squares has a $\chi^2$ distribution with $\nu$ degrees of freedom: 
+
+$$\sum^\nu_{i=1}{z_i^2} \sim \chi^2_\nu$$
+
+### Clinical Uses of the $\chi^2$ distribution
+
+The $\chi^2$ distribution has many applications, but the mostly likely of these to be used in psychological assessment is the $\chi^2$ Test of Goodness of Fit and the $\chi^2$ Test of Independence. 
+
+Suppose we suspect that a child's temper tantrums are more likely to occur on weekdays than on weekends. The child's mother has kept a record of each tantrum for the past year and was able to count the frequency of tantrums. If tantrums were equally likely to occur on any day, 5 of 7 tantrums should occur on weekdays, and 2 of 7 tantrums should occur on weekends. The observed frequencies are compared with the expected frequencies below.
+
+$$\begin{array}{r|c|c|c}
+& \text{Weekday} & \text{Weekend} & \text{Total} \\
+\hline
+\text{Observed Frequency}\, (o) & 14 & 13 & n=27\\
+\text{Expected Proportion}\,(p) & \frac{5}{7} & \frac{2}{7} & 1\\
+\text{Expected Frequency}\, (e = np)& 27\times \frac{5}{7}= 19.2857& 27\times \frac{2}{7}= 7.7143& 27\\
+\text{Difference}\,(o-e) & -5.2857 & 5.2857&0\\
+\frac{(o-e)^2}{e} & 1.4487 & 3.6217 & \chi^2 = 5.07
+\end{array}$$
+
+In the table above, if the observed frequencies $(o_i)$ are compared to their respective expected frequencies $(e_i)$, then:
+
+$$\chi^2_{k-1}=\sum_{i=1}^k{\frac{(o_i-e_i)^2}{e_i}}=5.07$$
+
+Using the $\chi^2$ cumulative distribution function, we find that the probability of observing the frequencies listed is low under the assumption that tantrums are equally likely each day. 
+
+
+```{r, echo=TRUE}
+observed_frequencies <- c(14, 13)
+expected_probabilities <- c(5,2) / 7
+
+fit <- chisq.test(observed_frequencies, p = expected_probabilities)
+fit
+
+# View expected frequencies and residuals
+broom::augment(fit)
+```
+
+
+```{r}
+d_table <- tibble(A = rbinom(100, 1, 0.5)) |> 
+  mutate(B = rbinom(100, 1, (A + 0.5) / 3)) |>
+  table() 
+
+d_table |> 
+  as_tibble() |> 
+  pivot_wider(names_from = A,
+              values_from = n) |> 
+knitr::kable(align = "lcc") |>
+  kableExtra::kable_styling(bootstrap_options = "basic") |>
+  kableExtra::collapse_rows() |> 
+  kableExtra::add_header_above(header = c(` `=1, A = 2)) |> 
+  html_table_width(400)
+
+fit <- chisq.test(d_table)
+
+broom::augment(fit)
+```
+
+
+
+## The Student's *t* Distribution
+
 ```{r gosset, fig.cap='"Student" statistician, William Sealy Gosset (1876--1937)<br>[Image Credit](https://en.wikipedia.org/wiki/File:William_Sealy_Gosset.jpg)', echo = F, fig.margin = T, fig.width=3.5, fig.align='default', cache=TRUE}
 
 knitr::include_graphics("william_sealy_gosset.jpg")
 ```
 
-## The Student's *t* Distribution
-
-(Section Still Unfinished)
-
-
+(Unfinished)
 
 Guinness Beer gets free advertisement every time the origin story of the Student *t* distribution is retold, and statisticians retell the story often. The fact that the original purpose of the *t* distribution was to brew better beer seems too good to be true. 
 
@@ -2350,7 +2447,7 @@ tribble(
 ```
 
 
-```{r tnorm, fig.cap="The *t* distribution approaches the standard normal distribution as the degrees of freedom (*df*) parameter increases.", cache=T, warning=F, message=F, eval=T}
+```{r tnorm, fig.cap="The *t* distribution approaches the standard normal distribution as the degrees of freedom (*df*) parameter increases.", cache=T, warning=F, message=F, eval=T, fig.margin = T, fig.align='default'}
 knitr::include_graphics("tdist_norm.gif")
 ```
 
@@ -2363,6 +2460,8 @@ d <- crossing(x = seq(-6,6,0.02),
                 seq(200,700,100))) %>%
   mutate(y = dt(x,df),
          Normal = dnorm(x)) 
+
+t_size <- 40
 
 d_label <- d %>% 
   select(df) %>% 
@@ -2389,27 +2488,27 @@ p <- ggplot(d, aes(x, y)) +
             aes(label = label_x), 
             family = bfont, 
             vjust = 1.25,
-            size = ggtext_size(24)) + 
+            size = ggtext_size(t_size)) + 
   geom_text(data = d_label %>% select(df) %>% unique,
             aes(x = 0, y = 0, label = paste0("df = ", df)), 
             vjust = 1.25, 
             family = bfont,
-            size = ggtext_size(24)) + 
+            size = ggtext_size(t_size)) + 
   geom_segment(data = d_label, aes(xend = x, yend = yend)) +
   transition_states(states = df, 
                     transition_length =  1, 
                     state_length = 2) +
-  theme_void(base_size = 24, base_family = bfont) +
+  theme_void(base_size = t_size, base_family = bfont) +
   # labs(title = "df = {closest_state}") +
   annotate(x = qnorm(c(0.025, 0.975)), 
            y = 0, 
            label = signs::signs(qnorm(c(0.025, 0.975)), accuracy = .01), 
            geom = "text", 
-           size = ggtext_size(24),
+           size = ggtext_size(t_size),
            color = myfills[1],
-           vjust = 2.5, 
+           vjust = 2.6, 
            family = bfont) + 
-  coord_cartesian(xlim = c(-6,6), ylim = c(-.03, NA)) 
+  coord_cartesian(xlim = c(-6,6), ylim = c(-.045, NA)) 
 
 animate(p, 
         renderer = magick_renderer(), 
@@ -2419,11 +2518,6 @@ animate(p,
         width = 10)
 gganimate::anim_save("tdist_norm.gif")
 ```
-
-
-
-
-
 
 ### The *t* distribution's relationship Relationship to the normal distribution.
 
@@ -2449,42 +2543,39 @@ $$
 T_v = z_0\sqrt{\frac{\nu}{\sum_{i=1}^\nu z_i^2}}
 $$
 
-The sum of $\nu$ squared standard normal variates $\left(\sum_{i=1}^\nu z_i^2\right)$ has a $\chi^2$ distribution with $\nu$ degrees of freedom, which has a mean of $\nu$. Therefore, $\sqrt{\frac{\nu}{\sum_{i=1}^\nu z_i^2}}$, on average, equals one.
+The sum of $\nu$ squared standard normal variates $\left(\sum_{i=1}^\nu z_i^2\right)$ has a $\chi^2$ distribution with $\nu$ degrees of freedom, which has a mean of $\nu$. Therefore, $\sqrt{\frac{\nu}{\sum_{i=1}^\nu z_i^2}}$, on average, equals one. However, the expression $\sqrt{\frac{\nu}{\sum_{i=1}^\nu z_i^2}}$ has a variability approaches 0 as $\nu$ increases. When $\nu$ is high, $z_0$ is being multiplied by a value very close to 1. Thus, $T_\nu$ is nearly normal at high levels of $nu$. 
 
 
-## Chi Square Distribution
-
-(Section Still Unfinished)
 
 ## The F Distribution
 
-(Section Still Unfinished)
+(Unfinished)
 
 ## The Weibull Distribution
 
-(Section Still Unfinished)
+(Unfinished)
 
 ## The Gumbel Distribution
 
-(Section Still Unfinished)
+(Unfinished)
 
 ## The beta Distribution
 
-(Section Still Unfinished)
+(Unfinished)
 
 ## The Exponential Distribution
 
-(Section Still Unfinished)
+(Unfinished)
 
 ## The Pareto Distribution
 
-(Section Still Unfinished)
+(Unfinished)
 
 ## The Truncated Normal Distribution
 
-(Section Still Unfinished)
+(Unfinished)
 
 ## The Multivariate Normal Distribution
 
-(Section Still Unfinished)
+(Unfinished)
 

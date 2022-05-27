@@ -8,7 +8,7 @@ ar_width = 0.1
 
 library(bezier)
 
-t <- seq(0, 1, length=100)
+t <- seq(0, 1, length = 100)
 
 apex <- c(0,ar_height)
 leftpoint <- c(-ar_width / 2, 0)

@@ -1,3 +1,7 @@
+```{r loadpacksdist10, include = F}
+# source("loader.R")
+```
+
 # Unfinished
 
 ## Structure
@@ -54,8 +58,253 @@ Multivariate profile shape
 
 Conditional profiles
 
+## Probability, Odds, and Logits
+
+### Odds
+
+Most of us are comfortable with the notion of `r defword("probability", "**Probability** is the ratio of the number outcomes in which the event of interest occurrs over the total number of outcomes.")`, but we find `r defword("odds", "**Odds** refers to the ratio of the number of outcomes in which the event occurs to the number of outcomes in which the event does not occur.")` to be a little harder to understand. In everyday language, people use *probability* and *odds* interchangeably. Technically, they are related, but not at all the same thing.
+
+When the odds of winning are 3 to 1, there will be 3 wins for every loss.
+
+```{r p2oddsfigure, fig.cap="The relationship between probability and odds. Note that probability is bounded by 0 and 1, whereas odds can range from 0 to positive infinity.", fig.height=7, fig.margin=TRUE, out.width="100%", fig.align='default'}
+# The relationship between probability and odds
+tibble(p = seq(0, .91, .01),
+       odds = p / (1 - p)) %>%
+  ggplot(aes(p, odds)) +
+  geom_path(color = myfills[1],
+            arrow = arrow(15,
+                          length = unit(5, "mm"),
+                          type = "closed")) +
+  scale_x_continuous("Probability",
+                     breaks = seq(0, 1, .2),
+                     labels = prob_label,
+                     limits = c(0, 1)) +
+  scale_y_continuous("Odds", breaks = seq(0, 10, 2)) +
+  theme_minimal(base_size = 30, base_family = bfont)
+```
+
+
+To convert an odds ratio to probability:
+
+$$
+p=\frac{odds}{1 + odds}
+$$
+
+```{r p2oddsfigurecode, button_r=TRUE, ref.label="p2oddsfigure"}
+
+```
+
+Thus, 3 to 1 odds is:
+
+```{r odds2p, echo=TRUE}
+odds <- 3 / 1
+
+p <- odds / (1 + odds)
+p
+```
+
+Or, 2 to 3 odds is:
+
+```{r odds2p2,echo=TRUE}
+odds <- 2 / 3
+p <- odds / (1 + odds)
+p
+```
+
+
+To convert probability to odds, one can simply use this formula:
+
+$$
+Odds = \frac{p}{1-p}
+$$
+
+
+If the probability of an event is .8, then the odds are:
+
+```{r p2odds, echo=TRUE}
+p <- .8
+odds <- p / (1 - p)
+odds
+```
+
+
+
+
+
+Probabilities bounded by 0 and 1, inclusive. Odds have a minimum of 0 but have no upper bound (See Figure\ \@ref(fig:p2oddsfigure)). 
+
+In many statistical applications, we need to convert a probability to a value that has neither upper nor lower bounds. A `r defword("logit", "A **logit** is a portmanteau of *log unit*. In item-response theory, ability and item difficulty are expressed in terms of logits. Logits are sometimes called the *log-odds* because they are calculated as the (natural) log of the odds: $\\text{logit}(p)=\\ln\\left(\\frac{p}{1-p}\\right)$")` maps probabilities onto real numbers from negative to positive infinity (See Figure\ \@ref(fig:p2logitsfigure)).
+
+```{r, p2logitsfigure, fig.height=7, fig.cap="The relationship between probability and logits. Whereas probability is bounded by 0 and 1, logits range from negative to positive infinity.", out.width="100%", fig.margin=TRUE, fig.align='default'}
+# The relationship between probability and logits
+tibble(p = seq(0, 1, .001),
+       logits = qlogis(p)) %>%
+  ggplot(aes(p, logits)) +
+  geom_path(color = myfills[1],
+            arrow = arrow(15, 
+                          length = unit(5, "mm"),
+                          ends = "both",
+                          type = "closed")) +
+  scale_x_continuous("Probability",
+                     breaks = seq(0, 1, .2),
+                     labels = prob_label) +
+  scale_y_continuous("Logits",
+                     breaks = seq(-10, 10, 2),
+                     labels = signs) +
+  theme_minimal(base_size = 30, base_family = bfont)
+```
+
+
+
+A logit is the log-odds of probability. 
+
+$$
+\text{logit}\left(p\right)=\ln\left(\frac{p}{1-p}\right)
+$$
+
+```{r p2logitsfigurecode, button_r=TRUE, ref.label="p2logitsfigure"}
+
+```
+
+
+### W Scores
+
+In the same way that we transform z-scores to various kinds of standard scores, we can transform logits to other kinds of scales. The most prominent in psychological assessment is the $W$-score (AKA Growth Score Values), developed by @woodcockCommonScaleMeasurement1971. An accessible discussion of its derivation can by found in @Benson2016.
+
+If ability $\theta$ is in logits, then $W$ is calculated like so:
+
+$$
+W = \frac{20}{\ln(9)}\theta+500
+$$
+
+Although the coefficient $\frac{20}{\ln(9)}$ may seem strange, it has some desirable features. It is equivalent to 20 times the base-9 logarithm of $e$:
+
+$$
+20 \log_9(e) = \frac{20}{\ln(9)} \approx 9.1024
+$$
+
+
+```{r w2pfigure, fig.cap="The relationship between ability-difficulty differences and probability of answering correctly. Note that at &minus;20, &minus;10, 0, +10, and +20 the probabilities are exactly .10, .25, .50, .75, and .90, respectively.", fig.height=7, fig.margin=TRUE, out.width="100%", fig.align='default'}
+# The relationship between ability-difficulty differences and probability of answering correctly.
+w2p <- function(w, difficulty) {
+  (1 + 9 ^ ((difficulty - w) / 20))^(-1)
+}
+
+tibble(w = seq(450, 550),
+       p = w2p(w, 500),
+       slope = (p - lag(p, default = 0)) / (w - lag(w, default = 1)),
+       theta = atan(slope * 100) + ifelse(p <= .5, pi, -pi) / 2) %>% 
+  ggplot(aes(w,p)) + 
+  geom_path() + 
+  geom_point(data = . %>% filter(w %in% seq(450, 550, 10))) +
+  geom_richtext(data = . %>% 
+                  filter(w %in% seq(450, 550, 10)), 
+                aes(label = prob_label(p, digits = 2), 
+                    vjust = WJSmisc::angle2vjust(theta),
+                    hjust = WJSmisc::angle2hjust(theta)), 
+                label.color = NA, 
+                label.padding = unit(0,"mm"),
+                label.margin = unit(0.5,"mm"), 
+                size = ggtext_size(22)) +
+  scale_x_continuous("Ability – Difficulty (in W units)", breaks = seq(450, 550, 10), labels = \(x) signs::signs(x - 500, add_plusses = TRUE)) + 
+  scale_y_continuous("Probability of Answering Correctly", breaks = seq(0, 1, .10), labels = prob_label) +
+  theme_minimal(base_size = 26, base_family = bfont) +
+  theme(axis.title.x = element_text()) + 
+  coord_fixed(100)
+```
+
+This unusual coefficient yields some nice round probabilities of answering an item correctly when the person's ability and the item's difficulty differ by 0, 10, or 20 points (See Figure\ \@ref(fig:w2pfigure)).
+
+
+The probability $p$ of answering an item correctly depends on the difference between the item's difficulty $W_D$ and the person's ability $W_A$. Specifically, the relationship in Figure\ \@ref(fig:w2pfigure) works according to this equation:
+
+
+$$
+p = \left(1 + 9^{\left(W_D-W_A\right)/20}\right)^{-1}
+$$
+
+```{r w2pfigurecode, ref.label='w2pfigure', button_r=TRUE}
+
+```
+
+
 ## Relative Proficiency
 
+One of the benefits of item response theory models is that ability is expressed on the same scale as item difficulties. This feature allows us to make predictions about how like a person with a particular ability level will correctly answer an item of a particular difficulty.
+
+
+
+The `r defword("Relative Proficiency Index (RPI)", "The **Relative Proficiency Index (RPI)** tells us the proability a person with of ability $\\theta$ will answer an item correctly given that a person with ability $\\mu_\\theta$ has probability $p$ of answering it correctly.")` was first used in the *Woodcock Reading Mastery Tests* [@Woodcock1973]. The RPI answers the following question:
+
+
+> When the average same-age peer with ability $\mu_\theta$ has probability $p$ of answering an item, what is the probability of answering correctly for a person of ability $\theta$?
+
+
+The RPI can be calculated like so:
+
+$$
+RPI = \left(1+e^{-\left(\theta-\mu_{\theta}+\text{logit}(p)\right)}\right)^{-1}
+$$
+$$
+\begin{align*}
+  \theta &= \text{Ability level of person (in logits)}\\
+  \mu_{\theta} &= \text{Average ability level (in logits) of a reference group}\\
+  p &= \text{Probability a person with ability } \mu_\theta \text{ will answer correctly}\\
+  \text{logit}(p) &= \ln\left(\frac{p}{1-p}\right) = p \text{ converted to logits}
+\end{align*}
+$$
+
+The psycheval package can calculate the RPI using the the `rpi` function. By default, the primary inputs `x` and `mu` are assumed to be on the W scale, and the criterion $p$ is .90.
+
+Suppose a person's ability corresponds to a W-score of 460 and same-age peers have an average W score of 500:
+
+```{r rpi, echo=TRUE}
+
+library(psycheval)
+rpi(x = 460, mu = 500)
+
+```
+
+This difference of 40 W score points means that when typical same-age peers have a 90% chance of answering an item correctly (a common benchmark for mastery), this person has a 10% chance of answering the item correctly.
+
+If `x` and `mu` are logits, then you can specify `scale = 1` like so:
+
+```{r , echo=TRUE}
+rpi(x = 1, mu = 0, scale = 1)
+```
+
+The RPI works nicely for documenting deficits, but for gifted students, the RPI is quite high, often near 1. In such cases, we can also calculate the probability a person with ability $\mu_\theta$ can answer an item that a person with ability $\theta$ has a probability $p_\theta$ of answering correctly:
+
+$$
+RPI_{\text{reversed}} = \left(1+e^{-\left(\mu_\theta-\theta+\text{logit}(p_\theta)\right)}\right)^{-1}
+$$
+
+Suppose a person has a W score of 550, which is 50 points higher than typical same-age peers. The standard RPI will give a value close to 1:
+
+```{r , echo=TRUE}
+rpi(x = 550, mu = 500)
+
+```
+
+This means that when same-age peers have a 90% chance of answering the item correctly, this person is almost certain to answer it correctly. Unfortunately, this fact does not convey the degree of giftedness in an evocative manner.
+
+To get a better sense of how far advanced this person is compared to the performance of typical same-age peers, we can reverse the RPI like so.
+
+```{r , echo=TRUE}
+rpi(x = 550, mu = 500, reverse = TRUE)
+```
+
+This means that when this person has a .9 probability of answering an item correctly, the typical same-age peer has about a `r prob_label(rpi(x = 550, mu = 500, reverse = TRUE), digits = 2)` probability of answering it. Thus, this person is capable of completing tasks that are quite difficult for typical same-age peers.
+
+The standard RPI refers to a proficiency level of .9, but the `rpi` function can calculate the relative proficiency index at any criterion level. For example:
+
+```{r , echo=TRUE}
+rpi(x = 550, mu = 500, criterion = .10)
+```
+
+This means that when a typical same-age peer has a .10 probability of answering an item correctly, this person will answer it correctly with a `r prob_label(rpi(x = 550, mu = 500, criterion = .10), digits = 2)` probability.
+
+An Excel spreadsheet that calculates this "generalized" RPI can be found [here](https://github.com/wjschne/accessingpsyche_resources/raw/main/Generalized%20Relative%20Proficiency%20Index.xlsx).
 
 ## Thresholds
 
@@ -79,6 +328,8 @@ $$P(T\le\tau)=\Phi\left(\frac{\tau-\hat{T}}{\sigma_{T-\hat{T}}}\right)$$
 Using this formula, we can see that our hypothetical person with IQ = 68, the probability that the true score is 70 or lower is about .66. Figure\ \@ref(fig:thresholdprobability) shows the probabilities for all values near the diagnostic threshold of 70.
 
 ```{r thresholdprobability, dev='svg', fig.width=8, fig.height=8, fig.cap="The Probability a True Score Will Be Less Than or Equal to 70", cache=TRUE}
+# The Probability a True Score Will Be Less Than or Equal to 70
+
 # Reliability Coefficient
 rxx <- 0.97
 
@@ -223,6 +474,10 @@ We can estimate the probability that both true scores are 70 or lower using the 
 
 ```{r multiplethresholdprobability, dev='svg', fig.width=8, fig.height=8, fig.cap="If IQ = 68 and Adaptive Behavior = 67, what is the probability that both true scores are less than or equal to 70?", cache=TRUE}
 
+# If IQ = 68 and Adaptive Behavior = 67, 
+# what is the probability that both true scores 
+# are less than or equal to 70?
+
 # Observed scores
 X <- c(IQ = 68, AB = 67)
 
@@ -317,7 +572,13 @@ mvtnorm::rmvnorm(1000, mean = mu_T_X, sigma = sigma_T_X) |>
            label = paste0("Probability both\ntrue scores are\nbelow 70 = ", 
                           WJSmisc::prob_label(p)),
            size = WJSmisc::ggtext_size(18)) +
-  annotate("text", x = X[1], y = X[2], label = paste0("(", x = X[1], ",", y = X[2], ")"), hjust = 1.05, vjust = 1.1, size = WJSmisc::ggtext_size(24))
+  annotate("text",
+           x = X[1],
+           y = X[2],
+           label = paste0("(", x = X[1], ",", y = X[2], ")"),
+           hjust = 1.05,
+           vjust = 1.1,
+           size = WJSmisc::ggtext_size(24))
 
 ```
 

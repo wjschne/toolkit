@@ -510,7 +510,7 @@ Table\ \@ref(tab:proconCT) has a list of comparative features of each of the thr
 
 ## Expected Values
 
-(Section Still Unfinished)
+(Unfinished)
 
 At one level, the concept of the `r defword("expected value", "The **expected value** of a random variable is the population mean of the values that the random variable generates.")` of a random variable is really simple; it is just the population mean of the variable. So why don't we just talk about population means and be done with this "expected value" business? It just complicates things! True. In this case, however, there is value in letting some simple things appear to become complicated for a while so that later we can show that some apparently complicated things are actually simple.
 
@@ -1325,12 +1325,12 @@ ggplot(tibble(x = c(-4,4)), aes(x)) +
 
 ### Absolute Deviation
 
-(Section Still Unfinished)
+(Unfinished)
 
 ## Skewness
 
-(Section Still Unfinished)
+(Unfinished)
 
 ## Kurtosis
 
-(Section Still Unfinished)
+(Unfinished)

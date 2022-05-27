@@ -23,6 +23,7 @@ library(ggtext)
 library(lemon)
 library(signs)
 library(scales)
+library(psycheval)
 
 # Set options
 options(knitr.kable.digits = 2, knitr.kable.na = '')
@@ -81,19 +82,45 @@ span_style <- function(x, style = "font-family:serif") {
 # Probability labels
 prob_label <- function(p,
                        accuracy = 0.01,
-                       digits = NULL) {
+                       digits = NULL,
+                       max_digits = NULL,
+                       remove_leading_zero = TRUE,
+                       round_zero_one = TRUE) {
   if (is.null(digits)) {
-    l <- scales::number(p, accuracy = accuracy) %>%
-      str_remove("^0")
+    l <- scales::number(p, accuracy = accuracy)
   } else {
-    l <- formatC(p,
-                 digits = digits,
-                 format = "fg") %>%
-      str_remove("^0")
+    sig_digits <- abs(ceiling(log10(p + p / 1000000000)) - digits)
+    sig_digits[p > 0.99] <- abs(ceiling(log10(1 - p[p > 0.99])) - digits + 1)
+    sig_digits[(ceiling(log10(p)) == log10(p)) & (-log10(p) >= digits)] <- sig_digits[ceiling(log10(p)) == log10(p)] - 1
+    sig_digits[is.infinite(sig_digits)] <- 0
+    l <- purrr::map2_chr(p,
+                         sig_digits,
+                         formatC,
+                         format = "f",
+                         flag = "#")
+
+  }
+  if (remove_leading_zero) l <- sub("^-0","-", sub("^0","", l))
+
+  if (round_zero_one) {
+    l[p == 0] <- "0"
+    l[p == 1] <- "1"
+    l[p == -1] <- "-1"
   }
 
-  l[p == 0] <- "0"
-  l[p == 1] <- "1"
+  if (!is.null(max_digits)) {
+    if (round_zero_one) {
+      l[round(p, digits = max_digits) == 0] <- "0"
+      l[round(p, digits = max_digits) == 1] <- "1"
+      l[round(p, digits = max_digits) == -1] <- "-1"
+    } else {
+      l[round(p, digits = max_digits) == 0] <- paste0(".", paste0(rep("0", max_digits), collapse = ""))
+      l[round(p, digits = max_digits) == 1] <- paste0("1.", paste0(rep("0", max_digits), collapse = ""))
+      l[round(p, digits = max_digits) == -1] <- paste0("-1.", paste0(rep("0", max_digits), collapse = ""))
+    }
+  }
+
+  dim(l) <- dim(p)
   l
 }
 
