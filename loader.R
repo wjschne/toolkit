@@ -24,6 +24,7 @@ library(lemon)
 library(signs)
 library(scales)
 library(psycheval)
+library(bezier)
 
 # Set options
 options(knitr.kable.digits = 2, knitr.kable.na = '')

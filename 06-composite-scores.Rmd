@@ -498,7 +498,7 @@ var_S_weighted <- 0
 # Now we loop through k rows and k columns of CM
 for (i in seq(1, k)) {
   for (j in seq(1, k)) {
-    var_S_weighted <- var_S + w[i] * w[j] * CM[i, j]
+    var_S_weighted <- var_S_weighted + w[i] * w[j] * CM[i, j]
   }
 }
 ```
